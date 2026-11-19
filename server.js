@@ -274,25 +274,44 @@ const server = http.createServer(async (req, res) => {
   if (p === '/api/stats') {
     const stats = {
       edition: 'November 2026 (Ministry of Railways / PIB Official Releases)',
-      passengersAnnual: '741 Crore (+3.54% in FY2025-26)',
-      passengersDaily: '2.30 Crore daily passengers',
-      freightAnnual: '1,670 MT (FY2025-26 record)',
+      passengersAnnual: '741 Crore (7.41 Billion, +3.54% in FY2025-26)',
+      passengersDaily: 'about 2.30 Crore (23 Million daily passengers)',
+      freightAnnual: '1,670 MT (+3.25%, FY2025-26, 2.92 Crore wagons)',
       freightOctober2026: '145.07 MT (All-time Oct Record, +8.32%)',
       freightAprilOct2026: '978.78 MT (+4.67%)',
-      freightEarnings: '₹1,77,754 Crore',
+      freightEarnings: '₹1,77,754 Crore (FY2025-26)',
       routeLength: '69,181 km (Running Track: 109,748 km; Total Track: 135,207 km)',
-      electrification: '99.6% (69,873 Route km electrified)',
+      electrification: '99.6% Broad-Gauge Electrified (69,873 Route km)',
       totalStations: 7461,
-      trainsPerDay: '25,000 Total (~13,000 Passenger Trains)',
+      trainsPerDay: 'about 25,000 Total Trains (~13,000 Passenger Trains)',
       vandeBharatCount: '164 Services (inc. Howrah–Kamakhya Sleeper launched Jan 2026)',
       amritBharatCount: '72 Services (Push-Pull Superfast Affordable Rail)',
-      kavachCoverage: '2,633 Route km commissioned (Delhi–Mumbai & Delhi–Howrah); 21,794 km trackside work',
+      kavachCoverage: '2,633 Route km commissioned on Delhi–Mumbai & Delhi–Howrah (31 Jul 2026); trackside on 21,794 km',
       bulletTrain: '508 km Mumbai–Ahmedabad (Surat–Bilimora 50 km stretch targeted Aug 2027)',
-      capitalOutlay: '₹2.93 Trillion record outlay (Union Budget 2026-27)',
+      capitalOutlay: '₹2.93 Trillion record capital outlay (Union Budget 2026-27)',
       zonesDivisions: '18 Zones + Kolkata Metro | 70 Divisions (Rayagada added 1 Jun 2026)',
-      locomotives: '13,569 Electric · 4,169 Diesel · 16 Steam',
-      rollingStock: '327,991 Freight Wagons · 91,948 Passenger Coaches',
-      punctuality: '80% (FY2025-26)'
+      locomotives: '13,569 Electric · 4,169 Diesel · 16 Steam (Feb 2026)',
+      rollingStock: '327,991 Freight Wagons · 91,948 Passenger Coaches (Mar 2024)',
+      punctuality: 'about 80% (FY2025-26)',
+      quarterlyFreightQ1: '419.08 MT (Apr–Jun 2026 vs 413.05 MT in 2025)',
+      cumulativeAprilSepFreight: '833.70 MT (+4.1% over previous year)',
+      coalRakeSupply: '469.8 rakes/day avg in Oct 2026 (+19.5% YoY); domestic coal +16.0%',
+      foodGrainLoading: '+26.3% YoY growth in Oct 2026',
+      monthlyBreakdown: [
+        { month: 'October 2026', freight: '145.07 MT', freightPrev: '133.93 MT', freightGrowth: '+8.32% (Record)', passengers: '64.72 Cr', passengersPrev: '63.52 Cr', note: 'All-time Oct Freight Record; Non-suburban +4.2%, Suburban +1.7%' },
+        { month: 'September 2026', freight: '135.35 MT', freightPrev: '127.52 MT', freightGrowth: '+6.14%', passengers: '—', passengersPrev: '—', note: 'Cumulative Apr–Sep Freight: 833.7 MT (+4.1%)' },
+        { month: 'August 2026', freight: '137.90 MT', freightPrev: '130.90 MT', freightGrowth: '+5.40%', passengers: '67.27 Cr', passengersPrev: '64.43 Cr', note: 'Suburban traffic grew +9.02%' },
+        { month: 'July 2026', freight: '141.30 MT', freightPrev: '129.70 MT', freightGrowth: '+9.00%', passengers: '63.35 Cr', passengersPrev: '62.19 Cr', note: 'Monsoon freight demand surge' },
+        { month: 'June 2026', freight: '142.21 MT', freightPrev: '136.71 MT', freightGrowth: '+4.00%', passengers: '63.81 Cr', passengersPrev: '62.37 Cr', note: 'Q1 (Apr–Jun) Freight: 419.08 MT (vs 413.05 MT)' }
+      ],
+      latestDevelopments: [
+        { date: '14 Nov 2026', title: 'Cross-Border Nepal Link Approved', desc: 'Approved weekly direct train between Janakpur Dham (Nepal) and Ayodhya Cantt (~604 km, leaving Janakpur Saturdays and Ayodhya Mondays).' },
+        { date: '12 Nov 2026', title: 'Kavach Delhi–Agra Section Complete', desc: 'Automatic train protection installed on Delhi–Agra. Gatimaan Express and Vande Bharat cleared to return to 160 km/h after trials.' },
+        { date: '12 Nov 2026', title: 'First AC Amrit Bharat Express 3.0', desc: 'Maiden run on New Delhi–Patna route operated as Chhath Festival Special with push-pull traction.' },
+        { date: 'Nov 2026', title: 'Next-Gen Cloud Reservation System', desc: 'Architecture underway to handle 1.5 lakh bookings per minute (up from 32,000) across 2,200 primary trains.' },
+        { date: '8 Nov 2025', title: 'Ferozepur Cantt–Delhi Vande Bharat', desc: 'Connecting border district with national capital in 6h 40m (486 km).' },
+        { date: '10 Oct 2026', title: 'Sahnewal–Mundiyampakkam Parcel Express', desc: 'Dedicated fast parcel train earned ₹15.63 lakh on maiden journey from Punjab to Tamil Nadu.' }
+      ]
     };
     return sendJSON(res, 200, stats);
   }
