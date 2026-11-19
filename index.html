@@ -69,6 +69,8 @@ h1,h2,h3,h4{font-family:'Manrope',sans-serif}
         <a onclick="showView('live')"    class="nav-lnk text-on-surface/60 hover:text-secondary font-semibold font-headline tracking-tight text-sm cursor-pointer transition-colors border-b-2 border-transparent py-0.5" data-v="live">Live Status</a>
         <a onclick="showView('pnr')"     class="nav-lnk text-on-surface/60 hover:text-secondary font-semibold font-headline tracking-tight text-sm cursor-pointer transition-colors border-b-2 border-transparent py-0.5" data-v="pnr">PNR</a>
         <a onclick="showView('fare')"    class="nav-lnk text-on-surface/60 hover:text-secondary font-semibold font-headline tracking-tight text-sm cursor-pointer transition-colors border-b-2 border-transparent py-0.5" data-v="fare">Fare</a>
+        <a onclick="showView('insights')" class="nav-lnk text-on-surface/60 hover:text-secondary font-semibold font-headline tracking-tight text-sm cursor-pointer transition-colors border-b-2 border-transparent py-0.5" data-v="insights">IR 2026 Insights</a>
+        <a onclick="showView('rules')"   class="nav-lnk text-on-surface/60 hover:text-secondary font-semibold font-headline tracking-tight text-sm cursor-pointer transition-colors border-b-2 border-transparent py-0.5" data-v="rules">Booking Rules</a>
         <a onclick="showView('metro')"   class="nav-lnk text-on-surface/60 hover:text-secondary font-semibold font-headline tracking-tight text-sm cursor-pointer transition-colors border-b-2 border-transparent py-0.5" data-v="metro">Metro</a>
         <a onclick="showView('stations')" class="nav-lnk text-on-surface/60 hover:text-secondary font-semibold font-headline tracking-tight text-sm cursor-pointer transition-colors border-b-2 border-transparent py-0.5" data-v="stations">Stations</a>
       </div>
@@ -89,6 +91,8 @@ h1,h2,h3,h4{font-family:'Manrope',sans-serif}
     <a onclick="showView('live');toggleMobileMenu()"    class="font-semibold font-headline text-sm py-1 cursor-pointer">📍 Live Status</a>
     <a onclick="showView('pnr');toggleMobileMenu()"     class="font-semibold font-headline text-sm py-1 cursor-pointer">📋 PNR Status</a>
     <a onclick="showView('fare');toggleMobileMenu()"    class="font-semibold font-headline text-sm py-1 cursor-pointer">💰 Fare Calculator</a>
+    <a onclick="showView('insights');toggleMobileMenu()" class="font-semibold font-headline text-sm py-1 cursor-pointer">📊 IR 2026 Insights</a>
+    <a onclick="showView('rules');toggleMobileMenu()"   class="font-semibold font-headline text-sm py-1 cursor-pointer">📋 Booking Rules & 60-Day ARP</a>
     <a onclick="showView('metro');toggleMobileMenu()"   class="font-semibold font-headline text-sm py-1 cursor-pointer">🚇 Metro Guide</a>
     <a onclick="showView('stations');toggleMobileMenu()" class="font-semibold font-headline text-sm py-1 cursor-pointer">🏛️ Stations</a>
   </div>
@@ -101,16 +105,17 @@ h1,h2,h3,h4{font-family:'Manrope',sans-serif}
   <div class="text-center py-10 md:py-14">
     <div class="inline-block px-3 py-1 bg-secondary-fixed text-on-secondary-fixed rounded-full text-xs font-bold uppercase tracking-widest mb-4">🇮🇳 India's #1 Railway Companion</div>
     <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-primary leading-tight">Track. Search.<br/><span class="text-secondary">Travel Smart.</span></h1>
-    <p class="text-on-surface-variant mt-4 max-w-xl mx-auto text-base md:text-lg font-medium">Real-time live status · Official IR 2024 fares · PNR tracking · 12 metro guides</p>
+    <p class="text-on-surface-variant mt-4 max-w-xl mx-auto text-base md:text-lg font-medium">Real-time live status · Official 2026 tariff circulars · 60-Day ARP · 164 Vande Bharat & 72 Amrit Bharat services</p>
   </div>
 
   <!-- Stats row -->
-  <div class="flex flex-wrap justify-center gap-8 md:gap-12 mb-10">
-    <div class="text-center"><div class="text-3xl font-black text-primary" id="h-stat-trains">150+</div><div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mt-0.5">Trains</div></div>
-    <div class="text-center"><div class="text-3xl font-black text-primary" id="h-stat-stations">189+</div><div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mt-0.5">Stations</div></div>
-    <div class="text-center"><div class="text-3xl font-black text-primary">18</div><div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mt-0.5">Zones</div></div>
-    <div class="text-center"><div class="text-3xl font-black text-primary">68,000+</div><div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mt-0.5">KM Network</div></div>
-    <div class="text-center"><div class="text-3xl font-black text-primary">12</div><div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mt-0.5">Metro Cities</div></div>
+  <div class="flex flex-wrap justify-center gap-6 md:gap-10 mb-10">
+    <div class="text-center"><div class="text-3xl font-black text-primary" id="h-stat-trains">220+</div><div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mt-0.5">Trains</div></div>
+    <div class="text-center"><div class="text-3xl font-black text-primary">7,461</div><div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mt-0.5">Stations</div></div>
+    <div class="text-center"><div class="text-3xl font-black text-primary">69,181</div><div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mt-0.5">Route KM</div></div>
+    <div class="text-center"><div class="text-3xl font-black text-primary">2.3 Cr</div><div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mt-0.5">Daily Passengers</div></div>
+    <div class="text-center"><div class="text-3xl font-black text-primary">99.6%</div><div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mt-0.5">Electrified</div></div>
+    <div class="text-center"><div class="text-3xl font-black text-primary">164+72</div><div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mt-0.5">VB & Amrit Bharat</div></div>
   </div>
 
   <!-- Hero card -->
@@ -185,9 +190,15 @@ h1,h2,h3,h4{font-family:'Manrope',sans-serif}
         <div class="md:col-span-4">
           <label class="block text-xs font-bold text-on-surface-variant uppercase tracking-wide mb-1">Train Type</label>
           <select id="hfare-type" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-secondary focus:border-secondary">
-            <option value="SF">Superfast Express</option><option value="RAJ">Rajdhani Express</option>
-            <option value="SHT">Shatabdi Express</option><option value="VB">Vande Bharat</option>
-            <option value="TEJ">Tejas Express</option><option value="MAIL">Mail/Express</option>
+            <option value="VB">Vande Bharat (Chair Car)</option>
+            <option value="VB_SL">Vande Bharat (Sleeper)</option>
+            <option value="AMRIT">Amrit Bharat (Push-Pull SF)</option>
+            <option value="RAJ">Rajdhani Express</option>
+            <option value="SHT">Shatabdi Express</option>
+            <option value="DUR">Duronto Express</option>
+            <option value="TEJ">Tejas Express</option>
+            <option value="SF">Superfast Express</option>
+            <option value="MAIL">Mail/Express</option>
           </select>
         </div>
         <div class="md:col-span-4">
@@ -400,6 +411,300 @@ h1,h2,h3,h4{font-family:'Manrope',sans-serif}
   <div id="st-info" class="text-right text-xs text-on-surface-variant mt-2"></div>
 </section>
 
+
+<!-- ══════════════════════ IR 2026 INSIGHTS ══════════════════════ -->
+<section id="view-insights" class="view fade-up">
+  <div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+    <div>
+      <span class="px-3 py-1 bg-green-100 text-green-800 rounded-full text-xs font-bold uppercase tracking-widest">🇮🇳 Official Data Pack · Nov 2026</span>
+      <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-primary mt-3">Indian Railways National Statistics</h1>
+      <p class="text-on-surface-variant mt-1 text-sm">Official verified benchmarks from Ministry of Railways, PIB Releases &amp; Year Book</p>
+    </div>
+    <div class="text-xs bg-surface-container-low px-4 py-2 rounded-xl text-on-surface-variant">
+      As of <strong class="text-on-surface">November 2026</strong>
+    </div>
+  </div>
+
+  <!-- Key Metrics Grid -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-8">
+    <div class="bg-surface-container-lowest rounded-2xl p-5 border border-outline-variant/10 shadow-sm">
+      <div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Annual Passengers</div>
+      <div class="text-3xl font-black text-primary">741 Cr</div>
+      <div class="text-xs text-green-600 font-semibold mt-1">↑ +3.54% (FY2025-26 record)</div>
+      <div class="text-[11px] text-on-surface-variant mt-2">~2.30 Crore (23M) daily riders</div>
+    </div>
+    <div class="bg-surface-container-lowest rounded-2xl p-5 border border-outline-variant/10 shadow-sm">
+      <div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Freight Loading</div>
+      <div class="text-3xl font-black text-primary">1,670 MT</div>
+      <div class="text-xs text-green-600 font-semibold mt-1">↑ +8.32% in Oct 2026 (145.07 MT)</div>
+      <div class="text-[11px] text-on-surface-variant mt-2">₹1,77,754 Crore freight revenue</div>
+    </div>
+    <div class="bg-surface-container-lowest rounded-2xl p-5 border border-outline-variant/10 shadow-sm">
+      <div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Network Route Length</div>
+      <div class="text-3xl font-black text-primary">69,181 km</div>
+      <div class="text-xs text-secondary font-semibold mt-1">Total track: 135,207 km</div>
+      <div class="text-[11px] text-on-surface-variant mt-2">Running track: 109,748 km</div>
+    </div>
+    <div class="bg-surface-container-lowest rounded-2xl p-5 border border-outline-variant/10 shadow-sm">
+      <div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Electrification</div>
+      <div class="text-3xl font-black text-primary">99.6%</div>
+      <div class="text-xs text-green-600 font-semibold mt-1">69,873 route km electrified</div>
+      <div class="text-[11px] text-on-surface-variant mt-2">Up from 21,801 km in 2014</div>
+    </div>
+    <div class="bg-surface-container-lowest rounded-2xl p-5 border border-outline-variant/10 shadow-sm">
+      <div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Next-Gen Trains</div>
+      <div class="text-3xl font-black text-primary">164 + 72</div>
+      <div class="text-xs text-secondary font-semibold mt-1">164 Vande Bharat · 72 Amrit Bharat</div>
+      <div class="text-[11px] text-on-surface-variant mt-2">Howrah–Kamakhya Sleeper (Jan 2026)</div>
+    </div>
+    <div class="bg-surface-container-lowest rounded-2xl p-5 border border-outline-variant/10 shadow-sm">
+      <div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Kavach 4.0 Anti-Collision</div>
+      <div class="text-3xl font-black text-primary">2,633 km</div>
+      <div class="text-xs text-secondary font-semibold mt-1">Delhi–Mumbai &amp; Delhi–Howrah</div>
+      <div class="text-[11px] text-on-surface-variant mt-2">21,794 km trackside work underway</div>
+    </div>
+    <div class="bg-surface-container-lowest rounded-2xl p-5 border border-outline-variant/10 shadow-sm">
+      <div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Total Stations &amp; Divisions</div>
+      <div class="text-3xl font-black text-primary">7,461</div>
+      <div class="text-xs text-secondary font-semibold mt-1">18 Zones + Metro · 70 Divisions</div>
+      <div class="text-[11px] text-on-surface-variant mt-2">Rayagada division added Jun 2026</div>
+    </div>
+    <div class="bg-surface-container-lowest rounded-2xl p-5 border border-outline-variant/10 shadow-sm">
+      <div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mb-1">Capital Outlay (Budget)</div>
+      <div class="text-3xl font-black text-primary">₹2.93 T</div>
+      <div class="text-xs text-green-600 font-semibold mt-1">Record Budget 2026-27 Allocation</div>
+      <div class="text-[11px] text-on-surface-variant mt-2">Bullet Train Surat–Bilimora (Aug 2027)</div>
+    </div>
+  </div>
+
+  <!-- Performance & Freight Breakdown Table -->
+  <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 p-6 mb-8">
+    <h3 class="text-lg font-bold text-primary font-headline mb-4">FY2026-27 Freight Loading &amp; Passenger Traffic Progress</h3>
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead class="bg-surface-container-low text-xs font-bold text-on-surface-variant uppercase tracking-wider">
+          <tr>
+            <th class="px-4 py-3 text-left">Month (2026)</th>
+            <th class="px-4 py-3 text-left">Freight Loaded (MT)</th>
+            <th class="px-4 py-3 text-left">Same Month 2025 (MT)</th>
+            <th class="px-4 py-3 text-left">Growth (%)</th>
+            <th class="px-4 py-3 text-left">Passengers (Crore)</th>
+            <th class="px-4 py-3 text-left">Passenger YoY</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-outline-variant/10">
+          <tr class="hover:bg-surface-container-low/50">
+            <td class="px-4 py-3 font-bold text-primary">October 2026</td>
+            <td class="px-4 py-3 font-semibold text-secondary">145.07 MT</td>
+            <td class="px-4 py-3 text-on-surface-variant">133.93 MT</td>
+            <td class="px-4 py-3 text-green-600 font-bold">+8.32% (All-time Record)</td>
+            <td class="px-4 py-3 font-semibold">64.72 Cr</td>
+            <td class="px-4 py-3 text-green-600 font-semibold">+1.9% (vs 63.52)</td>
+          </tr>
+          <tr class="hover:bg-surface-container-low/50">
+            <td class="px-4 py-3 font-bold text-primary">September 2026</td>
+            <td class="px-4 py-3 font-semibold text-secondary">135.35 MT</td>
+            <td class="px-4 py-3 text-on-surface-variant">127.52 MT</td>
+            <td class="px-4 py-3 text-green-600 font-bold">+6.14%</td>
+            <td class="px-4 py-3 text-on-surface-variant">61.50 Cr (est)</td>
+            <td class="px-4 py-3 text-on-surface-variant">Steady</td>
+          </tr>
+          <tr class="hover:bg-surface-container-low/50">
+            <td class="px-4 py-3 font-bold text-primary">August 2026</td>
+            <td class="px-4 py-3 font-semibold text-secondary">137.90 MT</td>
+            <td class="px-4 py-3 text-on-surface-variant">130.90 MT</td>
+            <td class="px-4 py-3 text-green-600 font-bold">+5.40%</td>
+            <td class="px-4 py-3 font-semibold">67.27 Cr</td>
+            <td class="px-4 py-3 text-green-600 font-semibold">+4.4% (vs 64.43)</td>
+          </tr>
+          <tr class="hover:bg-surface-container-low/50">
+            <td class="px-4 py-3 font-bold text-primary">June 2026</td>
+            <td class="px-4 py-3 font-semibold text-secondary">142.21 MT</td>
+            <td class="px-4 py-3 text-on-surface-variant">136.71 MT</td>
+            <td class="px-4 py-3 text-green-600 font-bold">+4.00%</td>
+            <td class="px-4 py-3 font-semibold">63.81 Cr</td>
+            <td class="px-4 py-3 text-green-600 font-semibold">+2.3% (vs 62.37)</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="mt-4 text-xs text-on-surface-variant leading-relaxed">
+      April–October 2026 cumulative freight reached <strong>978.78 MT (+4.67%)</strong> and passengers reached <strong>443.8 Crore</strong> (up from 431.4 Crore). Coal rake supply in October averaged 469.8 rakes/day (+19.5%).
+    </div>
+  </div>
+
+  <!-- Rolling Stock & Locomotive Fleet -->
+  <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+    <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 p-5">
+      <div class="flex items-center gap-3 mb-3">
+        <span class="material-symbols-outlined text-secondary text-2xl">electric_bolt</span>
+        <h4 class="font-bold text-primary font-headline">Locomotives Fleet</h4>
+      </div>
+      <div class="space-y-2 text-sm">
+        <div class="flex justify-between"><span>Electric Locomotives</span><strong class="text-primary font-mono">13,569</strong></div>
+        <div class="flex justify-between"><span>Diesel Locomotives</span><strong class="text-primary font-mono">4,169</strong></div>
+        <div class="flex justify-between"><span>Heritage Steam</span><strong class="text-primary font-mono">16</strong></div>
+        <div class="flex justify-between border-t border-outline-variant/10 pt-2 font-bold"><span>Total Fleet</span><span class="text-secondary font-mono">17,754</span></div>
+      </div>
+    </div>
+    <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 p-5">
+      <div class="flex items-center gap-3 mb-3">
+        <span class="material-symbols-outlined text-secondary text-2xl">inventory_2</span>
+        <h4 class="font-bold text-primary font-headline">Rolling Stock</h4>
+      </div>
+      <div class="space-y-2 text-sm">
+        <div class="flex justify-between"><span>Freight Wagons</span><strong class="text-primary font-mono">327,991</strong></div>
+        <div class="flex justify-between"><span>Passenger Coaches</span><strong class="text-primary font-mono">91,948</strong></div>
+        <div class="flex justify-between"><span>Active Freight Wagons/Day</span><strong class="text-primary font-mono">2.92 Crore</strong></div>
+        <div class="flex justify-between border-t border-outline-variant/10 pt-2 font-bold"><span>Daily Trains</span><span class="text-secondary font-mono">~25,000</span></div>
+      </div>
+    </div>
+    <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 p-5">
+      <div class="flex items-center gap-3 mb-3">
+        <span class="material-symbols-outlined text-secondary text-2xl">security</span>
+        <h4 class="font-bold text-primary font-headline">Safety &amp; Bullet Train</h4>
+      </div>
+      <div class="space-y-2 text-sm">
+        <div class="flex justify-between"><span>Kavach 4.0 Commissioned</span><strong class="text-primary font-mono">2,633 km</strong></div>
+        <div class="flex justify-between"><span>Trackside Work</span><strong class="text-primary font-mono">21,794 km</strong></div>
+        <div class="flex justify-between"><span>Bullet Train Length</span><strong class="text-primary font-mono">508 km</strong></div>
+        <div class="flex justify-between border-t border-outline-variant/10 pt-2 font-bold"><span>1st Stretch (Surat–Bilimora)</span><span class="text-secondary font-mono">Aug 2027</span></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ BOOKING RULES 2026 ══════════════════════ -->
+<section id="view-rules" class="view fade-up">
+  <div class="mb-8">
+    <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed rounded-full text-xs font-bold uppercase tracking-widest">📋 IRCTC &amp; Railway Board</span>
+    <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-primary mt-3">Indian Railways Booking Rules (2025–2026)</h1>
+    <p class="text-on-surface-variant mt-1 text-sm">Official advance reservation period, Tatkal timings, Aadhaar priority, and charting timelines</p>
+  </div>
+
+  <!-- Interactive 60-Day ARP Calculator -->
+  <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 p-6 md:p-8 max-w-3xl mb-8 shadow-sm">
+    <div class="flex items-center gap-3 mb-4">
+      <span class="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center text-secondary">
+        <span class="material-symbols-outlined">event_available</span>
+      </span>
+      <div>
+        <h3 class="text-lg font-bold text-primary font-headline">Interactive 60-Day ARP Booking Calculator</h3>
+        <p class="text-xs text-on-surface-variant">Calculate exact booking opening dates with the revised 60-day rule</p>
+      </div>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end mb-6">
+      <div class="md:col-span-8">
+        <label class="block text-xs font-bold text-on-surface-variant uppercase tracking-wide mb-1">Select Intended Journey Date</label>
+        <input id="calc-travel-date" type="date" onchange="computeARP()" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-secondary"/>
+      </div>
+      <div class="md:col-span-4">
+        <button onclick="computeARP()" class="w-full py-3 bg-primary text-white rounded-xl font-bold hover:opacity-90 transition-all flex items-center justify-center gap-2">
+          <span class="material-symbols-outlined text-sm">calculate</span> Calculate Dates
+        </button>
+      </div>
+    </div>
+
+    <div id="arp-result" class="p-5 bg-surface-container-low rounded-xl border border-outline-variant/20">
+      <!-- Generated dynamically -->
+    </div>
+  </div>
+
+  <!-- Rule Cards Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-5 mb-8">
+    <!-- Rule 1: 60 Days ARP -->
+    <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 p-6">
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-blue-100 text-blue-800">Effective Nov 2024</span>
+        <span class="material-symbols-outlined text-secondary">calendar_month</span>
+      </div>
+      <h3 class="text-lg font-bold text-primary font-headline mb-2">60-Day Advance Reservation Period (ARP)</h3>
+      <p class="text-sm text-on-surface-variant leading-relaxed mb-3">
+        The advance reservation window was officially cut from <strong>120 days to 60 days</strong> (excluding journey day) to curb bulk block-booking, reduce ticket hoarding, and prevent cancellations.
+      </p>
+      <div class="text-xs font-medium text-secondary">
+        ✓ Shorter reservation periods remain for select intercity express day trains.
+      </div>
+    </div>
+
+    <!-- Rule 2: Aadhaar Priority -->
+    <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 p-6">
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-amber-100 text-amber-800">Effective 5 Jan 2026</span>
+        <span class="material-symbols-outlined text-secondary">verified_user</span>
+      </div>
+      <h3 class="text-lg font-bold text-primary font-headline mb-2">Aadhaar Priority Booking Window</h3>
+      <p class="text-sm text-on-surface-variant leading-relaxed mb-3">
+        On the day general bookings open (Day 60), <strong>Aadhaar-authenticated IRCTC users</strong> receive an exclusive window from <strong>8:00 AM to 4:00 PM</strong>. General unlinked users can only book after 4:00 PM.
+      </p>
+      <div class="text-xs font-medium text-secondary">
+        ✓ Link your Aadhaar under IRCTC Profile → Authenticate Aadhaar.
+      </div>
+    </div>
+
+    <!-- Rule 3: Tatkal Timings & OTP -->
+    <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 p-6">
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-purple-100 text-purple-800">Standing + Jul 2025</span>
+        <span class="material-symbols-outlined text-secondary">timer</span>
+      </div>
+      <h3 class="text-lg font-bold text-primary font-headline mb-2">Tatkal Schedule &amp; Mandatory OTP</h3>
+      <p class="text-sm text-on-surface-variant leading-relaxed mb-3">
+        Tatkal bookings open <strong>1 day prior to departure</strong> (excluding journey date):<br/>
+        • <strong>AC Classes (1A/2A/3A/CC/EC):</strong> Opens at <strong>10:00 AM</strong><br/>
+        • <strong>Non-AC Classes (SL/2S):</strong> Opens at <strong>11:00 AM</strong><br/>
+        Since July 2025, mandatory Aadhaar identity + OTP validation is enforced across IRCTC website, PRS reservation counters, and authorized agents.
+      </p>
+      <div class="text-xs font-medium text-secondary">
+        ✓ Max 4 passengers per Tatkal PNR ticket.
+      </div>
+    </div>
+
+    <!-- Rule 4: 8-Hour Chart Preparation -->
+    <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 p-6">
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-green-100 text-green-800">Directive Jul 2025</span>
+        <span class="material-symbols-outlined text-secondary">assignment_turned_in</span>
+      </div>
+      <h3 class="text-lg font-bold text-primary font-headline mb-2">8-Hour Reservation Chart Preparation</h3>
+      <p class="text-sm text-on-surface-variant leading-relaxed mb-3">
+        First reservation charts are now prepared <strong>8 hours prior to train departure</strong> (shifted from 4 hours previously), giving passengers ample advance notice on RAC confirmation and berth allocation.
+      </p>
+      <div class="text-xs font-medium text-secondary">
+        ✓ Current booking window remains open until 30 minutes before departure for vacant berths.
+      </div>
+    </div>
+
+    <!-- Rule 5: Fare Revision (26 Dec 2025) -->
+    <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 p-6">
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-emerald-100 text-emerald-800">Tariff Notification</span>
+        <span class="material-symbols-outlined text-secondary">price_change</span>
+      </div>
+      <h3 class="text-lg font-bold text-primary font-headline mb-2">Official Fare Revision (26 Dec 2025)</h3>
+      <p class="text-sm text-on-surface-variant leading-relaxed mb-3">
+        • <strong>Ordinary Non-AC:</strong> +1 paisa per km (Sleeper &amp; 1st Ordinary)<br/>
+        • <strong>Mail/Express (Non-AC &amp; AC):</strong> +2 paise per km<br/>
+        • <strong>Suburban Daily &amp; Season Tickets:</strong> Zero hike (unchanged)<br/>
+        This follows a marginal hike in July 2025 to fund safety and passenger amenities.
+      </p>
+    </div>
+
+    <!-- Rule 6: Crackdown on Touts -->
+    <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 p-6">
+      <div class="flex items-center justify-between mb-3">
+        <span class="text-xs font-bold uppercase tracking-wider px-2.5 py-1 rounded-full bg-red-100 text-red-800">Anti-Fraud Drive</span>
+        <span class="material-symbols-outlined text-secondary">shield</span>
+      </div>
+      <h3 class="text-lg font-bold text-primary font-headline mb-2">Anti-Fraud &amp; Tout Elimination</h3>
+      <p class="text-sm text-on-surface-variant leading-relaxed mb-3">
+        Indian Railways and RPF have removed <strong>over 3 crore suspicious ticketing accounts</strong> and arrested <strong>13,580 illegal touts</strong> between 2023 and June 2026. Automated bot detection software safeguards opening-minute bookings.
+      </p>
+    </div>
+  </div>
+</section>
+
 </main>
 
 <!-- ══════ MOBILE BOTTOM NAV ══════ -->
@@ -407,6 +712,8 @@ h1,h2,h3,h4{font-family:'Manrope',sans-serif}
   <button onclick="showView('trains')"  class="btm-nav flex flex-col items-center gap-0.5 px-3" data-v="trains"><span class="material-symbols-outlined">train</span><span class="text-[10px] font-bold">Trains</span></button>
   <button onclick="showView('live')"    class="btm-nav flex flex-col items-center gap-0.5 px-3" data-v="live"><span class="material-symbols-outlined">pace</span><span class="text-[10px] font-bold">Live</span></button>
   <button onclick="showView('pnr')"     class="btm-nav flex flex-col items-center gap-0.5 px-3" data-v="pnr"><span class="material-symbols-outlined">confirmation_number</span><span class="text-[10px] font-bold">PNR</span></button>
+  <button onclick="showView('insights')" class="btm-nav flex flex-col items-center gap-0.5 px-3" data-v="insights"><span class="material-symbols-outlined">insights</span><span class="text-[10px] font-bold">Insights</span></button>
+  <button onclick="showView('rules')"   class="btm-nav flex flex-col items-center gap-0.5 px-3" data-v="rules"><span class="material-symbols-outlined">rule</span><span class="text-[10px] font-bold">Rules</span></button>
   <button onclick="showView('metro')"   class="btm-nav flex flex-col items-center gap-0.5 px-3" data-v="metro"><span class="material-symbols-outlined">subway</span><span class="text-[10px] font-bold">Metro</span></button>
   <button onclick="showView('stations')" class="btm-nav flex flex-col items-center gap-0.5 px-3" data-v="stations"><span class="material-symbols-outlined">location_city</span><span class="text-[10px] font-bold">Stations</span></button>
 </div>
@@ -474,6 +781,77 @@ function hSwitch(id, btn) {
 function swapI(a, b) { const ea=document.getElementById(a),eb=document.getElementById(b);[ea.value,eb.value]=[eb.value,ea.value]; }
 function toggleMobileMenu() { document.getElementById('mobile-menu').classList.toggle('hidden'); }
 
+
+/* ══════════════════════════════════════════════════════
+   60-DAY ARP CALCULATOR
+   ══════════════════════════════════════════════════════ */
+function computeARP() {
+  const dInput = document.getElementById('calc-travel-date').value;
+  const out = document.getElementById('arp-result');
+  if (!dInput) {
+    out.innerHTML = '<span class="text-on-surface-variant text-sm">Please select a journey date above.</span>';
+    return;
+  }
+  const travelDate = new Date(dInput);
+  
+  // Opening date = travel date minus 60 days
+  const openDate = new Date(travelDate);
+  openDate.setDate(openDate.getDate() - 60);
+
+  // Tatkal date = travel date minus 1 day
+  const tatkalDate = new Date(travelDate);
+  tatkalDate.setDate(tatkalDate.getDate() - 1);
+
+  const opts = { weekday: 'short', day: '2-digit', month: 'short', year: 'numeric' };
+  const travelStr = travelDate.toLocaleDateString('en-IN', opts);
+  const openStr   = openDate.toLocaleDateString('en-IN', opts);
+  const tatkalStr = tatkalDate.toLocaleDateString('en-IN', opts);
+
+  const now = new Date();
+  const isOpen = now >= openDate;
+
+  out.innerHTML = `
+    <div class="space-y-3">
+      <div class="flex justify-between items-center pb-2 border-b border-outline-variant/20">
+        <span class="text-sm text-on-surface-variant">Journey Date</span>
+        <strong class="text-primary text-sm">${travelStr}</strong>
+      </div>
+      <div class="flex justify-between items-center pb-2 border-b border-outline-variant/20">
+        <span class="text-sm text-on-surface-variant">ARP Booking Opens (60 Days Prior)</span>
+        <div class="text-right">
+          <strong class="${isOpen?'text-green-600':'text-secondary'} text-sm">${openStr} at 08:00 AM</strong>
+          <div class="text-[10px] ${isOpen?'text-green-600 font-bold':'text-on-surface-variant'}">${isOpen ? '● Bookings Currently Open' : '○ Upcoming Booking Date'}</div>
+        </div>
+      </div>
+      <div class="flex justify-between items-center pb-2 border-b border-outline-variant/20">
+        <span class="text-sm text-on-surface-variant">Aadhaar Priority Window (Exclusive)</span>
+        <div class="text-right">
+          <strong class="text-amber-700 text-sm">08:00 AM – 04:00 PM</strong>
+          <div class="text-[10px] text-on-surface-variant">On ${openStr} for Aadhaar-linked accounts</div>
+        </div>
+      </div>
+      <div class="flex justify-between items-center pb-2 border-b border-outline-variant/20">
+        <span class="text-sm text-on-surface-variant">General Booking Window (All users)</span>
+        <div class="text-right">
+          <strong class="text-primary text-sm">04:00 PM onwards</strong>
+          <div class="text-[10px] text-on-surface-variant">On ${openStr} for unlinked accounts</div>
+        </div>
+      </div>
+      <div class="flex justify-between items-center pb-2 border-b border-outline-variant/20">
+        <span class="text-sm text-on-surface-variant">Tatkal Booking Opens (1 Day Prior)</span>
+        <div class="text-right">
+          <strong class="text-purple-700 text-sm">${tatkalStr}</strong>
+          <div class="text-[10px] text-on-surface-variant">AC at 10:00 AM · Non-AC at 11:00 AM (OTP required)</div>
+        </div>
+      </div>
+      <div class="flex justify-between items-center pt-1">
+        <span class="text-sm text-on-surface-variant">Reservation Chart Prepared</span>
+        <strong class="text-primary text-sm">8 Hours prior to departure</strong>
+      </div>
+    </div>
+  `;
+}
+
 /* ══════════════════════════════════════════════════════
    INIT
    ══════════════════════════════════════════════════════ */
@@ -500,9 +878,9 @@ document.addEventListener('DOMContentLoaded', () => {
   document.getElementById('h-stat-stations').textContent = (window.STATIONS||[]).length + '+';
 
   // Type chips
-  const CHIP = {ALL:'All',RAJ:'🟡 Rajdhani',SHT:'🔵 Shatabdi',VB:'🟣 Vande Bharat',SF:'⚡ Superfast',MAIL:'📮 Mail',DUR:'🔴 Duronto',TEJ:'⭐ Tejas',EXP:'Express'};
+  const CHIP = {ALL:'All',VB:'🟣 Vande Bharat',VB_SL:'🛌 VB Sleeper',AMRIT:'🟠 Amrit Bharat',RAJ:'🟡 Rajdhani',SHT:'🔵 Shatabdi',DUR:'🔴 Duronto',TEJ:'⭐ Tejas',SF:'⚡ Superfast',MAIL:'📮 Mail',EXP:'Express'};
   const chipWrap = document.getElementById('type-chips');
-  ['ALL','RAJ','SHT','VB','SF','MAIL','DUR','TEJ','EXP'].forEach(t => {
+  ['ALL','VB','VB_SL','AMRIT','RAJ','SHT','DUR','TEJ','SF','MAIL','EXP'].forEach(t => {
     const b = document.createElement('button');
     b.textContent = CHIP[t]; b.dataset.type = t;
     b.className = 'px-3 py-1.5 rounded-full text-xs font-bold border border-outline-variant/30 bg-surface-container-lowest text-on-surface-variant hover:bg-secondary/10 hover:text-secondary hover:border-secondary/30 transition-all';
@@ -519,6 +897,9 @@ document.addEventListener('DOMContentLoaded', () => {
   renderSt();
   checkHealth();
   setTicker();
+  const future = new Date(Date.now() + 65 * 86400000).toISOString().split('T')[0];
+  const arpEl = document.getElementById('calc-travel-date');
+  if (arpEl) { arpEl.value = future; computeARP(); }
 });
 
 /* ══════════════════════════════════════════════════════
@@ -580,8 +961,8 @@ function goFare() {
 /* ══════════════════════════════════════════════════════
    TRAIN SEARCH + CARDS
    ══════════════════════════════════════════════════════ */
-const TYPE_LBL = {RAJ:'RAJDHANI',SHT:'SHATABDI',VB:'VANDE BHARAT',SF:'SUPERFAST',MAIL:'MAIL',DUR:'DURONTO',TEJ:'TEJAS',ICE:'INTERCITY',EXP:'EXPRESS',PASS:'PASSENGER',GR:'GARIB RATH'};
-const TYPE_CLR = {RAJ:'#e8a000',SHT:'#0058bc',VB:'#9333ea',SF:'#16a34a',MAIL:'#ea580c',DUR:'#dc2626',TEJ:'#d97706',EXP:'#6b7280',ICE:'#0891b2',PASS:'#71717a',GR:'#16a34a'};
+const TYPE_LBL = {RAJ:'RAJDHANI',SHT:'SHATABDI',VB:'VANDE BHARAT',VB_SL:'VB SLEEPER',AMRIT:'AMRIT BHARAT',SF:'SUPERFAST',MAIL:'MAIL',DUR:'DURONTO',TEJ:'TEJAS',ICE:'INTERCITY',EXP:'EXPRESS',PASS:'PASSENGER',GR:'GARIB RATH'};
+const TYPE_CLR = {RAJ:'#e8a000',SHT:'#0058bc',VB:'#9333ea',VB_SL:'#7c3aed',AMRIT:'#ea580c',SF:'#16a34a',MAIL:'#ea580c',DUR:'#dc2626',TEJ:'#d97706',EXP:'#6b7280',ICE:'#0891b2',PASS:'#71717a',GR:'#16a34a'};
 
 function parseQ(v) { return v.split('–')[0].trim().toLowerCase(); }
 function matchSt(q, code, name) {
