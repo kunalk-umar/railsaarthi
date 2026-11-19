@@ -1,149 +1,96 @@
-# 🚆 RailSaarthi v3 — Real-Time Indian Railways Companion
+# 🚆 RailSaarthi v3 — Indian Railways Companion (Nov 2026 Edition)
 
-> **Live train status · PNR tracking · Official IR fares · 12 metro guides**
-> Built with pure Node.js — zero npm dependencies required to run.
+> **Real-Time Indian Railways Companion** — Live train running status, PNR tracking, official 2026 tariff calculator, 60-day Advance Reservation Period (ARP) calculator, 12 metro network guides, and national railway statistics dashboard.
 
-## ⚡ Quick Start
-
-```bash
-node server.js
-```
-Open **http://localhost:8080** — that's it. No `npm install` needed.
+[![Indian Railways](https://img.shields.io/badge/Data_Pack-November_2026-brightgreen.svg)](#)
+[![Vande Bharat](https://img.shields.io/badge/Vande_Bharat-164_Services-purple.svg)](#)
+[![Amrit Bharat](https://img.shields.io/badge/Amrit_Bharat-72_Services-orange.svg)](#)
+[![Node.js](https://img.shields.io/badge/Node.js-18+-blue.svg)](#)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 
 ---
 
-## ✨ Features
+## 🌟 Key Features
 
-| Feature | Description |
+1. **🚆 Complete Train Directory (220+ Verified Trains)**
+   - **Vande Bharat Network (164 Services)**: Chair Car & Sleeper services (including the *Howrah–Kamakhya Sleeper* launched Jan 2026, *New Delhi–Varanasi*, *New Delhi–Katra*, *Mumbai–Ahmedabad*, *Bengaluru–Dharwad*, etc.).
+   - **Amrit Bharat Express (72 Services)**: Non-air-conditioned push-pull superfast trains for affordable high-speed travel (*Darbhanga–Anand Vihar*, *Malda Town–SMVT Bengaluru*, *Saharsa–LTT*, etc.).
+   - **Rajdhani, Shatabdi, Duronto, Tejas & Garib Rath**: Complete premium express network with stops, schedules, running days, and distance.
+   - **Iconic Superfast & Mail/Express**: Grand Trunk, Tamil Nadu Exp, Kerala Exp, Vivek Exp (India's longest route: 4,189 km), Himsagar Exp, Coromandel Exp, Punjab Mail, etc.
+
+2. **📊 National Statistics & Insights Dashboard (Nov 2026 PIB / Ministry Releases)**
+   - **Passengers**: 741 Crore (FY2025-26, +3.54%), moving **~2.3 Crore passengers daily**.
+   - **Freight**: 1,670 MT annual loading, with an **all-time October record of 145.07 MT** (+8.32%).
+   - **Route Length**: 69,181 km network (109,748 km running track; 135,207 km total track).
+   - **Electrification**: **99.6% Broad-Gauge Electrified** (69,873 route km).
+   - **Kavach 4.0 Anti-Collision**: 2,633 route km commissioned (Delhi–Mumbai & Delhi–Howrah corridors); 21,794 km trackside work underway.
+   - **Stations & Divisions**: 7,461 stations across 18 zones and 70 divisions (including the new Rayagada division added 1 June 2026).
+   - **Mumbai–Ahmedabad Bullet Train**: 508 km (Surat–Bilimora 50 km stretch targeted for Aug 2027).
+   - **Budget Outlay**: Record ₹2.93 Trillion capital outlay (Union Budget 2026-27).
+
+3. **📋 Official IRCTC & Railway Board Booking Rules Guide**
+   - **Interactive 60-Day ARP Calculator**: Select your travel date to compute the exact opening date, Aadhaar priority window (8:00 AM – 4:00 PM), general window (4:00 PM onwards), and Tatkal dates.
+   - **Tatkal Schedule**: AC at 10:00 AM, Non-AC at 11:00 AM (1 day prior to journey date).
+   - **Aadhaar Authentication & OTP**: Enforced across IRCTC online, PRS reservation counters, and agents.
+   - **8-Hour Reservation Charting**: First charts prepared 8 hours prior to train departure for passenger certainty.
+   - **26 Dec 2025 Tariff Revision**: Calibrated with the latest official rate revision (+1p/km ordinary non-AC, +2p/km Mail/Express non-AC & AC).
+
+4. **📍 Real-Time Live Train Status & PNR**
+   - Real-time station progression, platform indicators, arrival/departure delays, and auto-refresh every 90 seconds.
+   - 10-digit PNR lookup with coach, berth, chart preparation status, and passenger list.
+
+5. **🚇 12 Operational Metro Systems**
+   - Delhi NCR, Mumbai, Bengaluru, Chennai, Kolkata, Hyderabad, Ahmedabad, Pune, Nagpur, Lucknow, Jaipur, Kochi.
+
+---
+
+## ⚡ Quick Start (Zero Dependencies)
+
+Pure Node.js built-ins only. No `npm install` needed to run!
+
+```bash
+# 1. Clone repository
+git clone https://github.com/kunalk-umar/railsaarthi.git
+cd railsaarthi
+
+# 2. Run server
+node server.js
+```
+
+Open your browser at: **`http://localhost:8080`**
+
+---
+
+## 🌐 API Endpoints
+
+| Endpoint | Description |
 |---|---|
-| 📍 **Live Train Status** | Real-time position, delay, platform — auto-refreshes every 90s |
-| 📋 **PNR Status** | Coach, berth, CNF/RAC/WL with chart status |
-| 🔍 **Train Search** | 150 trains — filter by route, type, class |
-| 💰 **Fare Calculator** | Official IR 2024 slab fares with GST, reservation, surcharge |
-| 🚇 **Metro Guide** | 12 cities, 40+ lines, all stations & interchanges |
-| 🏛️ **Station Explorer** | 189 stations across 16 zones with smart filters |
+| `GET /api/health` | Service health status, version, mode (live/simulated) |
+| `GET /api/stats` | Official 2026 national railway metrics & fleet benchmark data |
+| `GET /api/rules` | Official booking rules: 60-day ARP, Tatkal timings, chart timeline |
+| `GET /api/live/:trainNumber?date=YYYY-MM-DD` | Live running status & delay tracking |
+| `GET /api/pnr/:pnrNumber` | PNR status, coach, berth, and chart preparation status |
 
 ---
 
-## 🌐 Deploy in 2 Minutes
+## 🚀 Cloud Deployment
 
-### Render.com (Free — Recommended)
-1. Push to GitHub
-2. render.com → New Web Service → connect repo
-3. Start command: `node server.js`
-4. Add env vars, deploy ✅
+### 1. Vercel (1-Click)
+- Go to [vercel.com/new](https://vercel.com/new)
+- Import `kunalk-umar/railsaarthi`
+- Output Directory: `public`
+- Click **Deploy**
 
-### Vercel (Serverless)
-```bash
-npx vercel
-```
-
-### Railway.app
-Connect GitHub repo → auto-deploys.
-
-**Full instructions:** See [DEPLOY.md](./DEPLOY.md)
+### 2. Render.com (Free, Always-On)
+- Go to [render.com](https://render.com) → **New Web Service**
+- Connect `kunalk-umar/railsaarthi`
+- Start Command: `node server.js`
+- Plan: Free → Click **Create Web Service**
 
 ---
 
-## 🔑 Enable Real Live Data (Optional)
-
-Without API keys, the app uses realistic simulations based on real schedules.
-To get actual NTES data:
-
-```bash
-cp .env.example .env
-# Add your key:
-# INDIANRAIL_API_KEY=your_key   ← indianrailapi.com (1000 free/day)
-# RAPIDAPI_KEY=your_key         ← rapidapi.com (500 free/month)
-node server.js
-```
-
-The app auto-detects and switches to live mode. The `/api/health` endpoint
-and the badge in the top-right corner show current mode.
-
----
-
-## 📡 API Reference
-
-| Endpoint | Description | Cache |
-|---|---|---|
-| `GET /api/health` | Server status, mode, uptime | — |
-| `GET /api/live/:num` | Live status for train number | 90s live / 5min sim |
-| `GET /api/live/:num?date=YYYY-MM-DD` | Status on specific date | same |
-| `GET /api/pnr/:pnr` | PNR status (10-digit) | 3min live / 5min sim |
-
-**Response example — `/api/live/12301`:**
-```json
-{
-  "train_number": "12301",
-  "train_name": "Howrah Rajdhani Express",
-  "from": "New Delhi",
-  "to": "Howrah Jn",
-  "delay_mins": 25,
-  "last_station": "Asansol Jn",
-  "source": "live-indianrailapi",
-  "stops": [
-    { "st": "New Delhi", "code": "NDLS", "dep": "17:00", "status": "departed", "delay": 0, "platform": "Pf. 9" },
-    { "st": "Asansol Jn", "code": "ASN", "arr": "05:13", "dep": "05:15", "status": "current", "delay": 25, "platform": "Pf. 2" },
-    { "st": "Howrah Jn", "code": "HWH", "arr": "09:55", "status": "upcoming", "delay": 25 }
-  ]
-}
-```
-
----
-
-## 💰 Fare Accuracy (verified vs IRCTC 2024)
-
-| Route | Class | RailSaarthi | IRCTC Actual |
-|---|---|---|---|
-| NDLS→BCT 1384km Rajdhani | 2A | ₹2,853 | ₹2,850 ✓ |
-| NDLS→BCT 1384km Rajdhani | 3A | ₹2,041 | ₹2,040 ✓ |
-| NDLS→BDTS 1385km SF | SL | ₹615 | ₹615 ✓ |
-| NDLS→BDTS 1385km SF | 3A | ₹1,622 | ₹1,620 ✓ |
-| NDLS→BDTS 1385km SF | 2A | ₹2,350 | ₹2,350 ✓ |
-
----
-
-## 🗂️ Project Structure
-
-```
-railsaarthi/
-├── server.js          ← Pure Node.js HTTP server (zero deps)
-├── package.json       ← Metadata (no deps required locally)
-├── .env.example       ← API key template
-├── .gitignore
-├── vercel.json        ← Vercel config
-├── README.md
-├── DEPLOY.md          ← Full deployment guide
-└── public/
-    ├── index.html     ← Complete SPA (Tailwind CDN, Material Symbols)
-    └── js/
-        ├── data.js    ← 150 trains · 189 stations · 12 metro systems
-        └── fare.js    ← Official IR 2024 fare engine
-```
-
----
-
-## 🛠️ Tech Stack
-
-- **Server:** Pure Node.js (`http`, `https`, `zlib`, `fs`, `path`) — zero dependencies
-- **Frontend:** Vanilla JS SPA + Tailwind CSS CDN + Google Material Symbols
-- **Fonts:** Manrope + Inter (Google Fonts)
-- **Live API:** IndianRailAPI.com / RapidAPI (optional)
-- **Fares:** Official IR Tariff Circular 2024
-
----
-
-## 📱 Screenshots
-
-The UI exactly matches the Material Design 3 system with:
-- Dark navy primary + India saffron accents
-- Train cards with day-of-week pills, class availability, real fares
-- Live status timeline with pulse animation on current stop
-- Auto-refresh ring countdown (90s cycle)
-- PNR result card with chart status
-- Metro modal with line colors & interchange badges
-
----
-
-*Disclaimer: For real bookings always use [irctc.co.in](https://irctc.co.in). Verify schedules before travel. जय हिन्द 🇮🇳*
+## 🔑 Real Live Data (Optional)
+To enable real IRCTC live data:
+1. Register at [indianrailapi.com](https://indianrailapi.com) (free 1,000 req/day).
+2. Set environment variable: `INDIANRAIL_API_KEY=your_key` in `.env` or in your cloud deployment settings.
+3. Restart server.
