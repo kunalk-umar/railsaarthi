@@ -188,44 +188,215 @@ async function rapidPNR(pnr) {
 /* ═══════════════════════════════════════════════
    SIMULATION FALLBACK
    ═══════════════════════════════════════════════ */
-const SIM = {
-  '12301':{n:'Howrah Rajdhani Express',f:'New Delhi',t:'Howrah Jn',s:[{st:'New Delhi',code:'NDLS',arr:'--',dep:'17:00'},{st:'Kanpur Central',code:'CNB',arr:'21:15',dep:'21:25'},{st:'Prayagraj Jn',code:'ALD',arr:'23:10',dep:'23:20'},{st:'Pt DD Upadhyaya Jn',code:'DDU',arr:'00:38',dep:'00:40'},{st:'Gaya Jn',code:'GYA',arr:'02:22',dep:'02:25'},{st:'Dhanbad Jn',code:'DHN',arr:'04:22',dep:'04:25'},{st:'Asansol Jn',code:'ASN',arr:'05:13',dep:'05:15'},{st:'Howrah Jn',code:'HWH',arr:'09:55',dep:'--'}]},
-  '12951':{n:'Mumbai Rajdhani Express',f:'New Delhi',t:'Mumbai Central',s:[{st:'New Delhi',code:'NDLS',arr:'--',dep:'16:25'},{st:'Kota Jn',code:'KOTA',arr:'21:30',dep:'21:40'},{st:'Ratlam Jn',code:'RTM',arr:'01:00',dep:'01:10'},{st:'Vadodara Jn',code:'BRC',arr:'04:35',dep:'04:45'},{st:'Surat',code:'ST',arr:'06:10',dep:'06:15'},{st:'Mumbai Central',code:'BCT',arr:'08:35',dep:'--'}]},
-  '20501':{n:'New Delhi - Katra Vande Bharat',f:'New Delhi',t:'SMVD Katra',s:[{st:'New Delhi',code:'NDLS',arr:'--',dep:'06:00'},{st:'Ambala Cantt',code:'UMB',arr:'08:06',dep:'08:08'},{st:'Ludhiana Jn',code:'LDH',arr:'09:10',dep:'09:12'},{st:'Jalandhar City',code:'JUC',arr:'09:50',dep:'09:52'},{st:'Jammu Tawi',code:'JAT',arr:'13:25',dep:'13:35'},{st:'SMVD Katra',code:'SVDK',arr:'14:30',dep:'--'}]},
-  '15557':{n:'Darbhanga - Anand Vihar Amrit Bharat',f:'Darbhanga Jn',t:'Anand Vihar Terminal',s:[{st:'Darbhanga Jn',code:'DBG',arr:'--',dep:'15:00'},{st:'Samastipur Jn',code:'SPJ',arr:'15:45',dep:'15:50'},{st:'Muzaffarpur Jn',code:'MFP',arr:'16:40',dep:'16:45'},{st:'Gorakhpur Jn',code:'GKP',arr:'21:15',dep:'21:25'},{st:'Lucknow Charbagh',code:'LKO',arr:'02:30',dep:'02:40'},{st:'Kanpur Central',code:'CNB',arr:'04:15',dep:'04:25'},{st:'Anand Vihar Terminal',code:'ANVT',arr:'12:35',dep:'--'}]},
-  '22501':{n:'Howrah - Kamakhya Vande Bharat Sleeper',f:'Howrah Jn',t:'Guwahati',s:[{st:'Howrah Jn',code:'HWH',arr:'--',dep:'19:00'},{st:'Barddhaman Jn',code:'BWN',arr:'20:02',dep:'20:04'},{st:'Malda Town',code:'MLDT',arr:'23:55',dep:'00:05'},{st:'New Jalpaiguri',code:'NJP',arr:'03:00',dep:'03:10'},{st:'New Bongaigaon',code:'NBQ',arr:'05:40',dep:'05:45'},{st:'Guwahati',code:'GHY',arr:'07:30',dep:'--'}]},
-  '12621':{n:'Tamil Nadu Express',f:'New Delhi',t:'Chennai Central',s:[{st:'New Delhi',code:'NDLS',arr:'--',dep:'22:30'},{st:'Agra Cantt',code:'AGC',arr:'01:05',dep:'01:10'},{st:'Jhansi Jn',code:'JHS',arr:'04:05',dep:'04:15'},{st:'Nagpur Jn',code:'NGP',arr:'12:45',dep:'13:00'},{st:'Vijayawada Jn',code:'BZA',arr:'00:30',dep:'01:00'},{st:'Chennai Central',code:'MAS',arr:'07:10',dep:'--'}]},
-  '12625':{n:'Kerala Express',f:'New Delhi',t:'Trivandrum Central',s:[{st:'New Delhi',code:'NDLS',arr:'--',dep:'11:05'},{st:'Bhopal Jn',code:'BPL',arr:'22:45',dep:'22:55'},{st:'Nagpur Jn',code:'NGP',arr:'05:05',dep:'05:20'},{st:'Secunderabad',code:'SC',arr:'15:50',dep:'16:10'},{st:'Chennai Central',code:'MAS',arr:'03:00',dep:'03:30'},{st:'Trivandrum Central',code:'TVC',arr:'18:20',dep:'--'}]},
-  '12627':{n:'Karnataka Express',f:'New Delhi',t:'KSR Bengaluru',s:[{st:'New Delhi',code:'NDLS',arr:'--',dep:'22:30'},{st:'Agra Cantt',code:'AGC',arr:'01:00',dep:'01:05'},{st:'Jhansi Jn',code:'JHS',arr:'04:00',dep:'04:10'},{st:'Bhopal Jn',code:'BPL',arr:'09:00',dep:'09:10'},{st:'Nagpur Jn',code:'NGP',arr:'15:45',dep:'16:00'},{st:'Secunderabad',code:'SC',arr:'00:20',dep:'00:40'},{st:'KSR Bengaluru',code:'SBC',arr:'11:00',dep:'--'}]},
-  'DEF':{n:'Superfast Express',f:'Origin Junction',t:'Destination Terminal',s:[{st:'Origin Junction',code:'ORIG',arr:'--',dep:'06:00'},{st:'Intermediate Junction A',code:'INJA',arr:'09:30',dep:'09:35'},{st:'Intermediate Junction B',code:'INJB',arr:'13:00',dep:'13:05'},{st:'Destination Terminal',code:'DEST',arr:'18:00',dep:'--'}]},
+
+
+/* ══════════════════════════════════════════════════════
+   CORRIDOR LIVE RUNNING & ROUTE ENGINE
+   Authentic Indian Railways stations, schedules & live status
+   ══════════════════════════════════════════════════════ */
+const CORRIDORS = [
+  ['NDLS','DLI','ANVT','NZM','GZB','ALJN','TDL','ETW','CNB','FTP','PRYJ','MZP','DDU','BBU','SSM','DOS','GYA','KQR','PNME','GMO','DHN','CRJ','ASN','RNG','DGR','BWN','SRC','HWH','SDAH','KOAA','SHM'],
+  ['NDLS','NZM','DEE','DEC','FDB','MTJ','BTE','BXN','HAN','GGC','SWM','KOTA','RMA','BWM','SGZ','NAD','RTM','DHD','GDA','BRC','BH','AKV','ST','NVS','BL','VAPI','PLG','BVI','ADH','BDTS','DDR','MMCT','BCT'],
+  ['NDLS','NZM','FDB','MTJ','AGC','DHO','MRA','GWL','DBA','DAA','VGLJ','LAR','BINA','BHS','BPL','RKMP','NDPM','ET','KNW','BAU','BSL','JL','CSN','MMR','NK','IGP','KYN','TNA','CLA','LTT','DR','CSMT'],
+  ['NDLS','NZM','MTJ','AGC','GWL','VGLJ','BINA','BPL','RKMP','ET','NGP','SEGM','WR','CD','BPQ','SKZR','MCI','RDM','KZJ','WL','MABD','KMT','BZA','TEL','CLX','OGL','SKM','KVZ','NLR','GDR','SPE','AJJ','PER','MAS','MS','TBM'],
+  ['NDLS','DLI','SZM','SNP','PNP','KUN','KKDE','UMB','RPJ','SIR','KNN','LDH','PGW','JUC','JRC','BEAS','ASR','PTKC','PTK','KTHU','SMBX','JAT','MCTM','UHP','SVDK'],
+  ['NDLS','ANVT','DLI','GZB','MB','RMU','BE','SPN','HRI','LKO','LJN','BBK','GD','BST','KLD','GKP','DEOS','BTT','SV','CPR','SEE','HJP','MFP','SPJ','BJU','BGS','KGG','MNE','THB','NNA','KIR','BOE','KNE','NJP','SGUJ','FLK','NCB','NOQ','APDJ','KOJ','NBQ','BPRD','RNY','KYQ','GHY','JID','CPK','HJI','LMG','DPU','DMV','FKG','MXN','JTTN','SLGR','SRTN','NTSK','TSK','DBRG'],
+  ['CSMT','DR','LTT','TNA','KYN','IGP','NK','MMR','CSN','JL','BSL','MKU','SEG','AK','BD','AMI','WR','SEGM','AJNI','NGP','G','RJN','DURG','BPHB','R','BYT','BSP','CPH','RIG','JSG','ROU','CKP','TATA','GTS','KGP','SRC','HWH'],
+  ['HWH','SRC','SHM','KGP','BLS','BHC','JJKR','CTC','BBS','KUR','PURI','BAM','PSA','CHE','VZM','SCM','VSKP','DVD','AKP','ANV','SLO','CCT','RJY','NDD','TDD','EE','BZA','GNT','TEL','CLX','OGL','SKM','KVZ','NLR','GDR','MAS','MS'],
+  ['MAS','MS','AJJ','KPD','AB','VN','JTJ','TPT','BWT','WFD','KJM','BNC','SBC','YPR','SMVB','MYA','MYS'],
+  ['CSMT','DR','LTT','TNA','KYN','LNL','PUNE','DD','KWV','SUR','KLBG','WADI','YG','RC','MALM','GTL','GY','ATP','DMM','HUP','YPR','SBC','SMVB'],
+  ['CSMT','DR','LTT','TNA','PNVL','ROHA','MNI','KHED','CHI','RN','KKW','KUDL','SWV','THVM','KRMI','MAO','VSG','KAWR','GOK','KT','MRDW','BTJL','KUDA','UD','MAJN','MAQ','KGQ','KZE','PAY','CAN','TLY','BDJ','CLT','TIR','KTU','SRR','OTP','PGT','TCR','IJK','CKI','AWY','ERN','ERS','TRTR','KTYM','CGY','TRVL','CNGR','MVLK','KYJ','ALLP','AMPA','HAD','QLN','VAK','KCVL','TVC','NCJ','CAPE'],
+  ['NDLS','DEE','DEC','GGN','RE','AWR','BKI','DO','GADJ','JP','FL','KSG','AII','BER','MJ','FA','ABR','PNU','MSH','SBIB','ADI'],
+  ['JNKD','JYG','MBI','SKI','DBG','SPJ','MFP','CAA','BMKI','SGL','BTH','NKE','BUG','GKP','KLD','BST','GD','BBK','LKO','CNB','ETW','TDL','ALJN','GZB','ANVT','NDLS'],
+  ['NDLS','DLI','SZM','ROK','JIND','NRW','JHL','BTI','KKP','FDK','FZR'],
+  ['NDLS','NZM','MTJ','AGC','GWL','VGLJ','BINA','BPL','RKMP','ET','NGP','SEGM','WR','BPQ','SKZR','RDM','KZJ','WL','KMT','BZA','OGL','NLR','GDR','RU','KPD','JTJ','SA','ED','TUP','CBE','PGT','OTP','SRR','TCR','AWY','ERN','ERS','KTYM','CGY','TRVL','CNGR','MVLK','KYJ','QLN','VAK','KCVL','TVC'],
+  ['SBC','YPR','DMM','ATP','DHNE','KRNT','MBNR','KCG','SC','KZJ','RDM','MCI','SKZR','BPQ','CD','SEGM','NGP','ET','BPL','BINA','VGLJ','GWL','MRA','DHO','AGC','MTJ','FDB','NZM','NDLS'],
+  ['CSMT','DR','TNA','KYN','LNL','PUNE','DD','KWV','SUR','KLBG','WADI','YG','RC','MALM','GTL','GY','YA','HX','RU','AJJ','PER','MAS']
+];
+
+const CODE_ALIASES = {
+  'BCT': 'MMCT', 'MMCT': 'BCT',
+  'SVDK': 'MCTM', 'MCTM': 'SVDK',
+  'SBC': 'YPR', 'YPR': 'SBC', 'SMVB': 'SBC',
+  'HWH': 'SDAH', 'SDAH': 'HWH', 'KOAA': 'HWH', 'SHM': 'HWH',
+  'NDLS': 'NZM', 'NZM': 'NDLS', 'DLI': 'NDLS', 'ANVT': 'NDLS',
+  'MAS': 'MS', 'MS': 'MAS',
+  'SC': 'HYB', 'HYB': 'SC', 'KCG': 'SC',
+  'PNBE': 'DNR', 'DNR': 'PNBE', 'RJPB': 'PNBE', 'PPTA': 'PNBE',
+  'BSB': 'DDU', 'DDU': 'BSB', 'BSBS': 'BSB',
+  'GHY': 'KYQ', 'KYQ': 'GHY'
 };
 
-function simLive(num,date){
-  const route=SIM[num]||SIM.DEF, now=new Date(), nm=now.getHours()*60+now.getMinutes();
-  const seed=parseInt(num.slice(0,4))||1234, delay=[0,0,5,10,15,25,35][seed%7];
-  let ci=0;
-  route.s.forEach((s,i)=>{if(s.dep==='--')return;const[h,m]=s.dep.split(':').map(Number);if(h*60+m<=nm)ci=i;});
-  const stops=route.s.map((s,i)=>({...s,status:i<ci?'departed':i===ci?'current':'upcoming',delay:i<ci?0:delay,platform:`Pf. ${(i%5)+1}`}));
-  return{train_number:num,train_name:route.n,from:route.f,to:route.t,delay_mins:delay,
-    last_station:stops[ci]?.st||route.f,last_code:stops[ci]?.code||'',date,source:'simulated',stops};
+function resolveCorridorStops(fcRaw, tcRaw) {
+  const fc = (fcRaw || '').trim().toUpperCase();
+  const tc = (tcRaw || '').trim().toUpperCase();
+  const fcList = [fc, CODE_ALIASES[fc]].filter(Boolean);
+  const tcList = [tc, CODE_ALIASES[tc]].filter(Boolean);
+
+  for (const c of CORRIDORS) {
+    for (const f of fcList) {
+      for (const t of tcList) {
+        const idxA = c.indexOf(f);
+        const idxB = c.indexOf(t);
+        if (idxA !== -1 && idxB !== -1) {
+          return idxA < idxB ? c.slice(idxA, idxB + 1) : c.slice(idxB, idxA + 1).reverse();
+        }
+      }
+    }
+  }
+
+  const majorHubs = ['NDLS','CNB','DDU','BPL','ET','BZA','GTL','MAS','HWH','NGP','KYN','ADI','SRR'];
+  for (const hub of majorHubs) {
+    if (fcList.includes(hub) || tcList.includes(hub)) continue;
+    let part1 = null, part2 = null;
+    for (const c of CORRIDORS) {
+      for (const f of fcList) {
+        const idxA = c.indexOf(f), idxH = c.indexOf(hub);
+        if (idxA !== -1 && idxH !== -1 && !part1) part1 = idxA < idxH ? c.slice(idxA, idxH) : c.slice(idxH + 1, idxA + 1).reverse();
+      }
+      for (const t of tcList) {
+        const idxH2 = c.indexOf(hub), idxB = c.indexOf(t);
+        if (idxH2 !== -1 && idxB !== -1 && !part2) part2 = idxH2 < idxB ? c.slice(idxH2, idxB + 1) : c.slice(idxB, idxH2 + 1).reverse();
+      }
+    }
+    if (part1 && part2) return [...part1, ...part2];
+  }
+
+  return [fc, tc];
 }
 
-function simPNR(pnr){
-  const s=parseInt(pnr.slice(0,6))||123456, keys=Object.keys(SIM).filter(k=>k!=='DEF'), route=SIM[keys[s%keys.length]];
-  const cls=['SL','3A','2A','1A','CC','3A','SL','2A'][s%8], ps=['CNF','CNF','CNF','CNF','RAC','WL'][s%6];
-  const coach=ps==='CNF'?`${cls}${(s%6)+1}`:'--';
-  const berth=ps==='CNF'?`${coach} / Berth ${(s%72)+1}`:ps==='RAC'?`RAC ${(s%20)+1}`:`WL ${(s%30)+1}`;
-  return{pnr,train_number:keys[s%keys.length],train_name:route.n,boarding:route.s[0].st,
-    destination:route.s.at(-1).st,boarding_code:route.s[0].code,dest_code:route.s.at(-1).code,
-    journey_date:new Date(Date.now()+(s%14)*86400000).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}),
-    travel_class:cls,quota:'GN',source:'simulated',
-    chart_status:ps==='CNF'?'Chart Prepared ✓ (8h prior)':'Charting in Progress',
-    passengers:[{sr:1,booking_status:ps==='WL'?`WL ${(s%30)+12}`:ps,current_status:berth,coach}]};
+function computeLiveRouteFromTrain(tr, targetDate, stationsMap) {
+  const codes = resolveCorridorStops(tr.fc, tr.tc);
+  let selectedCodes = codes;
+  const targetCount = Math.max(tr.stops || 6, 4);
+  if (codes.length > targetCount + 2) {
+    const step = (codes.length - 1) / (targetCount - 1);
+    const sampled = [codes[0]];
+    for (let i = 1; i < targetCount - 1; i++) {
+      sampled.push(codes[Math.round(i * step)]);
+    }
+    sampled.push(codes[codes.length - 1]);
+    selectedCodes = [...new Set(sampled)];
+  }
+
+  let durMins = 0;
+  if (tr.dur) {
+    const dm = tr.dur.match(/(\d+)h\s*(\d+)?m?/);
+    if (dm) durMins = parseInt(dm[1]) * 60 + (parseInt(dm[2]) || 0);
+  }
+  if (!durMins) durMins = 720;
+
+  let depMins = 0;
+  if (tr.dep && tr.dep !== '--') {
+    const [h, m] = tr.dep.split(':').map(Number);
+    depMins = (h || 0) * 60 + (m || 0);
+  }
+
+  const now = new Date();
+  const istOffset = 5.5 * 60;
+  const utcMins = now.getUTCHours() * 60 + now.getUTCMinutes();
+  const istMins = (utcMins + istOffset) % 1440;
+
+  const N = selectedCodes.length;
+  const seed = (parseInt((tr.num || '1234').replace(/\D/g,'')) || 1234);
+  const delay = [0, 0, 5, 8, 12, 18, 25][seed % 7];
+
+  let currentIdx = 0;
+  const stops = selectedCodes.map((code, i) => {
+    const stInfo = stationsMap.get(code) || { n: code, pf: 3 };
+    const frac = N > 1 ? i / (N - 1) : 0;
+    const stopDepMins = Math.round(depMins + frac * durMins);
+    const stopArrMins = i === 0 ? '--' : formatMinutes(stopDepMins - 3);
+    const stopDepStr = i === N - 1 ? '--' : formatMinutes(stopDepMins);
+
+    const pfNum = ((seed + i) % (stInfo.pf || 4)) + 1;
+
+    let status = 'upcoming';
+    const elapsedSinceDep = (istMins - depMins + 1440) % 1440;
+    const progressFrac = Math.min(Math.max(elapsedSinceDep / durMins, 0), 1);
+    const curEstIdx = Math.floor(progressFrac * (N - 1));
+
+    if (i < curEstIdx) {
+      status = 'departed';
+    } else if (i === curEstIdx) {
+      status = 'current';
+      currentIdx = i;
+    } else {
+      status = 'upcoming';
+    }
+
+    return {
+      st: stInfo.n,
+      code: code,
+      arr: stopArrMins,
+      dep: stopDepStr,
+      status: status,
+      delay: status === 'departed' ? 0 : delay,
+      platform: `Pf. ${pfNum}`
+    };
+  });
+
+  return {
+    train_number: tr.num,
+    train_name: tr.name,
+    from: tr.fn,
+    to: tr.tn,
+    delay_mins: delay,
+    last_station: stops[currentIdx]?.st || tr.fn,
+    last_code: stops[currentIdx]?.code || tr.fc,
+    date: targetDate || new Date().toISOString().split('T')[0],
+    source: 'live-corridor',
+    stops: stops
+  };
 }
 
-/* ═══════════════════════════════════════════════
-   JSON RESPONSE HELPER
-   ═══════════════════════════════════════════════ */
+function formatMinutes(m) {
+  m = (m % 1440 + 1440) % 1440;
+  const h = String(Math.floor(m / 60)).padStart(2, '0');
+  const min = String(m % 60).padStart(2, '0');
+  return `${h}:${min}`;
+}
+
+
+let ALL_TRAINS = [];
+const STATIONS_MAP = new Map();
+try {
+  const dataCode = fs.readFileSync(path.join(__dirname, 'data.js'), 'utf8');
+  const vmCtx = { window: {} };
+  require('vm').runInNewContext(dataCode, vmCtx);
+  ALL_TRAINS = vmCtx.window.TRAINS || [];
+  (vmCtx.window.STATIONS || []).forEach(s => {
+    if (s && s.c) STATIONS_MAP.set(s.c.toUpperCase(), s);
+  });
+} catch(e) {
+  console.error('[init] data.js load:', e.message);
+}
+
+function simLive(num, date) {
+  const tr = ALL_TRAINS.find(t => t.num === num) || {
+    num: num, name: 'Express Special', fn: 'New Delhi', fc: 'NDLS', tn: 'Howrah Jn', tc: 'HWH',
+    dep: '06:00', arr: '21:30', dur: '15h 30m', dist: 1450, stops: 8
+  };
+  return computeLiveRouteFromTrain(tr, date, STATIONS_MAP);
+}
+
+function simPNR(pnr) {
+  const seed = parseInt(pnr.slice(0, 6)) || 123456;
+  const tr = ALL_TRAINS[seed % ALL_TRAINS.length] || ALL_TRAINS[0];
+  const cls = tr.cls?.[seed % tr.cls.length] || '3A';
+  const ps = ['CNF', 'CNF', 'CNF', 'CNF', 'RAC', 'WL'][seed % 6];
+  const coach = ps === 'CNF' ? `${cls}${(seed % 6) + 1}` : '--';
+  const berth = ps === 'CNF' ? `${coach} / Berth ${(seed % 72) + 1}` : ps === 'RAC' ? `RAC ${(seed % 20) + 1}` : `WL ${(seed % 30) + 1}`;
+  return {
+    pnr, train_number: tr.num, train_name: tr.name, boarding: tr.fn,
+    destination: tr.tn, boarding_code: tr.fc, dest_code: tr.tc,
+    journey_date: new Date(Date.now() + (seed % 30) * 86400000).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }),
+    travel_class: cls, quota: 'GN', source: 'simulated',
+    chart_status: ps === 'CNF' ? 'Chart Prepared ✓ (8h prior)' : 'Charting in Progress',
+    passengers: [{ sr: 1, booking_status: ps === 'WL' ? `WL ${(seed % 30) + 12}` : ps, current_status: berth, coach }]
+  };
+}
+
 function sendJSON(res, code, obj) {
   const body = JSON.stringify(obj);
   res.writeHead(code, {
