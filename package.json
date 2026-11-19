@@ -1,0 +1,17 @@
+{
+  "name": "railsaarthi",
+  "version": "3.0.0",
+  "description": "Real-Time Indian Railways Companion — live status, PNR, fares, metro",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev":   "node server.js"
+  },
+  "engines": {
+    "node": ">=14.0.0"
+  },
+  "keywords": ["indian railways", "train status", "pnr", "irctc", "live train"],
+  "dependencies": {},
+  "author": "RailSaarthi",
+  "license": "MIT"
+}

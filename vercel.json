@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "builds": [
+    { "src": "server.js", "use": "@vercel/node" }
+  ],
+  "routes": [
+    {
+      "src": "/api/(.*)",
+      "dest": "/server.js",
+      "headers": {
+        "Access-Control-Allow-Origin": "*",
+        "Cache-Control": "no-store"
+      }
+    },
+    {
+      "src": "/js/(.*)",
+      "dest": "/server.js",
+      "headers": { "Cache-Control": "public, max-age=86400" }
+    },
+    { "src": "/(.*)", "dest": "/server.js" }
+  ]
+}

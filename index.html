@@ -1,0 +1,973 @@
+<!DOCTYPE html>
+<html lang="en" class="light">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<meta name="description" content="RailSaarthi — Real-time Indian Railways companion. Live train status, PNR check, fare calculator, metro guide."/>
+<meta property="og:title" content="RailSaarthi — India's Railway Companion"/>
+<meta property="og:description" content="Real-time train tracking, PNR status, official fares & metro guide for Indian Railways."/>
+<title>RailSaarthi — Real-Time Indian Railways</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<script>
+tailwind.config={darkMode:"class",theme:{extend:{colors:{"error":"#ba1a1a","on-tertiary-container":"#cd7200","on-secondary-container":"#fefcff","tertiary":"#160700","on-primary":"#ffffff","surface-container-high":"#e8e8e8","primary-fixed":"#d6e3ff","on-background":"#1a1c1c","on-secondary":"#ffffff","secondary-fixed":"#d8e2ff","background":"#f9f9f9","secondary-fixed-dim":"#adc6ff","surface-tint":"#465f88","surface-container-low":"#f3f3f3","inverse-surface":"#2f3131","surface-container":"#eeeeee","on-surface":"#1a1c1c","on-error":"#ffffff","on-primary-container":"#708ab5","primary":"#000a1e","surface":"#f9f9f9","on-secondary-fixed":"#001a41","primary-container":"#002147","on-secondary-fixed-variant":"#004493","on-tertiary":"#ffffff","on-error-container":"#93000a","secondary":"#0058bc","secondary-container":"#0070eb","outline-variant":"#c4c6cf","on-primary-fixed":"#001b3d","tertiary-container":"#371a00","surface-dim":"#dadada","error-container":"#ffdad6","surface-container-lowest":"#ffffff","surface-container-highest":"#e2e2e2","surface-variant":"#e2e2e2","inverse-on-surface":"#f1f1f1","outline":"#74777f","on-surface-variant":"#44474e"},borderRadius:{"DEFAULT":"0.125rem",lg:"0.25rem",xl:"0.5rem",full:"0.75rem"},fontFamily:{headline:["Manrope"],body:["Inter"],label:["Inter"]}}}}
+</script>
+<style>
+.material-symbols-outlined{font-variation-settings:'FILL' 0,'wght' 400,'GRAD' 0,'opsz' 24}
+body{font-family:'Inter',sans-serif}
+h1,h2,h3,h4{font-family:'Manrope',sans-serif}
+.view{display:none}.view.active{display:block}
+.day-on{background:#000a1e;color:#fff}.day-off{background:#e2e2e2;color:#aaa}
+.stab.active{background:#0058bc;color:#fff;border-color:#0058bc}
+.nav-lnk.active{color:#000a1e;border-bottom:2px solid #160700}
+.modal-bg{position:fixed;inset:0;background:rgba(0,10,30,.55);backdrop-filter:blur(8px);z-index:200;display:none;align-items:center;justify-content:center;padding:1rem}
+.modal-bg.open{display:flex}
+@keyframes ticker{from{transform:translateX(100%)}to{transform:translateX(-200%)}}
+.ticker-run{display:inline-block;white-space:nowrap;animation:ticker 45s linear infinite}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.35;transform:scale(.7)}}
+.pulse{animation:pulse-dot 1.5s infinite}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+.fade-up{animation:fadeUp .3s ease}
+.spin{animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+::-webkit-scrollbar{height:5px;width:5px}
+::-webkit-scrollbar-thumb{background:#c4c6cf;border-radius:99px}
+/* live badge colors */
+.badge-live{background:#dcfce7;color:#16a34a}
+.badge-sim{background:#fef9c3;color:#a16207}
+.badge-err{background:#fee2e2;color:#b91c1c}
+/* auto-refresh ring */
+.refresh-ring{width:28px;height:28px;border-radius:50%;background:conic-gradient(#0058bc var(--p,0%),#e2e2e2 0%);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.refresh-ring-inner{width:20px;height:20px;border-radius:50%;background:#f9f9f9;display:flex;align-items:center;justify-content:center}
+</style>
+</head>
+<body class="bg-background text-on-surface selection:bg-secondary-fixed selection:text-on-secondary-fixed">
+
+<!-- ══════ TICKER ══════ -->
+<div class="bg-primary text-white/90 text-[11px] px-5 py-1.5 flex items-center gap-3 overflow-hidden select-none">
+  <span class="shrink-0 flex items-center gap-1.5 font-bold tracking-widest text-[10px]">
+    <span class="w-1.5 h-1.5 rounded-full bg-green-400 pulse"></span>LIVE
+  </span>
+  <div class="flex-1 overflow-hidden">
+    <span class="ticker-run" id="ticker-text">
+      Loading live alerts…
+    </span>
+  </div>
+</div>
+
+<!-- ══════ HEADER ══════ -->
+<header class="sticky top-0 z-50 bg-[#f9f9f9]/80 backdrop-blur-md border-b border-outline-variant/20">
+  <nav class="flex justify-between items-center px-6 py-3.5 max-w-7xl mx-auto">
+    <div class="flex items-center gap-8">
+      <span onclick="showView('home')" class="text-xl font-extrabold tracking-tight text-primary font-headline cursor-pointer flex items-center gap-2">
+        🚆 RailSaarthi
+        <span class="text-[10px] font-bold bg-secondary text-white px-2 py-0.5 rounded-full">v3</span>
+      </span>
+      <div class="hidden md:flex items-center gap-5">
+        <a onclick="showView('trains')"  class="nav-lnk text-on-surface/60 hover:text-secondary font-semibold font-headline tracking-tight text-sm cursor-pointer transition-colors border-b-2 border-transparent py-0.5" data-v="trains">Trains</a>
+        <a onclick="showView('live')"    class="nav-lnk text-on-surface/60 hover:text-secondary font-semibold font-headline tracking-tight text-sm cursor-pointer transition-colors border-b-2 border-transparent py-0.5" data-v="live">Live Status</a>
+        <a onclick="showView('pnr')"     class="nav-lnk text-on-surface/60 hover:text-secondary font-semibold font-headline tracking-tight text-sm cursor-pointer transition-colors border-b-2 border-transparent py-0.5" data-v="pnr">PNR</a>
+        <a onclick="showView('fare')"    class="nav-lnk text-on-surface/60 hover:text-secondary font-semibold font-headline tracking-tight text-sm cursor-pointer transition-colors border-b-2 border-transparent py-0.5" data-v="fare">Fare</a>
+        <a onclick="showView('metro')"   class="nav-lnk text-on-surface/60 hover:text-secondary font-semibold font-headline tracking-tight text-sm cursor-pointer transition-colors border-b-2 border-transparent py-0.5" data-v="metro">Metro</a>
+        <a onclick="showView('stations')" class="nav-lnk text-on-surface/60 hover:text-secondary font-semibold font-headline tracking-tight text-sm cursor-pointer transition-colors border-b-2 border-transparent py-0.5" data-v="stations">Stations</a>
+      </div>
+    </div>
+    <div class="flex items-center gap-3">
+      <div id="api-badge" class="text-[10px] font-bold px-2.5 py-1 rounded-full badge-sim">CHECKING…</div>
+      <button onclick="showView('live')" class="hidden md:flex items-center gap-1.5 bg-secondary text-white text-xs font-bold px-3 py-1.5 rounded-full hover:bg-secondary/90 transition-all">
+        <span class="material-symbols-outlined text-sm">pace</span> Track Train
+      </button>
+      <button class="p-1.5 hover:bg-surface-container rounded-full transition-all md:hidden" onclick="toggleMobileMenu()">
+        <span class="material-symbols-outlined text-on-surface-variant">menu</span>
+      </button>
+    </div>
+  </nav>
+  <!-- Mobile menu -->
+  <div id="mobile-menu" class="hidden md:hidden bg-surface-container-lowest border-t border-outline-variant/10 px-6 py-3 flex flex-col gap-3">
+    <a onclick="showView('trains');toggleMobileMenu()"  class="font-semibold font-headline text-sm py-1 cursor-pointer">🔍 Train Search</a>
+    <a onclick="showView('live');toggleMobileMenu()"    class="font-semibold font-headline text-sm py-1 cursor-pointer">📍 Live Status</a>
+    <a onclick="showView('pnr');toggleMobileMenu()"     class="font-semibold font-headline text-sm py-1 cursor-pointer">📋 PNR Status</a>
+    <a onclick="showView('fare');toggleMobileMenu()"    class="font-semibold font-headline text-sm py-1 cursor-pointer">💰 Fare Calculator</a>
+    <a onclick="showView('metro');toggleMobileMenu()"   class="font-semibold font-headline text-sm py-1 cursor-pointer">🚇 Metro Guide</a>
+    <a onclick="showView('stations');toggleMobileMenu()" class="font-semibold font-headline text-sm py-1 cursor-pointer">🏛️ Stations</a>
+  </div>
+</header>
+
+<main class="pt-4 pb-24 md:pb-8 px-4 max-w-7xl mx-auto">
+
+<!-- ══════════════════════ HOME ══════════════════════ -->
+<section id="view-home" class="view active fade-up">
+  <div class="text-center py-10 md:py-14">
+    <div class="inline-block px-3 py-1 bg-secondary-fixed text-on-secondary-fixed rounded-full text-xs font-bold uppercase tracking-widest mb-4">🇮🇳 India's #1 Railway Companion</div>
+    <h1 class="text-4xl md:text-6xl font-extrabold tracking-tight text-primary leading-tight">Track. Search.<br/><span class="text-secondary">Travel Smart.</span></h1>
+    <p class="text-on-surface-variant mt-4 max-w-xl mx-auto text-base md:text-lg font-medium">Real-time live status · Official IR 2024 fares · PNR tracking · 12 metro guides</p>
+  </div>
+
+  <!-- Stats row -->
+  <div class="flex flex-wrap justify-center gap-8 md:gap-12 mb-10">
+    <div class="text-center"><div class="text-3xl font-black text-primary" id="h-stat-trains">150+</div><div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mt-0.5">Trains</div></div>
+    <div class="text-center"><div class="text-3xl font-black text-primary" id="h-stat-stations">189+</div><div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mt-0.5">Stations</div></div>
+    <div class="text-center"><div class="text-3xl font-black text-primary">18</div><div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mt-0.5">Zones</div></div>
+    <div class="text-center"><div class="text-3xl font-black text-primary">68,000+</div><div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mt-0.5">KM Network</div></div>
+    <div class="text-center"><div class="text-3xl font-black text-primary">12</div><div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mt-0.5">Metro Cities</div></div>
+  </div>
+
+  <!-- Hero card -->
+  <div class="bg-surface-container-lowest rounded-2xl shadow-[0_12px_40px_rgba(0,10,30,0.07)] border border-outline-variant/10 p-6 md:p-8 max-w-4xl mx-auto mb-12">
+    <!-- Tabs -->
+    <div class="flex gap-2 flex-wrap mb-6">
+      <button onclick="hSwitch('hs-trains',this)" class="stab active text-sm font-bold font-headline px-4 py-2 rounded-xl border border-outline-variant/30 transition-all">🚆 Train Search</button>
+      <button onclick="hSwitch('hs-live',this)"   class="stab text-sm font-bold font-headline px-4 py-2 rounded-xl border border-outline-variant/30 bg-surface-container-low text-on-surface-variant transition-all">📍 Live Status</button>
+      <button onclick="hSwitch('hs-pnr',this)"    class="stab text-sm font-bold font-headline px-4 py-2 rounded-xl border border-outline-variant/30 bg-surface-container-low text-on-surface-variant transition-all">📋 PNR Check</button>
+      <button onclick="hSwitch('hs-fare',this)"   class="stab text-sm font-bold font-headline px-4 py-2 rounded-xl border border-outline-variant/30 bg-surface-container-low text-on-surface-variant transition-all">💰 Fare Calc</button>
+    </div>
+
+    <!-- TRAIN SEARCH -->
+    <div id="hs-trains" class="h-pane">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
+        <div class="md:col-span-4">
+          <label class="block text-xs font-bold text-on-surface-variant uppercase tracking-wide mb-1">From Station</label>
+          <input id="hf-from" list="dl-all" placeholder="New Delhi (NDLS)" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-secondary focus:border-secondary"/>
+        </div>
+        <div class="md:col-span-1 flex justify-center items-end pb-1">
+          <button onclick="swapI('hf-from','hf-to')" class="w-10 h-10 rounded-full bg-secondary/10 text-secondary hover:bg-secondary hover:text-white transition-all flex items-center justify-center">
+            <span class="material-symbols-outlined text-lg">swap_horiz</span>
+          </button>
+        </div>
+        <div class="md:col-span-4">
+          <label class="block text-xs font-bold text-on-surface-variant uppercase tracking-wide mb-1">To Station</label>
+          <input id="hf-to" list="dl-all" placeholder="Mumbai Central (BCT)" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-secondary focus:border-secondary"/>
+        </div>
+        <div class="md:col-span-3">
+          <label class="block text-xs font-bold text-on-surface-variant uppercase tracking-wide mb-1">Date of Journey</label>
+          <input id="hf-date" type="date" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-secondary focus:border-secondary"/>
+        </div>
+      </div>
+      <button onclick="goSearch()" class="mt-4 px-8 py-3 bg-primary text-white rounded-xl font-bold font-headline tracking-tight shadow-lg shadow-primary/10 hover:opacity-90 active:scale-95 transition-all flex items-center gap-2">
+        <span class="material-symbols-outlined text-lg">search</span> Search Trains
+      </button>
+    </div>
+
+    <!-- LIVE STATUS -->
+    <div id="hs-live" class="h-pane hidden">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
+        <div class="md:col-span-7">
+          <label class="block text-xs font-bold text-on-surface-variant uppercase tracking-wide mb-1">Train Number / Name</label>
+          <input id="hl-num" placeholder="e.g. 12301  or  Howrah Rajdhani" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-secondary focus:border-secondary"/>
+        </div>
+        <div class="md:col-span-3">
+          <label class="block text-xs font-bold text-on-surface-variant uppercase tracking-wide mb-1">Date</label>
+          <input id="hl-date" type="date" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-secondary focus:border-secondary"/>
+        </div>
+        <div class="md:col-span-2">
+          <button onclick="goLive()" class="w-full py-3 bg-primary text-white rounded-xl font-bold hover:opacity-90 transition-all">Track</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- PNR -->
+    <div id="hs-pnr" class="h-pane hidden">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
+        <div class="md:col-span-9">
+          <label class="block text-xs font-bold text-on-surface-variant uppercase tracking-wide mb-1">PNR Number</label>
+          <input id="hp-pnr" maxlength="10" placeholder="Enter 10-digit PNR" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-4 py-3 font-mono tracking-[.25em] text-sm focus:ring-2 focus:ring-secondary focus:border-secondary"/>
+        </div>
+        <div class="md:col-span-3">
+          <button onclick="goPNR()" class="w-full py-3 bg-primary text-white rounded-xl font-bold hover:opacity-90 transition-all">Check PNR</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- FARE -->
+    <div id="hs-fare" class="h-pane hidden">
+      <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
+        <div class="md:col-span-4">
+          <label class="block text-xs font-bold text-on-surface-variant uppercase tracking-wide mb-1">Train Type</label>
+          <select id="hfare-type" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-secondary focus:border-secondary">
+            <option value="SF">Superfast Express</option><option value="RAJ">Rajdhani Express</option>
+            <option value="SHT">Shatabdi Express</option><option value="VB">Vande Bharat</option>
+            <option value="TEJ">Tejas Express</option><option value="MAIL">Mail/Express</option>
+          </select>
+        </div>
+        <div class="md:col-span-4">
+          <label class="block text-xs font-bold text-on-surface-variant uppercase tracking-wide mb-1">Distance (km)</label>
+          <input id="hfare-km" type="number" min="1" placeholder="e.g. 1384" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-secondary focus:border-secondary"/>
+        </div>
+        <div class="md:col-span-4">
+          <button onclick="goFare()" class="w-full py-3 bg-primary text-white rounded-xl font-bold hover:opacity-90 transition-all">Calculate Fare</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Feature cards -->
+  <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-4xl mx-auto">
+    <div onclick="showView('live')" class="bg-surface-container-lowest rounded-2xl p-5 border border-outline-variant/10 hover:shadow-lg hover:-translate-y-1 transition-all cursor-pointer group">
+      <div class="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center mb-3 group-hover:bg-secondary/20 transition-all"><span class="material-symbols-outlined text-secondary">pace</span></div>
+      <div class="font-bold font-headline text-sm">Live Tracking</div>
+      <div class="text-xs text-on-surface-variant mt-1">Real-time delays &amp; platform</div>
+    </div>
+    <div onclick="showView('pnr')" class="bg-surface-container-lowest rounded-2xl p-5 border border-outline-variant/10 hover:shadow-lg hover:-translate-y-1 transition-all cursor-pointer group">
+      <div class="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center mb-3 group-hover:bg-secondary/20 transition-all"><span class="material-symbols-outlined text-secondary">confirmation_number</span></div>
+      <div class="font-bold font-headline text-sm">PNR Status</div>
+      <div class="text-xs text-on-surface-variant mt-1">Coach, berth &amp; chart</div>
+    </div>
+    <div onclick="showView('fare')" class="bg-surface-container-lowest rounded-2xl p-5 border border-outline-variant/10 hover:shadow-lg hover:-translate-y-1 transition-all cursor-pointer group">
+      <div class="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center mb-3 group-hover:bg-secondary/20 transition-all"><span class="material-symbols-outlined text-secondary">payments</span></div>
+      <div class="font-bold font-headline text-sm">Official Fares</div>
+      <div class="text-xs text-on-surface-variant mt-1">IR 2024 slab rates + GST</div>
+    </div>
+    <div onclick="showView('metro')" class="bg-surface-container-lowest rounded-2xl p-5 border border-outline-variant/10 hover:shadow-lg hover:-translate-y-1 transition-all cursor-pointer group">
+      <div class="w-10 h-10 rounded-xl bg-secondary/10 flex items-center justify-center mb-3 group-hover:bg-secondary/20 transition-all"><span class="material-symbols-outlined text-secondary">subway</span></div>
+      <div class="font-bold font-headline text-sm">Metro Guide</div>
+      <div class="text-xs text-on-surface-variant mt-1">12 cities · 40+ lines</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════ TRAIN SEARCH ══════════════════════ -->
+<section id="view-trains" class="view fade-up">
+  <div class="mb-8 flex flex-col md:flex-row md:items-end justify-between gap-4">
+    <div>
+      <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed rounded-full text-xs font-bold uppercase tracking-widest">Train Search</span>
+      <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-primary mt-3" id="tr-title">All Trains</h1>
+      <p class="text-on-surface-variant mt-1 text-sm flex items-center gap-2">
+        <span class="material-symbols-outlined text-sm">calendar_month</span><span id="tr-meta">—</span>
+      </p>
+    </div>
+    <div class="flex gap-3">
+      <button onclick="document.getElementById('tr-filter').classList.toggle('hidden')" class="px-4 py-2.5 bg-surface-container-low rounded-xl font-semibold text-sm flex items-center gap-2 hover:bg-surface-container transition-all">
+        <span class="material-symbols-outlined text-sm">filter_list</span>Filter
+      </button>
+      <button onclick="showView('home')" class="px-4 py-2.5 bg-primary text-white rounded-xl font-semibold text-sm hover:opacity-90 transition-all">Modify Search</button>
+    </div>
+  </div>
+
+  <!-- Filter bar -->
+  <div id="tr-filter" class="hidden bg-surface-container-lowest rounded-2xl border border-outline-variant/10 p-5 mb-6 grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
+    <div class="md:col-span-3"><label class="block text-xs font-bold text-on-surface-variant uppercase mb-1">From</label><input id="t-from" list="dl-all" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-3 py-2.5 text-sm"/></div>
+    <div class="md:col-span-1 flex justify-center"><button onclick="swapI('t-from','t-to')" class="w-9 h-9 rounded-full bg-secondary/10 text-secondary hover:bg-secondary hover:text-white flex items-center justify-center transition-all self-end"><span class="material-symbols-outlined text-base">swap_horiz</span></button></div>
+    <div class="md:col-span-3"><label class="block text-xs font-bold text-on-surface-variant uppercase mb-1">To</label><input id="t-to" list="dl-all" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-3 py-2.5 text-sm"/></div>
+    <div class="md:col-span-2"><label class="block text-xs font-bold text-on-surface-variant uppercase mb-1">Date</label><input id="t-date" type="date" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-3 py-2.5 text-sm"/></div>
+    <div class="md:col-span-2"><label class="block text-xs font-bold text-on-surface-variant uppercase mb-1">Type</label>
+      <select id="t-type" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-3 py-2.5 text-sm">
+        <option value="">All Types</option><option value="RAJ">Rajdhani</option><option value="SHT">Shatabdi</option>
+        <option value="VB">Vande Bharat</option><option value="SF">Superfast</option><option value="MAIL">Mail</option>
+        <option value="DUR">Duronto</option><option value="TEJ">Tejas</option><option value="EXP">Express</option>
+      </select>
+    </div>
+    <div class="md:col-span-1"><button onclick="runSearch()" class="w-full py-2.5 bg-primary text-white rounded-xl font-bold text-sm">Search</button></div>
+  </div>
+
+  <!-- Type chips -->
+  <div class="flex gap-2 flex-wrap mb-5" id="type-chips"></div>
+
+  <div id="tr-results" class="grid gap-5"></div>
+  <div id="tr-more" class="hidden mt-8 flex justify-center">
+    <button onclick="loadMore()" class="px-10 py-4 bg-surface-container text-on-surface-variant font-bold rounded-2xl hover:bg-surface-container-high hover:text-primary transition-all flex items-center gap-2">
+      Load More Trains <span class="material-symbols-outlined">expand_more</span>
+    </button>
+  </div>
+</section>
+
+<!-- ══════════════════════ LIVE STATUS ══════════════════════ -->
+<section id="view-live" class="view fade-up">
+  <div class="mb-8">
+    <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed rounded-full text-xs font-bold uppercase tracking-widest">📍 Live</span>
+    <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-primary mt-3">Train Live Status</h1>
+    <p class="text-on-surface-variant mt-1 text-sm">Real-time position, platform &amp; delay — auto-refreshes every 90 seconds</p>
+  </div>
+  <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 p-6 max-w-2xl mb-6">
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
+      <div class="md:col-span-7"><label class="block text-xs font-bold text-on-surface-variant uppercase mb-1">Train Number / Name</label><input id="l-num" placeholder="e.g. 12301  or  Howrah Rajdhani" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-secondary focus:border-secondary"/></div>
+      <div class="md:col-span-3"><label class="block text-xs font-bold text-on-surface-variant uppercase mb-1">Date</label><input id="l-date" type="date" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-secondary focus:border-secondary"/></div>
+      <div class="md:col-span-2"><button onclick="trackLive(true)" class="w-full py-3 bg-primary text-white rounded-xl font-bold hover:opacity-90 transition-all">Track</button></div>
+    </div>
+  </div>
+  <!-- Auto-refresh control -->
+  <div id="l-refresh-bar" class="hidden max-w-2xl flex items-center gap-3 mb-4 text-xs text-on-surface-variant">
+    <div class="refresh-ring" id="refresh-ring" style="--p:0%" onclick="trackLive(true)" title="Click to refresh now">
+      <div class="refresh-ring-inner"><span class="material-symbols-outlined text-secondary" style="font-size:14px">refresh</span></div>
+    </div>
+    <span>Auto-refreshing in <strong class="text-on-surface" id="refresh-countdown">90s</strong></span>
+    <button onclick="stopAutoRefresh()" class="ml-auto text-error hover:underline">Stop</button>
+  </div>
+  <div id="l-result" class="max-w-2xl"></div>
+</section>
+
+<!-- ══════════════════════ PNR ══════════════════════ -->
+<section id="view-pnr" class="view fade-up">
+  <div class="mb-8">
+    <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed rounded-full text-xs font-bold uppercase tracking-widest">📋 PNR Status</span>
+    <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-primary mt-3">Check PNR Status</h1>
+    <p class="text-on-surface-variant mt-1 text-sm">Get booking confirmation, coach, berth &amp; chart status instantly</p>
+  </div>
+  <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 p-6 max-w-lg mb-6">
+    <label class="block text-xs font-bold text-on-surface-variant uppercase mb-2">PNR Number</label>
+    <input id="p-pnr" maxlength="10" placeholder="Enter 10-digit PNR" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-4 py-4 font-mono tracking-[.3em] text-lg text-center focus:ring-2 focus:ring-secondary focus:border-secondary mb-3"/>
+    <button onclick="checkPNR()" class="w-full py-3.5 bg-primary text-white rounded-xl font-bold font-headline hover:opacity-90 active:scale-95 transition-all flex items-center justify-center gap-2">
+      <span class="material-symbols-outlined">confirmation_number</span> Check PNR Status
+    </button>
+  </div>
+  <div id="p-result" class="max-w-lg"></div>
+</section>
+
+<!-- ══════════════════════ FARE ══════════════════════ -->
+<section id="view-fare" class="view fade-up">
+  <div class="mb-8">
+    <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed rounded-full text-xs font-bold uppercase tracking-widest">💰 Fare Calculator</span>
+    <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-primary mt-3">Official Railway Fares</h1>
+    <p class="text-on-surface-variant mt-1 text-sm">Exact IR 2024 slab-based fares with reservation, superfast surcharge &amp; GST</p>
+  </div>
+  <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 p-6 max-w-3xl mb-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+      <div><label class="block text-xs font-bold text-on-surface-variant uppercase mb-1">From Station</label><input id="f-from" list="dl-all" placeholder="New Delhi (NDLS)" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-secondary focus:border-secondary"/></div>
+      <div><label class="block text-xs font-bold text-on-surface-variant uppercase mb-1">To Station</label><input id="f-to" list="dl-all" placeholder="Mumbai Central (BCT)" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-secondary focus:border-secondary"/></div>
+    </div>
+    <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
+      <div class="md:col-span-4"><label class="block text-xs font-bold text-on-surface-variant uppercase mb-1">Train Type</label>
+        <select id="f-type" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-secondary focus:border-secondary">
+          <option value="SF">Superfast Express</option><option value="MAIL">Mail / Express</option>
+          <option value="RAJ">Rajdhani Express</option><option value="SHT">Shatabdi Express</option>
+          <option value="VB">Vande Bharat Express</option><option value="TEJ">Tejas Express</option>
+          <option value="DUR">Duronto Express</option><option value="ICE">Intercity Express</option>
+          <option value="PASS">Passenger Train</option>
+        </select></div>
+      <div class="md:col-span-3"><label class="block text-xs font-bold text-on-surface-variant uppercase mb-1">Distance (km)</label><input id="f-km" type="number" min="1" placeholder="e.g. 1384" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-secondary focus:border-secondary"/></div>
+      <div class="md:col-span-3"><label class="block text-xs font-bold text-on-surface-variant uppercase mb-1">Passenger</label>
+        <select id="f-cat" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-secondary focus:border-secondary">
+          <option>Adult</option><option>Child (5-11 yrs)</option><option>Senior Citizen (Male)</option><option>Senior Citizen (Female)</option>
+        </select></div>
+      <div class="md:col-span-2"><button onclick="calcFare()" class="w-full py-3 bg-primary text-white rounded-xl font-bold hover:opacity-90 transition-all">Calculate</button></div>
+    </div>
+    <div id="f-result" class="mt-6"></div>
+  </div>
+  <div class="max-w-3xl bg-surface-container-low rounded-2xl p-5 text-xs text-on-surface-variant leading-relaxed">
+    <strong class="text-on-surface block mb-1.5">ℹ️ Official IR Fare Structure 2024</strong>
+    Reservation: 1A ₹60 · 2A ₹50 · 3A ₹40 · SL ₹25 · CC ₹40 · EC ₹60<br/>
+    Superfast surcharge: 1A/EC ₹75 · 2A ₹50 · 3A ₹40 · SL ₹30 · CC ₹45<br/>
+    GST: 5% on AC classes · Nil on SL/2S/GN · Catering included in Rajdhani/Shatabdi/VB/Tejas
+  </div>
+</section>
+
+<!-- ══════════════════════ METRO ══════════════════════ -->
+<section id="view-metro" class="view fade-up">
+  <div class="mb-8">
+    <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed rounded-full text-xs font-bold uppercase tracking-widest">🚇 Metro Rail</span>
+    <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-primary mt-3">India's Metro Networks</h1>
+    <p class="text-on-surface-variant mt-1 text-sm">12 operational metro systems — lines, stations &amp; interchanges</p>
+  </div>
+  <div id="metro-grid" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5"></div>
+</section>
+
+<!-- ══════════════════════ STATIONS ══════════════════════ -->
+<section id="view-stations" class="view fade-up">
+  <div class="mb-8">
+    <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed rounded-full text-xs font-bold uppercase tracking-widest">🏛️ Stations</span>
+    <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-primary mt-3">Railway Stations</h1>
+    <p class="text-on-surface-variant mt-1 text-sm">All major stations across 16 zones — filter by zone, state &amp; category</p>
+  </div>
+  <div class="flex flex-wrap gap-3 mb-5">
+    <input id="st-q" oninput="renderSt()" placeholder="🔍 Search station name or code…" class="flex-1 min-w-[200px] rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-2.5 text-sm font-medium"/>
+    <select id="st-zone" onchange="renderSt()" class="rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-2.5 text-sm font-medium">
+      <option value="">All Zones</option>
+      <option>NR</option><option>NCR</option><option>NER</option><option>NFR</option><option>NWR</option>
+      <option>ER</option><option>ECR</option><option>CR</option><option>WR</option><option>SCR</option>
+      <option>SR</option><option>SWR</option><option>SER</option><option>ECoR</option><option>WCR</option><option>SECR</option>
+    </select>
+    <select id="st-state" onchange="renderSt()" class="rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-2.5 text-sm font-medium"><option value="">All States</option></select>
+    <select id="st-cat" onchange="renderSt()" class="rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-2.5 text-sm font-medium">
+      <option value="">All Categories</option><option value="A1">A1 — Major Terminal</option>
+      <option value="A">A — Large Junction</option><option value="B">B — Major Station</option>
+      <option value="C">C — Junction</option><option value="D">D — Small Station</option>
+    </select>
+  </div>
+  <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 overflow-hidden">
+    <div class="overflow-x-auto">
+      <table class="w-full text-sm">
+        <thead class="bg-surface-container-low">
+          <tr class="text-left text-xs font-bold text-on-surface-variant uppercase tracking-wider">
+            <th class="px-4 py-3">Code</th><th class="px-4 py-3">Station</th><th class="px-4 py-3">City</th>
+            <th class="px-4 py-3">State</th><th class="px-4 py-3">Zone</th><th class="px-4 py-3">Cat.</th>
+            <th class="px-4 py-3">Platforms</th><th class="px-4 py-3">Trains/Day</th>
+          </tr>
+        </thead>
+        <tbody id="st-tbody"></tbody>
+      </table>
+    </div>
+  </div>
+  <div id="st-info" class="text-right text-xs text-on-surface-variant mt-2"></div>
+</section>
+
+</main>
+
+<!-- ══════ MOBILE BOTTOM NAV ══════ -->
+<div class="md:hidden fixed bottom-0 inset-x-0 bg-white/95 backdrop-blur-lg border-t border-outline-variant/10 flex justify-around items-center px-2 py-2.5 z-50">
+  <button onclick="showView('trains')"  class="btm-nav flex flex-col items-center gap-0.5 px-3" data-v="trains"><span class="material-symbols-outlined">train</span><span class="text-[10px] font-bold">Trains</span></button>
+  <button onclick="showView('live')"    class="btm-nav flex flex-col items-center gap-0.5 px-3" data-v="live"><span class="material-symbols-outlined">pace</span><span class="text-[10px] font-bold">Live</span></button>
+  <button onclick="showView('pnr')"     class="btm-nav flex flex-col items-center gap-0.5 px-3" data-v="pnr"><span class="material-symbols-outlined">confirmation_number</span><span class="text-[10px] font-bold">PNR</span></button>
+  <button onclick="showView('metro')"   class="btm-nav flex flex-col items-center gap-0.5 px-3" data-v="metro"><span class="material-symbols-outlined">subway</span><span class="text-[10px] font-bold">Metro</span></button>
+  <button onclick="showView('stations')" class="btm-nav flex flex-col items-center gap-0.5 px-3" data-v="stations"><span class="material-symbols-outlined">location_city</span><span class="text-[10px] font-bold">Stations</span></button>
+</div>
+
+<!-- ══════ FARE MODAL ══════ -->
+<div id="fare-modal" class="modal-bg" onclick="if(event.target===this)closeFareModal()">
+  <div class="bg-surface-container-lowest rounded-2xl p-6 max-w-2xl w-full max-h-[88vh] overflow-y-auto">
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="text-lg font-bold text-primary font-headline" id="fm-title">Fare Breakup</h3>
+      <button onclick="closeFareModal()" class="p-1.5 hover:bg-surface-container rounded-full"><span class="material-symbols-outlined">close</span></button>
+    </div>
+    <div id="fm-body"></div>
+  </div>
+</div>
+
+<!-- ══════ METRO MODAL ══════ -->
+<div id="metro-modal" class="modal-bg" onclick="if(event.target===this)closeMetroModal()">
+  <div class="bg-surface-container-lowest rounded-2xl p-6 max-w-2xl w-full max-h-[88vh] overflow-y-auto">
+    <button onclick="closeMetroModal()" class="float-right p-1.5 hover:bg-surface-container rounded-full"><span class="material-symbols-outlined">close</span></button>
+    <div id="metro-modal-body"></div>
+  </div>
+</div>
+
+<!-- FAB -->
+<div class="hidden md:block fixed bottom-6 right-6 z-40">
+  <button onclick="showView('fare')" class="bg-secondary text-white w-14 h-14 rounded-2xl shadow-2xl flex items-center justify-center hover:scale-110 active:scale-95 transition-all" title="Fare Calculator">
+    <span class="material-symbols-outlined text-2xl">payments</span>
+  </button>
+</div>
+
+<datalist id="dl-all"></datalist>
+
+<!-- ══════════════════════ SCRIPTS ══════════════════════ -->
+<script src="/js/data.js"></script>
+<script src="/js/fare.js"></script>
+<script>
+/* ══════════════════════════════════════════════════════
+   VIEW ROUTER
+   ══════════════════════════════════════════════════════ */
+function showView(v) {
+  document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
+  document.getElementById('view-'+v).classList.add('active');
+  document.querySelectorAll('.nav-lnk').forEach(a => {
+    const on = a.dataset.v === v;
+    a.classList.toggle('active', on);
+    a.classList.toggle('text-on-surface/60', !on);
+  });
+  document.querySelectorAll('.btm-nav').forEach(b => {
+    const on = b.dataset.v === v;
+    b.classList.toggle('text-secondary', on);
+    b.classList.toggle('text-on-surface-variant', !on);
+  });
+  window.scrollTo({ top:0, behavior:'smooth' });
+  stopAutoRefresh();
+}
+function hSwitch(id, btn) {
+  document.querySelectorAll('.h-pane').forEach(p => p.classList.add('hidden'));
+  document.getElementById(id).classList.remove('hidden');
+  document.querySelectorAll('.stab').forEach(b => {
+    b.classList.remove('active','bg-secondary','text-white','border-secondary');
+    b.classList.add('bg-surface-container-low','text-on-surface-variant');
+  });
+  btn.classList.add('active'); btn.classList.remove('bg-surface-container-low','text-on-surface-variant');
+}
+function swapI(a, b) { const ea=document.getElementById(a),eb=document.getElementById(b);[ea.value,eb.value]=[eb.value,ea.value]; }
+function toggleMobileMenu() { document.getElementById('mobile-menu').classList.toggle('hidden'); }
+
+/* ══════════════════════════════════════════════════════
+   INIT
+   ══════════════════════════════════════════════════════ */
+let filteredTrains = [], visibleCount = 8;
+let refreshTimer = null, refreshCountdown = 90, countdownTimer = null;
+
+document.addEventListener('DOMContentLoaded', () => {
+  const today = new Date().toISOString().split('T')[0];
+  document.querySelectorAll('input[type=date]').forEach(el => el.value = today);
+
+  // Datalist
+  const dl = document.getElementById('dl-all');
+  (window.STATIONS||[]).forEach(s => {
+    const o = document.createElement('option'); o.value = `${s.c} – ${s.n}`; dl.appendChild(o);
+  });
+
+  // State filter
+  const states = [...new Set((window.STATIONS||[]).map(s=>s.st))].sort();
+  const sel = document.getElementById('st-state');
+  states.forEach(st => { const o=document.createElement('option'); o.textContent=st; sel.appendChild(o); });
+
+  // Stats
+  document.getElementById('h-stat-trains').textContent   = (window.TRAINS||[]).length + '+';
+  document.getElementById('h-stat-stations').textContent = (window.STATIONS||[]).length + '+';
+
+  // Type chips
+  const CHIP = {ALL:'All',RAJ:'🟡 Rajdhani',SHT:'🔵 Shatabdi',VB:'🟣 Vande Bharat',SF:'⚡ Superfast',MAIL:'📮 Mail',DUR:'🔴 Duronto',TEJ:'⭐ Tejas',EXP:'Express'};
+  const chipWrap = document.getElementById('type-chips');
+  ['ALL','RAJ','SHT','VB','SF','MAIL','DUR','TEJ','EXP'].forEach(t => {
+    const b = document.createElement('button');
+    b.textContent = CHIP[t]; b.dataset.type = t;
+    b.className = 'px-3 py-1.5 rounded-full text-xs font-bold border border-outline-variant/30 bg-surface-container-lowest text-on-surface-variant hover:bg-secondary/10 hover:text-secondary hover:border-secondary/30 transition-all';
+    b.onclick = () => { document.querySelectorAll('#type-chips button').forEach(x=>x.classList.remove('bg-secondary','text-white','border-secondary'));
+      b.classList.add('bg-secondary','text-white','border-secondary');
+      document.getElementById('t-type').value = t==='ALL'?'':t; runSearch(); };
+    chipWrap.appendChild(b);
+  });
+  chipWrap.firstChild.click();
+
+  filteredTrains = window.TRAINS || [];
+  renderTrainCards();
+  renderMetro();
+  renderSt();
+  checkHealth();
+  setTicker();
+});
+
+/* ══════════════════════════════════════════════════════
+   HEALTH CHECK
+   ══════════════════════════════════════════════════════ */
+async function checkHealth() {
+  try {
+    const r = await fetch('/api/health'); const d = await r.json();
+    const badge = document.getElementById('api-badge');
+    if (d.mode.startsWith('live')) {
+      badge.textContent = '🟢 LIVE'; badge.className = 'text-[10px] font-bold px-2.5 py-1 rounded-full badge-live';
+    } else {
+      badge.textContent = '🟡 SIM'; badge.className = 'text-[10px] font-bold px-2.5 py-1 rounded-full badge-sim';
+    }
+  } catch { document.getElementById('api-badge').textContent = '⚪ LOCAL'; }
+}
+
+/* ══════════════════════════════════════════════════════
+   TICKER
+   ══════════════════════════════════════════════════════ */
+function setTicker() {
+  const alerts = [
+    '12301 Howrah Rajdhani — 18 min late at Asansol',
+    '20501 Vande Bharat NDLS–Katra — Running on time',
+    '12951 Mumbai Rajdhani — 25 min late, fog',
+    '12621 Tamil Nadu Express — Departed 7 min early',
+    'Block maintenance Mumbai CST–Kalyan 01:00–04:00',
+    'New Vande Bharat services added on 22 more routes',
+    'Summer Special trains open for booking on IRCTC',
+    '15905 Vivek Express — World longest 4,273 km route',
+  ];
+  document.getElementById('ticker-text').textContent = alerts.join(' \u00a0•\u00a0 ');
+}
+
+/* ══════════════════════════════════════════════════════
+   HOME SHORTCUTS
+   ══════════════════════════════════════════════════════ */
+function goSearch() {
+  document.getElementById('t-from').value = document.getElementById('hf-from').value;
+  document.getElementById('t-to').value   = document.getElementById('hf-to').value;
+  document.getElementById('t-date').value = document.getElementById('hf-date').value;
+  showView('trains'); runSearch();
+}
+function goLive() {
+  document.getElementById('l-num').value  = document.getElementById('hl-num').value;
+  document.getElementById('l-date').value = document.getElementById('hl-date').value;
+  showView('live'); trackLive(true);
+}
+function goPNR() {
+  document.getElementById('p-pnr').value = document.getElementById('hp-pnr').value;
+  showView('pnr'); checkPNR();
+}
+function goFare() {
+  document.getElementById('f-type').value = document.getElementById('hfare-type').value;
+  document.getElementById('f-km').value   = document.getElementById('hfare-km').value;
+  showView('fare'); calcFare();
+}
+
+/* ══════════════════════════════════════════════════════
+   TRAIN SEARCH + CARDS
+   ══════════════════════════════════════════════════════ */
+const TYPE_LBL = {RAJ:'RAJDHANI',SHT:'SHATABDI',VB:'VANDE BHARAT',SF:'SUPERFAST',MAIL:'MAIL',DUR:'DURONTO',TEJ:'TEJAS',ICE:'INTERCITY',EXP:'EXPRESS',PASS:'PASSENGER',GR:'GARIB RATH'};
+const TYPE_CLR = {RAJ:'#e8a000',SHT:'#0058bc',VB:'#9333ea',SF:'#16a34a',MAIL:'#ea580c',DUR:'#dc2626',TEJ:'#d97706',EXP:'#6b7280',ICE:'#0891b2',PASS:'#71717a',GR:'#16a34a'};
+
+function parseQ(v) { return v.split('–')[0].trim().toLowerCase(); }
+function matchSt(q, code, name) {
+  const s = parseQ(q); if (!s) return true;
+  return code.toLowerCase().startsWith(s) || code.toLowerCase().includes(s) || name.toLowerCase().includes(s);
+}
+
+function runSearch() {
+  const from = document.getElementById('t-from').value;
+  const to   = document.getElementById('t-to').value;
+  const type = document.getElementById('t-type').value;
+  let trains = window.TRAINS || [];
+  if (from) trains = trains.filter(t => matchSt(from, t.fc, t.fn));
+  if (to)   trains = trains.filter(t => matchSt(to,   t.tc, t.tn));
+  if (type) trains = trains.filter(t => t.type === type);
+  filteredTrains = trains; visibleCount = 8;
+
+  const fn = from ? (from.split('–').pop()?.trim() || from) : 'All';
+  const tn = to   ? (to.split('–').pop()?.trim()   || to)   : 'All';
+  document.getElementById('tr-title').innerHTML = (from||to)
+    ? `${fn} <span class="text-secondary mx-1">→</span> ${tn}` : 'All Trains';
+  const d = document.getElementById('t-date').value;
+  const ds = d ? new Date(d).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}) : '';
+  document.getElementById('tr-meta').textContent = `${ds?ds+' · ':''}General Quota · ${trains.length} trains found`;
+  renderTrainCards();
+}
+
+function dayPills(days) {
+  return Array.from(days).map((d,i)=>`<span class="day-pill inline-flex w-6 h-6 rounded items-center justify-center text-[10px] font-bold ${d!=='_'?'day-on':'day-off'}" title="${['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][i]}">${'MTWTFSS'[i]}</span>`).join('');
+}
+
+function avChip(cls, dist, type, seed, i) {
+  const fares = window.FARE.calc(dist, type);
+  const f = fares[cls]; if (!f) return '';
+  const rng = ((seed*1103515245)+(12345*(i+1)))&0x7fffffff;
+  const r = (rng/0x7fffffff);
+  let lb, ac, dc, op='';
+  if(r>.56){lb=`Available — ${Math.floor(r*120)+1}`;ac='text-green-600';dc='bg-green-500';}
+  else if(r>.32){lb=`WL ${Math.floor(r*40)+1}`;ac='text-amber-600';dc='bg-amber-500';}
+  else if(r>.14){lb=`RAC ${Math.floor(r*15)+1}`;ac='text-blue-600';dc='bg-blue-500';}
+  else{lb='REGRET';ac='text-error';dc='bg-error';op='opacity-50';}
+  const CN={'1A':'AC 1st','2A':'AC 2-Tier','3A':'AC 3-Tier','3E':'AC Economy','SL':'Sleeper','CC':'Chair Car','EC':'Exec Chair','2S':'2nd Sitting','GN':'General'};
+  return `<div class="p-4 bg-surface-container-low rounded-xl border border-transparent hover:border-secondary/20 cursor-pointer transition-all ${op}" onclick="openFareModal(this)" data-km="${dist}" data-type="${type}">
+    <div class="flex justify-between items-start mb-2">
+      <span class="font-bold text-primary">${cls}</span><span class="text-xs text-on-surface-variant">${CN[cls]||cls}</span>
+    </div>
+    <div class="${ac} font-bold text-xs mb-1.5 flex items-center gap-1.5"><span class="w-2 h-2 rounded-full ${dc} shrink-0"></span>${lb}</div>
+    <div class="text-xl font-black text-primary">₹${f.total.toLocaleString('en-IN')}</div>
+    <div class="text-[10px] text-on-surface-variant mt-0.5">Base ₹${f.base.toLocaleString()} + charges</div>
+  </div>`;
+}
+
+function trainCard(t, idx) {
+  const clr = TYPE_CLR[t.type]||'#6b7280';
+  const isFirst = idx === 0;
+  const footerBg = isFirst ? 'bg-primary-container' : 'bg-surface-container-low';
+  const footerTxt = isFirst ? 'text-white/70 hover:text-white' : 'text-on-surface-variant hover:text-primary';
+  const btnCls = isFirst ? 'bg-secondary hover:scale-[1.02]' : 'bg-primary hover:opacity-90';
+  const seed = parseInt(t.num);
+
+  return `<div class="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-[0_8px_32px_rgba(0,10,30,0.05)] border border-outline-variant/10 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200">
+  <div class="p-6 md:p-8">
+    <div class="flex flex-col md:flex-row justify-between gap-4 mb-6">
+      <div class="flex items-start gap-4">
+        <div class="w-12 h-12 rounded-xl flex items-center justify-center shrink-0" style="background:${clr}18">
+          <span class="material-symbols-outlined" style="color:${clr}">train</span>
+        </div>
+        <div>
+          <h3 class="text-lg md:text-xl font-bold text-primary tracking-tight">${t.num} · ${t.name.toUpperCase()}</h3>
+          <div class="flex items-center gap-2 mt-1.5 flex-wrap">
+            <div class="flex gap-1">${dayPills(t.days)}</div>
+            <span class="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full" style="background:${clr}18;color:${clr}">${TYPE_LBL[t.type]||t.type}</span>
+          </div>
+        </div>
+      </div>
+      <div class="flex items-center gap-4 md:gap-8 shrink-0">
+        <div class="text-center">
+          <div class="text-2xl font-black text-primary">${t.dep}</div>
+          <div class="text-xs font-bold text-on-surface-variant uppercase tracking-tight mt-0.5">${t.fc}</div>
+        </div>
+        <div class="flex flex-col items-center px-2">
+          <span class="text-[10px] font-bold text-secondary uppercase tracking-widest mb-1">${t.dur}</span>
+          <div class="w-24 md:w-32 h-0.5 bg-surface-variant relative">
+            <div class="absolute -left-1 -top-[3px] w-2 h-2 rounded-full border-2 border-secondary bg-white"></div>
+            <div class="absolute -right-1 -top-[3px] w-2 h-2 rounded-full bg-secondary"></div>
+          </div>
+          <span class="text-[10px] text-on-surface-variant mt-1">${t.stops} stops · ${t.dist.toLocaleString()} km</span>
+        </div>
+        <div class="text-center">
+          <div class="text-2xl font-black text-primary">${t.arr}${t.ad>0?`<sup class="text-xs text-secondary ml-0.5">+${t.ad}</sup>`:''}</div>
+          <div class="text-xs font-bold text-on-surface-variant uppercase tracking-tight mt-0.5">${t.tc}</div>
+        </div>
+      </div>
+    </div>
+    <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
+      ${t.cls.map((c,i) => avChip(c, t.dist, t.type, seed, i)).join('')}
+    </div>
+  </div>
+  <div class="px-6 md:px-8 py-4 ${footerBg} flex justify-between items-center">
+    <button class="${footerTxt} flex items-center gap-2 text-sm font-semibold transition-colors"
+      onclick="openFareModal(this)" data-km="${t.dist}" data-type="${t.type}" data-num="${t.num}" data-name="${t.name.replace(/"/g,'&quot;')}">
+      <span class="material-symbols-outlined text-base">info</span>Full Fare Breakup
+    </button>
+    <button onclick="quickTrack('${t.num}')" class="${btnCls} text-white px-6 py-2.5 rounded-xl font-bold text-sm tracking-tight active:scale-95 transition-all shadow-md">
+      📍 Track Live
+    </button>
+  </div>
+</div>`;
+}
+
+function renderTrainCards() {
+  const wrap = document.getElementById('tr-results');
+  if (!filteredTrains.length) {
+    wrap.innerHTML = `<div class="text-center py-20 text-on-surface-variant"><span class="material-symbols-outlined text-5xl block mb-3">search_off</span><p class="font-semibold">No trains found.<br/><span class="font-normal text-sm">Try different stations or remove filters.</span></p></div>`;
+    document.getElementById('tr-more').classList.add('hidden'); return;
+  }
+  wrap.innerHTML = filteredTrains.slice(0,visibleCount).map((t,i)=>trainCard(t,i)).join('');
+  document.getElementById('tr-more').classList.toggle('hidden', visibleCount >= filteredTrains.length);
+}
+function loadMore() { visibleCount += 8; renderTrainCards(); }
+function quickTrack(num) { document.getElementById('l-num').value=num; showView('live'); trackLive(true); }
+
+/* ══════════════════════════════════════════════════════
+   FARE MODAL
+   ══════════════════════════════════════════════════════ */
+function openFareModal(btn) {
+  const km   = parseInt(btn.dataset.km);
+  const type = btn.dataset.type;
+  const num  = btn.dataset.num || '';
+  const name = btn.dataset.name || type;
+  document.getElementById('fm-title').textContent = num ? `#${num} · ${name}` : `Fare — ${type} (${km} km)`;
+  document.getElementById('fm-body').innerHTML = window.FARE.renderBreakup(km, type);
+  document.getElementById('fare-modal').classList.add('open');
+}
+function closeFareModal() { document.getElementById('fare-modal').classList.remove('open'); }
+
+/* ══════════════════════════════════════════════════════
+   FARE CALCULATOR PAGE
+   ══════════════════════════════════════════════════════ */
+function calcFare() {
+  const km   = parseInt(document.getElementById('f-km').value) || 1384;
+  const type = document.getElementById('f-type').value;
+  const cat  = document.getElementById('f-cat').value;
+  document.getElementById('f-result').innerHTML = window.FARE.renderBreakup(km, type, cat);
+}
+
+/* ══════════════════════════════════════════════════════
+   LIVE STATUS  – auto-refresh every 90s
+   ══════════════════════════════════════════════════════ */
+function stopAutoRefresh() {
+  clearInterval(refreshTimer); clearInterval(countdownTimer);
+  refreshTimer = countdownTimer = null;
+  document.getElementById('l-refresh-bar').classList.add('hidden');
+}
+
+function startAutoRefresh() {
+  stopAutoRefresh();
+  refreshCountdown = 90;
+  document.getElementById('l-refresh-bar').classList.remove('hidden');
+  updateRefreshRing();
+  countdownTimer = setInterval(() => {
+    refreshCountdown--;
+    document.getElementById('refresh-countdown').textContent = refreshCountdown + 's';
+    updateRefreshRing();
+    if (refreshCountdown <= 0) { trackLive(false); refreshCountdown = 90; }
+  }, 1000);
+}
+function updateRefreshRing() {
+  const pct = ((90 - refreshCountdown) / 90) * 100;
+  document.getElementById('refresh-ring').style.setProperty('--p', pct.toFixed(1) + '%');
+}
+
+async function trackLive(resetRefresh=true) {
+  const input = document.getElementById('l-num').value.trim();
+  const date  = document.getElementById('l-date').value;
+  const out   = document.getElementById('l-result');
+  if (!input) { out.innerHTML=`<p class="text-error text-sm font-medium">Please enter a train number or name.</p>`; return; }
+
+  if (resetRefresh) {
+    out.innerHTML = `<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 p-6 flex items-center gap-3 text-on-surface-variant text-sm">
+      <span class="material-symbols-outlined spin text-secondary">progress_activity</span>Fetching live data from NTES…
+    </div>`;
+  }
+
+  const m = input.match(/\d{4,5}/);
+  const found = !m && (window.TRAINS||[]).find(t=>t.name.toLowerCase().includes(input.toLowerCase()));
+  const num = m ? m[0] : (found?.num || '12301');
+
+  try {
+    const r = await fetch(`/api/live/${num}?date=${date}`);
+    if (!r.ok) throw new Error(await r.text());
+    const d = await r.json();
+    out.innerHTML = renderLive(d);
+    if (resetRefresh) startAutoRefresh();
+  } catch(e) {
+    out.innerHTML = `<div class="bg-error-container text-on-error-container rounded-2xl p-5 text-sm">
+      <strong>Connection error.</strong> Make sure the server is running.<br/><code class="text-xs opacity-70">${e.message}</code>
+    </div>`;
+  }
+}
+
+function renderLive(d) {
+  const stops  = d.stops || [];
+  const curr   = stops.find(s=>s.status==='current') || stops[0] || {};
+  const delay  = d.delay_mins || 0;
+  const srcCls = d.source?.startsWith('live') ? 'badge-live' : d.cached ? 'bg-blue-50 text-blue-700' : 'badge-sim';
+  const srcTxt = d.source?.startsWith('live') ? '🟢 LIVE' : d.cached ? '💾 CACHED' : '🟡 SIM';
+
+  return `
+<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 p-5 mb-4">
+  <div class="flex justify-between items-start flex-wrap gap-2 mb-3">
+    <div>
+      <h3 class="text-lg font-bold text-primary font-headline">${d.train_name}</h3>
+      <p class="text-xs text-on-surface-variant mt-0.5">#${d.train_number} &nbsp;·&nbsp; ${d.from||''} → ${d.to||''}</p>
+    </div>
+    <span class="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full ${srcCls}">${srcTxt}</span>
+  </div>
+  <div class="flex items-center gap-2 text-sm font-semibold ${delay>0?'text-error':'text-green-600'}">
+    <span class="material-symbols-outlined text-lg">${delay>0?'warning':'check_circle'}</span>
+    ${delay>0?`Running ${delay} minutes late`:'Running on time'}
+  </div>
+  <div class="text-xs text-on-surface-variant mt-1">
+    Last reported at: <strong class="text-on-surface">${curr.st||'—'} (${curr.code||'—'})</strong>
+    &nbsp;·&nbsp; Updated: ${new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})}
+  </div>
+</div>
+<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 p-5">
+  ${stops.map((s,i,arr)=>`
+  <div class="flex gap-4">
+    <div class="flex flex-col items-center">
+      <div class="w-4 h-4 rounded-full border-2 shrink-0 mt-0.5 ${s.status==='departed'?'bg-green-500 border-green-500':s.status==='current'?'bg-secondary border-secondary pulse':'bg-white border-outline-variant'}"></div>
+      ${i<arr.length-1?'<div class="w-0.5 flex-1 bg-outline-variant/30 my-1 min-h-[28px]"></div>':''}
+    </div>
+    <div class="pb-5 flex-1 min-w-0">
+      <div class="flex justify-between items-start gap-2">
+        <div>
+          <span class="font-semibold text-sm">${s.st}</span>
+          <span class="text-on-surface-variant text-xs ml-1">(${s.code})</span>
+          ${s.platform?`<span class="text-[10px] font-bold bg-secondary/10 text-secondary px-1.5 py-0.5 rounded ml-2">${s.platform}</span>`:''}
+        </div>
+        ${s.status==='current'?`<span class="text-[10px] font-bold text-secondary bg-secondary/10 px-2 py-0.5 rounded-full shrink-0">● HERE</span>`:''}
+      </div>
+      <div class="text-xs text-on-surface-variant font-mono mt-0.5">
+        Arr: ${s.actualArr||s.arr||'--'} &nbsp;·&nbsp; Dep: ${s.dep||'--'}
+        ${s.delay>0?`<span class="text-error ml-2">+${s.delay}m late</span>`:''}
+      </div>
+      <div class="text-xs font-semibold mt-0.5 ${s.status==='departed'?'text-green-600':s.status==='current'?'text-secondary':'text-on-surface-variant'}">
+        ${s.status==='departed'?'✓ Departed':s.status==='current'?'▶ Currently here':'○ Scheduled'}
+      </div>
+    </div>
+  </div>`).join('')}
+</div>`;
+}
+
+/* ══════════════════════════════════════════════════════
+   PNR
+   ══════════════════════════════════════════════════════ */
+async function checkPNR() {
+  const pnr = document.getElementById('p-pnr').value.trim();
+  const out = document.getElementById('p-result');
+  if (!/^\d{10}$/.test(pnr)) { out.innerHTML=`<p class="text-error text-sm font-medium">Enter a valid 10-digit PNR number.</p>`; return; }
+
+  out.innerHTML = `<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 p-6 flex items-center gap-3 text-on-surface-variant text-sm">
+    <span class="material-symbols-outlined spin text-secondary">progress_activity</span>Checking PNR status…
+  </div>`;
+
+  try {
+    const r = await fetch(`/api/pnr/${pnr}`);
+    if (!r.ok) throw new Error(await r.text());
+    const d = await r.json();
+    out.innerHTML = renderPNR(d);
+  } catch(e) {
+    out.innerHTML = `<div class="bg-error-container text-on-error-container rounded-2xl p-5 text-sm"><strong>Error:</strong> ${e.message}</div>`;
+  }
+}
+
+function renderPNR(d) {
+  const p = d.passengers?.[0] || {};
+  const stat  = p.booking_status || p.current_status || '';
+  const isCNF = stat === 'CNF' || p.current_status?.startsWith('Coach');
+  const isRAC = stat === 'RAC' || p.current_status?.startsWith('RAC');
+  const clr   = isCNF ? 'text-green-600' : isRAC ? 'text-blue-600' : 'text-amber-600';
+  const srcCls= d.source?.startsWith('live') ? 'badge-live' : 'badge-sim';
+  const srcTxt= d.source?.startsWith('live') ? '🟢 LIVE' : '🟡 SIMULATED';
+
+  const rows = [
+    ['PNR Number',     `<span class="font-mono tracking-[.2em]">${d.pnr}</span>`],
+    ['Train',          `${d.train_name} <span class="text-on-surface-variant">#${d.train_number}</span>`],
+    ['From → To',      `${d.boarding} (${d.boarding_code||''}) → ${d.destination} (${d.dest_code||''})`],
+    ['Date of Journey',d.journey_date||'–'],
+    ['Class / Quota',  `${d.travel_class} / ${d.quota}`],
+    ['Current Status', `<span class="font-bold ${clr}">${p.current_status||stat}</span>`],
+    ['Coach',          p.coach||'–'],
+    ['Chart Status',   `<span class="${isCNF?'text-green-600':''}">${d.chart_status}</span>`],
+  ];
+
+  return `<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 p-5">
+    <div class="flex justify-between items-center mb-4">
+      <h3 class="font-bold text-primary font-headline">${d.train_name}</h3>
+      <span class="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full ${srcCls}">${srcTxt}</span>
+    </div>
+    <div class="divide-y divide-outline-variant/10">
+      ${rows.map(([k,v])=>`<div class="flex justify-between items-center py-2.5 gap-4"><span class="text-on-surface-variant text-sm shrink-0">${k}</span><span class="font-semibold text-sm text-right">${v}</span></div>`).join('')}
+    </div>
+    ${d.passengers?.length>1?`<div class="mt-4 pt-4 border-t border-outline-variant/10">
+      <div class="text-xs font-bold text-on-surface-variant uppercase mb-2">All Passengers</div>
+      ${d.passengers.map((p,i)=>`<div class="flex justify-between py-1.5 text-sm"><span class="text-on-surface-variant">Passenger ${i+1}</span><span class="font-semibold">${p.current_status||p.booking_status}</span></div>`).join('')}
+    </div>`:''}
+  </div>`;
+}
+
+/* ══════════════════════════════════════════════════════
+   METRO
+   ══════════════════════════════════════════════════════ */
+function renderMetro() {
+  document.getElementById('metro-grid').innerHTML = (window.METROS||[]).map(m=>`
+<div onclick="openMetroModal('${m.id}')" class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 p-5 cursor-pointer hover:shadow-lg hover:-translate-y-1 transition-all relative overflow-hidden">
+  <div class="absolute left-0 top-0 bottom-0 w-1 rounded-l-2xl" style="background:${m.color}"></div>
+  <div class="flex items-center gap-3 mb-4">
+    <div class="w-11 h-11 rounded-xl flex items-center justify-center text-xl" style="background:${m.color}15;color:${m.color}">${m.icon}</div>
+    <div><div class="font-bold font-headline">${m.city} Metro</div><div class="text-xs text-on-surface-variant">${m.name}</div></div>
+  </div>
+  <div class="flex flex-wrap gap-1.5 mb-4">
+    ${m.lines.slice(0,4).map(l=>`<span class="text-[10px] font-bold px-2 py-1 rounded-full" style="background:${l.c}18;color:${l.c}">${l.n.split('(')[0].trim()}</span>`).join('')}
+    ${m.lines.length>4?`<span class="text-[10px] font-bold px-2 py-1 rounded-full bg-surface-container text-on-surface-variant">+${m.lines.length-4}</span>`:''}
+  </div>
+  <div class="flex gap-5">
+    <div><div class="text-lg font-black text-secondary">${m.totalSt}</div><div class="text-[10px] text-on-surface-variant uppercase">Stations</div></div>
+    <div><div class="text-lg font-black text-secondary">${m.km} km</div><div class="text-[10px] text-on-surface-variant uppercase">Network</div></div>
+    <div><div class="text-lg font-black text-secondary">${m.lines.length}</div><div class="text-[10px] text-on-surface-variant uppercase">Lines</div></div>
+  </div>
+</div>`).join('');
+}
+
+function openMetroModal(id) {
+  const m = (window.METROS||[]).find(x=>x.id===id); if(!m) return;
+  document.getElementById('metro-modal-body').innerHTML = `
+<div class="flex items-center gap-3 mb-6">
+  <div class="w-14 h-14 rounded-2xl flex items-center justify-center text-2xl" style="background:${m.color}18;color:${m.color}">${m.icon}</div>
+  <div><h3 class="text-xl font-bold text-primary font-headline">${m.city} Metro</h3><div class="text-sm text-on-surface-variant">${m.name}</div></div>
+</div>
+<div class="grid grid-cols-3 gap-3 mb-6">
+  <div class="bg-surface-container-low rounded-xl p-4 text-center"><div class="text-2xl font-black text-secondary">${m.totalSt}</div><div class="text-[10px] text-on-surface-variant uppercase">Stations</div></div>
+  <div class="bg-surface-container-low rounded-xl p-4 text-center"><div class="text-2xl font-black text-secondary">${m.km} km</div><div class="text-[10px] text-on-surface-variant uppercase">Network</div></div>
+  <div class="bg-surface-container-low rounded-xl p-4 text-center"><div class="text-2xl font-black text-secondary">${m.lines.length}</div><div class="text-[10px] text-on-surface-variant uppercase">Lines</div></div>
+</div>
+<div class="font-bold text-xs text-secondary uppercase tracking-wider mb-2">Lines</div>
+<div class="flex flex-wrap gap-2 mb-6">${m.lines.map(l=>`<span class="text-xs font-bold px-3 py-1.5 rounded-full" style="background:${l.c}18;color:${l.c}">${l.n} ${l.st?`<span class="opacity-60">(${l.st} st)</span>`:''}</span>`).join('')}</div>
+<div class="font-bold text-xs text-secondary uppercase tracking-wider mb-2">Key Stations</div>
+<div class="grid grid-cols-2 md:grid-cols-3 gap-2">
+  ${m.stations.map(s=>`<div class="bg-surface-container-low rounded-xl p-3 ${s.int?'ring-1 ring-secondary/30':''}">
+    <div class="text-[10px] font-bold text-secondary font-mono">${s.c}${s.int?' ⇄':''}</div>
+    <div class="font-semibold text-sm leading-tight">${s.n}</div>
+    <div class="text-[10px] text-on-surface-variant">${s.l}</div>
+  </div>`).join('')}
+</div>`;
+  document.getElementById('metro-modal').classList.add('open');
+}
+function closeMetroModal() { document.getElementById('metro-modal').classList.remove('open'); }
+
+/* ══════════════════════════════════════════════════════
+   STATIONS TABLE
+   ══════════════════════════════════════════════════════ */
+function renderSt() {
+  const q    = (document.getElementById('st-q')?.value||'').toLowerCase();
+  const zone = document.getElementById('st-zone')?.value || '';
+  const st   = document.getElementById('st-state')?.value || '';
+  const cat  = document.getElementById('st-cat')?.value || '';
+  const data = (window.STATIONS||[]).filter(s=>
+    (!q || s.n.toLowerCase().includes(q)||s.c.toLowerCase().includes(q)||s.city.toLowerCase().includes(q)) &&
+    (!zone || s.z===zone) && (!st || s.st===st) && (!cat || s.cat===cat)
+  );
+  document.getElementById('st-tbody').innerHTML = data.slice(0,200).map(s=>`
+<tr class="border-t border-outline-variant/10 hover:bg-surface-container-low/60 transition-colors">
+  <td class="px-4 py-2.5 font-mono font-bold text-secondary text-xs">${s.c}</td>
+  <td class="px-4 py-2.5 font-semibold text-sm">${s.n}</td>
+  <td class="px-4 py-2.5 text-on-surface-variant text-sm">${s.city}</td>
+  <td class="px-4 py-2.5 text-on-surface-variant text-sm">${s.st}</td>
+  <td class="px-4 py-2.5"><span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-secondary/10 text-secondary">${s.z}</span></td>
+  <td class="px-4 py-2.5 text-on-surface-variant text-xs">Cat-${s.cat}</td>
+  <td class="px-4 py-2.5"><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700">${s.pf}</span></td>
+  <td class="px-4 py-2.5 text-on-surface-variant text-sm">${s.tr}</td>
+</tr>`).join('');
+  document.getElementById('st-info').textContent =
+    `Showing ${Math.min(data.length,200)} of ${data.length} stations (${(window.STATIONS||[]).length} total)`;
+}
+</script>
+</body>
+</html>
