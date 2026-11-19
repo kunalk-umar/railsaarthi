@@ -5,8 +5,12 @@
 [![Indian Railways](https://img.shields.io/badge/Data_Pack-November_2026-brightgreen.svg)](#)
 [![Vande Bharat](https://img.shields.io/badge/Vande_Bharat-164_Services-purple.svg)](#)
 [![Amrit Bharat](https://img.shields.io/badge/Amrit_Bharat-72_Services-orange.svg)](#)
-[![Node.js](https://img.shields.io/badge/Node.js-18+-blue.svg)](#)
+[![Live Site](https://img.shields.io/badge/Live_Site-GitHub_Pages-blue.svg)](https://kunalk-umar.github.io/railsaarthi/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+
+---
+
+### 🌐 Live Website: [https://kunalk-umar.github.io/railsaarthi/](https://kunalk-umar.github.io/railsaarthi/)
 
 ---
 
