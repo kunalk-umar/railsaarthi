@@ -677,7 +677,7 @@ window.TRAINS = [
   },
   {
     "num": "22691",
-    "name": "KSR Bengaluru Raj. (Dup.)",
+    "name": "Bengaluru Rajdhani Express",
     "fn": "KSR Bengaluru",
     "fc": "SBC",
     "tn": "New Delhi",
@@ -3659,7 +3659,7 @@ window.TRAINS = [
     "num": "20631",
     "name": "Kasaragod - Trivandrum Vande Bharat",
     "fn": "Kasaragod",
-    "fc": "KAUR",
+    "fc": "KGQ",
     "tn": "Trivandrum Central",
     "tc": "TVC",
     "dep": "07:00",
@@ -3682,7 +3682,7 @@ window.TRAINS = [
     "fn": "Trivandrum Central",
     "fc": "TVC",
     "tn": "Kasaragod",
-    "tc": "KAUR",
+    "tc": "KGQ",
     "dep": "16:05",
     "arr": "23:55",
     "ad": 0,
@@ -5128,6 +5128,868 @@ window.TRAINS = [
     "zone": "SWR",
     "stops": 18
   }
+,
+  {
+    "num": "22229",
+    "name": "Mumbai CSMT - Madgaon Vande Bharat",
+    "fn": "Mumbai CST",
+    "fc": "CSMT",
+    "tn": "Madgaon Jn",
+    "tc": "MAO",
+    "dep": "05:25",
+    "arr": "13:10",
+    "ad": 0,
+    "dur": "7h 45m",
+    "dist": 586,
+    "days": "_TWTFSS",
+    "type": "VB",
+    "cls": [
+      "CC",
+      "EC"
+    ],
+    "zone": "CR",
+    "stops": 9
+  },
+  {
+    "num": "22230",
+    "name": "Madgaon - Mumbai CSMT Vande Bharat",
+    "fn": "Madgaon Jn",
+    "fc": "MAO",
+    "tn": "Mumbai CST",
+    "tc": "CSMT",
+    "dep": "14:40",
+    "arr": "22:25",
+    "ad": 0,
+    "dur": "7h 45m",
+    "dist": 586,
+    "days": "_TWTFSS",
+    "type": "VB",
+    "cls": [
+      "CC",
+      "EC"
+    ],
+    "zone": "CR",
+    "stops": 9
+  },
+  {
+    "num": "12051",
+    "name": "Mumbai CSMT - Madgaon Jan Shatabdi",
+    "fn": "Mumbai CST",
+    "fc": "CSMT",
+    "tn": "Madgaon Jn",
+    "tc": "MAO",
+    "dep": "05:10",
+    "arr": "14:15",
+    "ad": 0,
+    "dur": "9h 05m",
+    "dist": 586,
+    "days": "MTWTFSS",
+    "type": "SHT",
+    "cls": [
+      "CC",
+      "2S"
+    ],
+    "zone": "CR",
+    "stops": 11
+  },
+  {
+    "num": "12052",
+    "name": "Madgaon - Mumbai CSMT Jan Shatabdi",
+    "fn": "Madgaon Jn",
+    "fc": "MAO",
+    "tn": "Mumbai CST",
+    "tc": "CSMT",
+    "dep": "15:05",
+    "arr": "23:55",
+    "ad": 0,
+    "dur": "8h 50m",
+    "dist": 586,
+    "days": "MTWTFSS",
+    "type": "SHT",
+    "cls": [
+      "CC",
+      "2S"
+    ],
+    "zone": "CR",
+    "stops": 11
+  },
+  {
+    "num": "10103",
+    "name": "Mandovi Express",
+    "fn": "Mumbai CST",
+    "fc": "CSMT",
+    "tn": "Madgaon Jn",
+    "tc": "MAO",
+    "dep": "07:10",
+    "arr": "19:10",
+    "ad": 0,
+    "dur": "12h 00m",
+    "dist": 586,
+    "days": "MTWTFSS",
+    "type": "EXP",
+    "cls": [
+      "1A",
+      "2A",
+      "3A",
+      "SL"
+    ],
+    "zone": "KR",
+    "stops": 19
+  },
+  {
+    "num": "10104",
+    "name": "Mandovi Express (Return)",
+    "fn": "Madgaon Jn",
+    "fc": "MAO",
+    "tn": "Mumbai CST",
+    "tc": "CSMT",
+    "dep": "09:15",
+    "arr": "21:45",
+    "ad": 0,
+    "dur": "12h 30m",
+    "dist": 586,
+    "days": "MTWTFSS",
+    "type": "EXP",
+    "cls": [
+      "1A",
+      "2A",
+      "3A",
+      "SL"
+    ],
+    "zone": "KR",
+    "stops": 19
+  },
+  {
+    "num": "10111",
+    "name": "Konkan Kanya Express",
+    "fn": "Mumbai CST",
+    "fc": "CSMT",
+    "tn": "Madgaon Jn",
+    "tc": "MAO",
+    "dep": "23:00",
+    "arr": "10:45",
+    "ad": 1,
+    "dur": "11h 45m",
+    "dist": 586,
+    "days": "MTWTFSS",
+    "type": "SF",
+    "cls": [
+      "1A",
+      "2A",
+      "3A",
+      "SL"
+    ],
+    "zone": "KR",
+    "stops": 18
+  },
+  {
+    "num": "10112",
+    "name": "Konkan Kanya Express (Return)",
+    "fn": "Madgaon Jn",
+    "fc": "MAO",
+    "tn": "Mumbai CST",
+    "tc": "CSMT",
+    "dep": "18:00",
+    "arr": "05:40",
+    "ad": 1,
+    "dur": "11h 40m",
+    "dist": 586,
+    "days": "MTWTFSS",
+    "type": "SF",
+    "cls": [
+      "1A",
+      "2A",
+      "3A",
+      "SL"
+    ],
+    "zone": "KR",
+    "stops": 18
+  },
+  {
+    "num": "22895",
+    "name": "Howrah - Puri Vande Bharat Express",
+    "fn": "Howrah Jn",
+    "fc": "HWH",
+    "tn": "Puri",
+    "tc": "PURI",
+    "dep": "06:10",
+    "arr": "12:35",
+    "ad": 0,
+    "dur": "6h 25m",
+    "dist": 500,
+    "days": "M_WTFSS",
+    "type": "VB",
+    "cls": [
+      "CC",
+      "EC"
+    ],
+    "zone": "SER",
+    "stops": 8
+  },
+  {
+    "num": "22896",
+    "name": "Puri - Howrah Vande Bharat Express",
+    "fn": "Puri",
+    "fc": "PURI",
+    "tn": "Howrah Jn",
+    "tc": "HWH",
+    "dep": "13:50",
+    "arr": "20:30",
+    "ad": 0,
+    "dur": "6h 40m",
+    "dist": 500,
+    "days": "M_WTFSS",
+    "type": "VB",
+    "cls": [
+      "CC",
+      "EC"
+    ],
+    "zone": "SER",
+    "stops": 8
+  },
+  {
+    "num": "12837",
+    "name": "Howrah - Puri Superfast Express",
+    "fn": "Howrah Jn",
+    "fc": "HWH",
+    "tn": "Puri",
+    "tc": "PURI",
+    "dep": "22:40",
+    "arr": "07:10",
+    "ad": 1,
+    "dur": "8h 30m",
+    "dist": 500,
+    "days": "MTWTFSS",
+    "type": "SF",
+    "cls": [
+      "1A",
+      "2A",
+      "3A",
+      "SL"
+    ],
+    "zone": "SER",
+    "stops": 11
+  },
+  {
+    "num": "12838",
+    "name": "Puri - Howrah Superfast Express",
+    "fn": "Puri",
+    "fc": "PURI",
+    "tn": "Howrah Jn",
+    "tc": "HWH",
+    "dep": "20:15",
+    "arr": "04:45",
+    "ad": 1,
+    "dur": "8h 30m",
+    "dist": 500,
+    "days": "MTWTFSS",
+    "type": "SF",
+    "cls": [
+      "1A",
+      "2A",
+      "3A",
+      "SL"
+    ],
+    "zone": "SER",
+    "stops": 11
+  },
+  {
+    "num": "12004",
+    "name": "New Delhi - Lucknow Shatabdi Express",
+    "fn": "New Delhi",
+    "fc": "NDLS",
+    "tn": "Lucknow Jn",
+    "tc": "LJN",
+    "dep": "06:10",
+    "arr": "12:40",
+    "ad": 0,
+    "dur": "6h 30m",
+    "dist": 512,
+    "days": "MTWTFSS",
+    "type": "SHT",
+    "cls": [
+      "CC",
+      "EC"
+    ],
+    "zone": "NR",
+    "stops": 6
+  },
+  {
+    "num": "12003",
+    "name": "Lucknow - New Delhi Shatabdi Express",
+    "fn": "Lucknow Jn",
+    "fc": "LJN",
+    "tn": "New Delhi",
+    "tc": "NDLS",
+    "dep": "15:35",
+    "arr": "22:20",
+    "ad": 0,
+    "dur": "6h 45m",
+    "dist": 512,
+    "days": "MTWTFSS",
+    "type": "SHT",
+    "cls": [
+      "CC",
+      "EC"
+    ],
+    "zone": "NR",
+    "stops": 6
+  },
+  {
+    "num": "12429",
+    "name": "Lucknow - New Delhi AC Superfast",
+    "fn": "Lucknow Jn",
+    "fc": "LJN",
+    "tn": "New Delhi",
+    "tc": "NDLS",
+    "dep": "23:30",
+    "arr": "07:30",
+    "ad": 1,
+    "dur": "8h 00m",
+    "dist": 512,
+    "days": "MTWTFSS",
+    "type": "SF",
+    "cls": [
+      "1A",
+      "2A",
+      "3A"
+    ],
+    "zone": "NR",
+    "stops": 5
+  },
+  {
+    "num": "12430",
+    "name": "New Delhi - Lucknow AC Superfast",
+    "fn": "New Delhi",
+    "fc": "NDLS",
+    "tn": "Lucknow Jn",
+    "tc": "LJN",
+    "dep": "23:25",
+    "arr": "07:25",
+    "ad": 1,
+    "dur": "8h 00m",
+    "dist": 512,
+    "days": "MTWTFSS",
+    "type": "SF",
+    "cls": [
+      "1A",
+      "2A",
+      "3A"
+    ],
+    "zone": "NR",
+    "stops": 5
+  },
+  {
+    "num": "12451",
+    "name": "Shram Shakti Express",
+    "fn": "Kanpur Central",
+    "fc": "CNB",
+    "tn": "New Delhi",
+    "tc": "NDLS",
+    "dep": "23:55",
+    "arr": "05:50",
+    "ad": 1,
+    "dur": "5h 55m",
+    "dist": 440,
+    "days": "MTWTFSS",
+    "type": "SF",
+    "cls": [
+      "1A",
+      "2A",
+      "3A",
+      "SL"
+    ],
+    "zone": "NCR",
+    "stops": 3
+  },
+  {
+    "num": "12452",
+    "name": "Shram Shakti Express (Return)",
+    "fn": "New Delhi",
+    "fc": "NDLS",
+    "tn": "Kanpur Central",
+    "tc": "CNB",
+    "dep": "23:55",
+    "arr": "06:00",
+    "ad": 1,
+    "dur": "6h 05m",
+    "dist": 440,
+    "days": "MTWTFSS",
+    "type": "SF",
+    "cls": [
+      "1A",
+      "2A",
+      "3A",
+      "SL"
+    ],
+    "zone": "NCR",
+    "stops": 3
+  },
+  {
+    "num": "12559",
+    "name": "Shiv Ganga Express",
+    "fn": "Banaras",
+    "fc": "BSBS",
+    "tn": "New Delhi",
+    "tc": "NDLS",
+    "dep": "22:15",
+    "arr": "08:25",
+    "ad": 1,
+    "dur": "10h 10m",
+    "dist": 757,
+    "days": "MTWTFSS",
+    "type": "SF",
+    "cls": [
+      "1A",
+      "2A",
+      "3A",
+      "SL"
+    ],
+    "zone": "NER",
+    "stops": 4
+  },
+  {
+    "num": "12560",
+    "name": "Shiv Ganga Express (Return)",
+    "fn": "New Delhi",
+    "fc": "NDLS",
+    "tn": "Banaras",
+    "tc": "BSBS",
+    "dep": "20:05",
+    "arr": "06:10",
+    "ad": 1,
+    "dur": "10h 05m",
+    "dist": 757,
+    "days": "MTWTFSS",
+    "type": "SF",
+    "cls": [
+      "1A",
+      "2A",
+      "3A",
+      "SL"
+    ],
+    "zone": "NER",
+    "stops": 4
+  },
+  {
+    "num": "22435",
+    "name": "Varanasi - New Delhi Vande Bharat",
+    "fn": "Varanasi Jn",
+    "fc": "BSB",
+    "tn": "New Delhi",
+    "tc": "NDLS",
+    "dep": "15:00",
+    "arr": "23:00",
+    "ad": 0,
+    "dur": "8h 00m",
+    "dist": 759,
+    "days": "_TWTFSS",
+    "type": "VB",
+    "cls": [
+      "CC",
+      "EC"
+    ],
+    "zone": "NR",
+    "stops": 4
+  },
+  {
+    "num": "22436",
+    "name": "New Delhi - Varanasi Vande Bharat",
+    "fn": "New Delhi",
+    "fc": "NDLS",
+    "tn": "Varanasi Jn",
+    "tc": "BSB",
+    "dep": "06:00",
+    "arr": "14:00",
+    "ad": 0,
+    "dur": "8h 00m",
+    "dist": 759,
+    "days": "_TWTFSS",
+    "type": "VB",
+    "cls": [
+      "CC",
+      "EC"
+    ],
+    "zone": "NR",
+    "stops": 4
+  },
+  {
+    "num": "12417",
+    "name": "Prayagraj Express",
+    "fn": "Prayagraj Jn",
+    "fc": "PRYJ",
+    "tn": "New Delhi",
+    "tc": "NDLS",
+    "dep": "22:10",
+    "arr": "07:00",
+    "ad": 1,
+    "dur": "8h 50m",
+    "dist": 635,
+    "days": "MTWTFSS",
+    "type": "SF",
+    "cls": [
+      "1A",
+      "2A",
+      "3A",
+      "SL"
+    ],
+    "zone": "NCR",
+    "stops": 5
+  },
+  {
+    "num": "12418",
+    "name": "Prayagraj Express (Return)",
+    "fn": "New Delhi",
+    "fc": "NDLS",
+    "tn": "Prayagraj Jn",
+    "tc": "PRYJ",
+    "dep": "22:10",
+    "arr": "07:00",
+    "ad": 1,
+    "dur": "8h 50m",
+    "dist": 635,
+    "days": "MTWTFSS",
+    "type": "SF",
+    "cls": [
+      "1A",
+      "2A",
+      "3A",
+      "SL"
+    ],
+    "zone": "NCR",
+    "stops": 5
+  },
+  {
+    "num": "12015",
+    "name": "New Delhi - Ajmer Shatabdi",
+    "fn": "New Delhi",
+    "fc": "NDLS",
+    "tn": "Ajmer Jn",
+    "tc": "AII",
+    "dep": "06:10",
+    "arr": "12:55",
+    "ad": 0,
+    "dur": "6h 45m",
+    "dist": 444,
+    "days": "MTWTFSS",
+    "type": "SHT",
+    "cls": [
+      "CC",
+      "EC"
+    ],
+    "zone": "NWR",
+    "stops": 8
+  },
+  {
+    "num": "12016",
+    "name": "Ajmer - New Delhi Shatabdi",
+    "fn": "Ajmer Jn",
+    "fc": "AII",
+    "tn": "New Delhi",
+    "tc": "NDLS",
+    "dep": "15:55",
+    "arr": "22:40",
+    "ad": 0,
+    "dur": "6h 45m",
+    "dist": 444,
+    "days": "MTWTFSS",
+    "type": "SHT",
+    "cls": [
+      "CC",
+      "EC"
+    ],
+    "zone": "NWR",
+    "stops": 8
+  },
+  {
+    "num": "12839",
+    "name": "Howrah - MGR Chennai Central Mail",
+    "fn": "Howrah Jn",
+    "fc": "HWH",
+    "tn": "Chennai Central",
+    "tc": "MAS",
+    "dep": "23:55",
+    "arr": "03:45",
+    "ad": 2,
+    "dur": "27h 50m",
+    "dist": 1661,
+    "days": "MTWTFSS",
+    "type": "MAIL",
+    "cls": [
+      "1A",
+      "2A",
+      "3A",
+      "SL"
+    ],
+    "zone": "SER",
+    "stops": 32
+  },
+  {
+    "num": "12840",
+    "name": "Chennai - Howrah Mail",
+    "fn": "Chennai Central",
+    "fc": "MAS",
+    "tn": "Howrah Jn",
+    "tc": "HWH",
+    "dep": "19:00",
+    "arr": "23:00",
+    "ad": 1,
+    "dur": "28h 00m",
+    "dist": 1661,
+    "days": "MTWTFSS",
+    "type": "MAIL",
+    "cls": [
+      "1A",
+      "2A",
+      "3A",
+      "SL"
+    ],
+    "zone": "SER",
+    "stops": 32
+  },
+  {
+    "num": "22221",
+    "name": "Mumbai CSMT - Hazrat Nizamuddin Rajdhani",
+    "fn": "Mumbai CST",
+    "fc": "CSMT",
+    "tn": "Hazrat Nizamuddin",
+    "tc": "NZM",
+    "dep": "16:00",
+    "arr": "09:55",
+    "ad": 1,
+    "dur": "17h 55m",
+    "dist": 1535,
+    "days": "_TWTFSS",
+    "type": "RAJ",
+    "cls": [
+      "1A",
+      "2A",
+      "3A"
+    ],
+    "zone": "CR",
+    "stops": 8
+  },
+  {
+    "num": "22222",
+    "name": "Hazrat Nizamuddin - Mumbai CSMT Rajdhani",
+    "fn": "Hazrat Nizamuddin",
+    "fc": "NZM",
+    "tn": "Mumbai CST",
+    "tc": "CSMT",
+    "dep": "16:55",
+    "arr": "11:15",
+    "ad": 1,
+    "dur": "18h 20m",
+    "dist": 1535,
+    "days": "M_WTFSS",
+    "type": "RAJ",
+    "cls": [
+      "1A",
+      "2A",
+      "3A"
+    ],
+    "zone": "CR",
+    "stops": 8
+  },
+  {
+    "num": "12245",
+    "name": "Howrah - SMVT Bengaluru Duronto",
+    "fn": "Howrah Jn",
+    "fc": "HWH",
+    "tn": "KSR Bengaluru",
+    "tc": "SBC",
+    "dep": "10:50",
+    "arr": "15:50",
+    "ad": 1,
+    "dur": "29h 00m",
+    "dist": 1946,
+    "days": "M_WTF_S",
+    "type": "DUR",
+    "cls": [
+      "1A",
+      "2A",
+      "3A",
+      "SL"
+    ],
+    "zone": "SER",
+    "stops": 6
+  },
+  {
+    "num": "12246",
+    "name": "SMVT Bengaluru - Howrah Duronto",
+    "fn": "KSR Bengaluru",
+    "fc": "SBC",
+    "tn": "Howrah Jn",
+    "tc": "HWH",
+    "dep": "11:20",
+    "arr": "16:50",
+    "ad": 1,
+    "dur": "29h 30m",
+    "dist": 1946,
+    "days": "MT_T_SS",
+    "type": "DUR",
+    "cls": [
+      "1A",
+      "2A",
+      "3A",
+      "SL"
+    ],
+    "zone": "SER",
+    "stops": 6
+  },
+  {
+    "num": "12555",
+    "name": "Gorakhdham Express",
+    "fn": "Gorakhpur Jn",
+    "fc": "GKP",
+    "tn": "Hisar Jn",
+    "tc": "HSR",
+    "dep": "16:35",
+    "arr": "09:30",
+    "ad": 1,
+    "dur": "16h 55m",
+    "dist": 940,
+    "days": "MTWTFSS",
+    "type": "SF",
+    "cls": [
+      "1A",
+      "2A",
+      "3A",
+      "SL"
+    ],
+    "zone": "NER",
+    "stops": 22
+  },
+  {
+    "num": "12556",
+    "name": "Gorakhdham Express (Return)",
+    "fn": "Hisar Jn",
+    "fc": "HSR",
+    "tn": "Gorakhpur Jn",
+    "tc": "GKP",
+    "dep": "16:50",
+    "arr": "09:45",
+    "ad": 1,
+    "dur": "16h 55m",
+    "dist": 940,
+    "days": "MTWTFSS",
+    "type": "SF",
+    "cls": [
+      "1A",
+      "2A",
+      "3A",
+      "SL"
+    ],
+    "zone": "NER",
+    "stops": 22
+  },
+  {
+    "num": "12802",
+    "name": "Purushottam Express (Return)",
+    "fn": "Puri",
+    "fc": "PURI",
+    "tn": "New Delhi",
+    "tc": "NDLS",
+    "dep": "22:45",
+    "arr": "04:00",
+    "ad": 2,
+    "dur": "29h 15m",
+    "dist": 1863,
+    "days": "MTWTFSS",
+    "type": "SF",
+    "cls": [
+      "1A",
+      "2A",
+      "3A",
+      "SL"
+    ],
+    "zone": "ECoR",
+    "stops": 29
+  },
+  {
+    "num": "12027",
+    "name": "Chennai - KSR Bengaluru Shatabdi",
+    "fn": "Chennai Central",
+    "fc": "MAS",
+    "tn": "KSR Bengaluru",
+    "tc": "SBC",
+    "dep": "17:30",
+    "arr": "22:25",
+    "ad": 0,
+    "dur": "4h 55m",
+    "dist": 359,
+    "days": "MTWTF_S",
+    "type": "SHT",
+    "cls": [
+      "CC",
+      "EC"
+    ],
+    "zone": "SR",
+    "stops": 4
+  },
+  {
+    "num": "12028",
+    "name": "KSR Bengaluru - Chennai Shatabdi",
+    "fn": "KSR Bengaluru",
+    "fc": "SBC",
+    "tn": "Chennai Central",
+    "tc": "MAS",
+    "dep": "06:00",
+    "arr": "11:00",
+    "ad": 0,
+    "dur": "5h 00m",
+    "dist": 359,
+    "days": "MTWTF_S",
+    "type": "SHT",
+    "cls": [
+      "CC",
+      "EC"
+    ],
+    "zone": "SR",
+    "stops": 4
+  },
+  {
+    "num": "12609",
+    "name": "Chennai - KSR Bengaluru SF Express",
+    "fn": "Chennai Central",
+    "fc": "MAS",
+    "tn": "KSR Bengaluru",
+    "tc": "SBC",
+    "dep": "13:35",
+    "arr": "20:10",
+    "ad": 0,
+    "dur": "6h 35m",
+    "dist": 359,
+    "days": "MTWTFSS",
+    "type": "SF",
+    "cls": [
+      "CC",
+      "2S"
+    ],
+    "zone": "SR",
+    "stops": 14
+  },
+  {
+    "num": "12610",
+    "name": "KSR Bengaluru - Chennai SF Express",
+    "fn": "KSR Bengaluru",
+    "fc": "SBC",
+    "tn": "Chennai Central",
+    "tc": "MAS",
+    "dep": "08:00",
+    "arr": "14:30",
+    "ad": 0,
+    "dur": "6h 30m",
+    "dist": 359,
+    "days": "MTWTFSS",
+    "type": "SF",
+    "cls": [
+      "CC",
+      "2S"
+    ],
+    "zone": "SR",
+    "stops": 14
+  }
 ];
 
 /* ═══════════════ STATIONS (198+ Major Stations) ═══════════════
@@ -5136,9 +5998,12 @@ window.STATIONS = [
   {
     "c": "AHA",
     "n": "Abhaipur",
+    "city": "Malda",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ER",
     "d": "Malda",
+    "cat": "4",
     "pf": 2,
     "lat": 25.27,
     "lng": 86.33
@@ -5146,9 +6011,12 @@ window.STATIONS = [
   {
     "c": "ABS",
     "n": "Abohar Jn",
+    "city": "Bikaner",
+    "st": "Punjab",
     "s": "Punjab",
     "z": "NWR",
     "d": "Bikaner",
+    "cat": "3",
     "pf": 3,
     "lat": 30.14,
     "lng": 74.19
@@ -5158,18 +6026,21 @@ window.STATIONS = [
     "n": "Abu Road",
     "city": "Abu Road",
     "st": "Rajasthan",
+    "s": "Rajasthan",
     "z": "NWR",
     "d": "Ajmer",
     "cat": "C",
-    "pf": 3,
-    "tr": 40
+    "pf": 3
   },
   {
     "c": "ADRA",
     "n": "Adra Jn",
+    "city": "Adra",
+    "st": "West Bengal",
     "s": "West Bengal",
     "z": "SER",
     "d": "Adra",
+    "cat": "3",
     "pf": 4,
     "lat": 23.5,
     "lng": 86.68
@@ -5179,18 +6050,21 @@ window.STATIONS = [
     "n": "Agartala",
     "city": "Agartala",
     "st": "Tripura",
+    "s": "Tripura",
     "z": "NFR",
     "d": "Lumding",
     "cat": "C",
-    "pf": 3,
-    "tr": 15
+    "pf": 3
   },
   {
     "c": "AGTL",
     "n": "Agartala",
+    "city": "Lumding",
+    "st": "Tripura",
     "s": "Tripura",
     "z": "NFR",
     "d": "Lumding",
+    "cat": "3",
     "pf": 3,
     "lat": 23.79,
     "lng": 91.27
@@ -5198,9 +6072,12 @@ window.STATIONS = [
   {
     "c": "AGC",
     "n": "Agra Cantt",
+    "city": "Agra",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NCR",
     "d": "Agra",
+    "cat": "2",
     "pf": 6,
     "lat": 27.16,
     "lng": 78
@@ -5208,9 +6085,12 @@ window.STATIONS = [
   {
     "c": "AF",
     "n": "Agra Fort",
+    "city": "Agra",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NCR",
     "d": "Agra",
+    "cat": "3",
     "pf": 4,
     "lat": 27.18,
     "lng": 78.02
@@ -5218,9 +6098,12 @@ window.STATIONS = [
   {
     "c": "ADI",
     "n": "Ahmedabad Jn (Kalupur)",
+    "city": "Ahmedabad",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Ahmedabad",
+    "cat": "1",
     "pf": 12,
     "lat": 23.03,
     "lng": 72.6
@@ -5228,9 +6111,12 @@ window.STATIONS = [
   {
     "c": "ASH",
     "n": "Aishbagh",
+    "city": "Lucknow NER",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NER",
     "d": "Lucknow NER",
+    "cat": "3",
     "pf": 5,
     "lat": 26.84,
     "lng": 80.9
@@ -5240,18 +6126,21 @@ window.STATIONS = [
     "n": "Ajmer Jn",
     "city": "Ajmer",
     "st": "Rajasthan",
+    "s": "Rajasthan",
     "z": "NWR",
     "d": "Ajmer",
     "cat": "A",
-    "pf": 5,
-    "tr": 75
+    "pf": 5
   },
   {
     "c": "AJNI",
     "n": "Ajni",
+    "city": "Nagpur CR",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Nagpur CR",
+    "cat": "3",
     "pf": 3,
     "lat": 21.12,
     "lng": 79.08
@@ -5259,9 +6148,12 @@ window.STATIONS = [
   {
     "c": "ABP",
     "n": "Akbarpur Jn",
+    "city": "Lucknow NR",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NR",
     "d": "Lucknow NR",
+    "cat": "3",
     "pf": 3,
     "lat": 26.43,
     "lng": 82.54
@@ -5269,9 +6161,12 @@ window.STATIONS = [
   {
     "c": "AK",
     "n": "Akola Jn",
+    "city": "Bhusawal",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Bhusawal",
+    "cat": "2",
     "pf": 6,
     "lat": 20.71,
     "lng": 77.01
@@ -5279,9 +6174,12 @@ window.STATIONS = [
   {
     "c": "ALLP",
     "n": "Alappuzha (Alleppey)",
+    "city": "Thiruvananthapuram",
+    "st": "Kerala",
     "s": "Kerala",
     "z": "SR",
     "d": "Thiruvananthapuram",
+    "cat": "3",
     "pf": 3,
     "lat": 9.49,
     "lng": 76.32
@@ -5289,9 +6187,12 @@ window.STATIONS = [
   {
     "c": "ALJN",
     "n": "Aligarh Jn",
+    "city": "Prayagraj",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NCR",
     "d": "Prayagraj",
+    "cat": "2",
     "pf": 7,
     "lat": 27.89,
     "lng": 78.08
@@ -5299,9 +6200,12 @@ window.STATIONS = [
   {
     "c": "APDJ",
     "n": "Alipurduar Jn",
+    "city": "Alipurduar",
+    "st": "West Bengal",
     "s": "West Bengal",
     "z": "NFR",
     "d": "Alipurduar",
+    "cat": "3",
     "pf": 4,
     "lat": 26.5,
     "lng": 89.53
@@ -5309,9 +6213,12 @@ window.STATIONS = [
   {
     "c": "AWY",
     "n": "Aluva (Alwaye)",
+    "city": "Thiruvananthapuram",
+    "st": "Kerala",
     "s": "Kerala",
     "z": "SR",
     "d": "Thiruvananthapuram",
+    "cat": "3",
     "pf": 3,
     "lat": 10.11,
     "lng": 76.35
@@ -5319,9 +6226,12 @@ window.STATIONS = [
   {
     "c": "AADR",
     "n": "Amb Andaura",
+    "city": "Ambala",
+    "st": "Himachal Pradesh",
     "s": "Himachal Pradesh",
     "z": "NR",
     "d": "Ambala",
+    "cat": "4",
     "pf": 2,
     "lat": 31.68,
     "lng": 76.12
@@ -5329,9 +6239,12 @@ window.STATIONS = [
   {
     "c": "UMB",
     "n": "Ambala Cantt Jn",
+    "city": "Ambala",
+    "st": "Haryana",
     "s": "Haryana",
     "z": "NR",
     "d": "Ambala",
+    "cat": "2",
     "pf": 8,
     "lat": 30.33,
     "lng": 76.83
@@ -5339,9 +6252,12 @@ window.STATIONS = [
   {
     "c": "AMPA",
     "n": "Ambalappuzha",
+    "city": "Thiruvananthapuram",
+    "st": "Kerala",
     "s": "Kerala",
     "z": "SR",
     "d": "Thiruvananthapuram",
+    "cat": "4",
     "pf": 2,
     "lat": 9.38,
     "lng": 76.36
@@ -5349,9 +6265,12 @@ window.STATIONS = [
   {
     "c": "AB",
     "n": "Ambur",
+    "city": "Chennai",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Chennai",
+    "cat": "3",
     "pf": 3,
     "lat": 12.79,
     "lng": 78.71
@@ -5359,9 +6278,12 @@ window.STATIONS = [
   {
     "c": "AME",
     "n": "Amethi",
+    "city": "Lucknow NR",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NR",
     "d": "Lucknow NR",
+    "cat": "4",
     "pf": 2,
     "lat": 26.15,
     "lng": 81.82
@@ -5369,9 +6291,12 @@ window.STATIONS = [
   {
     "c": "AMI",
     "n": "Amravati",
+    "city": "Bhusawal",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Bhusawal",
+    "cat": "3",
     "pf": 3,
     "lat": 20.93,
     "lng": 77.75
@@ -5379,9 +6304,12 @@ window.STATIONS = [
   {
     "c": "ASR",
     "n": "Amritsar Jn",
+    "city": "Firozpur",
+    "st": "Punjab",
     "s": "Punjab",
     "z": "NR",
     "d": "Firozpur",
+    "cat": "2",
     "pf": 8,
     "lat": 31.63,
     "lng": 74.87
@@ -5389,9 +6317,12 @@ window.STATIONS = [
   {
     "c": "AMRO",
     "n": "Amroha",
+    "city": "Moradabad",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NR",
     "d": "Moradabad",
+    "cat": "4",
     "pf": 2,
     "lat": 28.9,
     "lng": 78.47
@@ -5399,9 +6330,12 @@ window.STATIONS = [
   {
     "c": "AKP",
     "n": "Anakapalle",
+    "city": "Vijayawada",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "SCR",
     "d": "Vijayawada",
+    "cat": "4",
     "pf": 2,
     "lat": 17.69,
     "lng": 83
@@ -5409,9 +6343,12 @@ window.STATIONS = [
   {
     "c": "ANND",
     "n": "Anand Jn",
+    "city": "Vadodara",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Vadodara",
+    "cat": "2",
     "pf": 6,
     "lat": 22.56,
     "lng": 72.96
@@ -5419,9 +6356,12 @@ window.STATIONS = [
   {
     "c": "ANVT",
     "n": "Anand Vihar Terminal",
+    "city": "Delhi",
+    "st": "Delhi",
     "s": "Delhi",
     "z": "NR",
     "d": "Delhi",
+    "cat": "2",
     "pf": 7,
     "lat": 28.65,
     "lng": 77.31
@@ -5429,9 +6369,12 @@ window.STATIONS = [
   {
     "c": "ATP",
     "n": "Anantapur",
+    "city": "Guntakal",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "SCR",
     "d": "Guntakal",
+    "cat": "3",
     "pf": 3,
     "lat": 14.68,
     "lng": 77.6
@@ -5439,9 +6382,12 @@ window.STATIONS = [
   {
     "c": "ANT",
     "n": "Anantnag",
+    "city": "Firozpur",
+    "st": "Jammu & Kashmir",
     "s": "Jammu & Kashmir",
     "z": "NR",
     "d": "Firozpur",
+    "cat": "4",
     "pf": 2,
     "lat": 33.73,
     "lng": 75.15
@@ -5449,9 +6395,12 @@ window.STATIONS = [
   {
     "c": "ANGL",
     "n": "Angul",
+    "city": "Khurda Road",
+    "st": "Odisha",
     "s": "Odisha",
     "z": "ECoR",
     "d": "Khurda Road",
+    "cat": "3",
     "pf": 3,
     "lat": 20.84,
     "lng": 85.1
@@ -5459,9 +6408,12 @@ window.STATIONS = [
   {
     "c": "AKV",
     "n": "Ankleshwar Jn",
+    "city": "Vadodara",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Vadodara",
+    "cat": "3",
     "pf": 4,
     "lat": 21.63,
     "lng": 73
@@ -5469,9 +6421,12 @@ window.STATIONS = [
   {
     "c": "ANV",
     "n": "Annavaram",
+    "city": "Vijayawada",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "SCR",
     "d": "Vijayawada",
+    "cat": "3",
     "pf": 3,
     "lat": 17.28,
     "lng": 82.4
@@ -5479,9 +6434,12 @@ window.STATIONS = [
   {
     "c": "AUBR",
     "n": "Anugraha Narayan Road",
+    "city": "Pt DD Upadhyaya",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Pt DD Upadhyaya",
+    "cat": "3",
     "pf": 4,
     "lat": 24.88,
     "lng": 84.34
@@ -5489,9 +6447,12 @@ window.STATIONS = [
   {
     "c": "APR",
     "n": "Anuppur Jn",
+    "city": "Bilaspur",
+    "st": "Madhya Pradesh",
     "s": "Madhya Pradesh",
     "z": "SECR",
     "d": "Bilaspur",
+    "cat": "3",
     "pf": 4,
     "lat": 23.11,
     "lng": 81.69
@@ -5499,9 +6460,12 @@ window.STATIONS = [
   {
     "c": "ARA",
     "n": "Ara Jn",
+    "city": "Danapur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Danapur",
+    "cat": "3",
     "pf": 5,
     "lat": 25.55,
     "lng": 84.67
@@ -5509,9 +6473,12 @@ window.STATIONS = [
   {
     "c": "AJJ",
     "n": "Arakkonam Jn",
+    "city": "Chennai",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Chennai",
+    "cat": "2",
     "pf": 8,
     "lat": 13.08,
     "lng": 79.67
@@ -5519,9 +6486,12 @@ window.STATIONS = [
   {
     "c": "ASK",
     "n": "Arsikere Jn",
+    "city": "Mysuru",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SWR",
     "d": "Mysuru",
+    "cat": "3",
     "pf": 3,
     "lat": 13.31,
     "lng": 76.25
@@ -5529,9 +6499,12 @@ window.STATIONS = [
   {
     "c": "ASN",
     "n": "Asansol Jn",
+    "city": "Asansol",
+    "st": "West Bengal",
     "s": "West Bengal",
     "z": "ER",
     "d": "Asansol",
+    "cat": "2",
     "pf": 7,
     "lat": 23.68,
     "lng": 86.97
@@ -5539,9 +6512,12 @@ window.STATIONS = [
   {
     "c": "ARJ",
     "n": "Aunrihar Jn",
+    "city": "Varanasi",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NER",
     "d": "Varanasi",
+    "cat": "3",
     "pf": 4,
     "lat": 25.55,
     "lng": 83.19
@@ -5549,9 +6525,12 @@ window.STATIONS = [
   {
     "c": "AYC",
     "n": "Ayodhya Cantt",
+    "city": "Lucknow NR",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NR",
     "d": "Lucknow NR",
+    "cat": "3",
     "pf": 5,
     "lat": 26.78,
     "lng": 82.13
@@ -5559,9 +6538,12 @@ window.STATIONS = [
   {
     "c": "AY",
     "n": "Ayodhya Dham Jn",
+    "city": "Lucknow NR",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NR",
     "d": "Lucknow NR",
+    "cat": "2",
     "pf": 6,
     "lat": 26.8,
     "lng": 82.2
@@ -5569,9 +6551,12 @@ window.STATIONS = [
   {
     "c": "AMH",
     "n": "Azamgarh",
+    "city": "Varanasi",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NER",
     "d": "Varanasi",
+    "cat": "3",
     "pf": 3,
     "lat": 26.07,
     "lng": 83.18
@@ -5579,9 +6564,12 @@ window.STATIONS = [
   {
     "c": "BCA",
     "n": "Bachhwara Jn",
+    "city": "Sonpur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Sonpur",
+    "cat": "3",
     "pf": 3,
     "lat": 25.56,
     "lng": 85.86
@@ -5589,9 +6577,12 @@ window.STATIONS = [
   {
     "c": "BPB",
     "n": "Badarpur Jn",
+    "city": "Lumding",
+    "st": "Assam",
     "s": "Assam",
     "z": "NFR",
     "d": "Lumding",
+    "cat": "3",
     "pf": 3,
     "lat": 24.9,
     "lng": 92.58
@@ -5599,9 +6590,12 @@ window.STATIONS = [
   {
     "c": "BDGM",
     "n": "Badgam",
+    "city": "Firozpur",
+    "st": "Jammu & Kashmir",
     "s": "Jammu & Kashmir",
     "z": "NR",
     "d": "Firozpur",
+    "cat": "4",
     "pf": 2,
     "lat": 34.01,
     "lng": 74.72
@@ -5609,9 +6603,12 @@ window.STATIONS = [
   {
     "c": "BD",
     "n": "Badnera Jn (Amravati)",
+    "city": "Bhusawal",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Bhusawal",
+    "cat": "3",
     "pf": 4,
     "lat": 20.86,
     "lng": 77.73
@@ -5619,9 +6616,12 @@ window.STATIONS = [
   {
     "c": "BNZ",
     "n": "Badshahnagar",
+    "city": "Lucknow NER",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NER",
     "d": "Lucknow NER",
+    "cat": "4",
     "pf": 2,
     "lat": 26.87,
     "lng": 80.97
@@ -5629,9 +6629,12 @@ window.STATIONS = [
   {
     "c": "BUG",
     "n": "Bagaha",
+    "city": "Samastipur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Samastipur",
+    "cat": "3",
     "pf": 3,
     "lat": 27.1,
     "lng": 84.09
@@ -5639,9 +6642,12 @@ window.STATIONS = [
   {
     "c": "BGK",
     "n": "Bagalkot Jn",
+    "city": "Hubballi",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SWR",
     "d": "Hubballi",
+    "cat": "3",
     "pf": 3,
     "lat": 16.18,
     "lng": 75.7
@@ -5649,9 +6655,12 @@ window.STATIONS = [
   {
     "c": "BHD",
     "n": "Bahadurgarh",
+    "city": "Delhi",
+    "st": "Haryana",
     "s": "Haryana",
     "z": "NR",
     "d": "Delhi",
+    "cat": "4",
     "pf": 2,
     "lat": 28.69,
     "lng": 76.92
@@ -5659,9 +6668,12 @@ window.STATIONS = [
   {
     "c": "BKP",
     "n": "Bakhtiyarpur Jn",
+    "city": "Danapur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Danapur",
+    "cat": "3",
     "pf": 4,
     "lat": 25.46,
     "lng": 85.53
@@ -5669,9 +6681,12 @@ window.STATIONS = [
   {
     "c": "BLM",
     "n": "Balamau Jn",
+    "city": "Moradabad",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NR",
     "d": "Moradabad",
+    "cat": "3",
     "pf": 3,
     "lat": 27.16,
     "lng": 80.29
@@ -5679,9 +6694,12 @@ window.STATIONS = [
   {
     "c": "BLGR",
     "n": "Balangir",
+    "city": "Sambalpur",
+    "st": "Odisha",
     "s": "Odisha",
     "z": "ECoR",
     "d": "Sambalpur",
+    "cat": "3",
     "pf": 3,
     "lat": 20.71,
     "lng": 83.49
@@ -5689,9 +6707,12 @@ window.STATIONS = [
   {
     "c": "BLS",
     "n": "Balasore",
+    "city": "Kharagpur",
+    "st": "Odisha",
     "s": "Odisha",
     "z": "SER",
     "d": "Kharagpur",
+    "cat": "3",
     "pf": 4,
     "lat": 21.49,
     "lng": 86.93
@@ -5699,9 +6720,12 @@ window.STATIONS = [
   {
     "c": "BPQ",
     "n": "Balharshah Jn",
+    "city": "Nagpur CR",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Nagpur CR",
+    "cat": "3",
     "pf": 5,
     "lat": 19.85,
     "lng": 79.35
@@ -5709,9 +6733,12 @@ window.STATIONS = [
   {
     "c": "BVH",
     "n": "Ballabhgarh",
+    "city": "Delhi",
+    "st": "Haryana",
     "s": "Haryana",
     "z": "NR",
     "d": "Delhi",
+    "cat": "3",
     "pf": 4,
     "lat": 28.34,
     "lng": 77.32
@@ -5719,9 +6746,12 @@ window.STATIONS = [
   {
     "c": "BAY",
     "n": "Ballari Jn",
+    "city": "Hubballi",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SWR",
     "d": "Hubballi",
+    "cat": "3",
     "pf": 4,
     "lat": 15.15,
     "lng": 76.92
@@ -5729,9 +6759,12 @@ window.STATIONS = [
   {
     "c": "BUI",
     "n": "Ballia",
+    "city": "Varanasi",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NER",
     "d": "Varanasi",
+    "cat": "3",
     "pf": 4,
     "lat": 25.76,
     "lng": 84.15
@@ -5741,18 +6774,21 @@ window.STATIONS = [
     "n": "Balrampur",
     "city": "Balrampur",
     "st": "Uttar Pradesh",
+    "s": "Uttar Pradesh",
     "z": "NER",
     "d": "Lucknow NER",
     "cat": "D",
-    "pf": 2,
-    "tr": 20
+    "pf": 2
   },
   {
     "c": "BLP",
     "n": "Balrampur",
+    "city": "Lucknow NER",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NER",
     "d": "Lucknow NER",
+    "cat": "4",
     "pf": 2,
     "lat": 27.43,
     "lng": 82.18
@@ -5760,9 +6796,12 @@ window.STATIONS = [
   {
     "c": "BSBS",
     "n": "Banaras (Manduadih)",
+    "city": "Varanasi",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NER",
     "d": "Varanasi",
+    "cat": "2",
     "pf": 8,
     "lat": 25.3,
     "lng": 82.97
@@ -5772,18 +6811,21 @@ window.STATIONS = [
     "n": "Banda Jn",
     "city": "Banda",
     "st": "Uttar Pradesh",
+    "s": "Uttar Pradesh",
     "z": "NCR",
     "d": "Jhansi",
     "cat": "C",
-    "pf": 3,
-    "tr": 30
+    "pf": 3
   },
   {
     "c": "BNDA",
     "n": "Banda Jn",
+    "city": "Jhansi",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NCR",
     "d": "Jhansi",
+    "cat": "3",
     "pf": 3,
     "lat": 25.48,
     "lng": 80.34
@@ -5791,9 +6833,12 @@ window.STATIONS = [
   {
     "c": "BDC",
     "n": "Bandel Jn",
+    "city": "Howrah",
+    "st": "West Bengal",
     "s": "West Bengal",
     "z": "ER",
     "d": "Howrah",
+    "cat": "2",
     "pf": 7,
     "lat": 22.92,
     "lng": 88.37
@@ -5801,9 +6846,12 @@ window.STATIONS = [
   {
     "c": "BDTS",
     "n": "Bandra Terminus",
+    "city": "Mumbai WR",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "WR",
     "d": "Mumbai WR",
+    "cat": "2",
     "pf": 7,
     "lat": 19.06,
     "lng": 72.84
@@ -5811,9 +6859,12 @@ window.STATIONS = [
   {
     "c": "BWT",
     "n": "Bangarapet Jn",
+    "city": "Bengaluru",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SWR",
     "d": "Bengaluru",
+    "cat": "3",
     "pf": 5,
     "lat": 12.98,
     "lng": 78.19
@@ -5821,9 +6872,12 @@ window.STATIONS = [
   {
     "c": "BAHL",
     "n": "Banihal",
+    "city": "Firozpur",
+    "st": "Jammu & Kashmir",
     "s": "Jammu & Kashmir",
     "z": "NR",
     "d": "Firozpur",
+    "cat": "3",
     "pf": 3,
     "lat": 33.5,
     "lng": 75.2
@@ -5831,9 +6885,12 @@ window.STATIONS = [
   {
     "c": "BQA",
     "n": "Bankura Jn",
+    "city": "Adra",
+    "st": "West Bengal",
     "s": "West Bengal",
     "z": "SER",
     "d": "Adra",
+    "cat": "3",
     "pf": 3,
     "lat": 23.23,
     "lng": 87.07
@@ -5841,9 +6898,12 @@ window.STATIONS = [
   {
     "c": "BNKI",
     "n": "Banmankhi Jn",
+    "city": "Samastipur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Samastipur",
+    "cat": "3",
     "pf": 3,
     "lat": 25.9,
     "lng": 87.18
@@ -5851,9 +6911,12 @@ window.STATIONS = [
   {
     "c": "BPP",
     "n": "Bapatla",
+    "city": "Vijayawada",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "SCR",
     "d": "Vijayawada",
+    "cat": "3",
     "pf": 3,
     "lat": 15.9,
     "lng": 80.47
@@ -5861,9 +6924,12 @@ window.STATIONS = [
   {
     "c": "BMKI",
     "n": "Bapudham Motihari",
+    "city": "Samastipur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Samastipur",
+    "cat": "3",
     "pf": 3,
     "lat": 26.65,
     "lng": 84.92
@@ -5871,9 +6937,12 @@ window.STATIONS = [
   {
     "c": "BBK",
     "n": "Barabanki Jn",
+    "city": "Lucknow NR",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NR",
     "d": "Lucknow NR",
+    "cat": "3",
     "pf": 4,
     "lat": 26.93,
     "lng": 81.19
@@ -5881,9 +6950,12 @@ window.STATIONS = [
   {
     "c": "BRML",
     "n": "Baramulla",
+    "city": "Firozpur",
+    "st": "Jammu & Kashmir",
     "s": "Jammu & Kashmir",
     "z": "NR",
     "d": "Firozpur",
+    "cat": "4",
     "pf": 2,
     "lat": 34.2,
     "lng": 74.34
@@ -5891,9 +6963,12 @@ window.STATIONS = [
   {
     "c": "BJU",
     "n": "Barauni Jn",
+    "city": "Sonpur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Sonpur",
+    "cat": "2",
     "pf": 9,
     "lat": 25.48,
     "lng": 85.97
@@ -5903,18 +6978,21 @@ window.STATIONS = [
     "n": "Barbil",
     "city": "Barbil",
     "st": "Odisha",
+    "s": "Odisha",
     "z": "SER",
     "d": "Chakradharpur",
     "cat": "C",
-    "pf": 3,
-    "tr": 20
+    "pf": 3
   },
   {
     "c": "BWN",
     "n": "Barddhaman Jn",
+    "city": "Howrah",
+    "st": "West Bengal",
     "s": "West Bengal",
     "z": "ER",
     "d": "Howrah",
+    "cat": "2",
     "pf": 8,
     "lat": 23.23,
     "lng": 87.86
@@ -5922,9 +7000,12 @@ window.STATIONS = [
   {
     "c": "BC",
     "n": "Bareilly City",
+    "city": "Izzatnagar",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NER",
     "d": "Izzatnagar",
+    "cat": "3",
     "pf": 4,
     "lat": 28.37,
     "lng": 79.41
@@ -5932,9 +7013,12 @@ window.STATIONS = [
   {
     "c": "BE",
     "n": "Bareilly Jn",
+    "city": "Moradabad",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NR",
     "d": "Moradabad",
+    "cat": "2",
     "pf": 6,
     "lat": 28.34,
     "lng": 79.42
@@ -5942,9 +7026,12 @@ window.STATIONS = [
   {
     "c": "BRGA",
     "n": "Bargarh Road",
+    "city": "Sambalpur",
+    "st": "Odisha",
     "s": "Odisha",
     "z": "ECoR",
     "d": "Sambalpur",
+    "cat": "4",
     "pf": 2,
     "lat": 21.33,
     "lng": 83.62
@@ -5952,9 +7039,12 @@ window.STATIONS = [
   {
     "c": "BARH",
     "n": "Barh",
+    "city": "Danapur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Danapur",
+    "cat": "4",
     "pf": 2,
     "lat": 25.48,
     "lng": 85.71
@@ -5962,9 +7052,12 @@ window.STATIONS = [
   {
     "c": "BHW",
     "n": "Barharwa Jn",
+    "city": "Malda",
+    "st": "Jharkhand",
     "s": "Jharkhand",
     "z": "ER",
     "d": "Malda",
+    "cat": "3",
     "pf": 3,
     "lat": 24.86,
     "lng": 87.78
@@ -5972,9 +7065,12 @@ window.STATIONS = [
   {
     "c": "BRKA",
     "n": "Barkakana Jn",
+    "city": "Dhanbad",
+    "st": "Jharkhand",
     "s": "Jharkhand",
     "z": "ECR",
     "d": "Dhanbad",
+    "cat": "3",
     "pf": 5,
     "lat": 23.61,
     "lng": 85.48
@@ -5982,9 +7078,12 @@ window.STATIONS = [
   {
     "c": "BPRD",
     "n": "Barpeta Road",
+    "city": "Rangiya",
+    "st": "Assam",
     "s": "Assam",
     "z": "NFR",
     "d": "Rangiya",
+    "cat": "4",
     "pf": 2,
     "lat": 26.51,
     "lng": 90.97
@@ -5992,9 +7091,12 @@ window.STATIONS = [
   {
     "c": "BOE",
     "n": "Barsoi Jn",
+    "city": "Katihar",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "NFR",
     "d": "Katihar",
+    "cat": "3",
     "pf": 4,
     "lat": 25.64,
     "lng": 87.89
@@ -6002,9 +7104,12 @@ window.STATIONS = [
   {
     "c": "BST",
     "n": "Basti",
+    "city": "Lucknow NER",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NER",
     "d": "Lucknow NER",
+    "cat": "3",
     "pf": 4,
     "lat": 26.79,
     "lng": 82.74
@@ -6012,9 +7117,12 @@ window.STATIONS = [
   {
     "c": "BTI",
     "n": "Bathinda Jn",
+    "city": "Ambala",
+    "st": "Punjab",
     "s": "Punjab",
     "z": "NR",
     "d": "Ambala",
+    "cat": "2",
     "pf": 7,
     "lat": 30.21,
     "lng": 74.95
@@ -6022,9 +7130,12 @@ window.STATIONS = [
   {
     "c": "BEAS",
     "n": "Beas Jn",
+    "city": "Firozpur",
+    "st": "Punjab",
     "s": "Punjab",
     "z": "NR",
     "d": "Firozpur",
+    "cat": "4",
     "pf": 2,
     "lat": 31.51,
     "lng": 75.3
@@ -6032,9 +7143,12 @@ window.STATIONS = [
   {
     "c": "BGS",
     "n": "Begusarai",
+    "city": "Sonpur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Sonpur",
+    "cat": "3",
     "pf": 3,
     "lat": 25.42,
     "lng": 86.13
@@ -6042,9 +7156,12 @@ window.STATIONS = [
   {
     "c": "BGM",
     "n": "Belagavi (Belgaum)",
+    "city": "Hubballi",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SWR",
     "d": "Hubballi",
+    "cat": "3",
     "pf": 3,
     "lat": 15.86,
     "lng": 74.5
@@ -6052,9 +7169,12 @@ window.STATIONS = [
   {
     "c": "BNC",
     "n": "Bengaluru Cantt",
+    "city": "Bengaluru",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SWR",
     "d": "Bengaluru",
+    "cat": "3",
     "pf": 3,
     "lat": 12.99,
     "lng": 77.6
@@ -6062,9 +7182,12 @@ window.STATIONS = [
   {
     "c": "BTH",
     "n": "Bettiah",
+    "city": "Samastipur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Samastipur",
+    "cat": "3",
     "pf": 3,
     "lat": 26.8,
     "lng": 84.5
@@ -6072,9 +7195,12 @@ window.STATIONS = [
   {
     "c": "BBU",
     "n": "Bhabua Road",
+    "city": "Pt DD Upadhyaya",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Pt DD Upadhyaya",
+    "cat": "3",
     "pf": 4,
     "lat": 25.04,
     "lng": 83.61
@@ -6082,9 +7208,12 @@ window.STATIONS = [
   {
     "c": "BHC",
     "n": "Bhadrak",
+    "city": "Khurda Road",
+    "st": "Odisha",
     "s": "Odisha",
     "z": "ECoR",
     "d": "Khurda Road",
+    "cat": "3",
     "pf": 4,
     "lat": 21.06,
     "lng": 86.51
@@ -6092,9 +7221,12 @@ window.STATIONS = [
   {
     "c": "BGP",
     "n": "Bhagalpur Jn",
+    "city": "Malda",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ER",
     "d": "Malda",
+    "cat": "2",
     "pf": 6,
     "lat": 25.24,
     "lng": 86.97
@@ -6104,29 +7236,32 @@ window.STATIONS = [
     "n": "Bhagat Ki Kothi",
     "city": "Jodhpur",
     "st": "Rajasthan",
+    "s": "Rajasthan",
     "z": "NWR",
     "d": "Jodhpur",
     "cat": "C",
-    "pf": 3,
-    "tr": 30
+    "pf": 3
   },
   {
     "c": "BVP",
     "n": "Bharuch Jn",
     "city": "Bharuch",
     "st": "Gujarat",
+    "s": "Gujarat",
     "z": "WR",
     "d": "Vadodara",
     "cat": "C",
-    "pf": 4,
-    "tr": 60
+    "pf": 4
   },
   {
     "c": "BH",
     "n": "Bharuch Jn",
+    "city": "Vadodara",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Vadodara",
+    "cat": "3",
     "pf": 5,
     "lat": 21.71,
     "lng": 72.99
@@ -6134,9 +7269,12 @@ window.STATIONS = [
   {
     "c": "BYT",
     "n": "Bhatapara",
+    "city": "Raipur",
+    "st": "Chhattisgarh",
     "s": "Chhattisgarh",
     "z": "SECR",
     "d": "Raipur",
+    "cat": "3",
     "pf": 3,
     "lat": 21.73,
     "lng": 81.93
@@ -6144,9 +7282,12 @@ window.STATIONS = [
   {
     "c": "BTJL",
     "n": "Bhatkal",
+    "city": "Karwar",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "KR",
     "d": "Karwar",
+    "cat": "4",
     "pf": 2,
     "lat": 13.98,
     "lng": 74.55
@@ -6154,9 +7295,12 @@ window.STATIONS = [
   {
     "c": "BTT",
     "n": "Bhatni Jn",
+    "city": "Varanasi",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NER",
     "d": "Varanasi",
+    "cat": "3",
     "pf": 4,
     "lat": 26.43,
     "lng": 83.97
@@ -6164,9 +7308,12 @@ window.STATIONS = [
   {
     "c": "BVC",
     "n": "Bhavnagar Terminus",
+    "city": "Bhavnagar",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Bhavnagar",
+    "cat": "3",
     "pf": 3,
     "lat": 21.78,
     "lng": 72.14
@@ -6174,9 +7321,12 @@ window.STATIONS = [
   {
     "c": "BPHB",
     "n": "Bhilai Power House",
+    "city": "Raipur",
+    "st": "Chhattisgarh",
     "s": "Chhattisgarh",
     "z": "SECR",
     "d": "Raipur",
+    "cat": "3",
     "pf": 3,
     "lat": 21.21,
     "lng": 81.38
@@ -6184,9 +7334,12 @@ window.STATIONS = [
   {
     "c": "BNW",
     "n": "Bhiwani Jn",
+    "city": "Bikaner",
+    "st": "Haryana",
     "s": "Haryana",
     "z": "NWR",
     "d": "Bikaner",
+    "cat": "3",
     "pf": 3,
     "lat": 28.79,
     "lng": 76.13
@@ -6194,9 +7347,12 @@ window.STATIONS = [
   {
     "c": "BPR",
     "n": "Bhojipura Jn",
+    "city": "Izzatnagar",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NER",
     "d": "Izzatnagar",
+    "cat": "3",
     "pf": 3,
     "lat": 28.5,
     "lng": 79.47
@@ -6204,9 +7360,12 @@ window.STATIONS = [
   {
     "c": "BPL",
     "n": "Bhopal Jn",
+    "city": "Bhopal",
+    "st": "Madhya Pradesh",
     "s": "Madhya Pradesh",
     "z": "WCR",
     "d": "Bhopal",
+    "cat": "2",
     "pf": 6,
     "lat": 23.26,
     "lng": 77.41
@@ -6214,9 +7373,12 @@ window.STATIONS = [
   {
     "c": "BBS",
     "n": "Bhubaneswar",
+    "city": "Khurda Road",
+    "st": "Odisha",
     "s": "Odisha",
     "z": "ECoR",
     "d": "Khurda Road",
+    "cat": "2",
     "pf": 6,
     "lat": 20.27,
     "lng": 85.84
@@ -6224,9 +7386,12 @@ window.STATIONS = [
   {
     "c": "BHUJ",
     "n": "Bhuj",
+    "city": "Ahmedabad",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Ahmedabad",
+    "cat": "3",
     "pf": 3,
     "lat": 23.25,
     "lng": 69.67
@@ -6234,9 +7399,12 @@ window.STATIONS = [
   {
     "c": "BSL",
     "n": "Bhusawal Jn",
+    "city": "Bhusawal",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Bhusawal",
+    "cat": "2",
     "pf": 8,
     "lat": 21.05,
     "lng": 75.79
@@ -6244,9 +7412,12 @@ window.STATIONS = [
   {
     "c": "BTA",
     "n": "Bihta",
+    "city": "Danapur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Danapur",
+    "cat": "3",
     "pf": 3,
     "lat": 25.57,
     "lng": 84.87
@@ -6256,18 +7427,21 @@ window.STATIONS = [
     "n": "Bikaner Jn",
     "city": "Bikaner",
     "st": "Rajasthan",
+    "s": "Rajasthan",
     "z": "NWR",
     "d": "Bikaner",
     "cat": "A",
-    "pf": 4,
-    "tr": 65
+    "pf": 4
   },
   {
     "c": "BSP",
     "n": "Bilaspur Jn",
+    "city": "Bilaspur",
+    "st": "Chhattisgarh",
     "s": "Chhattisgarh",
     "z": "SECR",
     "d": "Bilaspur",
+    "cat": "2",
     "pf": 8,
     "lat": 22.08,
     "lng": 82.16
@@ -6275,9 +7449,12 @@ window.STATIONS = [
   {
     "c": "BIM",
     "n": "Bilimora Jn",
+    "city": "Mumbai WR",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Mumbai WR",
+    "cat": "3",
     "pf": 4,
     "lat": 20.76,
     "lng": 72.96
@@ -6285,9 +7462,12 @@ window.STATIONS = [
   {
     "c": "BINA",
     "n": "Bina Jn",
+    "city": "Bhopal",
+    "st": "Madhya Pradesh",
     "s": "Madhya Pradesh",
     "z": "WCR",
     "d": "Bhopal",
+    "cat": "2",
     "pf": 6,
     "lat": 24.17,
     "lng": 78.18
@@ -6295,9 +7475,12 @@ window.STATIONS = [
   {
     "c": "RRB",
     "n": "Birur Jn",
+    "city": "Mysuru",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SWR",
     "d": "Mysuru",
+    "cat": "3",
     "pf": 3,
     "lat": 13.62,
     "lng": 75.97
@@ -6305,9 +7488,12 @@ window.STATIONS = [
   {
     "c": "BKSC",
     "n": "Bokaro Steel City",
+    "city": "Adra",
+    "st": "Jharkhand",
     "s": "Jharkhand",
     "z": "SER",
     "d": "Adra",
+    "cat": "3",
     "pf": 5,
     "lat": 23.63,
     "lng": 86.17
@@ -6315,9 +7501,12 @@ window.STATIONS = [
   {
     "c": "BHP",
     "n": "Bolpur Shantiniketan",
+    "city": "Howrah",
+    "st": "West Bengal",
     "s": "West Bengal",
     "z": "ER",
     "d": "Howrah",
+    "cat": "3",
     "pf": 3,
     "lat": 23.67,
     "lng": 87.69
@@ -6325,9 +7514,12 @@ window.STATIONS = [
   {
     "c": "BVI",
     "n": "Borivali",
+    "city": "Mumbai WR",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "WR",
     "d": "Mumbai WR",
+    "cat": "1",
     "pf": 10,
     "lat": 19.23,
     "lng": 72.86
@@ -6335,9 +7527,12 @@ window.STATIONS = [
   {
     "c": "BAM",
     "n": "Brahmapur",
+    "city": "Khurda Road",
+    "st": "Odisha",
     "s": "Odisha",
     "z": "ECoR",
     "d": "Khurda Road",
+    "cat": "3",
     "pf": 4,
     "lat": 19.31,
     "lng": 84.79
@@ -6345,9 +7540,12 @@ window.STATIONS = [
   {
     "c": "BAU",
     "n": "Burhanpur",
+    "city": "Bhusawal",
+    "st": "Madhya Pradesh",
     "s": "Madhya Pradesh",
     "z": "CR",
     "d": "Bhusawal",
+    "cat": "3",
     "pf": 3,
     "lat": 21.31,
     "lng": 76.22
@@ -6355,9 +7553,12 @@ window.STATIONS = [
   {
     "c": "BXR",
     "n": "Buxar",
+    "city": "Danapur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Danapur",
+    "cat": "3",
     "pf": 3,
     "lat": 25.57,
     "lng": 83.98
@@ -6365,9 +7566,12 @@ window.STATIONS = [
   {
     "c": "CAA",
     "n": "Chakia",
+    "city": "Samastipur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Samastipur",
+    "cat": "4",
     "pf": 2,
     "lat": 26.42,
     "lng": 85.05
@@ -6375,9 +7579,12 @@ window.STATIONS = [
   {
     "c": "CKP",
     "n": "Chakradharpur",
+    "city": "Chakradharpur",
+    "st": "Jharkhand",
     "s": "Jharkhand",
     "z": "SER",
     "d": "Chakradharpur",
+    "cat": "3",
     "pf": 3,
     "lat": 22.68,
     "lng": 85.63
@@ -6385,9 +7592,12 @@ window.STATIONS = [
   {
     "c": "CKI",
     "n": "Chalakudi",
+    "city": "Thiruvananthapuram",
+    "st": "Kerala",
     "s": "Kerala",
     "z": "SR",
     "d": "Thiruvananthapuram",
+    "cat": "3",
     "pf": 3,
     "lat": 10.3,
     "lng": 76.33
@@ -6395,9 +7605,12 @@ window.STATIONS = [
   {
     "c": "CSN",
     "n": "Chalisgaon Jn",
+    "city": "Bhusawal",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Bhusawal",
+    "cat": "3",
     "pf": 5,
     "lat": 20.46,
     "lng": 74.99
@@ -6405,9 +7618,12 @@ window.STATIONS = [
   {
     "c": "CPH",
     "n": "Champa Jn",
+    "city": "Bilaspur",
+    "st": "Chhattisgarh",
     "s": "Chhattisgarh",
     "z": "SECR",
     "d": "Bilaspur",
+    "cat": "3",
     "pf": 3,
     "lat": 22.04,
     "lng": 82.65
@@ -6415,9 +7631,12 @@ window.STATIONS = [
   {
     "c": "CH",
     "n": "Chandausi Jn",
+    "city": "Moradabad",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NR",
     "d": "Moradabad",
+    "cat": "3",
     "pf": 3,
     "lat": 28.45,
     "lng": 78.77
@@ -6425,9 +7644,12 @@ window.STATIONS = [
   {
     "c": "CDG",
     "n": "Chandigarh Jn",
+    "city": "Ambala",
+    "st": "Chandigarh",
     "s": "Chandigarh",
     "z": "NR",
     "d": "Ambala",
+    "cat": "2",
     "pf": 6,
     "lat": 30.7,
     "lng": 76.82
@@ -6435,9 +7657,12 @@ window.STATIONS = [
   {
     "c": "CD",
     "n": "Chandrapur",
+    "city": "Nagpur CR",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Nagpur CR",
+    "cat": "3",
     "pf": 3,
     "lat": 19.95,
     "lng": 79.3
@@ -6445,9 +7670,12 @@ window.STATIONS = [
   {
     "c": "CGY",
     "n": "Changanassery",
+    "city": "Thiruvananthapuram",
+    "st": "Kerala",
     "s": "Kerala",
     "z": "SR",
     "d": "Thiruvananthapuram",
+    "cat": "4",
     "pf": 2,
     "lat": 9.45,
     "lng": 76.54
@@ -6455,9 +7683,12 @@ window.STATIONS = [
   {
     "c": "CPK",
     "n": "Chaparmukh Jn",
+    "city": "Lumding",
+    "st": "Assam",
     "s": "Assam",
     "z": "NFR",
     "d": "Lumding",
+    "cat": "3",
     "pf": 3,
     "lat": 26.19,
     "lng": 92.52
@@ -6465,9 +7696,12 @@ window.STATIONS = [
   {
     "c": "CGL",
     "n": "Chengalpattu Jn",
+    "city": "Chennai",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Chennai",
+    "cat": "2",
     "pf": 8,
     "lat": 12.68,
     "lng": 79.98
@@ -6475,9 +7709,12 @@ window.STATIONS = [
   {
     "c": "CNGR",
     "n": "Chengannur",
+    "city": "Thiruvananthapuram",
+    "st": "Kerala",
     "s": "Kerala",
     "z": "SR",
     "d": "Thiruvananthapuram",
+    "cat": "3",
     "pf": 3,
     "lat": 9.32,
     "lng": 76.61
@@ -6485,9 +7722,12 @@ window.STATIONS = [
   {
     "c": "MS",
     "n": "Chennai Egmore",
+    "city": "Chennai",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Chennai",
+    "cat": "1",
     "pf": 11,
     "lat": 13.08,
     "lng": 80.26
@@ -6495,9 +7735,12 @@ window.STATIONS = [
   {
     "c": "CPR",
     "n": "Chhapra Jn",
+    "city": "Varanasi",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "NER",
     "d": "Varanasi",
+    "cat": "3",
     "pf": 5,
     "lat": 25.78,
     "lng": 84.73
@@ -6505,9 +7748,12 @@ window.STATIONS = [
   {
     "c": "AWB",
     "n": "Chhatrapati Sambhajinagar (Aurangabad)",
+    "city": "Nanded",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "SCR",
     "d": "Nanded",
+    "cat": "3",
     "pf": 5,
     "lat": 19.87,
     "lng": 75.31
@@ -6515,9 +7761,12 @@ window.STATIONS = [
   {
     "c": "CSMT",
     "n": "Chhatrapati Shivaji Maharaj Terminus",
+    "city": "Mumbai CR",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Mumbai CR",
+    "cat": "1",
     "pf": 18,
     "lat": 18.94,
     "lng": 72.84
@@ -6525,9 +7774,12 @@ window.STATIONS = [
   {
     "c": "CDM",
     "n": "Chidambaram",
+    "city": "Tiruchchirappalli",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Tiruchchirappalli",
+    "cat": "4",
     "pf": 2,
     "lat": 11.39,
     "lng": 79.7
@@ -6535,9 +7787,12 @@ window.STATIONS = [
   {
     "c": "CCH",
     "n": "Chinchwad",
+    "city": "Pune",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Pune",
+    "cat": "4",
     "pf": 2,
     "lat": 18.63,
     "lng": 73.79
@@ -6545,9 +7800,12 @@ window.STATIONS = [
   {
     "c": "CHI",
     "n": "Chiplun",
+    "city": "Ratnagiri",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "KR",
     "d": "Ratnagiri",
+    "cat": "4",
     "pf": 2,
     "lat": 17.52,
     "lng": 73.53
@@ -6555,9 +7813,12 @@ window.STATIONS = [
   {
     "c": "CLX",
     "n": "Chirala",
+    "city": "Vijayawada",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "SCR",
     "d": "Vijayawada",
+    "cat": "3",
     "pf": 3,
     "lat": 15.82,
     "lng": 80.35
@@ -6565,9 +7826,12 @@ window.STATIONS = [
   {
     "c": "CKTD",
     "n": "Chitrakoot Dham Karwi",
+    "city": "Jhansi",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NCR",
     "d": "Jhansi",
+    "cat": "4",
     "pf": 2,
     "lat": 25.21,
     "lng": 80.87
@@ -6575,9 +7839,12 @@ window.STATIONS = [
   {
     "c": "CRJ",
     "n": "Chittaranjan",
+    "city": "Asansol",
+    "st": "West Bengal",
     "s": "West Bengal",
     "z": "ER",
     "d": "Asansol",
+    "cat": "3",
     "pf": 3,
     "lat": 23.86,
     "lng": 86.91
@@ -6585,9 +7852,12 @@ window.STATIONS = [
   {
     "c": "CPU",
     "n": "Chopan",
+    "city": "Pt DD Upadhyaya",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "ECR",
     "d": "Pt DD Upadhyaya",
+    "cat": "3",
     "pf": 3,
     "lat": 24.52,
     "lng": 83.03
@@ -6595,9 +7865,12 @@ window.STATIONS = [
   {
     "c": "CBE",
     "n": "Coimbatore Jn",
+    "city": "Salem",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Salem",
+    "cat": "2",
     "pf": 6,
     "lat": 11,
     "lng": 76.96
@@ -6605,9 +7878,12 @@ window.STATIONS = [
   {
     "c": "CBF",
     "n": "Coimbatore North",
+    "city": "Salem",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Salem",
+    "cat": "4",
     "pf": 2,
     "lat": 11.02,
     "lng": 76.96
@@ -6615,9 +7891,12 @@ window.STATIONS = [
   {
     "c": "CTC",
     "n": "Cuttack Jn",
+    "city": "Khurda Road",
+    "st": "Odisha",
     "s": "Odisha",
     "z": "ECoR",
     "d": "Khurda Road",
+    "cat": "3",
     "pf": 5,
     "lat": 20.47,
     "lng": 85.9
@@ -6625,9 +7904,12 @@ window.STATIONS = [
   {
     "c": "DBA",
     "n": "Dabra",
+    "city": "Jhansi",
+    "st": "Madhya Pradesh",
     "s": "Madhya Pradesh",
     "z": "NCR",
     "d": "Jhansi",
+    "cat": "4",
     "pf": 2,
     "lat": 25.89,
     "lng": 78.33
@@ -6635,9 +7917,12 @@ window.STATIONS = [
   {
     "c": "DR",
     "n": "Dadar Central",
+    "city": "Mumbai CR",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Mumbai CR",
+    "cat": "2",
     "pf": 8,
     "lat": 19.02,
     "lng": 72.84
@@ -6645,9 +7930,12 @@ window.STATIONS = [
   {
     "c": "DDR",
     "n": "Dadar Western",
+    "city": "Mumbai WR",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "WR",
     "d": "Mumbai WR",
+    "cat": "2",
     "pf": 7,
     "lat": 19.02,
     "lng": 72.84
@@ -6655,9 +7943,12 @@ window.STATIONS = [
   {
     "c": "DHD",
     "n": "Dahod",
+    "city": "Ratlam",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Ratlam",
+    "cat": "3",
     "pf": 3,
     "lat": 22.84,
     "lng": 74.26
@@ -6665,9 +7956,12 @@ window.STATIONS = [
   {
     "c": "DTO",
     "n": "Daltonganj",
+    "city": "Dhanbad",
+    "st": "Jharkhand",
     "s": "Jharkhand",
     "z": "ECR",
     "d": "Dhanbad",
+    "cat": "3",
     "pf": 3,
     "lat": 24.03,
     "lng": 84.07
@@ -6675,9 +7969,12 @@ window.STATIONS = [
   {
     "c": "DMO",
     "n": "Damoh",
+    "city": "Jabalpur",
+    "st": "Madhya Pradesh",
     "s": "Madhya Pradesh",
     "z": "WCR",
     "d": "Jabalpur",
+    "cat": "3",
     "pf": 3,
     "lat": 23.83,
     "lng": 79.44
@@ -6685,9 +7982,12 @@ window.STATIONS = [
   {
     "c": "DNR",
     "n": "Danapur",
+    "city": "Danapur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Danapur",
+    "cat": "3",
     "pf": 5,
     "lat": 25.62,
     "lng": 85.05
@@ -6695,9 +7995,12 @@ window.STATIONS = [
   {
     "c": "DBG",
     "n": "Darbhanga Jn",
+    "city": "Samastipur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Samastipur",
+    "cat": "3",
     "pf": 5,
     "lat": 26.16,
     "lng": 85.9
@@ -6705,9 +8008,12 @@ window.STATIONS = [
   {
     "c": "DAA",
     "n": "Datia",
+    "city": "Jhansi",
+    "st": "Madhya Pradesh",
     "s": "Madhya Pradesh",
     "z": "NCR",
     "d": "Jhansi",
+    "cat": "4",
     "pf": 2,
     "lat": 25.67,
     "lng": 78.46
@@ -6715,9 +8021,12 @@ window.STATIONS = [
   {
     "c": "DLPC",
     "n": "Daulatpur Chowk",
+    "city": "Ambala",
+    "st": "Himachal Pradesh",
     "s": "Himachal Pradesh",
     "z": "NR",
     "d": "Ambala",
+    "cat": "4",
     "pf": 2,
     "lat": 31.8,
     "lng": 75.98
@@ -6725,9 +8034,12 @@ window.STATIONS = [
   {
     "c": "DD",
     "n": "Daund Jn",
+    "city": "Pune",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Pune",
+    "cat": "2",
     "pf": 6,
     "lat": 18.46,
     "lng": 74.58
@@ -6735,9 +8047,12 @@ window.STATIONS = [
   {
     "c": "DMH",
     "n": "Dauram Madhepura",
+    "city": "Samastipur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Samastipur",
+    "cat": "4",
     "pf": 2,
     "lat": 25.92,
     "lng": 86.79
@@ -6745,9 +8060,12 @@ window.STATIONS = [
   {
     "c": "DVG",
     "n": "Davangere",
+    "city": "Mysuru",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SWR",
     "d": "Mysuru",
+    "cat": "4",
     "pf": 2,
     "lat": 14.46,
     "lng": 75.92
@@ -6755,9 +8073,12 @@ window.STATIONS = [
   {
     "c": "DDN",
     "n": "Dehradun",
+    "city": "Moradabad",
+    "st": "Uttarakhand",
     "s": "Uttarakhand",
     "z": "NR",
     "d": "Moradabad",
+    "cat": "3",
     "pf": 5,
     "lat": 30.32,
     "lng": 78.03
@@ -6765,9 +8086,12 @@ window.STATIONS = [
   {
     "c": "DOS",
     "n": "Dehri On Sone",
+    "city": "Pt DD Upadhyaya",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Pt DD Upadhyaya",
+    "cat": "2",
     "pf": 6,
     "lat": 24.91,
     "lng": 84.18
@@ -6775,9 +8099,12 @@ window.STATIONS = [
   {
     "c": "DEC",
     "n": "Delhi Cantt",
+    "city": "Delhi",
+    "st": "Delhi",
     "s": "Delhi",
     "z": "NR",
     "d": "Delhi",
+    "cat": "3",
     "pf": 4,
     "lat": 28.59,
     "lng": 77.12
@@ -6785,9 +8112,12 @@ window.STATIONS = [
   {
     "c": "DSJ",
     "n": "Delhi Safdarjung",
+    "city": "Delhi",
+    "st": "Delhi",
     "s": "Delhi",
     "z": "NR",
     "d": "Delhi",
+    "cat": "3",
     "pf": 3,
     "lat": 28.58,
     "lng": 77.2
@@ -6795,9 +8125,12 @@ window.STATIONS = [
   {
     "c": "DEE",
     "n": "Delhi Sarai Rohilla",
+    "city": "Delhi",
+    "st": "Delhi",
     "s": "Delhi",
     "z": "NR",
     "d": "Delhi",
+    "cat": "2",
     "pf": 7,
     "lat": 28.66,
     "lng": 77.18
@@ -6805,9 +8138,12 @@ window.STATIONS = [
   {
     "c": "DGHR",
     "n": "Deoghar Jn",
+    "city": "Asansol",
+    "st": "Jharkhand",
     "s": "Jharkhand",
     "z": "ER",
     "d": "Asansol",
+    "cat": "3",
     "pf": 3,
     "lat": 24.49,
     "lng": 86.7
@@ -6815,9 +8151,12 @@ window.STATIONS = [
   {
     "c": "DEOS",
     "n": "Deoria Sadar",
+    "city": "Varanasi",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NER",
     "d": "Varanasi",
+    "cat": "3",
     "pf": 3,
     "lat": 26.5,
     "lng": 83.78
@@ -6825,9 +8164,12 @@ window.STATIONS = [
   {
     "c": "DES",
     "n": "Desari",
+    "city": "Sonpur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Sonpur",
+    "cat": "4",
     "pf": 2,
     "lat": 25.64,
     "lng": 85.42
@@ -6835,9 +8177,12 @@ window.STATIONS = [
   {
     "c": "DWX",
     "n": "Dewas Jn",
+    "city": "Ratlam",
+    "st": "Madhya Pradesh",
     "s": "Madhya Pradesh",
     "z": "WR",
     "d": "Ratlam",
+    "cat": "3",
     "pf": 3,
     "lat": 22.97,
     "lng": 76.06
@@ -6845,9 +8190,12 @@ window.STATIONS = [
   {
     "c": "DMN",
     "n": "Dhamangaon",
+    "city": "Nagpur CR",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Nagpur CR",
+    "cat": "4",
     "pf": 2,
     "lat": 20.67,
     "lng": 78.14
@@ -6855,9 +8203,12 @@ window.STATIONS = [
   {
     "c": "DHN",
     "n": "Dhanbad Jn",
+    "city": "Dhanbad",
+    "st": "Jharkhand",
     "s": "Jharkhand",
     "z": "ECR",
     "d": "Dhanbad",
+    "cat": "2",
     "pf": 8,
     "lat": 23.79,
     "lng": 86.43
@@ -6865,9 +8216,12 @@ window.STATIONS = [
   {
     "c": "DMR",
     "n": "Dharmanagar",
+    "city": "Lumding",
+    "st": "Tripura",
     "s": "Tripura",
     "z": "NFR",
     "d": "Lumding",
+    "cat": "4",
     "pf": 2,
     "lat": 24.38,
     "lng": 92.16
@@ -6875,9 +8229,12 @@ window.STATIONS = [
   {
     "c": "DMM",
     "n": "Dharmavaram Jn",
+    "city": "Guntakal",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "SCR",
     "d": "Guntakal",
+    "cat": "3",
     "pf": 5,
     "lat": 14.41,
     "lng": 77.72
@@ -6885,9 +8242,12 @@ window.STATIONS = [
   {
     "c": "DWR",
     "n": "Dharwad",
+    "city": "Hubballi",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SWR",
     "d": "Hubballi",
+    "cat": "3",
     "pf": 3,
     "lat": 15.45,
     "lng": 75.01
@@ -6895,9 +8255,12 @@ window.STATIONS = [
   {
     "c": "DNKL",
     "n": "Dhenkanal",
+    "city": "Khurda Road",
+    "st": "Odisha",
     "s": "Odisha",
     "z": "ECoR",
     "d": "Khurda Road",
+    "cat": "3",
     "pf": 3,
     "lat": 20.66,
     "lng": 85.6
@@ -6905,9 +8268,12 @@ window.STATIONS = [
   {
     "c": "DHNE",
     "n": "Dhone Jn",
+    "city": "Guntakal",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "SCR",
     "d": "Guntakal",
+    "cat": "3",
     "pf": 4,
     "lat": 15.39,
     "lng": 77.87
@@ -6915,9 +8281,12 @@ window.STATIONS = [
   {
     "c": "DHG",
     "n": "Dhrangadhra Jn",
+    "city": "Ahmedabad",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Ahmedabad",
+    "cat": "4",
     "pf": 2,
     "lat": 22.99,
     "lng": 71.46
@@ -6925,9 +8294,12 @@ window.STATIONS = [
   {
     "c": "DUI",
     "n": "Dhuri Jn",
+    "city": "Ambala",
+    "st": "Punjab",
     "s": "Punjab",
     "z": "NR",
     "d": "Ambala",
+    "cat": "3",
     "pf": 4,
     "lat": 30.37,
     "lng": 75.87
@@ -6935,9 +8307,12 @@ window.STATIONS = [
   {
     "c": "DBRG",
     "n": "Dibrugarh",
+    "city": "Tinsukia",
+    "st": "Assam",
     "s": "Assam",
     "z": "NFR",
     "d": "Tinsukia",
+    "cat": "3",
     "pf": 4,
     "lat": 27.48,
     "lng": 94.91
@@ -6945,9 +8320,12 @@ window.STATIONS = [
   {
     "c": "DMV",
     "n": "Dimapur",
+    "city": "Lumding",
+    "st": "Nagaland",
     "s": "Nagaland",
     "z": "NFR",
     "d": "Lumding",
+    "cat": "3",
     "pf": 3,
     "lat": 25.91,
     "lng": 93.73
@@ -6955,9 +8333,12 @@ window.STATIONS = [
   {
     "c": "DG",
     "n": "Dindigul Jn",
+    "city": "Madurai",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Madurai",
+    "cat": "3",
     "pf": 5,
     "lat": 10.36,
     "lng": 77.98
@@ -6965,9 +8346,12 @@ window.STATIONS = [
   {
     "c": "DPU",
     "n": "Diphu",
+    "city": "Lumding",
+    "st": "Assam",
     "s": "Assam",
     "z": "NFR",
     "d": "Lumding",
+    "cat": "4",
     "pf": 2,
     "lat": 25.84,
     "lng": 93.43
@@ -6975,9 +8359,12 @@ window.STATIONS = [
   {
     "c": "DGG",
     "n": "Dongargarh",
+    "city": "Nagpur SECR",
+    "st": "Chhattisgarh",
     "s": "Chhattisgarh",
     "z": "SECR",
     "d": "Nagpur SECR",
+    "cat": "3",
     "pf": 4,
     "lat": 21.19,
     "lng": 80.76
@@ -6985,9 +8372,12 @@ window.STATIONS = [
   {
     "c": "DADN",
     "n": "Dr. Ambedkar Nagar (Mhow)",
+    "city": "Ratlam",
+    "st": "Madhya Pradesh",
     "s": "Madhya Pradesh",
     "z": "WR",
     "d": "Ratlam",
+    "cat": "3",
     "pf": 4,
     "lat": 22.55,
     "lng": 75.76
@@ -6995,9 +8385,12 @@ window.STATIONS = [
   {
     "c": "DUMK",
     "n": "Dumka",
+    "city": "Asansol",
+    "st": "Jharkhand",
     "s": "Jharkhand",
     "z": "ER",
     "d": "Asansol",
+    "cat": "3",
     "pf": 3,
     "lat": 24.27,
     "lng": 87.25
@@ -7005,9 +8398,12 @@ window.STATIONS = [
   {
     "c": "DUM",
     "n": "Dumraon",
+    "city": "Danapur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Danapur",
+    "cat": "4",
     "pf": 2,
     "lat": 25.55,
     "lng": 84.15
@@ -7015,9 +8411,12 @@ window.STATIONS = [
   {
     "c": "DURG",
     "n": "Durg Jn",
+    "city": "Raipur",
+    "st": "Chhattisgarh",
     "s": "Chhattisgarh",
     "z": "SECR",
     "d": "Raipur",
+    "cat": "2",
     "pf": 6,
     "lat": 21.19,
     "lng": 81.28
@@ -7025,9 +8424,12 @@ window.STATIONS = [
   {
     "c": "DGR",
     "n": "Durgapur",
+    "city": "Asansol",
+    "st": "West Bengal",
     "s": "West Bengal",
     "z": "ER",
     "d": "Asansol",
+    "cat": "3",
     "pf": 5,
     "lat": 23.5,
     "lng": 87.31
@@ -7035,9 +8437,12 @@ window.STATIONS = [
   {
     "c": "DVD",
     "n": "Duvvada",
+    "city": "Waltair",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "ECoR",
     "d": "Waltair",
+    "cat": "3",
     "pf": 4,
     "lat": 17.71,
     "lng": 83.15
@@ -7045,9 +8450,12 @@ window.STATIONS = [
   {
     "c": "DWK",
     "n": "Dwarka",
+    "city": "Bhavnagar",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Bhavnagar",
+    "cat": "3",
     "pf": 3,
     "lat": 22.24,
     "lng": 68.97
@@ -7055,9 +8463,12 @@ window.STATIONS = [
   {
     "c": "EE",
     "n": "Eluru",
+    "city": "Vijayawada",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "SCR",
     "d": "Vijayawada",
+    "cat": "3",
     "pf": 3,
     "lat": 16.71,
     "lng": 81.1
@@ -7065,9 +8476,12 @@ window.STATIONS = [
   {
     "c": "ERS",
     "n": "Ernakulam Jn (South)",
+    "city": "Thiruvananthapuram",
+    "st": "Kerala",
     "s": "Kerala",
     "z": "SR",
     "d": "Thiruvananthapuram",
+    "cat": "2",
     "pf": 6,
     "lat": 9.97,
     "lng": 76.29
@@ -7075,9 +8489,12 @@ window.STATIONS = [
   {
     "c": "ERN",
     "n": "Ernakulam Town (North)",
+    "city": "Thiruvananthapuram",
+    "st": "Kerala",
     "s": "Kerala",
     "z": "SR",
     "d": "Thiruvananthapuram",
+    "cat": "3",
     "pf": 3,
     "lat": 9.99,
     "lng": 76.29
@@ -7085,9 +8502,12 @@ window.STATIONS = [
   {
     "c": "ED",
     "n": "Erode Jn",
+    "city": "Salem",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Salem",
+    "cat": "3",
     "pf": 5,
     "lat": 11.34,
     "lng": 77.72
@@ -7095,9 +8515,12 @@ window.STATIONS = [
   {
     "c": "ETW",
     "n": "Etawah Jn",
+    "city": "Prayagraj",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NCR",
     "d": "Prayagraj",
+    "cat": "3",
     "pf": 5,
     "lat": 26.78,
     "lng": 79.03
@@ -7105,9 +8528,12 @@ window.STATIONS = [
   {
     "c": "FLK",
     "n": "Falakata",
+    "city": "Alipurduar",
+    "st": "West Bengal",
     "s": "West Bengal",
     "z": "NFR",
     "d": "Alipurduar",
+    "cat": "4",
     "pf": 2,
     "lat": 26.53,
     "lng": 89.2
@@ -7115,9 +8541,12 @@ window.STATIONS = [
   {
     "c": "FDB",
     "n": "Faridabad",
+    "city": "Delhi",
+    "st": "Haryana",
     "s": "Haryana",
     "z": "NR",
     "d": "Delhi",
+    "cat": "3",
     "pf": 4,
     "lat": 28.41,
     "lng": 77.31
@@ -7125,9 +8554,12 @@ window.STATIONS = [
   {
     "c": "FDK",
     "n": "Faridkot",
+    "city": "Firozpur",
+    "st": "Punjab",
     "s": "Punjab",
     "z": "NR",
     "d": "Firozpur",
+    "cat": "4",
     "pf": 2,
     "lat": 30.68,
     "lng": 74.75
@@ -7135,9 +8567,12 @@ window.STATIONS = [
   {
     "c": "FBD",
     "n": "Farrukhabad Jn",
+    "city": "Izzatnagar",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NER",
     "d": "Izzatnagar",
+    "cat": "3",
     "pf": 5,
     "lat": 27.39,
     "lng": 79.58
@@ -7145,9 +8580,12 @@ window.STATIONS = [
   {
     "c": "FTP",
     "n": "Fatehpur",
+    "city": "Prayagraj",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NCR",
     "d": "Prayagraj",
+    "cat": "3",
     "pf": 3,
     "lat": 25.93,
     "lng": 80.81
@@ -7155,9 +8593,12 @@ window.STATIONS = [
   {
     "c": "FUT",
     "n": "Fatuha Jn",
+    "city": "Danapur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Danapur",
+    "cat": "3",
     "pf": 5,
     "lat": 25.51,
     "lng": 85.31
@@ -7165,9 +8606,12 @@ window.STATIONS = [
   {
     "c": "FKA",
     "n": "Fazilka Jn",
+    "city": "Firozpur",
+    "st": "Punjab",
     "s": "Punjab",
     "z": "NR",
     "d": "Firozpur",
+    "cat": "3",
     "pf": 3,
     "lat": 30.4,
     "lng": 74.03
@@ -7175,9 +8619,12 @@ window.STATIONS = [
   {
     "c": "FZR",
     "n": "Ferozepur Cantt",
+    "city": "Firozpur",
+    "st": "Punjab",
     "s": "Punjab",
     "z": "NR",
     "d": "Firozpur",
+    "cat": "3",
     "pf": 5,
     "lat": 30.92,
     "lng": 74.61
@@ -7185,9 +8632,12 @@ window.STATIONS = [
   {
     "c": "FZD",
     "n": "Firozabad",
+    "city": "Prayagraj",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NCR",
     "d": "Prayagraj",
+    "cat": "3",
     "pf": 3,
     "lat": 27.15,
     "lng": 78.4
@@ -7195,9 +8645,12 @@ window.STATIONS = [
   {
     "c": "FKG",
     "n": "Furkating Jn",
+    "city": "Tinsukia",
+    "st": "Assam",
     "s": "Assam",
     "z": "NFR",
     "d": "Tinsukia",
+    "cat": "3",
     "pf": 3,
     "lat": 26.45,
     "lng": 93.97
@@ -7205,9 +8658,12 @@ window.STATIONS = [
   {
     "c": "GDG",
     "n": "Gadag Jn",
+    "city": "Hubballi",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SWR",
     "d": "Hubballi",
+    "cat": "3",
     "pf": 4,
     "lat": 15.43,
     "lng": 75.63
@@ -7215,9 +8671,12 @@ window.STATIONS = [
   {
     "c": "GAR",
     "n": "Gadarwara",
+    "city": "Jabalpur",
+    "st": "Madhya Pradesh",
     "s": "Madhya Pradesh",
     "z": "WCR",
     "d": "Jabalpur",
+    "cat": "4",
     "pf": 2,
     "lat": 22.92,
     "lng": 78.78
@@ -7225,9 +8684,12 @@ window.STATIONS = [
   {
     "c": "GIMB",
     "n": "Gandhidham Jn",
+    "city": "Ahmedabad",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Ahmedabad",
+    "cat": "3",
     "pf": 3,
     "lat": 23.08,
     "lng": 70.13
@@ -7235,9 +8697,12 @@ window.STATIONS = [
   {
     "c": "GNC",
     "n": "Gandhinagar Capital",
+    "city": "Ahmedabad",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Ahmedabad",
+    "cat": "3",
     "pf": 3,
     "lat": 23.23,
     "lng": 72.64
@@ -7245,9 +8710,12 @@ window.STATIONS = [
   {
     "c": "BAQ",
     "n": "Ganj Basoda",
+    "city": "Bhopal",
+    "st": "Madhya Pradesh",
     "s": "Madhya Pradesh",
     "z": "WCR",
     "d": "Bhopal",
+    "cat": "3",
     "pf": 3,
     "lat": 23.85,
     "lng": 77.94
@@ -7255,9 +8723,12 @@ window.STATIONS = [
   {
     "c": "GHD",
     "n": "Garhwa Road Jn",
+    "city": "Dhanbad",
+    "st": "Jharkhand",
     "s": "Jharkhand",
     "z": "ECR",
     "d": "Dhanbad",
+    "cat": "3",
     "pf": 4,
     "lat": 24.23,
     "lng": 83.84
@@ -7265,9 +8736,12 @@ window.STATIONS = [
   {
     "c": "GYA",
     "n": "Gaya Jn",
+    "city": "Pt DD Upadhyaya",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Pt DD Upadhyaya",
+    "cat": "2",
     "pf": 9,
     "lat": 24.8,
     "lng": 85
@@ -7275,9 +8749,12 @@ window.STATIONS = [
   {
     "c": "GPB",
     "n": "Ghataprabha",
+    "city": "Hubballi",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SWR",
     "d": "Hubballi",
+    "cat": "4",
     "pf": 2,
     "lat": 16.23,
     "lng": 74.83
@@ -7285,9 +8762,12 @@ window.STATIONS = [
   {
     "c": "GTS",
     "n": "Ghatsila",
+    "city": "Kharagpur",
+    "st": "Jharkhand",
     "s": "Jharkhand",
     "z": "SER",
     "d": "Kharagpur",
+    "cat": "4",
     "pf": 2,
     "lat": 22.58,
     "lng": 86.48
@@ -7295,9 +8775,12 @@ window.STATIONS = [
   {
     "c": "GZB",
     "n": "Ghaziabad Jn",
+    "city": "Delhi",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NR",
     "d": "Delhi",
+    "cat": "2",
     "pf": 6,
     "lat": 28.67,
     "lng": 77.43
@@ -7305,9 +8788,12 @@ window.STATIONS = [
   {
     "c": "GCT",
     "n": "Ghazipur City",
+    "city": "Varanasi",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NER",
     "d": "Varanasi",
+    "cat": "3",
     "pf": 3,
     "lat": 25.58,
     "lng": 83.58
@@ -7315,9 +8801,12 @@ window.STATIONS = [
   {
     "c": "GLPT",
     "n": "Goalpara Town",
+    "city": "Rangiya",
+    "st": "Assam",
     "s": "Assam",
     "z": "NFR",
     "d": "Rangiya",
+    "cat": "4",
     "pf": 2,
     "lat": 26.17,
     "lng": 90.62
@@ -7325,9 +8814,12 @@ window.STATIONS = [
   {
     "c": "GDA",
     "n": "Godhra Jn",
+    "city": "Vadodara",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Vadodara",
+    "cat": "3",
     "pf": 5,
     "lat": 22.78,
     "lng": 73.61
@@ -7335,9 +8827,12 @@ window.STATIONS = [
   {
     "c": "GOK",
     "n": "Gokarna Road",
+    "city": "Karwar",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "KR",
     "d": "Karwar",
+    "cat": "4",
     "pf": 2,
     "lat": 14.54,
     "lng": 74.34
@@ -7345,9 +8840,12 @@ window.STATIONS = [
   {
     "c": "GTNR",
     "n": "Gomti Nagar",
+    "city": "Lucknow NER",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NER",
     "d": "Lucknow NER",
+    "cat": "2",
     "pf": 6,
     "lat": 26.86,
     "lng": 81
@@ -7355,9 +8853,12 @@ window.STATIONS = [
   {
     "c": "GD",
     "n": "Gonda Jn",
+    "city": "Lucknow NER",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NER",
     "d": "Lucknow NER",
+    "cat": "3",
     "pf": 5,
     "lat": 27.13,
     "lng": 81.96
@@ -7365,9 +8866,12 @@ window.STATIONS = [
   {
     "c": "G",
     "n": "Gondia Jn",
+    "city": "Nagpur SECR",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "SECR",
     "d": "Nagpur SECR",
+    "cat": "2",
     "pf": 6,
     "lat": 21.46,
     "lng": 80.2
@@ -7375,9 +8879,12 @@ window.STATIONS = [
   {
     "c": "GY",
     "n": "Gooty Jn",
+    "city": "Guntakal",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "SCR",
     "d": "Guntakal",
+    "cat": "3",
     "pf": 3,
     "lat": 15.12,
     "lng": 77.63
@@ -7385,9 +8892,12 @@ window.STATIONS = [
   {
     "c": "GOPG",
     "n": "Gopalganj",
+    "city": "Varanasi",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "NER",
     "d": "Varanasi",
+    "cat": "4",
     "pf": 2,
     "lat": 26.47,
     "lng": 84.44
@@ -7395,9 +8905,12 @@ window.STATIONS = [
   {
     "c": "GKP",
     "n": "Gorakhpur Jn",
+    "city": "Lucknow NER",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NER",
     "d": "Lucknow NER",
+    "cat": "1",
     "pf": 10,
     "lat": 26.76,
     "lng": 83.38
@@ -7405,9 +8918,12 @@ window.STATIONS = [
   {
     "c": "GDR",
     "n": "Gudur Jn",
+    "city": "Vijayawada",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "SCR",
     "d": "Vijayawada",
+    "cat": "3",
     "pf": 3,
     "lat": 14.15,
     "lng": 79.85
@@ -7415,9 +8931,12 @@ window.STATIONS = [
   {
     "c": "GTL",
     "n": "Guntakal Jn",
+    "city": "Guntakal",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "SCR",
     "d": "Guntakal",
+    "cat": "2",
     "pf": 7,
     "lat": 15.17,
     "lng": 77.37
@@ -7425,9 +8944,12 @@ window.STATIONS = [
   {
     "c": "GNT",
     "n": "Guntur Jn",
+    "city": "Guntur",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "SCR",
     "d": "Guntur",
+    "cat": "2",
     "pf": 7,
     "lat": 16.3,
     "lng": 80.44
@@ -7435,9 +8957,12 @@ window.STATIONS = [
   {
     "c": "GRRU",
     "n": "Guraru",
+    "city": "Pt DD Upadhyaya",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Pt DD Upadhyaya",
+    "cat": "4",
     "pf": 2,
     "lat": 24.83,
     "lng": 84.81
@@ -7445,9 +8970,12 @@ window.STATIONS = [
   {
     "c": "GSP",
     "n": "Gurdaspur",
+    "city": "Firozpur",
+    "st": "Punjab",
     "s": "Punjab",
     "z": "NR",
     "d": "Firozpur",
+    "cat": "4",
     "pf": 2,
     "lat": 32.04,
     "lng": 75.4
@@ -7455,9 +8983,12 @@ window.STATIONS = [
   {
     "c": "GGN",
     "n": "Gurgaon",
+    "city": "Delhi",
+    "st": "Haryana",
     "s": "Haryana",
     "z": "NR",
     "d": "Delhi",
+    "cat": "3",
     "pf": 3,
     "lat": 28.47,
     "lng": 77.01
@@ -7465,9 +8996,12 @@ window.STATIONS = [
   {
     "c": "GHY",
     "n": "Guwahati",
+    "city": "Lumding",
+    "st": "Assam",
     "s": "Assam",
     "z": "NFR",
     "d": "Lumding",
+    "cat": "2",
     "pf": 7,
     "lat": 26.18,
     "lng": 91.75
@@ -7475,9 +9009,12 @@ window.STATIONS = [
   {
     "c": "GWL",
     "n": "Gwalior Jn",
+    "city": "Jhansi",
+    "st": "Madhya Pradesh",
     "s": "Madhya Pradesh",
     "z": "NCR",
     "d": "Jhansi",
+    "cat": "3",
     "pf": 5,
     "lat": 26.22,
     "lng": 78.18
@@ -7487,18 +9024,21 @@ window.STATIONS = [
     "n": "Habibganj",
     "city": "Bhopal",
     "st": "Madhya Pradesh",
+    "s": "Madhya Pradesh",
     "z": "WCR",
     "d": "Bhopal",
     "cat": "B",
-    "pf": 3,
-    "tr": 60
+    "pf": 3
   },
   {
     "c": "HJP",
     "n": "Hajipur Jn",
+    "city": "Sonpur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Sonpur",
+    "cat": "3",
     "pf": 5,
     "lat": 25.68,
     "lng": 85.22
@@ -7506,9 +9046,12 @@ window.STATIONS = [
   {
     "c": "HDW",
     "n": "Haldwani",
+    "city": "Izzatnagar",
+    "st": "Uttarakhand",
     "s": "Uttarakhand",
     "z": "NER",
     "d": "Izzatnagar",
+    "cat": "3",
     "pf": 3,
     "lat": 29.22,
     "lng": 79.52
@@ -7516,9 +9059,12 @@ window.STATIONS = [
   {
     "c": "HAPA",
     "n": "Hapa",
+    "city": "Rajkot",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Rajkot",
+    "cat": "3",
     "pf": 3,
     "lat": 22.47,
     "lng": 70.13
@@ -7526,9 +9072,12 @@ window.STATIONS = [
   {
     "c": "HPU",
     "n": "Hapur Jn",
+    "city": "Moradabad",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NR",
     "d": "Moradabad",
+    "cat": "3",
     "pf": 5,
     "lat": 28.73,
     "lng": 77.78
@@ -7536,9 +9085,12 @@ window.STATIONS = [
   {
     "c": "HRI",
     "n": "Hardoi",
+    "city": "Moradabad",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NR",
     "d": "Moradabad",
+    "cat": "3",
     "pf": 3,
     "lat": 27.4,
     "lng": 80.13
@@ -7546,9 +9098,12 @@ window.STATIONS = [
   {
     "c": "HW",
     "n": "Haridwar Jn",
+    "city": "Moradabad",
+    "st": "Uttarakhand",
     "s": "Uttarakhand",
     "z": "NR",
     "d": "Moradabad",
+    "cat": "2",
     "pf": 6,
     "lat": 29.95,
     "lng": 78.16
@@ -7556,9 +9111,12 @@ window.STATIONS = [
   {
     "c": "HRR",
     "n": "Harihar",
+    "city": "Mysuru",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SWR",
     "d": "Mysuru",
+    "cat": "3",
     "pf": 3,
     "lat": 14.51,
     "lng": 75.8
@@ -7566,9 +9124,12 @@ window.STATIONS = [
   {
     "c": "HAD",
     "n": "Harippad",
+    "city": "Thiruvananthapuram",
+    "st": "Kerala",
     "s": "Kerala",
     "z": "SR",
     "d": "Thiruvananthapuram",
+    "cat": "4",
     "pf": 2,
     "lat": 9.28,
     "lng": 76.45
@@ -7576,9 +9137,12 @@ window.STATIONS = [
   {
     "c": "HAS",
     "n": "Hassan Jn",
+    "city": "Mysuru",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SWR",
     "d": "Mysuru",
+    "cat": "3",
     "pf": 4,
     "lat": 13.01,
     "lng": 76.1
@@ -7586,9 +9150,12 @@ window.STATIONS = [
   {
     "c": "HTZ",
     "n": "Hathidah Jn",
+    "city": "Danapur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Danapur",
+    "cat": "3",
     "pf": 3,
     "lat": 25.37,
     "lng": 85.98
@@ -7596,9 +9163,12 @@ window.STATIONS = [
   {
     "c": "HTE",
     "n": "Hatia",
+    "city": "Ranchi",
+    "st": "Jharkhand",
     "s": "Jharkhand",
     "z": "SER",
     "d": "Ranchi",
+    "cat": "3",
     "pf": 3,
     "lat": 23.31,
     "lng": 85.31
@@ -7606,9 +9176,12 @@ window.STATIONS = [
   {
     "c": "HVR",
     "n": "Haveri",
+    "city": "Mysuru",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SWR",
     "d": "Mysuru",
+    "cat": "4",
     "pf": 2,
     "lat": 14.79,
     "lng": 75.4
@@ -7616,9 +9189,12 @@ window.STATIONS = [
   {
     "c": "HZD",
     "n": "Hazaribagh Road",
+    "city": "Dhanbad",
+    "st": "Jharkhand",
     "s": "Jharkhand",
     "z": "ECR",
     "d": "Dhanbad",
+    "cat": "3",
     "pf": 3,
     "lat": 24.16,
     "lng": 85.92
@@ -7626,9 +9202,12 @@ window.STATIONS = [
   {
     "c": "HZBN",
     "n": "Hazaribagh Town",
+    "city": "Dhanbad",
+    "st": "Jharkhand",
     "s": "Jharkhand",
     "z": "ECR",
     "d": "Dhanbad",
+    "cat": "3",
     "pf": 3,
     "lat": 24.01,
     "lng": 85.36
@@ -7636,9 +9215,12 @@ window.STATIONS = [
   {
     "c": "NZM",
     "n": "Hazrat Nizamuddin",
+    "city": "Delhi",
+    "st": "Delhi",
     "s": "Delhi",
     "z": "NR",
     "d": "Delhi",
+    "cat": "2",
     "pf": 9,
     "lat": 28.59,
     "lng": 77.25
@@ -7646,9 +9228,12 @@ window.STATIONS = [
   {
     "c": "NED",
     "n": "Hazur Sahib Nanded",
+    "city": "Nanded",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "SCR",
     "d": "Nanded",
+    "cat": "3",
     "pf": 4,
     "lat": 19.16,
     "lng": 77.31
@@ -7658,18 +9243,21 @@ window.STATIONS = [
     "n": "Hisar",
     "city": "Hisar",
     "st": "Haryana",
+    "s": "Haryana",
     "z": "NR",
     "d": "Delhi",
     "cat": "C",
-    "pf": 4,
-    "tr": 45
+    "pf": 4
   },
   {
     "c": "HSR",
     "n": "Hisar Jn",
+    "city": "Bikaner",
+    "st": "Haryana",
     "s": "Haryana",
     "z": "NWR",
     "d": "Bikaner",
+    "cat": "2",
     "pf": 6,
     "lat": 29.15,
     "lng": 75.72
@@ -7677,9 +9265,12 @@ window.STATIONS = [
   {
     "c": "HJI",
     "n": "Hojai",
+    "city": "Lumding",
+    "st": "Assam",
     "s": "Assam",
     "z": "NFR",
     "d": "Lumding",
+    "cat": "4",
     "pf": 2,
     "lat": 26,
     "lng": 92.86
@@ -7687,9 +9278,12 @@ window.STATIONS = [
   {
     "c": "HPT",
     "n": "Hosapete Jn (Hampi)",
+    "city": "Hubballi",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SWR",
     "d": "Hubballi",
+    "cat": "3",
     "pf": 3,
     "lat": 15.28,
     "lng": 76.39
@@ -7697,9 +9291,12 @@ window.STATIONS = [
   {
     "c": "HSX",
     "n": "Hoshiarpur",
+    "city": "Firozpur",
+    "st": "Punjab",
     "s": "Punjab",
     "z": "NR",
     "d": "Firozpur",
+    "cat": "4",
     "pf": 2,
     "lat": 31.53,
     "lng": 75.91
@@ -7707,9 +9304,12 @@ window.STATIONS = [
   {
     "c": "HWH",
     "n": "Howrah Jn",
+    "city": "Howrah",
+    "st": "West Bengal",
     "s": "West Bengal",
     "z": "ER",
     "d": "Howrah",
+    "cat": "1",
     "pf": 23,
     "lat": 22.58,
     "lng": 88.34
@@ -7717,9 +9317,12 @@ window.STATIONS = [
   {
     "c": "HYB",
     "n": "Hyderabad Deccan (Nampally)",
+    "city": "Hyderabad",
+    "st": "Telangana",
     "s": "Telangana",
     "z": "SCR",
     "d": "Hyderabad",
+    "cat": "2",
     "pf": 6,
     "lat": 17.39,
     "lng": 78.47
@@ -7727,9 +9330,12 @@ window.STATIONS = [
   {
     "c": "IGP",
     "n": "Igatpuri",
+    "city": "Mumbai CR",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Mumbai CR",
+    "cat": "3",
     "pf": 4,
     "lat": 19.7,
     "lng": 73.56
@@ -7737,9 +9343,12 @@ window.STATIONS = [
   {
     "c": "INDB",
     "n": "Indore Jn",
+    "city": "Ratlam",
+    "st": "Madhya Pradesh",
     "s": "Madhya Pradesh",
     "z": "WR",
     "d": "Ratlam",
+    "cat": "2",
     "pf": 6,
     "lat": 22.72,
     "lng": 75.87
@@ -7747,9 +9356,12 @@ window.STATIONS = [
   {
     "c": "IJK",
     "n": "Irinjalakuda",
+    "city": "Thiruvananthapuram",
+    "st": "Kerala",
     "s": "Kerala",
     "z": "SR",
     "d": "Thiruvananthapuram",
+    "cat": "4",
     "pf": 2,
     "lat": 10.35,
     "lng": 76.23
@@ -7757,9 +9369,12 @@ window.STATIONS = [
   {
     "c": "ET",
     "n": "Itarsi Jn",
+    "city": "Bhopal",
+    "st": "Madhya Pradesh",
     "s": "Madhya Pradesh",
     "z": "WCR",
     "d": "Bhopal",
+    "cat": "2",
     "pf": 7,
     "lat": 22.61,
     "lng": 77.76
@@ -7767,9 +9382,12 @@ window.STATIONS = [
   {
     "c": "IZN",
     "n": "Izzatnagar",
+    "city": "Izzatnagar",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NER",
     "d": "Izzatnagar",
+    "cat": "3",
     "pf": 4,
     "lat": 28.4,
     "lng": 79.43
@@ -7777,9 +9395,12 @@ window.STATIONS = [
   {
     "c": "JBP",
     "n": "Jabalpur",
+    "city": "Jabalpur",
+    "st": "Madhya Pradesh",
     "s": "Madhya Pradesh",
     "z": "WCR",
     "d": "Jabalpur",
+    "cat": "2",
     "pf": 6,
     "lat": 23.16,
     "lng": 79.95
@@ -7787,9 +9408,12 @@ window.STATIONS = [
   {
     "c": "JID",
     "n": "JagiRoad",
+    "city": "Lumding",
+    "st": "Assam",
     "s": "Assam",
     "z": "NFR",
     "d": "Lumding",
+    "cat": "4",
     "pf": 2,
     "lat": 26.12,
     "lng": 92.21
@@ -7799,29 +9423,32 @@ window.STATIONS = [
     "n": "Jaipur Jn",
     "city": "Jaipur",
     "st": "Rajasthan",
+    "s": "Rajasthan",
     "z": "NWR",
     "d": "Jaipur",
     "cat": "A1",
-    "pf": 6,
-    "tr": 130
+    "pf": 6
   },
   {
     "c": "JSLM",
     "n": "Jaisalmer",
     "city": "Jaisalmer",
     "st": "Rajasthan",
+    "s": "Rajasthan",
     "z": "NWR",
     "d": "Jodhpur",
     "cat": "D",
-    "pf": 2,
-    "tr": 10
+    "pf": 2
   },
   {
     "c": "JJKR",
     "n": "Jajpur Keonjhar Road",
+    "city": "Khurda Road",
+    "st": "Odisha",
     "s": "Odisha",
     "z": "ECoR",
     "d": "Khurda Road",
+    "cat": "3",
     "pf": 4,
     "lat": 20.95,
     "lng": 86.13
@@ -7829,9 +9456,12 @@ window.STATIONS = [
   {
     "c": "JHL",
     "n": "Jakhal Jn",
+    "city": "Delhi",
+    "st": "Haryana",
     "s": "Haryana",
     "z": "NR",
     "d": "Delhi",
+    "cat": "3",
     "pf": 3,
     "lat": 29.79,
     "lng": 75.83
@@ -7839,9 +9469,12 @@ window.STATIONS = [
   {
     "c": "JRC",
     "n": "Jalandhar Cantt",
+    "city": "Firozpur",
+    "st": "Punjab",
     "s": "Punjab",
     "z": "NR",
     "d": "Firozpur",
+    "cat": "3",
     "pf": 3,
     "lat": 31.29,
     "lng": 75.61
@@ -7849,9 +9482,12 @@ window.STATIONS = [
   {
     "c": "JUC",
     "n": "Jalandhar City",
+    "city": "Firozpur",
+    "st": "Punjab",
     "s": "Punjab",
     "z": "NR",
     "d": "Firozpur",
+    "cat": "3",
     "pf": 5,
     "lat": 31.32,
     "lng": 75.58
@@ -7859,9 +9495,12 @@ window.STATIONS = [
   {
     "c": "JL",
     "n": "Jalgaon Jn",
+    "city": "Bhusawal",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Bhusawal",
+    "cat": "3",
     "pf": 5,
     "lat": 21.01,
     "lng": 75.56
@@ -7869,9 +9508,12 @@ window.STATIONS = [
   {
     "c": "J",
     "n": "Jalna",
+    "city": "Nanded",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "SCR",
     "d": "Nanded",
+    "cat": "3",
     "pf": 3,
     "lat": 19.83,
     "lng": 75.89
@@ -7879,9 +9521,12 @@ window.STATIONS = [
   {
     "c": "JPG",
     "n": "Jalpaiguri",
+    "city": "Katihar",
+    "st": "West Bengal",
     "s": "West Bengal",
     "z": "NFR",
     "d": "Katihar",
+    "cat": "4",
     "pf": 2,
     "lat": 26.52,
     "lng": 88.73
@@ -7889,9 +9534,12 @@ window.STATIONS = [
   {
     "c": "JMP",
     "n": "Jamalpur Jn",
+    "city": "Malda",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ER",
     "d": "Malda",
+    "cat": "3",
     "pf": 4,
     "lat": 25.31,
     "lng": 86.49
@@ -7899,9 +9547,12 @@ window.STATIONS = [
   {
     "c": "JAT",
     "n": "Jammu Tawi",
+    "city": "Firozpur",
+    "st": "Jammu & Kashmir",
     "s": "Jammu & Kashmir",
     "z": "NR",
     "d": "Firozpur",
+    "cat": "3",
     "pf": 5,
     "lat": 32.71,
     "lng": 74.88
@@ -7909,9 +9560,12 @@ window.STATIONS = [
   {
     "c": "JAM",
     "n": "Jamnagar",
+    "city": "Rajkot",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Rajkot",
+    "cat": "3",
     "pf": 3,
     "lat": 22.47,
     "lng": 70.07
@@ -7919,9 +9573,12 @@ window.STATIONS = [
   {
     "c": "JMU",
     "n": "Jamui",
+    "city": "Danapur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Danapur",
+    "cat": "4",
     "pf": 2,
     "lat": 24.92,
     "lng": 86.22
@@ -7929,9 +9586,12 @@ window.STATIONS = [
   {
     "c": "JNKD",
     "n": "Janakpur Dham",
+    "city": "Samastipur / Nepal Link",
+    "st": "Nepal (Cross-Border)",
     "s": "Nepal (Cross-Border)",
     "z": "ECR",
     "d": "Samastipur / Nepal Link",
+    "cat": "3",
     "pf": 3,
     "lat": 26.72,
     "lng": 85.92
@@ -7939,9 +9599,12 @@ window.STATIONS = [
   {
     "c": "JSME",
     "n": "Jasidih Jn (Deoghar)",
+    "city": "Asansol",
+    "st": "Jharkhand",
     "s": "Jharkhand",
     "z": "ER",
     "d": "Asansol",
+    "cat": "3",
     "pf": 5,
     "lat": 24.52,
     "lng": 86.64
@@ -7949,9 +9612,12 @@ window.STATIONS = [
   {
     "c": "JNU",
     "n": "Jaunpur Jn",
+    "city": "Lucknow NR",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NR",
     "d": "Lucknow NR",
+    "cat": "3",
     "pf": 5,
     "lat": 25.75,
     "lng": 82.68
@@ -7959,9 +9625,12 @@ window.STATIONS = [
   {
     "c": "JYG",
     "n": "Jaynagar",
+    "city": "Samastipur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Samastipur",
+    "cat": "3",
     "pf": 3,
     "lat": 26.58,
     "lng": 86.13
@@ -7969,9 +9638,12 @@ window.STATIONS = [
   {
     "c": "JHD",
     "n": "Jehanabad",
+    "city": "Danapur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Danapur",
+    "cat": "3",
     "pf": 3,
     "lat": 25.21,
     "lng": 84.99
@@ -7979,9 +9651,12 @@ window.STATIONS = [
   {
     "c": "JAJ",
     "n": "Jhajha",
+    "city": "Danapur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Danapur",
+    "cat": "3",
     "pf": 4,
     "lat": 24.77,
     "lng": 86.38
@@ -7991,18 +9666,21 @@ window.STATIONS = [
     "n": "Jhansi Jn",
     "city": "Jhansi",
     "st": "Uttar Pradesh",
+    "s": "Uttar Pradesh",
     "z": "NCR",
     "d": "Jhansi",
     "cat": "A",
-    "pf": 7,
-    "tr": 150
+    "pf": 7
   },
   {
     "c": "JSG",
     "n": "Jharsuguda Jn",
+    "city": "Bilaspur",
+    "st": "Odisha",
     "s": "Odisha",
     "z": "SECR",
     "d": "Bilaspur",
+    "cat": "3",
     "pf": 5,
     "lat": 21.86,
     "lng": 84.03
@@ -8010,9 +9688,12 @@ window.STATIONS = [
   {
     "c": "JIND",
     "n": "Jind Jn",
+    "city": "Delhi",
+    "st": "Haryana",
     "s": "Haryana",
     "z": "NR",
     "d": "Delhi",
+    "cat": "3",
     "pf": 4,
     "lat": 29.32,
     "lng": 76.31
@@ -8022,18 +9703,21 @@ window.STATIONS = [
     "n": "Jodhpur Jn",
     "city": "Jodhpur",
     "st": "Rajasthan",
+    "s": "Rajasthan",
     "z": "NWR",
     "d": "Jodhpur",
     "cat": "A",
-    "pf": 6,
-    "tr": 90
+    "pf": 6
   },
   {
     "c": "JTJ",
     "n": "Jolarpettai Jn",
+    "city": "Chennai",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Chennai",
+    "cat": "3",
     "pf": 5,
     "lat": 12.57,
     "lng": 78.58
@@ -8041,9 +9725,12 @@ window.STATIONS = [
   {
     "c": "JTTN",
     "n": "Jorhat Town",
+    "city": "Tinsukia",
+    "st": "Assam",
     "s": "Assam",
     "z": "NFR",
     "d": "Tinsukia",
+    "cat": "4",
     "pf": 2,
     "lat": 26.75,
     "lng": 94.21
@@ -8051,9 +9738,12 @@ window.STATIONS = [
   {
     "c": "JND",
     "n": "Junagadh Jn",
+    "city": "Bhavnagar",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Bhavnagar",
+    "cat": "3",
     "pf": 4,
     "lat": 21.52,
     "lng": 70.46
@@ -8061,9 +9751,12 @@ window.STATIONS = [
   {
     "c": "KCG",
     "n": "Kacheguda",
+    "city": "Hyderabad",
+    "st": "Telangana",
     "s": "Telangana",
     "z": "SCR",
     "d": "Hyderabad",
+    "cat": "3",
     "pf": 5,
     "lat": 17.39,
     "lng": 78.5
@@ -8071,9 +9764,12 @@ window.STATIONS = [
   {
     "c": "HX",
     "n": "Kadapa Jn (Cuddapah)",
+    "city": "Guntakal",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "SCR",
     "d": "Guntakal",
+    "cat": "3",
     "pf": 3,
     "lat": 14.47,
     "lng": 78.83
@@ -8081,9 +9777,12 @@ window.STATIONS = [
   {
     "c": "DRU",
     "n": "Kadur Jn",
+    "city": "Mysuru",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SWR",
     "d": "Mysuru",
+    "cat": "4",
     "pf": 2,
     "lat": 13.55,
     "lng": 76.01
@@ -8091,9 +9790,12 @@ window.STATIONS = [
   {
     "c": "CLG",
     "n": "Kahalgaon",
+    "city": "Malda",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ER",
     "d": "Malda",
+    "cat": "3",
     "pf": 3,
     "lat": 25.27,
     "lng": 87.24
@@ -8101,9 +9803,12 @@ window.STATIONS = [
   {
     "c": "KJH",
     "n": "Kajalgaon",
+    "city": "Malda",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ER",
     "d": "Malda",
+    "cat": "4",
     "pf": 2,
     "lat": 25.26,
     "lng": 87.24
@@ -8111,9 +9816,12 @@ window.STATIONS = [
   {
     "c": "COA",
     "n": "Kakinada Port",
+    "city": "Vijayawada",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "SCR",
     "d": "Vijayawada",
+    "cat": "3",
     "pf": 3,
     "lat": 16.94,
     "lng": 82.25
@@ -8121,9 +9829,12 @@ window.STATIONS = [
   {
     "c": "CCT",
     "n": "Kakinada Town",
+    "city": "Vijayawada",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "SCR",
     "d": "Vijayawada",
+    "cat": "3",
     "pf": 3,
     "lat": 16.96,
     "lng": 82.23
@@ -8131,9 +9842,12 @@ window.STATIONS = [
   {
     "c": "KLBG",
     "n": "Kalaburagi (Gulbarga)",
+    "city": "Solapur",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "CR",
     "d": "Solapur",
+    "cat": "3",
     "pf": 4,
     "lat": 17.33,
     "lng": 76.83
@@ -8141,9 +9855,12 @@ window.STATIONS = [
   {
     "c": "KLK",
     "n": "Kalka",
+    "city": "Ambala",
+    "st": "Haryana",
     "s": "Haryana",
     "z": "NR",
     "d": "Ambala",
+    "cat": "3",
     "pf": 4,
     "lat": 30.84,
     "lng": 76.93
@@ -8151,9 +9868,12 @@ window.STATIONS = [
   {
     "c": "KYN",
     "n": "Kalyan Jn",
+    "city": "Mumbai CR",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Mumbai CR",
+    "cat": "2",
     "pf": 8,
     "lat": 19.24,
     "lng": 73.13
@@ -8161,9 +9881,12 @@ window.STATIONS = [
   {
     "c": "KYQ",
     "n": "Kamakhya Jn",
+    "city": "Lumding",
+    "st": "Assam",
     "s": "Assam",
     "z": "NFR",
     "d": "Lumding",
+    "cat": "3",
     "pf": 5,
     "lat": 26.15,
     "lng": 91.7
@@ -8171,9 +9894,12 @@ window.STATIONS = [
   {
     "c": "KZE",
     "n": "Kanhangad",
+    "city": "Palakkad",
+    "st": "Kerala",
     "s": "Kerala",
     "z": "SR",
     "d": "Palakkad",
+    "cat": "4",
     "pf": 2,
     "lat": 12.31,
     "lng": 75.09
@@ -8181,9 +9907,12 @@ window.STATIONS = [
   {
     "c": "KKW",
     "n": "Kankavali",
+    "city": "Ratnagiri",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "KR",
     "d": "Ratnagiri",
+    "cat": "4",
     "pf": 2,
     "lat": 16.26,
     "lng": 73.71
@@ -8191,9 +9920,12 @@ window.STATIONS = [
   {
     "c": "KJN",
     "n": "Kannauj",
+    "city": "Izzatnagar",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NER",
     "d": "Izzatnagar",
+    "cat": "3",
     "pf": 3,
     "lat": 27.05,
     "lng": 79.92
@@ -8201,9 +9933,12 @@ window.STATIONS = [
   {
     "c": "CAPE",
     "n": "Kanniyakumari",
+    "city": "Thiruvananthapuram",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Thiruvananthapuram",
+    "cat": "3",
     "pf": 4,
     "lat": 8.08,
     "lng": 77.55
@@ -8211,9 +9946,12 @@ window.STATIONS = [
   {
     "c": "CAN",
     "n": "Kannur",
+    "city": "Palakkad",
+    "st": "Kerala",
     "s": "Kerala",
     "z": "SR",
     "d": "Palakkad",
+    "cat": "3",
     "pf": 4,
     "lat": 11.87,
     "lng": 75.37
@@ -8221,9 +9959,12 @@ window.STATIONS = [
   {
     "c": "CPA",
     "n": "Kanpur Anwarganj",
+    "city": "Izzatnagar",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NER",
     "d": "Izzatnagar",
+    "cat": "3",
     "pf": 3,
     "lat": 26.46,
     "lng": 80.33
@@ -8231,9 +9972,12 @@ window.STATIONS = [
   {
     "c": "CNB",
     "n": "Kanpur Central",
+    "city": "Prayagraj",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NCR",
     "d": "Prayagraj",
+    "cat": "1",
     "pf": 10,
     "lat": 26.45,
     "lng": 80.35
@@ -8241,9 +9985,12 @@ window.STATIONS = [
   {
     "c": "KRD",
     "n": "Karad",
+    "city": "Pune",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Pune",
+    "cat": "4",
     "pf": 2,
     "lat": 17.29,
     "lng": 74.2
@@ -8251,9 +9998,12 @@ window.STATIONS = [
   {
     "c": "KKDI",
     "n": "Karaikkudi Jn",
+    "city": "Madurai",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Madurai",
+    "cat": "3",
     "pf": 3,
     "lat": 10.07,
     "lng": 78.78
@@ -8261,9 +10011,12 @@ window.STATIONS = [
   {
     "c": "KRMI",
     "n": "Karmali",
+    "city": "Karwar",
+    "st": "Goa",
     "s": "Goa",
     "z": "KR",
     "d": "Karwar",
+    "cat": "4",
     "pf": 2,
     "lat": 15.49,
     "lng": 73.92
@@ -8273,18 +10026,21 @@ window.STATIONS = [
     "n": "Karnal",
     "city": "Karnal",
     "st": "Haryana",
+    "s": "Haryana",
     "z": "NR",
     "d": "Ambala",
     "cat": "C",
-    "pf": 3,
-    "tr": 50
+    "pf": 3
   },
   {
     "c": "KUN",
     "n": "Karnal",
+    "city": "Delhi",
+    "st": "Haryana",
     "s": "Haryana",
     "z": "NR",
     "d": "Delhi",
+    "cat": "3",
     "pf": 3,
     "lat": 29.69,
     "lng": 76.98
@@ -8292,9 +10048,12 @@ window.STATIONS = [
   {
     "c": "KRR",
     "n": "Karur Jn",
+    "city": "Salem",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Salem",
+    "cat": "3",
     "pf": 5,
     "lat": 10.95,
     "lng": 78.08
@@ -8302,9 +10061,12 @@ window.STATIONS = [
   {
     "c": "KAWR",
     "n": "Karwar",
+    "city": "Karwar",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "KR",
     "d": "Karwar",
+    "cat": "4",
     "pf": 2,
     "lat": 14.82,
     "lng": 74.15
@@ -8312,9 +10074,12 @@ window.STATIONS = [
   {
     "c": "KGQ",
     "n": "Kasaragod",
+    "city": "Palakkad",
+    "st": "Kerala",
     "s": "Kerala",
     "z": "SR",
     "d": "Palakkad",
+    "cat": "3",
     "pf": 3,
     "lat": 12.5,
     "lng": 74.99
@@ -8322,9 +10087,12 @@ window.STATIONS = [
   {
     "c": "KSJ",
     "n": "Kasganj Jn",
+    "city": "Izzatnagar",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NER",
     "d": "Izzatnagar",
+    "cat": "3",
     "pf": 5,
     "lat": 27.81,
     "lng": 78.65
@@ -8332,9 +10100,12 @@ window.STATIONS = [
   {
     "c": "KPV",
     "n": "Kashipur Jn",
+    "city": "Izzatnagar",
+    "st": "Uttarakhand",
     "s": "Uttarakhand",
     "z": "NER",
     "d": "Izzatnagar",
+    "cat": "3",
     "pf": 4,
     "lat": 29.21,
     "lng": 78.96
@@ -8342,9 +10113,12 @@ window.STATIONS = [
   {
     "c": "KGM",
     "n": "Kathgodam",
+    "city": "Izzatnagar",
+    "st": "Uttarakhand",
     "s": "Uttarakhand",
     "z": "NER",
     "d": "Izzatnagar",
+    "cat": "3",
     "pf": 3,
     "lat": 29.27,
     "lng": 79.54
@@ -8352,9 +10126,12 @@ window.STATIONS = [
   {
     "c": "KTHU",
     "n": "Kathua",
+    "city": "Firozpur",
+    "st": "Jammu & Kashmir",
     "s": "Jammu & Kashmir",
     "z": "NR",
     "d": "Firozpur",
+    "cat": "4",
     "pf": 2,
     "lat": 32.37,
     "lng": 75.52
@@ -8362,9 +10139,12 @@ window.STATIONS = [
   {
     "c": "KIR",
     "n": "Katihar Jn",
+    "city": "Katihar",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "NFR",
     "d": "Katihar",
+    "cat": "2",
     "pf": 8,
     "lat": 25.55,
     "lng": 87.57
@@ -8372,9 +10152,12 @@ window.STATIONS = [
   {
     "c": "KTE",
     "n": "Katni Jn",
+    "city": "Jabalpur",
+    "st": "Madhya Pradesh",
     "s": "Madhya Pradesh",
     "z": "WCR",
     "d": "Jabalpur",
+    "cat": "2",
     "pf": 6,
     "lat": 23.83,
     "lng": 80.4
@@ -8382,9 +10165,12 @@ window.STATIONS = [
   {
     "c": "KMZ",
     "n": "Katni Murwara",
+    "city": "Jabalpur",
+    "st": "Madhya Pradesh",
     "s": "Madhya Pradesh",
     "z": "WCR",
     "d": "Jabalpur",
+    "cat": "3",
     "pf": 5,
     "lat": 23.84,
     "lng": 80.39
@@ -8392,9 +10178,12 @@ window.STATIONS = [
   {
     "c": "KPD",
     "n": "Katpadi Jn (Vellore)",
+    "city": "Chennai",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Chennai",
+    "cat": "3",
     "pf": 5,
     "lat": 12.97,
     "lng": 79.13
@@ -8402,9 +10191,12 @@ window.STATIONS = [
   {
     "c": "KVZ",
     "n": "Kavali",
+    "city": "Vijayawada",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "SCR",
     "d": "Vijayawada",
+    "cat": "4",
     "pf": 2,
     "lat": 14.91,
     "lng": 79.99
@@ -8412,9 +10204,12 @@ window.STATIONS = [
   {
     "c": "KYJ",
     "n": "Kayamkulam Jn",
+    "city": "Thiruvananthapuram",
+    "st": "Kerala",
     "s": "Kerala",
     "z": "SR",
     "d": "Thiruvananthapuram",
+    "cat": "3",
     "pf": 5,
     "lat": 9.17,
     "lng": 76.5
@@ -8422,9 +10217,12 @@ window.STATIONS = [
   {
     "c": "KZJ",
     "n": "Kazipet Jn",
+    "city": "Secunderabad",
+    "st": "Telangana",
     "s": "Telangana",
     "z": "SCR",
     "d": "Secunderabad",
+    "cat": "3",
     "pf": 4,
     "lat": 17.97,
     "lng": 79.51
@@ -8432,9 +10230,12 @@ window.STATIONS = [
   {
     "c": "KGG",
     "n": "Khagaria Jn",
+    "city": "Sonpur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Sonpur",
+    "cat": "3",
     "pf": 3,
     "lat": 25.5,
     "lng": 86.47
@@ -8442,9 +10243,12 @@ window.STATIONS = [
   {
     "c": "KLD",
     "n": "Khalilabad",
+    "city": "Lucknow NER",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NER",
     "d": "Lucknow NER",
+    "cat": "4",
     "pf": 2,
     "lat": 26.78,
     "lng": 83.07
@@ -8452,9 +10256,12 @@ window.STATIONS = [
   {
     "c": "KMT",
     "n": "Khammam",
+    "city": "Secunderabad",
+    "st": "Telangana",
     "s": "Telangana",
     "z": "SCR",
     "d": "Secunderabad",
+    "cat": "3",
     "pf": 3,
     "lat": 17.25,
     "lng": 80.15
@@ -8462,9 +10269,12 @@ window.STATIONS = [
   {
     "c": "KNW",
     "n": "Khandwa Jn",
+    "city": "Bhusawal",
+    "st": "Madhya Pradesh",
     "s": "Madhya Pradesh",
     "z": "CR",
     "d": "Bhusawal",
+    "cat": "3",
     "pf": 5,
     "lat": 21.83,
     "lng": 76.35
@@ -8472,9 +10282,12 @@ window.STATIONS = [
   {
     "c": "KNN",
     "n": "Khanna",
+    "city": "Ambala",
+    "st": "Punjab",
     "s": "Punjab",
     "z": "NR",
     "d": "Ambala",
+    "cat": "4",
     "pf": 2,
     "lat": 30.7,
     "lng": 76.22
@@ -8482,9 +10295,12 @@ window.STATIONS = [
   {
     "c": "KGP",
     "n": "Kharagpur Jn",
+    "city": "Kharagpur",
+    "st": "West Bengal",
     "s": "West Bengal",
     "z": "SER",
     "d": "Kharagpur",
+    "cat": "1",
     "pf": 12,
     "lat": 22.33,
     "lng": 87.32
@@ -8492,9 +10308,12 @@ window.STATIONS = [
   {
     "c": "KHED",
     "n": "Khed",
+    "city": "Ratnagiri",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "KR",
     "d": "Ratnagiri",
+    "cat": "4",
     "pf": 2,
     "lat": 17.72,
     "lng": 73.39
@@ -8502,9 +10321,12 @@ window.STATIONS = [
   {
     "c": "KUR",
     "n": "Khurda Road Jn",
+    "city": "Khurda Road",
+    "st": "Odisha",
     "s": "Odisha",
     "z": "ECoR",
     "d": "Khurda Road",
+    "cat": "2",
     "pf": 7,
     "lat": 20.18,
     "lng": 85.73
@@ -8512,9 +10334,12 @@ window.STATIONS = [
   {
     "c": "KRJ",
     "n": "Khurja Jn",
+    "city": "Prayagraj",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NCR",
     "d": "Prayagraj",
+    "cat": "3",
     "pf": 4,
     "lat": 28.25,
     "lng": 77.85
@@ -8522,9 +10347,12 @@ window.STATIONS = [
   {
     "c": "KNE",
     "n": "Kishanganj",
+    "city": "Katihar",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "NFR",
     "d": "Katihar",
+    "cat": "3",
     "pf": 3,
     "lat": 26.1,
     "lng": 87.94
@@ -8532,9 +10360,12 @@ window.STATIONS = [
   {
     "c": "KIUL",
     "n": "Kiul Jn",
+    "city": "Danapur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Danapur",
+    "cat": "3",
     "pf": 5,
     "lat": 25.17,
     "lng": 86.08
@@ -8542,9 +10373,12 @@ window.STATIONS = [
   {
     "c": "KCVL",
     "n": "Kochuveli",
+    "city": "Thiruvananthapuram",
+    "st": "Kerala",
     "s": "Kerala",
     "z": "SR",
     "d": "Thiruvananthapuram",
+    "cat": "2",
     "pf": 6,
     "lat": 8.51,
     "lng": 76.9
@@ -8552,9 +10386,12 @@ window.STATIONS = [
   {
     "c": "KQR",
     "n": "Koderma Jn",
+    "city": "Dhanbad",
+    "st": "Jharkhand",
     "s": "Jharkhand",
     "z": "ECR",
     "d": "Dhanbad",
+    "cat": "2",
     "pf": 7,
     "lat": 24.47,
     "lng": 85.59
@@ -8562,9 +10399,12 @@ window.STATIONS = [
   {
     "c": "KOJ",
     "n": "Kokrajhar",
+    "city": "Alipurduar",
+    "st": "Assam",
     "s": "Assam",
     "z": "NFR",
     "d": "Alipurduar",
+    "cat": "3",
     "pf": 3,
     "lat": 26.4,
     "lng": 90.27
@@ -8572,9 +10412,12 @@ window.STATIONS = [
   {
     "c": "KOP",
     "n": "Kolhapur CSMT",
+    "city": "Pune",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Pune",
+    "cat": "3",
     "pf": 3,
     "lat": 16.7,
     "lng": 74.24
@@ -8582,9 +10425,12 @@ window.STATIONS = [
   {
     "c": "KOAA",
     "n": "Kolkata Chitpur",
+    "city": "Sealdah",
+    "st": "West Bengal",
     "s": "West Bengal",
     "z": "ER",
     "d": "Sealdah",
+    "cat": "3",
     "pf": 5,
     "lat": 22.6,
     "lng": 88.38
@@ -8592,9 +10438,12 @@ window.STATIONS = [
   {
     "c": "QLN",
     "n": "Kollam Jn (Quilon)",
+    "city": "Thiruvananthapuram",
+    "st": "Kerala",
     "s": "Kerala",
     "z": "SR",
     "d": "Thiruvananthapuram",
+    "cat": "2",
     "pf": 6,
     "lat": 8.88,
     "lng": 76.6
@@ -8602,9 +10451,12 @@ window.STATIONS = [
   {
     "c": "KBL",
     "n": "Koppal",
+    "city": "Hubballi",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SWR",
     "d": "Hubballi",
+    "cat": "4",
     "pf": 2,
     "lat": 15.35,
     "lng": 76.15
@@ -8612,9 +10464,12 @@ window.STATIONS = [
   {
     "c": "KRBA",
     "n": "Korba",
+    "city": "Bilaspur",
+    "st": "Chhattisgarh",
     "s": "Chhattisgarh",
     "z": "SECR",
     "d": "Bilaspur",
+    "cat": "3",
     "pf": 3,
     "lat": 22.36,
     "lng": 82.68
@@ -8622,9 +10477,12 @@ window.STATIONS = [
   {
     "c": "KSV",
     "n": "Kosi Kalan",
+    "city": "Agra",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NCR",
     "d": "Agra",
+    "cat": "3",
     "pf": 3,
     "lat": 27.79,
     "lng": 77.43
@@ -8632,9 +10490,12 @@ window.STATIONS = [
   {
     "c": "KKP",
     "n": "Kot Kapura Jn",
+    "city": "Firozpur",
+    "st": "Punjab",
     "s": "Punjab",
     "z": "NR",
     "d": "Firozpur",
+    "cat": "3",
     "pf": 3,
     "lat": 30.58,
     "lng": 74.83
@@ -8644,18 +10505,21 @@ window.STATIONS = [
     "n": "Kota Jn",
     "city": "Kota",
     "st": "Rajasthan",
+    "s": "Rajasthan",
     "z": "WCR",
     "d": "Kota",
     "cat": "A1",
-    "pf": 7,
-    "tr": 120
+    "pf": 7
   },
   {
     "c": "KTYM",
     "n": "Kottayam",
+    "city": "Thiruvananthapuram",
+    "st": "Kerala",
     "s": "Kerala",
     "z": "SR",
     "d": "Thiruvananthapuram",
+    "cat": "3",
     "pf": 5,
     "lat": 9.59,
     "lng": 76.53
@@ -8663,9 +10527,12 @@ window.STATIONS = [
   {
     "c": "CVP",
     "n": "Kovilpatti",
+    "city": "Madurai",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Madurai",
+    "cat": "4",
     "pf": 2,
     "lat": 9.17,
     "lng": 77.87
@@ -8673,9 +10540,12 @@ window.STATIONS = [
   {
     "c": "CLT",
     "n": "Kozhikode Main",
+    "city": "Palakkad",
+    "st": "Kerala",
     "s": "Kerala",
     "z": "SR",
     "d": "Palakkad",
+    "cat": "3",
     "pf": 4,
     "lat": 11.25,
     "lng": 75.78
@@ -8683,9 +10553,12 @@ window.STATIONS = [
   {
     "c": "KJM",
     "n": "Krishnarajapuram",
+    "city": "Bengaluru",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SWR",
     "d": "Bengaluru",
+    "cat": "3",
     "pf": 4,
     "lat": 13,
     "lng": 77.68
@@ -8693,9 +10566,12 @@ window.STATIONS = [
   {
     "c": "SBC",
     "n": "KSR Bengaluru City",
+    "city": "Bengaluru",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SWR",
     "d": "Bengaluru",
+    "cat": "1",
     "pf": 10,
     "lat": 12.98,
     "lng": 77.57
@@ -8703,9 +10579,12 @@ window.STATIONS = [
   {
     "c": "KUD",
     "n": "Kudachi",
+    "city": "Hubballi",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SWR",
     "d": "Hubballi",
+    "cat": "4",
     "pf": 2,
     "lat": 16.53,
     "lng": 74.84
@@ -8713,9 +10592,12 @@ window.STATIONS = [
   {
     "c": "KUDL",
     "n": "Kudal",
+    "city": "Ratnagiri",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "KR",
     "d": "Ratnagiri",
+    "cat": "4",
     "pf": 2,
     "lat": 16.02,
     "lng": 73.69
@@ -8723,9 +10605,12 @@ window.STATIONS = [
   {
     "c": "KTQ",
     "n": "Kudra",
+    "city": "Pt DD Upadhyaya",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Pt DD Upadhyaya",
+    "cat": "3",
     "pf": 3,
     "lat": 25.04,
     "lng": 83.84
@@ -8733,9 +10618,12 @@ window.STATIONS = [
   {
     "c": "KMU",
     "n": "Kumbakonam",
+    "city": "Tiruchchirappalli",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Tiruchchirappalli",
+    "cat": "3",
     "pf": 3,
     "lat": 10.96,
     "lng": 79.39
@@ -8743,9 +10631,12 @@ window.STATIONS = [
   {
     "c": "KT",
     "n": "Kumta",
+    "city": "Karwar",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "KR",
     "d": "Karwar",
+    "cat": "4",
     "pf": 2,
     "lat": 14.43,
     "lng": 74.41
@@ -8753,9 +10644,12 @@ window.STATIONS = [
   {
     "c": "KUDA",
     "n": "Kundapura",
+    "city": "Karwar",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "KR",
     "d": "Karwar",
+    "cat": "4",
     "pf": 2,
     "lat": 13.63,
     "lng": 74.72
@@ -8763,9 +10657,12 @@ window.STATIONS = [
   {
     "c": "KWV",
     "n": "Kurduvadi Jn",
+    "city": "Solapur",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Solapur",
+    "cat": "3",
     "pf": 4,
     "lat": 18.09,
     "lng": 75.44
@@ -8773,9 +10670,12 @@ window.STATIONS = [
   {
     "c": "CLA",
     "n": "Kurla Jn",
+    "city": "Mumbai CR",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Mumbai CR",
+    "cat": "2",
     "pf": 8,
     "lat": 19.07,
     "lng": 72.89
@@ -8783,9 +10683,12 @@ window.STATIONS = [
   {
     "c": "KRNT",
     "n": "Kurnool City",
+    "city": "Hyderabad",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "SCR",
     "d": "Hyderabad",
+    "cat": "3",
     "pf": 3,
     "lat": 15.83,
     "lng": 78.04
@@ -8793,9 +10696,12 @@ window.STATIONS = [
   {
     "c": "KKDE",
     "n": "Kurukshetra Jn",
+    "city": "Delhi",
+    "st": "Haryana",
     "s": "Haryana",
     "z": "NR",
     "d": "Delhi",
+    "cat": "3",
     "pf": 5,
     "lat": 29.97,
     "lng": 76.88
@@ -8803,9 +10709,12 @@ window.STATIONS = [
   {
     "c": "KTU",
     "n": "Kuttippuram",
+    "city": "Palakkad",
+    "st": "Kerala",
     "s": "Kerala",
     "z": "SR",
     "d": "Palakkad",
+    "cat": "4",
     "pf": 2,
     "lat": 10.84,
     "lng": 76.03
@@ -8813,9 +10722,12 @@ window.STATIONS = [
   {
     "c": "LMP",
     "n": "Lakhimpur",
+    "city": "Lucknow NER",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NER",
     "d": "Lucknow NER",
+    "cat": "3",
     "pf": 3,
     "lat": 27.95,
     "lng": 80.78
@@ -8823,9 +10735,12 @@ window.STATIONS = [
   {
     "c": "LAR",
     "n": "Lalitpur Jn",
+    "city": "Jhansi",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NCR",
     "d": "Jhansi",
+    "cat": "3",
     "pf": 3,
     "lat": 24.69,
     "lng": 78.41
@@ -8833,9 +10748,12 @@ window.STATIONS = [
   {
     "c": "LKU",
     "n": "Lalkuan Jn",
+    "city": "Izzatnagar",
+    "st": "Uttarakhand",
     "s": "Uttarakhand",
     "z": "NER",
     "d": "Izzatnagar",
+    "cat": "3",
     "pf": 5,
     "lat": 29.08,
     "lng": 79.52
@@ -8843,9 +10761,12 @@ window.STATIONS = [
   {
     "c": "LPI",
     "n": "Lingampalli",
+    "city": "Secunderabad",
+    "st": "Telangana",
     "s": "Telangana",
     "z": "SCR",
     "d": "Secunderabad",
+    "cat": "2",
     "pf": 6,
     "lat": 17.49,
     "lng": 78.32
@@ -8853,9 +10774,12 @@ window.STATIONS = [
   {
     "c": "LTT",
     "n": "Lokmanya Tilak Terminus",
+    "city": "Mumbai CR",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Mumbai CR",
+    "cat": "3",
     "pf": 5,
     "lat": 19.07,
     "lng": 72.89
@@ -8863,9 +10787,12 @@ window.STATIONS = [
   {
     "c": "LNL",
     "n": "Lonavala",
+    "city": "Mumbai CR",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Mumbai CR",
+    "cat": "3",
     "pf": 3,
     "lat": 18.75,
     "lng": 73.41
@@ -8873,9 +10800,12 @@ window.STATIONS = [
   {
     "c": "LKR",
     "n": "Luckeesarai Jn",
+    "city": "Danapur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Danapur",
+    "cat": "3",
     "pf": 4,
     "lat": 25.18,
     "lng": 86.09
@@ -8883,9 +10813,12 @@ window.STATIONS = [
   {
     "c": "LKO",
     "n": "Lucknow Charbagh",
+    "city": "Lucknow NR",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NR",
     "d": "Lucknow NR",
+    "cat": "2",
     "pf": 9,
     "lat": 26.83,
     "lng": 80.92
@@ -8893,9 +10826,12 @@ window.STATIONS = [
   {
     "c": "LJN",
     "n": "Lucknow Junction NER",
+    "city": "Lucknow NER",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NER",
     "d": "Lucknow NER",
+    "cat": "2",
     "pf": 6,
     "lat": 26.83,
     "lng": 80.92
@@ -8903,9 +10839,12 @@ window.STATIONS = [
   {
     "c": "LDH",
     "n": "Ludhiana Jn",
+    "city": "Firozpur",
+    "st": "Punjab",
     "s": "Punjab",
     "z": "NR",
     "d": "Firozpur",
+    "cat": "2",
     "pf": 7,
     "lat": 30.91,
     "lng": 75.86
@@ -8913,9 +10852,12 @@ window.STATIONS = [
   {
     "c": "LMG",
     "n": "Lumding Jn",
+    "city": "Lumding",
+    "st": "Assam",
     "s": "Assam",
     "z": "NFR",
     "d": "Lumding",
+    "cat": "2",
     "pf": 6,
     "lat": 25.75,
     "lng": 93.17
@@ -8923,9 +10865,12 @@ window.STATIONS = [
   {
     "c": "MBDP",
     "n": "Maa Belha Devi Dham Pratapgarh",
+    "city": "Lucknow NR",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NR",
     "d": "Lucknow NR",
+    "cat": "3",
     "pf": 3,
     "lat": 25.92,
     "lng": 81.99
@@ -8933,9 +10878,12 @@ window.STATIONS = [
   {
     "c": "MML",
     "n": "Madan Mahal",
+    "city": "Jabalpur",
+    "st": "Madhya Pradesh",
     "s": "Madhya Pradesh",
     "z": "WCR",
     "d": "Jabalpur",
+    "cat": "3",
     "pf": 3,
     "lat": 23.15,
     "lng": 79.91
@@ -8943,9 +10891,12 @@ window.STATIONS = [
   {
     "c": "MAO",
     "n": "Madgaon Jn",
+    "city": "Karwar",
+    "st": "Goa",
     "s": "Goa",
     "z": "KR",
     "d": "Karwar",
+    "cat": "3",
     "pf": 4,
     "lat": 15.27,
     "lng": 73.97
@@ -8953,9 +10904,12 @@ window.STATIONS = [
   {
     "c": "MBI",
     "n": "Madhubani",
+    "city": "Samastipur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Samastipur",
+    "cat": "3",
     "pf": 3,
     "lat": 26.36,
     "lng": 86.08
@@ -8963,9 +10917,12 @@ window.STATIONS = [
   {
     "c": "MDP",
     "n": "Madhupur Jn",
+    "city": "Asansol",
+    "st": "Jharkhand",
     "s": "Jharkhand",
     "z": "ER",
     "d": "Asansol",
+    "cat": "3",
     "pf": 5,
     "lat": 24.26,
     "lng": 86.65
@@ -8973,9 +10930,12 @@ window.STATIONS = [
   {
     "c": "MDU",
     "n": "Madurai Jn",
+    "city": "Madurai",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Madurai",
+    "cat": "2",
     "pf": 8,
     "lat": 9.92,
     "lng": 78.11
@@ -8983,9 +10943,12 @@ window.STATIONS = [
   {
     "c": "MABD",
     "n": "Mahbubabad",
+    "city": "Secunderabad",
+    "st": "Telangana",
     "s": "Telangana",
     "z": "SCR",
     "d": "Secunderabad",
+    "cat": "4",
     "pf": 2,
     "lat": 17.6,
     "lng": 80
@@ -8993,9 +10956,12 @@ window.STATIONS = [
   {
     "c": "MBNR",
     "n": "Mahbubnagar",
+    "city": "Hyderabad",
+    "st": "Telangana",
     "s": "Telangana",
     "z": "SCR",
     "d": "Hyderabad",
+    "cat": "3",
     "pf": 3,
     "lat": 16.74,
     "lng": 77.99
@@ -9003,9 +10969,12 @@ window.STATIONS = [
   {
     "c": "MSK",
     "n": "Maheshkhunt",
+    "city": "Sonpur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Sonpur",
+    "cat": "4",
     "pf": 2,
     "lat": 25.49,
     "lng": 86.67
@@ -9013,9 +10982,12 @@ window.STATIONS = [
   {
     "c": "MBA",
     "n": "Mahoba Jn",
+    "city": "Jhansi",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NCR",
     "d": "Jhansi",
+    "cat": "3",
     "pf": 3,
     "lat": 25.29,
     "lng": 79.87
@@ -9023,9 +10995,12 @@ window.STATIONS = [
   {
     "c": "MYR",
     "n": "Maihar",
+    "city": "Jabalpur",
+    "st": "Madhya Pradesh",
     "s": "Madhya Pradesh",
     "z": "WCR",
     "d": "Jabalpur",
+    "cat": "3",
     "pf": 3,
     "lat": 24.27,
     "lng": 80.76
@@ -9033,9 +11008,12 @@ window.STATIONS = [
   {
     "c": "MLN",
     "n": "Mailani Jn",
+    "city": "Lucknow NER",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NER",
     "d": "Lucknow NER",
+    "cat": "3",
     "pf": 3,
     "lat": 28.29,
     "lng": 80.35
@@ -9043,9 +11021,12 @@ window.STATIONS = [
   {
     "c": "MLDT",
     "n": "Malda Town",
+    "city": "Malda",
+    "st": "West Bengal",
     "s": "West Bengal",
     "z": "ER",
     "d": "Malda",
+    "cat": "2",
     "pf": 6,
     "lat": 25.01,
     "lng": 88.14
@@ -9053,9 +11034,12 @@ window.STATIONS = [
   {
     "c": "MKU",
     "n": "Malkapur",
+    "city": "Bhusawal",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Bhusawal",
+    "cat": "3",
     "pf": 3,
     "lat": 20.89,
     "lng": 76.2
@@ -9063,9 +11047,12 @@ window.STATIONS = [
   {
     "c": "MNM",
     "n": "Manamadurai Jn",
+    "city": "Madurai",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Madurai",
+    "cat": "3",
     "pf": 5,
     "lat": 9.7,
     "lng": 78.45
@@ -9073,9 +11060,12 @@ window.STATIONS = [
   {
     "c": "MCI",
     "n": "Mancherial",
+    "city": "Secunderabad",
+    "st": "Telangana",
     "s": "Telangana",
     "z": "SCR",
     "d": "Secunderabad",
+    "cat": "4",
     "pf": 2,
     "lat": 18.87,
     "lng": 79.46
@@ -9085,18 +11075,21 @@ window.STATIONS = [
     "n": "Manduadih",
     "city": "Varanasi",
     "st": "Uttar Pradesh",
+    "s": "Uttar Pradesh",
     "z": "NER",
     "d": "Varanasi",
     "cat": "B",
-    "pf": 4,
-    "tr": 50
+    "pf": 4
   },
   {
     "c": "MYA",
     "n": "Mandya",
+    "city": "Mysuru",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SWR",
     "d": "Mysuru",
+    "cat": "4",
     "pf": 2,
     "lat": 12.52,
     "lng": 76.89
@@ -9104,9 +11097,12 @@ window.STATIONS = [
   {
     "c": "MAQ",
     "n": "Mangaluru Central",
+    "city": "Palakkad",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SR",
     "d": "Palakkad",
+    "cat": "3",
     "pf": 5,
     "lat": 12.86,
     "lng": 74.84
@@ -9114,9 +11110,12 @@ window.STATIONS = [
   {
     "c": "MAJN",
     "n": "Mangaluru Jn",
+    "city": "Palakkad",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SR",
     "d": "Palakkad",
+    "cat": "3",
     "pf": 3,
     "lat": 12.87,
     "lng": 74.87
@@ -9124,9 +11123,12 @@ window.STATIONS = [
   {
     "c": "MNI",
     "n": "Mangaon",
+    "city": "Ratnagiri",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "KR",
     "d": "Ratnagiri",
+    "cat": "4",
     "pf": 2,
     "lat": 18.25,
     "lng": 73.28
@@ -9134,9 +11136,12 @@ window.STATIONS = [
   {
     "c": "MKP",
     "n": "Manikpur Jn",
+    "city": "Prayagraj",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NCR",
     "d": "Prayagraj",
+    "cat": "3",
     "pf": 4,
     "lat": 25.04,
     "lng": 81.12
@@ -9144,9 +11149,12 @@ window.STATIONS = [
   {
     "c": "MMR",
     "n": "Manmad Jn",
+    "city": "Bhusawal",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Bhusawal",
+    "cat": "2",
     "pf": 6,
     "lat": 20.25,
     "lng": 74.44
@@ -9154,9 +11162,12 @@ window.STATIONS = [
   {
     "c": "MNE",
     "n": "Mansi Jn",
+    "city": "Sonpur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Sonpur",
+    "cat": "3",
     "pf": 4,
     "lat": 25.53,
     "lng": 86.58
@@ -9164,9 +11175,12 @@ window.STATIONS = [
   {
     "c": "MXN",
     "n": "Mariani Jn (Jorhat)",
+    "city": "Tinsukia",
+    "st": "Assam",
     "s": "Assam",
     "z": "NFR",
     "d": "Tinsukia",
+    "cat": "3",
     "pf": 3,
     "lat": 26.66,
     "lng": 94.33
@@ -9174,9 +11188,12 @@ window.STATIONS = [
   {
     "c": "MCTM",
     "n": "Martyr Captain Tushar Mahajan (Udhampur)",
+    "city": "Firozpur",
+    "st": "Jammu & Kashmir",
     "s": "Jammu & Kashmir",
     "z": "NR",
     "d": "Firozpur",
+    "cat": "3",
     "pf": 3,
     "lat": 32.93,
     "lng": 75.14
@@ -9186,18 +11203,21 @@ window.STATIONS = [
     "n": "Mathura Jn",
     "city": "Mathura",
     "st": "Uttar Pradesh",
+    "s": "Uttar Pradesh",
     "z": "NCR",
     "d": "Agra",
     "cat": "B",
-    "pf": 6,
-    "tr": 80
+    "pf": 6
   },
   {
     "c": "MTJ",
     "n": "Mathura Jn",
+    "city": "Agra",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NCR",
     "d": "Agra",
+    "cat": "1",
     "pf": 10,
     "lat": 27.49,
     "lng": 77.67
@@ -9205,9 +11225,12 @@ window.STATIONS = [
   {
     "c": "MAU",
     "n": "Mau Jn",
+    "city": "Varanasi",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NER",
     "d": "Varanasi",
+    "cat": "3",
     "pf": 4,
     "lat": 25.95,
     "lng": 83.56
@@ -9215,9 +11238,12 @@ window.STATIONS = [
   {
     "c": "MVLK",
     "n": "Mavelikara",
+    "city": "Thiruvananthapuram",
+    "st": "Kerala",
     "s": "Kerala",
     "z": "SR",
     "d": "Thiruvananthapuram",
+    "cat": "4",
     "pf": 2,
     "lat": 9.27,
     "lng": 76.55
@@ -9225,9 +11251,12 @@ window.STATIONS = [
   {
     "c": "MV",
     "n": "Mayiladuturai Jn",
+    "city": "Tiruchchirappalli",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Tiruchchirappalli",
+    "cat": "3",
     "pf": 5,
     "lat": 11.1,
     "lng": 79.65
@@ -9235,9 +11264,12 @@ window.STATIONS = [
   {
     "c": "MUT",
     "n": "Meerut Cantt",
+    "city": "Delhi",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NR",
     "d": "Delhi",
+    "cat": "4",
     "pf": 2,
     "lat": 29,
     "lng": 77.72
@@ -9245,9 +11277,12 @@ window.STATIONS = [
   {
     "c": "MTC",
     "n": "Meerut City",
+    "city": "Delhi",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NR",
     "d": "Delhi",
+    "cat": "3",
     "pf": 5,
     "lat": 28.98,
     "lng": 77.7
@@ -9255,9 +11290,12 @@ window.STATIONS = [
   {
     "c": "MNO",
     "n": "Mehnar Road",
+    "city": "Sonpur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Sonpur",
+    "cat": "4",
     "pf": 2,
     "lat": 25.59,
     "lng": 85.5
@@ -9265,9 +11303,12 @@ window.STATIONS = [
   {
     "c": "MSH",
     "n": "Mehsana Jn",
+    "city": "Ahmedabad",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Ahmedabad",
+    "cat": "2",
     "pf": 6,
     "lat": 23.6,
     "lng": 72.39
@@ -9275,9 +11316,12 @@ window.STATIONS = [
   {
     "c": "MDN",
     "n": "Midnapore",
+    "city": "Kharagpur",
+    "st": "West Bengal",
     "s": "West Bengal",
     "z": "SER",
     "d": "Kharagpur",
+    "cat": "3",
     "pf": 3,
     "lat": 22.42,
     "lng": 87.32
@@ -9285,9 +11329,12 @@ window.STATIONS = [
   {
     "c": "MRJ",
     "n": "Miraj Jn",
+    "city": "Pune",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Pune",
+    "cat": "2",
     "pf": 6,
     "lat": 16.83,
     "lng": 74.65
@@ -9295,9 +11342,12 @@ window.STATIONS = [
   {
     "c": "MZP",
     "n": "Mirzapur",
+    "city": "Prayagraj",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NCR",
     "d": "Prayagraj",
+    "cat": "3",
     "pf": 3,
     "lat": 25.15,
     "lng": 82.57
@@ -9305,9 +11355,12 @@ window.STATIONS = [
   {
     "c": "MKA",
     "n": "Mokama",
+    "city": "Danapur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Danapur",
+    "cat": "3",
     "pf": 4,
     "lat": 25.4,
     "lng": 85.92
@@ -9315,9 +11368,12 @@ window.STATIONS = [
   {
     "c": "MB",
     "n": "Moradabad Jn",
+    "city": "Moradabad",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NR",
     "d": "Moradabad",
+    "cat": "2",
     "pf": 7,
     "lat": 28.84,
     "lng": 78.78
@@ -9325,9 +11381,12 @@ window.STATIONS = [
   {
     "c": "MRA",
     "n": "Morena",
+    "city": "Jhansi",
+    "st": "Madhya Pradesh",
     "s": "Madhya Pradesh",
     "z": "NCR",
     "d": "Jhansi",
+    "cat": "3",
     "pf": 3,
     "lat": 26.5,
     "lng": 77.99
@@ -9337,18 +11396,21 @@ window.STATIONS = [
     "n": "Mumbai Central",
     "city": "Mumbai",
     "st": "Maharashtra",
+    "s": "Maharashtra",
     "z": "WR",
     "d": "Mumbai",
     "cat": "A1",
-    "pf": 7,
-    "tr": 145
+    "pf": 7
   },
   {
     "c": "MMCT",
     "n": "Mumbai Central",
+    "city": "Mumbai WR",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "WR",
     "d": "Mumbai WR",
+    "cat": "2",
     "pf": 9,
     "lat": 18.97,
     "lng": 72.82
@@ -9358,18 +11420,21 @@ window.STATIONS = [
     "n": "Mumbai CST",
     "city": "Mumbai",
     "st": "Maharashtra",
+    "s": "Maharashtra",
     "z": "CR",
     "d": "Mumbai",
     "cat": "A1",
-    "pf": 18,
-    "tr": 330
+    "pf": 18
   },
   {
     "c": "MRDW",
     "n": "Murdeshwar",
+    "city": "Karwar",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "KR",
     "d": "Karwar",
+    "cat": "4",
     "pf": 2,
     "lat": 14.09,
     "lng": 74.49
@@ -9377,9 +11442,12 @@ window.STATIONS = [
   {
     "c": "MURI",
     "n": "Muri Jn",
+    "city": "Ranchi",
+    "st": "Jharkhand",
     "s": "Jharkhand",
     "z": "SER",
     "d": "Ranchi",
+    "cat": "3",
     "pf": 3,
     "lat": 23.37,
     "lng": 85.86
@@ -9387,9 +11455,12 @@ window.STATIONS = [
   {
     "c": "MOZ",
     "n": "Muzaffarnagar",
+    "city": "Delhi",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NR",
     "d": "Delhi",
+    "cat": "3",
     "pf": 3,
     "lat": 29.47,
     "lng": 77.71
@@ -9397,9 +11468,12 @@ window.STATIONS = [
   {
     "c": "MFP",
     "n": "Muzaffarpur Jn",
+    "city": "Sonpur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Sonpur",
+    "cat": "2",
     "pf": 6,
     "lat": 26.12,
     "lng": 85.38
@@ -9407,9 +11481,12 @@ window.STATIONS = [
   {
     "c": "MYS",
     "n": "Mysuru Jn",
+    "city": "Mysuru",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SWR",
     "d": "Mysuru",
+    "cat": "2",
     "pf": 6,
     "lat": 12.31,
     "lng": 76.65
@@ -9417,9 +11494,12 @@ window.STATIONS = [
   {
     "c": "ND",
     "n": "Nadiad Jn",
+    "city": "Vadodara",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Vadodara",
+    "cat": "3",
     "pf": 5,
     "lat": 22.7,
     "lng": 72.86
@@ -9427,9 +11507,12 @@ window.STATIONS = [
   {
     "c": "NAD",
     "n": "Nagda Jn",
+    "city": "Ratlam",
+    "st": "Madhya Pradesh",
     "s": "Madhya Pradesh",
     "z": "WR",
     "d": "Ratlam",
+    "cat": "3",
     "pf": 5,
     "lat": 23.45,
     "lng": 75.41
@@ -9437,9 +11520,12 @@ window.STATIONS = [
   {
     "c": "NCJ",
     "n": "Nagercoil Jn",
+    "city": "Thiruvananthapuram",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Thiruvananthapuram",
+    "cat": "2",
     "pf": 6,
     "lat": 8.18,
     "lng": 77.44
@@ -9447,9 +11533,12 @@ window.STATIONS = [
   {
     "c": "NGP",
     "n": "Nagpur Jn",
+    "city": "Nagpur CR",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Nagpur CR",
+    "cat": "2",
     "pf": 8,
     "lat": 21.15,
     "lng": 79.08
@@ -9457,9 +11546,12 @@ window.STATIONS = [
   {
     "c": "NHLN",
     "n": "Naharlagun (Itanagar)",
+    "city": "Rangiya",
+    "st": "Arunachal Pradesh",
     "s": "Arunachal Pradesh",
     "z": "NFR",
     "d": "Rangiya",
+    "cat": "3",
     "pf": 3,
     "lat": 27.1,
     "lng": 93.69
@@ -9467,9 +11559,12 @@ window.STATIONS = [
   {
     "c": "NLV",
     "n": "Nalbari",
+    "city": "Rangiya",
+    "st": "Assam",
     "s": "Assam",
     "z": "NFR",
     "d": "Rangiya",
+    "cat": "4",
     "pf": 2,
     "lat": 26.44,
     "lng": 91.43
@@ -9479,18 +11574,21 @@ window.STATIONS = [
     "n": "Nandyal",
     "city": "Nandyal",
     "st": "Andhra Pradesh",
+    "s": "Andhra Pradesh",
     "z": "SCR",
     "d": "Guntakal",
     "cat": "C",
-    "pf": 3,
-    "tr": 30
+    "pf": 3
   },
   {
     "c": "NDL",
     "n": "Nandyal Jn",
+    "city": "Guntur",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "SCR",
     "d": "Guntur",
+    "cat": "3",
     "pf": 3,
     "lat": 15.48,
     "lng": 78.48
@@ -9498,9 +11596,12 @@ window.STATIONS = [
   {
     "c": "NKE",
     "n": "Narkatiaganj Jn",
+    "city": "Samastipur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Samastipur",
+    "cat": "3",
     "pf": 4,
     "lat": 27.1,
     "lng": 84.47
@@ -9508,9 +11609,12 @@ window.STATIONS = [
   {
     "c": "NDPM",
     "n": "Narmadapuram (Hoshangabad)",
+    "city": "Bhopal",
+    "st": "Madhya Pradesh",
     "s": "Madhya Pradesh",
     "z": "WCR",
     "d": "Bhopal",
+    "cat": "3",
     "pf": 3,
     "lat": 22.75,
     "lng": 77.72
@@ -9518,9 +11622,12 @@ window.STATIONS = [
   {
     "c": "NU",
     "n": "Narsinghpur",
+    "city": "Jabalpur",
+    "st": "Madhya Pradesh",
     "s": "Madhya Pradesh",
     "z": "WCR",
     "d": "Jabalpur",
+    "cat": "4",
     "pf": 2,
     "lat": 22.95,
     "lng": 79.19
@@ -9528,9 +11635,12 @@ window.STATIONS = [
   {
     "c": "NRW",
     "n": "Narwana Jn",
+    "city": "Delhi",
+    "st": "Haryana",
     "s": "Haryana",
     "z": "NR",
     "d": "Delhi",
+    "cat": "3",
     "pf": 3,
     "lat": 29.6,
     "lng": 76.12
@@ -9540,18 +11650,21 @@ window.STATIONS = [
     "n": "Nashik Road",
     "city": "Nashik",
     "st": "Maharashtra",
+    "s": "Maharashtra",
     "z": "CR",
     "d": "Bhusawal",
     "cat": "B",
-    "pf": 4,
-    "tr": 65
+    "pf": 4
   },
   {
     "c": "NK",
     "n": "Nashik Road",
+    "city": "Bhusawal",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Bhusawal",
+    "cat": "3",
     "pf": 4,
     "lat": 19.96,
     "lng": 73.84
@@ -9559,9 +11672,12 @@ window.STATIONS = [
   {
     "c": "NNA",
     "n": "Naugachia",
+    "city": "Sonpur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Sonpur",
+    "cat": "4",
     "pf": 2,
     "lat": 25.4,
     "lng": 87.1
@@ -9569,9 +11685,12 @@ window.STATIONS = [
   {
     "c": "NVS",
     "n": "Navsari",
+    "city": "Mumbai WR",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Mumbai WR",
+    "cat": "3",
     "pf": 3,
     "lat": 20.95,
     "lng": 72.93
@@ -9579,9 +11698,12 @@ window.STATIONS = [
   {
     "c": "NWD",
     "n": "Nawada",
+    "city": "Danapur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Danapur",
+    "cat": "3",
     "pf": 3,
     "lat": 24.88,
     "lng": 85.54
@@ -9589,9 +11711,12 @@ window.STATIONS = [
   {
     "c": "NLR",
     "n": "Nellore",
+    "city": "Vijayawada",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "SCR",
     "d": "Vijayawada",
+    "cat": "3",
     "pf": 4,
     "lat": 14.45,
     "lng": 79.99
@@ -9599,9 +11724,12 @@ window.STATIONS = [
   {
     "c": "GMO",
     "n": "Netaji SC Bose Jn Gomoh",
+    "city": "Dhanbad",
+    "st": "Jharkhand",
     "s": "Jharkhand",
     "z": "ECR",
     "d": "Dhanbad",
+    "cat": "2",
     "pf": 6,
     "lat": 23.87,
     "lng": 86.15
@@ -9609,9 +11737,12 @@ window.STATIONS = [
   {
     "c": "NOQ",
     "n": "New Alipurduar",
+    "city": "Alipurduar",
+    "st": "West Bengal",
     "s": "West Bengal",
     "z": "NFR",
     "d": "Alipurduar",
+    "cat": "3",
     "pf": 3,
     "lat": 26.51,
     "lng": 89.54
@@ -9619,9 +11750,12 @@ window.STATIONS = [
   {
     "c": "NBQ",
     "n": "New Bongaigaon Jn",
+    "city": "Rangiya",
+    "st": "Assam",
     "s": "Assam",
     "z": "NFR",
     "d": "Rangiya",
+    "cat": "2",
     "pf": 6,
     "lat": 26.5,
     "lng": 90.54
@@ -9629,9 +11763,12 @@ window.STATIONS = [
   {
     "c": "NCB",
     "n": "New Cooch Behar",
+    "city": "Alipurduar",
+    "st": "West Bengal",
     "s": "West Bengal",
     "z": "NFR",
     "d": "Alipurduar",
+    "cat": "3",
     "pf": 5,
     "lat": 26.34,
     "lng": 89.46
@@ -9639,9 +11776,12 @@ window.STATIONS = [
   {
     "c": "NDLS",
     "n": "New Delhi",
+    "city": "Delhi",
+    "st": "Delhi",
     "s": "Delhi",
     "z": "NR",
     "d": "Delhi",
+    "cat": "1",
     "pf": 16,
     "lat": 28.64,
     "lng": 77.22
@@ -9649,9 +11789,12 @@ window.STATIONS = [
   {
     "c": "NFK",
     "n": "New Farakka Jn",
+    "city": "Malda",
+    "st": "West Bengal",
     "s": "West Bengal",
     "z": "ER",
     "d": "Malda",
+    "cat": "3",
     "pf": 3,
     "lat": 24.81,
     "lng": 87.91
@@ -9659,9 +11802,12 @@ window.STATIONS = [
   {
     "c": "NJP",
     "n": "New Jalpaiguri Jn (Siliguri)",
+    "city": "Katihar",
+    "st": "West Bengal",
     "s": "West Bengal",
     "z": "NFR",
     "d": "Katihar",
+    "cat": "2",
     "pf": 8,
     "lat": 26.68,
     "lng": 88.44
@@ -9669,9 +11815,12 @@ window.STATIONS = [
   {
     "c": "NTSK",
     "n": "New Tinsukia Jn",
+    "city": "Tinsukia",
+    "st": "Assam",
     "s": "Assam",
     "z": "NFR",
     "d": "Tinsukia",
+    "cat": "3",
     "pf": 4,
     "lat": 27.49,
     "lng": 95.36
@@ -9679,9 +11828,12 @@ window.STATIONS = [
   {
     "c": "NDD",
     "n": "Nidadavolu Jn",
+    "city": "Vijayawada",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "SCR",
     "d": "Vijayawada",
+    "cat": "3",
     "pf": 3,
     "lat": 16.91,
     "lng": 81.67
@@ -9689,9 +11841,12 @@ window.STATIONS = [
   {
     "c": "NZB",
     "n": "Nizamabad Jn",
+    "city": "Hyderabad",
+    "st": "Telangana",
     "s": "Telangana",
     "z": "SCR",
     "d": "Hyderabad",
+    "cat": "3",
     "pf": 4,
     "lat": 18.67,
     "lng": 78.1
@@ -9699,9 +11854,12 @@ window.STATIONS = [
   {
     "c": "OKHA",
     "n": "Okha",
+    "city": "Bhavnagar",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Bhavnagar",
+    "cat": "3",
     "pf": 3,
     "lat": 22.47,
     "lng": 69.07
@@ -9709,9 +11867,12 @@ window.STATIONS = [
   {
     "c": "DLI",
     "n": "Old Delhi Jn",
+    "city": "Delhi",
+    "st": "Delhi",
     "s": "Delhi",
     "z": "NR",
     "d": "Delhi",
+    "cat": "1",
     "pf": 16,
     "lat": 28.66,
     "lng": 77.23
@@ -9719,9 +11880,12 @@ window.STATIONS = [
   {
     "c": "OGL",
     "n": "Ongole",
+    "city": "Vijayawada",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "SCR",
     "d": "Vijayawada",
+    "cat": "3",
     "pf": 3,
     "lat": 15.5,
     "lng": 80.05
@@ -9731,18 +11895,21 @@ window.STATIONS = [
     "n": "Orai",
     "city": "Orai",
     "st": "Uttar Pradesh",
+    "s": "Uttar Pradesh",
     "z": "NCR",
     "d": "Jhansi",
     "cat": "C",
-    "pf": 2,
-    "tr": 25
+    "pf": 2
   },
   {
     "c": "OTP",
     "n": "Ottappalam",
+    "city": "Palakkad",
+    "st": "Kerala",
     "s": "Kerala",
     "z": "SR",
     "d": "Palakkad",
+    "cat": "4",
     "pf": 2,
     "lat": 10.77,
     "lng": 76.38
@@ -9750,9 +11917,12 @@ window.STATIONS = [
   {
     "c": "PGT",
     "n": "Palakkad Jn (Olavakkot)",
+    "city": "Palakkad",
+    "st": "Kerala",
     "s": "Kerala",
     "z": "SR",
     "d": "Palakkad",
+    "cat": "3",
     "pf": 5,
     "lat": 10.8,
     "lng": 76.65
@@ -9760,9 +11930,12 @@ window.STATIONS = [
   {
     "c": "PNU",
     "n": "Palanpur Jn",
+    "city": "Ahmedabad",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Ahmedabad",
+    "cat": "3",
     "pf": 4,
     "lat": 24.17,
     "lng": 72.43
@@ -9770,9 +11943,12 @@ window.STATIONS = [
   {
     "c": "PSA",
     "n": "Palasa",
+    "city": "Waltair",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "ECoR",
     "d": "Waltair",
+    "cat": "3",
     "pf": 3,
     "lat": 18.77,
     "lng": 84.41
@@ -9780,9 +11956,12 @@ window.STATIONS = [
   {
     "c": "PWL",
     "n": "Palwal",
+    "city": "Delhi",
+    "st": "Haryana",
     "s": "Haryana",
     "z": "NR",
     "d": "Delhi",
+    "cat": "3",
     "pf": 5,
     "lat": 28.14,
     "lng": 77.33
@@ -9790,9 +11969,12 @@ window.STATIONS = [
   {
     "c": "PAN",
     "n": "Panagarh",
+    "city": "Asansol",
+    "st": "West Bengal",
     "s": "West Bengal",
     "z": "ER",
     "d": "Asansol",
+    "cat": "3",
     "pf": 3,
     "lat": 23.45,
     "lng": 87.44
@@ -9800,9 +11982,12 @@ window.STATIONS = [
   {
     "c": "PNP",
     "n": "Panipat Jn",
+    "city": "Delhi",
+    "st": "Haryana",
     "s": "Haryana",
     "z": "NR",
     "d": "Delhi",
+    "cat": "3",
     "pf": 5,
     "lat": 29.39,
     "lng": 76.97
@@ -9810,9 +11995,12 @@ window.STATIONS = [
   {
     "c": "PNVL",
     "n": "Panvel Jn",
+    "city": "Mumbai CR",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Mumbai CR",
+    "cat": "2",
     "pf": 7,
     "lat": 18.99,
     "lng": 73.12
@@ -9820,9 +12008,12 @@ window.STATIONS = [
   {
     "c": "PNME",
     "n": "Parasnath",
+    "city": "Dhanbad",
+    "st": "Jharkhand",
     "s": "Jharkhand",
     "z": "ECR",
     "d": "Dhanbad",
+    "cat": "3",
     "pf": 4,
     "lat": 23.97,
     "lng": 86.03
@@ -9830,9 +12021,12 @@ window.STATIONS = [
   {
     "c": "PBN",
     "n": "Parbhani Jn",
+    "city": "Nanded",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "SCR",
     "d": "Nanded",
+    "cat": "3",
     "pf": 3,
     "lat": 19.26,
     "lng": 76.78
@@ -9840,9 +12034,12 @@ window.STATIONS = [
   {
     "c": "PTKC",
     "n": "Pathankot Cantt",
+    "city": "Firozpur",
+    "st": "Punjab",
     "s": "Punjab",
     "z": "NR",
     "d": "Firozpur",
+    "cat": "3",
     "pf": 3,
     "lat": 32.25,
     "lng": 75.65
@@ -9850,9 +12047,12 @@ window.STATIONS = [
   {
     "c": "PTK",
     "n": "Pathankot Jn",
+    "city": "Firozpur",
+    "st": "Punjab",
     "s": "Punjab",
     "z": "NR",
     "d": "Firozpur",
+    "cat": "3",
     "pf": 4,
     "lat": 32.27,
     "lng": 75.64
@@ -9860,9 +12060,12 @@ window.STATIONS = [
   {
     "c": "PTA",
     "n": "Patiala",
+    "city": "Ambala",
+    "st": "Punjab",
     "s": "Punjab",
     "z": "NR",
     "d": "Ambala",
+    "cat": "3",
     "pf": 3,
     "lat": 30.34,
     "lng": 76.4
@@ -9870,9 +12073,12 @@ window.STATIONS = [
   {
     "c": "PPTA",
     "n": "Patliputra Jn",
+    "city": "Danapur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Danapur",
+    "cat": "3",
     "pf": 5,
     "lat": 25.64,
     "lng": 85.09
@@ -9880,9 +12086,12 @@ window.STATIONS = [
   {
     "c": "PNBE",
     "n": "Patna Jn",
+    "city": "Danapur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Danapur",
+    "cat": "1",
     "pf": 10,
     "lat": 25.6,
     "lng": 85.13
@@ -9890,9 +12099,12 @@ window.STATIONS = [
   {
     "c": "PAY",
     "n": "Payyanur",
+    "city": "Palakkad",
+    "st": "Kerala",
     "s": "Kerala",
     "z": "SR",
     "d": "Palakkad",
+    "cat": "4",
     "pf": 2,
     "lat": 12.1,
     "lng": 75.2
@@ -9900,9 +12112,12 @@ window.STATIONS = [
   {
     "c": "PGW",
     "n": "Phagwara Jn",
+    "city": "Firozpur",
+    "st": "Punjab",
     "s": "Punjab",
     "z": "NR",
     "d": "Firozpur",
+    "cat": "3",
     "pf": 3,
     "lat": 31.22,
     "lng": 75.77
@@ -9910,9 +12125,12 @@ window.STATIONS = [
   {
     "c": "PHD",
     "n": "Phaphund",
+    "city": "Prayagraj",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NCR",
     "d": "Prayagraj",
+    "cat": "3",
     "pf": 4,
     "lat": 26.56,
     "lng": 79.46
@@ -9920,9 +12138,12 @@ window.STATIONS = [
   {
     "c": "PBE",
     "n": "Pilibhit Jn",
+    "city": "Izzatnagar",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NER",
     "d": "Izzatnagar",
+    "cat": "3",
     "pf": 4,
     "lat": 28.63,
     "lng": 79.8
@@ -9930,9 +12151,12 @@ window.STATIONS = [
   {
     "c": "PPI",
     "n": "Pipariya",
+    "city": "Jabalpur",
+    "st": "Madhya Pradesh",
     "s": "Madhya Pradesh",
     "z": "WCR",
     "d": "Jabalpur",
+    "cat": "3",
     "pf": 3,
     "lat": 22.76,
     "lng": 78.35
@@ -9940,9 +12164,12 @@ window.STATIONS = [
   {
     "c": "PTJ",
     "n": "Podanur Jn",
+    "city": "Salem",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Salem",
+    "cat": "3",
     "pf": 5,
     "lat": 10.96,
     "lng": 76.99
@@ -9950,9 +12177,12 @@ window.STATIONS = [
   {
     "c": "PBR",
     "n": "Porbandar",
+    "city": "Bhavnagar",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Bhavnagar",
+    "cat": "3",
     "pf": 3,
     "lat": 21.64,
     "lng": 69.61
@@ -9960,9 +12190,12 @@ window.STATIONS = [
   {
     "c": "PCOI",
     "n": "Prayagraj Chheoki",
+    "city": "Prayagraj",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NCR",
     "d": "Prayagraj",
+    "cat": "3",
     "pf": 4,
     "lat": 25.4,
     "lng": 81.86
@@ -9972,18 +12205,21 @@ window.STATIONS = [
     "n": "Prayagraj Jn",
     "city": "Prayagraj",
     "st": "Uttar Pradesh",
+    "s": "Uttar Pradesh",
     "z": "NCR",
     "d": "Prayagraj",
     "cat": "A1",
-    "pf": 10,
-    "tr": 210
+    "pf": 10
   },
   {
     "c": "PRYJ",
     "n": "Prayagraj Jn (Allahabad)",
+    "city": "Prayagraj",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NCR",
     "d": "Prayagraj",
+    "cat": "1",
     "pf": 10,
     "lat": 25.45,
     "lng": 81.83
@@ -9991,9 +12227,12 @@ window.STATIONS = [
   {
     "c": "PRRB",
     "n": "Prayagraj Rambag",
+    "city": "Varanasi",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NER",
     "d": "Varanasi",
+    "cat": "3",
     "pf": 3,
     "lat": 25.44,
     "lng": 81.85
@@ -10001,9 +12240,12 @@ window.STATIONS = [
   {
     "c": "DDU",
     "n": "Pt Deen Dayal Upadhyaya Jn (Mughalsarai)",
+    "city": "Pt DD Upadhyaya",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "ECR",
     "d": "Pt DD Upadhyaya",
+    "cat": "2",
     "pf": 8,
     "lat": 25.28,
     "lng": 83.12
@@ -10011,9 +12253,12 @@ window.STATIONS = [
   {
     "c": "PDY",
     "n": "Puducherry (Pondicherry)",
+    "city": "Tiruchchirappalli",
+    "st": "Puducherry",
     "s": "Puducherry",
     "z": "SR",
     "d": "Tiruchchirappalli",
+    "cat": "3",
     "pf": 4,
     "lat": 11.93,
     "lng": 79.83
@@ -10021,9 +12266,12 @@ window.STATIONS = [
   {
     "c": "PDKT",
     "n": "Pudukkottai",
+    "city": "Tiruchchirappalli",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Tiruchchirappalli",
+    "cat": "4",
     "pf": 2,
     "lat": 10.38,
     "lng": 78.82
@@ -10031,9 +12279,12 @@ window.STATIONS = [
   {
     "c": "PUNE",
     "n": "Pune Jn",
+    "city": "Pune",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Pune",
+    "cat": "2",
     "pf": 6,
     "lat": 18.53,
     "lng": 73.87
@@ -10041,9 +12292,12 @@ window.STATIONS = [
   {
     "c": "MAS",
     "n": "Puratchi Thalaivar Dr. M.G.R. Chennai Central",
+    "city": "Chennai",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Chennai",
+    "cat": "1",
     "pf": 17,
     "lat": 13.08,
     "lng": 80.28
@@ -10051,9 +12305,12 @@ window.STATIONS = [
   {
     "c": "PURI",
     "n": "Puri",
+    "city": "Khurda Road",
+    "st": "Odisha",
     "s": "Odisha",
     "z": "ECoR",
     "d": "Khurda Road",
+    "cat": "2",
     "pf": 8,
     "lat": 19.81,
     "lng": 85.83
@@ -10061,9 +12318,12 @@ window.STATIONS = [
   {
     "c": "PAU",
     "n": "Purna Jn",
+    "city": "Nanded",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "SCR",
     "d": "Nanded",
+    "cat": "3",
     "pf": 4,
     "lat": 19.18,
     "lng": 77.05
@@ -10071,9 +12331,12 @@ window.STATIONS = [
   {
     "c": "PRNA",
     "n": "Purnea Jn",
+    "city": "Katihar",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "NFR",
     "d": "Katihar",
+    "cat": "3",
     "pf": 3,
     "lat": 25.77,
     "lng": 87.47
@@ -10081,9 +12344,12 @@ window.STATIONS = [
   {
     "c": "PRR",
     "n": "Purulia Jn",
+    "city": "Adra",
+    "st": "West Bengal",
     "s": "West Bengal",
     "z": "SER",
     "d": "Adra",
+    "cat": "3",
     "pf": 4,
     "lat": 23.33,
     "lng": 86.37
@@ -10091,9 +12357,12 @@ window.STATIONS = [
   {
     "c": "RBL",
     "n": "Rae Bareli Jn",
+    "city": "Lucknow NR",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NR",
     "d": "Lucknow NR",
+    "cat": "3",
     "pf": 4,
     "lat": 26.23,
     "lng": 81.24
@@ -10101,9 +12370,12 @@ window.STATIONS = [
   {
     "c": "RFJ",
     "n": "RafiGanj",
+    "city": "Pt DD Upadhyaya",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Pt DD Upadhyaya",
+    "cat": "3",
     "pf": 3,
     "lat": 24.82,
     "lng": 84.65
@@ -10111,9 +12383,12 @@ window.STATIONS = [
   {
     "c": "RC",
     "n": "Raichur Jn",
+    "city": "Guntakal",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SCR",
     "d": "Guntakal",
+    "cat": "3",
     "pf": 3,
     "lat": 16.2,
     "lng": 77.35
@@ -10121,9 +12396,12 @@ window.STATIONS = [
   {
     "c": "RIG",
     "n": "Raigarh",
+    "city": "Bilaspur",
+    "st": "Chhattisgarh",
     "s": "Chhattisgarh",
     "z": "SECR",
     "d": "Bilaspur",
+    "cat": "3",
     "pf": 3,
     "lat": 21.89,
     "lng": 83.4
@@ -10131,9 +12409,12 @@ window.STATIONS = [
   {
     "c": "R",
     "n": "Raipur Jn",
+    "city": "Raipur",
+    "st": "Chhattisgarh",
     "s": "Chhattisgarh",
     "z": "SECR",
     "d": "Raipur",
+    "cat": "2",
     "pf": 7,
     "lat": 21.26,
     "lng": 81.63
@@ -10141,9 +12422,12 @@ window.STATIONS = [
   {
     "c": "RWL",
     "n": "Raiwala Jn",
+    "city": "Moradabad",
+    "st": "Uttarakhand",
     "s": "Uttarakhand",
     "z": "NR",
     "d": "Moradabad",
+    "cat": "4",
     "pf": 2,
     "lat": 30.01,
     "lng": 78.23
@@ -10151,9 +12435,12 @@ window.STATIONS = [
   {
     "c": "RKM",
     "n": "Raja Ki Mandi",
+    "city": "Agra",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NCR",
     "d": "Agra",
+    "cat": "4",
     "pf": 2,
     "lat": 27.2,
     "lng": 77.99
@@ -10161,9 +12448,12 @@ window.STATIONS = [
   {
     "c": "RJY",
     "n": "Rajahmundry",
+    "city": "Vijayawada",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "SCR",
     "d": "Vijayawada",
+    "cat": "3",
     "pf": 3,
     "lat": 17,
     "lng": 81.78
@@ -10171,9 +12461,12 @@ window.STATIONS = [
   {
     "c": "RJPB",
     "n": "Rajendra Nagar Terminal",
+    "city": "Danapur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Danapur",
+    "cat": "3",
     "pf": 4,
     "lat": 25.59,
     "lng": 85.16
@@ -10181,9 +12474,12 @@ window.STATIONS = [
   {
     "c": "RJT",
     "n": "Rajkot Jn",
+    "city": "Rajkot",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Rajkot",
+    "cat": "3",
     "pf": 5,
     "lat": 22.31,
     "lng": 70.8
@@ -10191,9 +12487,12 @@ window.STATIONS = [
   {
     "c": "RJN",
     "n": "Rajnandgaon",
+    "city": "Nagpur SECR",
+    "st": "Chhattisgarh",
     "s": "Chhattisgarh",
     "z": "SECR",
     "d": "Nagpur SECR",
+    "cat": "3",
     "pf": 3,
     "lat": 21.1,
     "lng": 81.04
@@ -10201,9 +12500,12 @@ window.STATIONS = [
   {
     "c": "RPJ",
     "n": "Rajpura Jn",
+    "city": "Ambala",
+    "st": "Punjab",
     "s": "Punjab",
     "z": "NR",
     "d": "Ambala",
+    "cat": "3",
     "pf": 3,
     "lat": 30.48,
     "lng": 76.59
@@ -10211,9 +12513,12 @@ window.STATIONS = [
   {
     "c": "RDM",
     "n": "Ramagundam",
+    "city": "Secunderabad",
+    "st": "Telangana",
     "s": "Telangana",
     "z": "SCR",
     "d": "Secunderabad",
+    "cat": "3",
     "pf": 3,
     "lat": 18.76,
     "lng": 79.52
@@ -10221,9 +12526,12 @@ window.STATIONS = [
   {
     "c": "RMD",
     "n": "Ramanathapuram",
+    "city": "Madurai",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Madurai",
+    "cat": "3",
     "pf": 3,
     "lat": 9.37,
     "lng": 78.83
@@ -10231,9 +12539,12 @@ window.STATIONS = [
   {
     "c": "RMM",
     "n": "Rameswaram",
+    "city": "Madurai",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Madurai",
+    "cat": "3",
     "pf": 4,
     "lat": 9.28,
     "lng": 79.31
@@ -10241,9 +12552,12 @@ window.STATIONS = [
   {
     "c": "RMR",
     "n": "Ramnagar",
+    "city": "Izzatnagar",
+    "st": "Uttarakhand",
     "s": "Uttarakhand",
     "z": "NER",
     "d": "Izzatnagar",
+    "cat": "4",
     "pf": 2,
     "lat": 29.39,
     "lng": 79.13
@@ -10251,9 +12565,12 @@ window.STATIONS = [
   {
     "c": "RMU",
     "n": "Rampur Jn",
+    "city": "Moradabad",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NR",
     "d": "Moradabad",
+    "cat": "3",
     "pf": 3,
     "lat": 28.81,
     "lng": 79.03
@@ -10261,9 +12578,12 @@ window.STATIONS = [
   {
     "c": "RPH",
     "n": "Rampurhat Jn",
+    "city": "Howrah",
+    "st": "West Bengal",
     "s": "West Bengal",
     "z": "ER",
     "d": "Howrah",
+    "cat": "3",
     "pf": 3,
     "lat": 24.17,
     "lng": 87.78
@@ -10271,9 +12591,12 @@ window.STATIONS = [
   {
     "c": "RNC",
     "n": "Ranchi Jn",
+    "city": "Ranchi",
+    "st": "Jharkhand",
     "s": "Jharkhand",
     "z": "SER",
     "d": "Ranchi",
+    "cat": "2",
     "pf": 6,
     "lat": 23.35,
     "lng": 85.33
@@ -10281,9 +12604,12 @@ window.STATIONS = [
   {
     "c": "RNY",
     "n": "Rangiya Jn",
+    "city": "Rangiya",
+    "st": "Assam",
     "s": "Assam",
     "z": "NFR",
     "d": "Rangiya",
+    "cat": "3",
     "pf": 5,
     "lat": 26.45,
     "lng": 91.62
@@ -10291,9 +12617,12 @@ window.STATIONS = [
   {
     "c": "RKMP",
     "n": "Rani Kamlapati (Habibganj)",
+    "city": "Bhopal",
+    "st": "Madhya Pradesh",
     "s": "Madhya Pradesh",
     "z": "WCR",
     "d": "Bhopal",
+    "cat": "3",
     "pf": 5,
     "lat": 23.21,
     "lng": 77.44
@@ -10301,9 +12630,12 @@ window.STATIONS = [
   {
     "c": "RNR",
     "n": "Ranibennur",
+    "city": "Mysuru",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SWR",
     "d": "Mysuru",
+    "cat": "4",
     "pf": 2,
     "lat": 14.62,
     "lng": 75.62
@@ -10311,9 +12643,12 @@ window.STATIONS = [
   {
     "c": "RNG",
     "n": "Raniganj",
+    "city": "Asansol",
+    "st": "West Bengal",
     "s": "West Bengal",
     "z": "ER",
     "d": "Asansol",
+    "cat": "3",
     "pf": 3,
     "lat": 23.61,
     "lng": 87.11
@@ -10321,9 +12656,12 @@ window.STATIONS = [
   {
     "c": "RTM",
     "n": "Ratlam Jn",
+    "city": "Ratlam",
+    "st": "Madhya Pradesh",
     "s": "Madhya Pradesh",
     "z": "WR",
     "d": "Ratlam",
+    "cat": "2",
     "pf": 7,
     "lat": 23.34,
     "lng": 75.05
@@ -10331,9 +12669,12 @@ window.STATIONS = [
   {
     "c": "RN",
     "n": "Ratnagiri",
+    "city": "Ratnagiri",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "KR",
     "d": "Ratnagiri",
+    "cat": "3",
     "pf": 3,
     "lat": 16.98,
     "lng": 73.34
@@ -10341,9 +12682,12 @@ window.STATIONS = [
   {
     "c": "RXL",
     "n": "Raxaul Jn",
+    "city": "Samastipur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Samastipur",
+    "cat": "3",
     "pf": 4,
     "lat": 26.98,
     "lng": 84.85
@@ -10351,9 +12695,12 @@ window.STATIONS = [
   {
     "c": "RGDA",
     "n": "Rayagada",
+    "city": "Rayagada",
+    "st": "Odisha",
     "s": "Odisha",
     "z": "ECoR",
     "d": "Rayagada",
+    "cat": "3",
     "pf": 4,
     "lat": 19.16,
     "lng": 83.42
@@ -10361,9 +12708,12 @@ window.STATIONS = [
   {
     "c": "RU",
     "n": "Renigunta Jn",
+    "city": "Guntakal",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "SCR",
     "d": "Guntakal",
+    "cat": "2",
     "pf": 6,
     "lat": 13.65,
     "lng": 79.52
@@ -10371,9 +12721,12 @@ window.STATIONS = [
   {
     "c": "REWA",
     "n": "Rewa",
+    "city": "Jabalpur",
+    "st": "Madhya Pradesh",
     "s": "Madhya Pradesh",
     "z": "WCR",
     "d": "Jabalpur",
+    "cat": "3",
     "pf": 3,
     "lat": 24.54,
     "lng": 81.3
@@ -10381,9 +12734,12 @@ window.STATIONS = [
   {
     "c": "RE",
     "n": "Rewari Jn",
+    "city": "Jaipur",
+    "st": "Haryana",
     "s": "Haryana",
     "z": "NWR",
     "d": "Jaipur",
+    "cat": "2",
     "pf": 8,
     "lat": 28.2,
     "lng": 76.62
@@ -10393,18 +12749,21 @@ window.STATIONS = [
     "n": "Rishikesh",
     "city": "Rishikesh",
     "st": "Uttarakhand",
+    "s": "Uttarakhand",
     "z": "NR",
     "d": "Ambala",
     "cat": "C",
-    "pf": 2,
-    "tr": 20
+    "pf": 2
   },
   {
     "c": "ROHA",
     "n": "Roha",
+    "city": "Mumbai CR",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Mumbai CR",
+    "cat": "3",
     "pf": 3,
     "lat": 18.43,
     "lng": 73.12
@@ -10412,9 +12771,12 @@ window.STATIONS = [
   {
     "c": "ROK",
     "n": "Rohtak Jn",
+    "city": "Delhi",
+    "st": "Haryana",
     "s": "Haryana",
     "z": "NR",
     "d": "Delhi",
+    "cat": "3",
     "pf": 5,
     "lat": 28.89,
     "lng": 76.59
@@ -10422,9 +12784,12 @@ window.STATIONS = [
   {
     "c": "RK",
     "n": "Roorkee",
+    "city": "Moradabad",
+    "st": "Uttarakhand",
     "s": "Uttarakhand",
     "z": "NR",
     "d": "Moradabad",
+    "cat": "3",
     "pf": 3,
     "lat": 29.85,
     "lng": 77.89
@@ -10432,9 +12797,12 @@ window.STATIONS = [
   {
     "c": "ROU",
     "n": "Rourkela Jn",
+    "city": "Chakradharpur",
+    "st": "Odisha",
     "s": "Odisha",
     "z": "SER",
     "d": "Chakradharpur",
+    "cat": "3",
     "pf": 5,
     "lat": 22.23,
     "lng": 84.87
@@ -10442,9 +12810,12 @@ window.STATIONS = [
   {
     "c": "SBIB",
     "n": "Sabarmati BG",
+    "city": "Ahmedabad",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Ahmedabad",
+    "cat": "3",
     "pf": 5,
     "lat": 23.07,
     "lng": 72.58
@@ -10454,18 +12825,21 @@ window.STATIONS = [
     "n": "Sabarmati Jn",
     "city": "Ahmedabad",
     "st": "Gujarat",
+    "s": "Gujarat",
     "z": "WR",
     "d": "Ahmedabad",
     "cat": "C",
-    "pf": 4,
-    "tr": 50
+    "pf": 4
   },
   {
     "c": "SZM",
     "n": "Sabzi Mandi",
+    "city": "Delhi",
+    "st": "Delhi",
     "s": "Delhi",
     "z": "NR",
     "d": "Delhi",
+    "cat": "3",
     "pf": 4,
     "lat": 28.67,
     "lng": 77.2
@@ -10473,9 +12847,12 @@ window.STATIONS = [
   {
     "c": "SGL",
     "n": "Sagauli Jn",
+    "city": "Samastipur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Samastipur",
+    "cat": "3",
     "pf": 3,
     "lat": 26.77,
     "lng": 84.74
@@ -10483,9 +12860,12 @@ window.STATIONS = [
   {
     "c": "SRE",
     "n": "Saharanpur Jn",
+    "city": "Ambala",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NR",
     "d": "Ambala",
+    "cat": "2",
     "pf": 6,
     "lat": 29.96,
     "lng": 77.54
@@ -10493,9 +12873,12 @@ window.STATIONS = [
   {
     "c": "SHC",
     "n": "Saharsa Jn",
+    "city": "Samastipur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Samastipur",
+    "cat": "3",
     "pf": 5,
     "lat": 25.88,
     "lng": 86.6
@@ -10503,9 +12886,12 @@ window.STATIONS = [
   {
     "c": "SBG",
     "n": "Sahibganj",
+    "city": "Malda",
+    "st": "Jharkhand",
     "s": "Jharkhand",
     "z": "ER",
     "d": "Malda",
+    "cat": "3",
     "pf": 3,
     "lat": 25.25,
     "lng": 87.64
@@ -10513,9 +12899,12 @@ window.STATIONS = [
   {
     "c": "SNSI",
     "n": "Sainagar Shirdi",
+    "city": "Solapur",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Solapur",
+    "cat": "3",
     "pf": 3,
     "lat": 19.77,
     "lng": 74.48
@@ -10523,9 +12912,12 @@ window.STATIONS = [
   {
     "c": "SNT",
     "n": "Sainthia Jn",
+    "city": "Howrah",
+    "st": "West Bengal",
     "s": "West Bengal",
     "z": "ER",
     "d": "Howrah",
+    "cat": "3",
     "pf": 4,
     "lat": 23.95,
     "lng": 87.68
@@ -10533,9 +12925,12 @@ window.STATIONS = [
   {
     "c": "SKI",
     "n": "Sakri Jn",
+    "city": "Samastipur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Samastipur",
+    "cat": "3",
     "pf": 3,
     "lat": 26.22,
     "lng": 86.07
@@ -10543,9 +12938,12 @@ window.STATIONS = [
   {
     "c": "SA",
     "n": "Salem Jn",
+    "city": "Salem",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Salem",
+    "cat": "2",
     "pf": 6,
     "lat": 11.66,
     "lng": 78.13
@@ -10553,9 +12951,12 @@ window.STATIONS = [
   {
     "c": "SIOB",
     "n": "Samakhiali Jn",
+    "city": "Ahmedabad",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Ahmedabad",
+    "cat": "3",
     "pf": 3,
     "lat": 23.32,
     "lng": 70.52
@@ -10563,9 +12964,12 @@ window.STATIONS = [
   {
     "c": "SLO",
     "n": "Samalkot Jn",
+    "city": "Vijayawada",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "SCR",
     "d": "Vijayawada",
+    "cat": "3",
     "pf": 3,
     "lat": 17.05,
     "lng": 82.17
@@ -10575,18 +12979,21 @@ window.STATIONS = [
     "n": "Samastipur Jn",
     "city": "Samastipur",
     "st": "Bihar",
+    "s": "Bihar",
     "z": "ECR",
     "d": "Samastipur",
     "cat": "B",
-    "pf": 5,
-    "tr": 70
+    "pf": 5
   },
   {
     "c": "SPJ",
     "n": "Samastipur Jn",
+    "city": "Samastipur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Samastipur",
+    "cat": "2",
     "pf": 7,
     "lat": 25.86,
     "lng": 85.78
@@ -10594,9 +13001,12 @@ window.STATIONS = [
   {
     "c": "SMBX",
     "n": "Samba",
+    "city": "Firozpur",
+    "st": "Jammu & Kashmir",
     "s": "Jammu & Kashmir",
     "z": "NR",
     "d": "Firozpur",
+    "cat": "4",
     "pf": 2,
     "lat": 32.55,
     "lng": 75.12
@@ -10604,9 +13014,12 @@ window.STATIONS = [
   {
     "c": "SBPY",
     "n": "Sambalpur City",
+    "city": "Sambalpur",
+    "st": "Odisha",
     "s": "Odisha",
     "z": "ECoR",
     "d": "Sambalpur",
+    "cat": "4",
     "pf": 2,
     "lat": 21.5,
     "lng": 83.98
@@ -10614,9 +13027,12 @@ window.STATIONS = [
   {
     "c": "SBP",
     "n": "Sambalpur Jn",
+    "city": "Sambalpur",
+    "st": "Odisha",
     "s": "Odisha",
     "z": "ECoR",
     "d": "Sambalpur",
+    "cat": "3",
     "pf": 4,
     "lat": 21.46,
     "lng": 83.97
@@ -10624,9 +13040,12 @@ window.STATIONS = [
   {
     "c": "SLI",
     "n": "Sangli",
+    "city": "Pune",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Pune",
+    "cat": "4",
     "pf": 2,
     "lat": 16.85,
     "lng": 74.58
@@ -10634,9 +13053,12 @@ window.STATIONS = [
   {
     "c": "SAG",
     "n": "Sangrur",
+    "city": "Ambala",
+    "st": "Punjab",
     "s": "Punjab",
     "z": "NR",
     "d": "Ambala",
+    "cat": "4",
     "pf": 2,
     "lat": 30.24,
     "lng": 75.84
@@ -10644,9 +13066,12 @@ window.STATIONS = [
   {
     "c": "SRC",
     "n": "Santragachi Jn",
+    "city": "Kharagpur",
+    "st": "West Bengal",
     "s": "West Bengal",
     "z": "SER",
     "d": "Kharagpur",
+    "cat": "2",
     "pf": 6,
     "lat": 22.58,
     "lng": 88.28
@@ -10654,9 +13079,12 @@ window.STATIONS = [
   {
     "c": "SSM",
     "n": "Sasaram Jn",
+    "city": "Pt DD Upadhyaya",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Pt DD Upadhyaya",
+    "cat": "2",
     "pf": 7,
     "lat": 24.95,
     "lng": 84.03
@@ -10664,9 +13092,12 @@ window.STATIONS = [
   {
     "c": "STR",
     "n": "Satara",
+    "city": "Pune",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Pune",
+    "cat": "3",
     "pf": 3,
     "lat": 17.68,
     "lng": 74.03
@@ -10674,9 +13105,12 @@ window.STATIONS = [
   {
     "c": "STA",
     "n": "Satna Jn",
+    "city": "Jabalpur",
+    "st": "Madhya Pradesh",
     "s": "Madhya Pradesh",
     "z": "WCR",
     "d": "Jabalpur",
+    "cat": "3",
     "pf": 3,
     "lat": 24.58,
     "lng": 80.83
@@ -10684,9 +13118,12 @@ window.STATIONS = [
   {
     "c": "SRT",
     "n": "Satur",
+    "city": "Madurai",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Madurai",
+    "cat": "4",
     "pf": 2,
     "lat": 9.36,
     "lng": 77.92
@@ -10694,9 +13131,12 @@ window.STATIONS = [
   {
     "c": "SGO",
     "n": "Saugor (Sagar)",
+    "city": "Jabalpur",
+    "st": "Madhya Pradesh",
     "s": "Madhya Pradesh",
     "z": "WCR",
     "d": "Jabalpur",
+    "cat": "3",
     "pf": 3,
     "lat": 23.83,
     "lng": 78.74
@@ -10706,18 +13146,21 @@ window.STATIONS = [
     "n": "Sawai Madhopur",
     "city": "Sawai Madhopur",
     "st": "Rajasthan",
+    "s": "Rajasthan",
     "z": "WCR",
     "d": "Kota",
     "cat": "C",
-    "pf": 4,
-    "tr": 45
+    "pf": 4
   },
   {
     "c": "SWV",
     "n": "Sawantwadi Road",
+    "city": "Ratnagiri",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "KR",
     "d": "Ratnagiri",
+    "cat": "4",
     "pf": 2,
     "lat": 15.91,
     "lng": 73.82
@@ -10725,9 +13168,12 @@ window.STATIONS = [
   {
     "c": "SDAH",
     "n": "Sealdah",
+    "city": "Sealdah",
+    "st": "West Bengal",
     "s": "West Bengal",
     "z": "ER",
     "d": "Sealdah",
+    "cat": "1",
     "pf": 21,
     "lat": 22.57,
     "lng": 88.37
@@ -10735,9 +13181,12 @@ window.STATIONS = [
   {
     "c": "SC",
     "n": "Secunderabad Jn",
+    "city": "Secunderabad",
+    "st": "Telangana",
     "s": "Telangana",
     "z": "SCR",
     "d": "Secunderabad",
+    "cat": "1",
     "pf": 10,
     "lat": 17.43,
     "lng": 78.5
@@ -10745,9 +13194,12 @@ window.STATIONS = [
   {
     "c": "SEGM",
     "n": "Sewagram Jn",
+    "city": "Nagpur CR",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Nagpur CR",
+    "cat": "3",
     "pf": 5,
     "lat": 20.73,
     "lng": 78.61
@@ -10755,9 +13207,12 @@ window.STATIONS = [
   {
     "c": "SHG",
     "n": "Shahganj Jn",
+    "city": "Lucknow NR",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NR",
     "d": "Lucknow NR",
+    "cat": "3",
     "pf": 4,
     "lat": 26.05,
     "lng": 82.69
@@ -10765,9 +13220,12 @@ window.STATIONS = [
   {
     "c": "SPN",
     "n": "Shahjahanpur",
+    "city": "Moradabad",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NR",
     "d": "Moradabad",
+    "cat": "3",
     "pf": 4,
     "lat": 27.88,
     "lng": 79.91
@@ -10775,9 +13233,12 @@ window.STATIONS = [
   {
     "c": "SPP",
     "n": "Shahpur Patoree",
+    "city": "Sonpur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Sonpur",
+    "cat": "4",
     "pf": 2,
     "lat": 25.59,
     "lng": 85.59
@@ -10787,18 +13248,21 @@ window.STATIONS = [
     "n": "Shakurbasti",
     "city": "New Delhi",
     "st": "Delhi",
+    "s": "Delhi",
     "z": "NR",
     "d": "Delhi",
     "cat": "C",
-    "pf": 4,
-    "tr": 55
+    "pf": 4
   },
   {
     "c": "SHM",
     "n": "Shalimar",
+    "city": "Kharagpur",
+    "st": "West Bengal",
     "s": "West Bengal",
     "z": "SER",
     "d": "Kharagpur",
+    "cat": "3",
     "pf": 5,
     "lat": 22.56,
     "lng": 88.32
@@ -10806,9 +13270,12 @@ window.STATIONS = [
   {
     "c": "SEG",
     "n": "Shegaon",
+    "city": "Bhusawal",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Bhusawal",
+    "cat": "4",
     "pf": 2,
     "lat": 20.79,
     "lng": 76.69
@@ -10816,9 +13283,12 @@ window.STATIONS = [
   {
     "c": "SKB",
     "n": "Shikohabad Jn",
+    "city": "Prayagraj",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NCR",
     "d": "Prayagraj",
+    "cat": "3",
     "pf": 3,
     "lat": 27.1,
     "lng": 78.58
@@ -10826,9 +13296,12 @@ window.STATIONS = [
   {
     "c": "SML",
     "n": "Shimla",
+    "city": "Ambala",
+    "st": "Himachal Pradesh",
     "s": "Himachal Pradesh",
     "z": "NR",
     "d": "Ambala",
+    "cat": "4",
     "pf": 2,
     "lat": 31.1,
     "lng": 77.16
@@ -10836,9 +13309,12 @@ window.STATIONS = [
   {
     "c": "SVJR",
     "n": "Shivajinagar",
+    "city": "Pune",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Pune",
+    "cat": "4",
     "pf": 2,
     "lat": 18.53,
     "lng": 73.85
@@ -10846,9 +13322,12 @@ window.STATIONS = [
   {
     "c": "SRR",
     "n": "Shoranur Jn",
+    "city": "Palakkad",
+    "st": "Kerala",
     "s": "Kerala",
     "z": "SR",
     "d": "Palakkad",
+    "cat": "2",
     "pf": 7,
     "lat": 10.76,
     "lng": 76.27
@@ -10856,9 +13335,12 @@ window.STATIONS = [
   {
     "c": "SVDK",
     "n": "Shri Mata Vaishno Devi Katra",
+    "city": "Firozpur",
+    "st": "Jammu & Kashmir",
     "s": "Jammu & Kashmir",
     "z": "NR",
     "d": "Firozpur",
+    "cat": "3",
     "pf": 5,
     "lat": 32.99,
     "lng": 74.93
@@ -10866,9 +13348,12 @@ window.STATIONS = [
   {
     "c": "SRTN",
     "n": "Sibsagar Town",
+    "city": "Tinsukia",
+    "st": "Assam",
     "s": "Assam",
     "z": "NFR",
     "d": "Tinsukia",
+    "cat": "4",
     "pf": 2,
     "lat": 26.98,
     "lng": 94.63
@@ -10876,9 +13361,12 @@ window.STATIONS = [
   {
     "c": "SCL",
     "n": "Silchar",
+    "city": "Lumding",
+    "st": "Assam",
     "s": "Assam",
     "z": "NFR",
     "d": "Lumding",
+    "cat": "3",
     "pf": 3,
     "lat": 24.83,
     "lng": 92.8
@@ -10886,9 +13374,12 @@ window.STATIONS = [
   {
     "c": "SGUJ",
     "n": "Siliguri Jn",
+    "city": "Katihar",
+    "st": "West Bengal",
     "s": "West Bengal",
     "z": "NFR",
     "d": "Katihar",
+    "cat": "3",
     "pf": 4,
     "lat": 26.72,
     "lng": 88.42
@@ -10896,9 +13387,12 @@ window.STATIONS = [
   {
     "c": "SLGR",
     "n": "Simaluguri Jn",
+    "city": "Tinsukia",
+    "st": "Assam",
     "s": "Assam",
     "z": "NFR",
     "d": "Tinsukia",
+    "cat": "3",
     "pf": 3,
     "lat": 26.96,
     "lng": 94.7
@@ -10906,9 +13400,12 @@ window.STATIONS = [
   {
     "c": "SCM",
     "n": "Simhachalam",
+    "city": "Waltair",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "ECoR",
     "d": "Waltair",
+    "cat": "3",
     "pf": 3,
     "lat": 17.78,
     "lng": 83.24
@@ -10916,9 +13413,12 @@ window.STATIONS = [
   {
     "c": "SKM",
     "n": "Singarayakonda",
+    "city": "Vijayawada",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "SCR",
     "d": "Vijayawada",
+    "cat": "4",
     "pf": 2,
     "lat": 15.25,
     "lng": 80.03
@@ -10926,9 +13426,12 @@ window.STATIONS = [
   {
     "c": "SMVB",
     "n": "Sir M. Visvesvaraya Terminal Bengaluru (SMVT)",
+    "city": "Bengaluru",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SWR",
     "d": "Bengaluru",
+    "cat": "2",
     "pf": 7,
     "lat": 13,
     "lng": 77.65
@@ -10936,9 +13439,12 @@ window.STATIONS = [
   {
     "c": "SIR",
     "n": "Sirhind Jn",
+    "city": "Ambala",
+    "st": "Punjab",
     "s": "Punjab",
     "z": "NR",
     "d": "Ambala",
+    "cat": "3",
     "pf": 3,
     "lat": 30.64,
     "lng": 76.38
@@ -10946,9 +13452,12 @@ window.STATIONS = [
   {
     "c": "SY",
     "n": "Sirkazhi",
+    "city": "Tiruchchirappalli",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Tiruchchirappalli",
+    "cat": "4",
     "pf": 2,
     "lat": 11.23,
     "lng": 79.73
@@ -10956,9 +13465,12 @@ window.STATIONS = [
   {
     "c": "SKZR",
     "n": "Sirpur Kaghaznagar",
+    "city": "Secunderabad",
+    "st": "Telangana",
     "s": "Telangana",
     "z": "SCR",
     "d": "Secunderabad",
+    "cat": "3",
     "pf": 3,
     "lat": 19.34,
     "lng": 79.48
@@ -10966,9 +13478,12 @@ window.STATIONS = [
   {
     "c": "SSA",
     "n": "Sirsa",
+    "city": "Bikaner",
+    "st": "Haryana",
     "s": "Haryana",
     "z": "NWR",
     "d": "Bikaner",
+    "cat": "4",
     "pf": 2,
     "lat": 29.53,
     "lng": 75.03
@@ -10976,9 +13491,12 @@ window.STATIONS = [
   {
     "c": "SMI",
     "n": "Sitamarhi Jn",
+    "city": "Samastipur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Samastipur",
+    "cat": "3",
     "pf": 4,
     "lat": 26.59,
     "lng": 85.49
@@ -10986,9 +13504,12 @@ window.STATIONS = [
   {
     "c": "STP",
     "n": "Sitapur Jn",
+    "city": "Lucknow NER",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NER",
     "d": "Lucknow NER",
+    "cat": "3",
     "pf": 5,
     "lat": 27.57,
     "lng": 80.68
@@ -10996,9 +13517,12 @@ window.STATIONS = [
   {
     "c": "SV",
     "n": "Siwan Jn",
+    "city": "Varanasi",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "NER",
     "d": "Varanasi",
+    "cat": "3",
     "pf": 4,
     "lat": 26.22,
     "lng": 84.36
@@ -11006,9 +13530,12 @@ window.STATIONS = [
   {
     "c": "SUR",
     "n": "Solapur",
+    "city": "Solapur",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Solapur",
+    "cat": "3",
     "pf": 5,
     "lat": 17.66,
     "lng": 75.9
@@ -11016,9 +13543,12 @@ window.STATIONS = [
   {
     "c": "SMNH",
     "n": "Somnath",
+    "city": "Bhavnagar",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Bhavnagar",
+    "cat": "4",
     "pf": 2,
     "lat": 20.89,
     "lng": 70.4
@@ -11026,9 +13556,12 @@ window.STATIONS = [
   {
     "c": "SNP",
     "n": "Sonipat Jn",
+    "city": "Delhi",
+    "st": "Haryana",
     "s": "Haryana",
     "z": "NR",
     "d": "Delhi",
+    "cat": "3",
     "pf": 4,
     "lat": 28.99,
     "lng": 77.01
@@ -11036,9 +13569,12 @@ window.STATIONS = [
   {
     "c": "SEE",
     "n": "Sonpur Jn",
+    "city": "Sonpur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Sonpur",
+    "cat": "3",
     "pf": 4,
     "lat": 25.7,
     "lng": 85.18
@@ -11046,9 +13582,12 @@ window.STATIONS = [
   {
     "c": "CHE",
     "n": "Srikakulam Road",
+    "city": "Waltair",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "ECoR",
     "d": "Waltair",
+    "cat": "3",
     "pf": 3,
     "lat": 18.42,
     "lng": 83.9
@@ -11056,9 +13595,12 @@ window.STATIONS = [
   {
     "c": "SINA",
     "n": "Srinagar",
+    "city": "Firozpur",
+    "st": "Jammu & Kashmir",
     "s": "Jammu & Kashmir",
     "z": "NR",
     "d": "Firozpur",
+    "cat": "3",
     "pf": 3,
     "lat": 34.02,
     "lng": 74.82
@@ -11066,9 +13608,12 @@ window.STATIONS = [
   {
     "c": "UBL",
     "n": "SSS Hubballi Jn",
+    "city": "Hubballi",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SWR",
     "d": "Hubballi",
+    "cat": "2",
     "pf": 8,
     "lat": 15.35,
     "lng": 75.14
@@ -11076,9 +13621,12 @@ window.STATIONS = [
   {
     "c": "SGG",
     "n": "Sultanganj",
+    "city": "Malda",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ER",
     "d": "Malda",
+    "cat": "3",
     "pf": 3,
     "lat": 25.24,
     "lng": 86.74
@@ -11086,9 +13634,12 @@ window.STATIONS = [
   {
     "c": "SLN",
     "n": "Sultanpur Jn",
+    "city": "Lucknow NR",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NR",
     "d": "Lucknow NR",
+    "cat": "3",
     "pf": 4,
     "lat": 26.26,
     "lng": 82.07
@@ -11096,9 +13647,12 @@ window.STATIONS = [
   {
     "c": "ST",
     "n": "Surat",
+    "city": "Mumbai WR",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Mumbai WR",
+    "cat": "3",
     "pf": 4,
     "lat": 21.2,
     "lng": 72.84
@@ -11106,9 +13660,12 @@ window.STATIONS = [
   {
     "c": "SUNR",
     "n": "Surendranagar Jn",
+    "city": "Rajkot",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Rajkot",
+    "cat": "3",
     "pf": 4,
     "lat": 22.73,
     "lng": 71.64
@@ -11116,9 +13673,12 @@ window.STATIONS = [
   {
     "c": "TDD",
     "n": "Tadepalligudem",
+    "city": "Vijayawada",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "SCR",
     "d": "Vijayawada",
+    "cat": "4",
     "pf": 2,
     "lat": 16.81,
     "lng": 81.53
@@ -11126,9 +13686,12 @@ window.STATIONS = [
   {
     "c": "TBM",
     "n": "Tambaram",
+    "city": "Chennai",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Chennai",
+    "cat": "2",
     "pf": 8,
     "lat": 12.92,
     "lng": 80.12
@@ -11136,9 +13699,12 @@ window.STATIONS = [
   {
     "c": "TATA",
     "n": "Tatanagar Jn (Jamshedpur)",
+    "city": "Chakradharpur",
+    "st": "Jharkhand",
     "s": "Jharkhand",
     "z": "SER",
     "d": "Chakradharpur",
+    "cat": "2",
     "pf": 6,
     "lat": 22.77,
     "lng": 86.2
@@ -11146,9 +13712,12 @@ window.STATIONS = [
   {
     "c": "TEL",
     "n": "Tenali Jn",
+    "city": "Vijayawada",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "SCR",
     "d": "Vijayawada",
+    "cat": "3",
     "pf": 5,
     "lat": 16.24,
     "lng": 80.64
@@ -11156,9 +13725,12 @@ window.STATIONS = [
   {
     "c": "TLY",
     "n": "Thalassery",
+    "city": "Palakkad",
+    "st": "Kerala",
     "s": "Kerala",
     "z": "SR",
     "d": "Palakkad",
+    "cat": "4",
     "pf": 2,
     "lat": 11.75,
     "lng": 75.49
@@ -11166,9 +13738,12 @@ window.STATIONS = [
   {
     "c": "THB",
     "n": "Thana Bihpur Jn",
+    "city": "Sonpur",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "ECR",
     "d": "Sonpur",
+    "cat": "3",
     "pf": 3,
     "lat": 25.39,
     "lng": 86.91
@@ -11176,9 +13751,12 @@ window.STATIONS = [
   {
     "c": "TNA",
     "n": "Thane",
+    "city": "Mumbai CR",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Mumbai CR",
+    "cat": "1",
     "pf": 10,
     "lat": 19.19,
     "lng": 72.97
@@ -11186,9 +13764,12 @@ window.STATIONS = [
   {
     "c": "TJ",
     "n": "Thanjavur Jn",
+    "city": "Tiruchchirappalli",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Tiruchchirappalli",
+    "cat": "3",
     "pf": 5,
     "lat": 10.78,
     "lng": 79.13
@@ -11196,9 +13777,12 @@ window.STATIONS = [
   {
     "c": "THE",
     "n": "Thawe Jn",
+    "city": "Varanasi",
+    "st": "Bihar",
     "s": "Bihar",
     "z": "NER",
     "d": "Varanasi",
+    "cat": "3",
     "pf": 3,
     "lat": 26.43,
     "lng": 84.38
@@ -11206,9 +13790,12 @@ window.STATIONS = [
   {
     "c": "TVC",
     "n": "Thiruvananthapuram Central (Trivandrum)",
+    "city": "Thiruvananthapuram",
+    "st": "Kerala",
     "s": "Kerala",
     "z": "SR",
     "d": "Thiruvananthapuram",
+    "cat": "3",
     "pf": 5,
     "lat": 8.49,
     "lng": 76.95
@@ -11216,9 +13803,12 @@ window.STATIONS = [
   {
     "c": "THVM",
     "n": "Thivim",
+    "city": "Karwar",
+    "st": "Goa",
     "s": "Goa",
     "z": "KR",
     "d": "Karwar",
+    "cat": "4",
     "pf": 2,
     "lat": 15.63,
     "lng": 73.84
@@ -11226,9 +13816,12 @@ window.STATIONS = [
   {
     "c": "TRTR",
     "n": "Thrippunithura",
+    "city": "Thiruvananthapuram",
+    "st": "Kerala",
     "s": "Kerala",
     "z": "SR",
     "d": "Thiruvananthapuram",
+    "cat": "4",
     "pf": 2,
     "lat": 9.95,
     "lng": 76.35
@@ -11236,9 +13829,12 @@ window.STATIONS = [
   {
     "c": "TCR",
     "n": "Thrissur",
+    "city": "Thiruvananthapuram",
+    "st": "Kerala",
     "s": "Kerala",
     "z": "SR",
     "d": "Thiruvananthapuram",
+    "cat": "3",
     "pf": 4,
     "lat": 10.52,
     "lng": 76.21
@@ -11246,9 +13842,12 @@ window.STATIONS = [
   {
     "c": "TKJ",
     "n": "Tilak Bridge",
+    "city": "Delhi",
+    "st": "Delhi",
     "s": "Delhi",
     "z": "NR",
     "d": "Delhi",
+    "cat": "3",
     "pf": 4,
     "lat": 28.62,
     "lng": 77.24
@@ -11256,9 +13855,12 @@ window.STATIONS = [
   {
     "c": "TSK",
     "n": "Tinsukia Jn",
+    "city": "Tinsukia",
+    "st": "Assam",
     "s": "Assam",
     "z": "NFR",
     "d": "Tinsukia",
+    "cat": "3",
     "pf": 3,
     "lat": 27.5,
     "lng": 95.37
@@ -11266,9 +13868,12 @@ window.STATIONS = [
   {
     "c": "TPJ",
     "n": "Tiruchchirappalli Jn",
+    "city": "Tiruchchirappalli",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Tiruchchirappalli",
+    "cat": "2",
     "pf": 8,
     "lat": 10.79,
     "lng": 78.68
@@ -11276,9 +13881,12 @@ window.STATIONS = [
   {
     "c": "TEN",
     "n": "Tirunelveli Jn",
+    "city": "Madurai",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Madurai",
+    "cat": "3",
     "pf": 5,
     "lat": 8.73,
     "lng": 77.7
@@ -11286,9 +13894,12 @@ window.STATIONS = [
   {
     "c": "TPTY",
     "n": "Tirupati",
+    "city": "Guntakal",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "SCR",
     "d": "Guntakal",
+    "cat": "2",
     "pf": 6,
     "lat": 13.63,
     "lng": 79.42
@@ -11296,9 +13907,12 @@ window.STATIONS = [
   {
     "c": "TPT",
     "n": "Tirupattur",
+    "city": "Salem",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Salem",
+    "cat": "4",
     "pf": 2,
     "lat": 12.49,
     "lng": 78.57
@@ -11306,9 +13920,12 @@ window.STATIONS = [
   {
     "c": "TUP",
     "n": "Tiruppur",
+    "city": "Salem",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Salem",
+    "cat": "4",
     "pf": 2,
     "lat": 11.11,
     "lng": 77.35
@@ -11316,9 +13933,12 @@ window.STATIONS = [
   {
     "c": "TIR",
     "n": "Tirur",
+    "city": "Palakkad",
+    "st": "Kerala",
     "s": "Kerala",
     "z": "SR",
     "d": "Palakkad",
+    "cat": "3",
     "pf": 3,
     "lat": 10.91,
     "lng": 75.92
@@ -11326,9 +13946,12 @@ window.STATIONS = [
   {
     "c": "TRVL",
     "n": "Tiruvalla",
+    "city": "Thiruvananthapuram",
+    "st": "Kerala",
     "s": "Kerala",
     "z": "SR",
     "d": "Thiruvananthapuram",
+    "cat": "4",
     "pf": 2,
     "lat": 9.38,
     "lng": 76.57
@@ -11336,9 +13959,12 @@ window.STATIONS = [
   {
     "c": "TIG",
     "n": "Titlagarh Jn",
+    "city": "Sambalpur",
+    "st": "Odisha",
     "s": "Odisha",
     "z": "ECoR",
     "d": "Sambalpur",
+    "cat": "3",
     "pf": 4,
     "lat": 20.3,
     "lng": 83.14
@@ -11346,9 +13972,12 @@ window.STATIONS = [
   {
     "c": "TK",
     "n": "Tumakuru",
+    "city": "Bengaluru",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SWR",
     "d": "Bengaluru",
+    "cat": "3",
     "pf": 3,
     "lat": 13.34,
     "lng": 77.1
@@ -11356,9 +13985,12 @@ window.STATIONS = [
   {
     "c": "TDL",
     "n": "Tundla Jn",
+    "city": "Prayagraj",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NCR",
     "d": "Prayagraj",
+    "cat": "3",
     "pf": 5,
     "lat": 27.21,
     "lng": 78.24
@@ -11366,9 +13998,12 @@ window.STATIONS = [
   {
     "c": "TUNI",
     "n": "Tuni",
+    "city": "Vijayawada",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "SCR",
     "d": "Vijayawada",
+    "cat": "4",
     "pf": 2,
     "lat": 17.36,
     "lng": 82.55
@@ -11376,9 +14011,12 @@ window.STATIONS = [
   {
     "c": "TN",
     "n": "Tuticorin",
+    "city": "Madurai",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Madurai",
+    "cat": "3",
     "pf": 3,
     "lat": 8.8,
     "lng": 78.14
@@ -11388,18 +14026,21 @@ window.STATIONS = [
     "n": "Udaipur City",
     "city": "Udaipur",
     "st": "Rajasthan",
+    "s": "Rajasthan",
     "z": "NWR",
     "d": "Ajmer",
     "cat": "B",
-    "pf": 5,
-    "tr": 45
+    "pf": 5
   },
   {
     "c": "UDN",
     "n": "Udhna Jn",
+    "city": "Mumbai WR",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Mumbai WR",
+    "cat": "3",
     "pf": 3,
     "lat": 21.16,
     "lng": 72.84
@@ -11407,9 +14048,12 @@ window.STATIONS = [
   {
     "c": "UD",
     "n": "Udupi",
+    "city": "Karwar",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "KR",
     "d": "Karwar",
+    "cat": "4",
     "pf": 2,
     "lat": 13.35,
     "lng": 74.78
@@ -11417,9 +14061,12 @@ window.STATIONS = [
   {
     "c": "UJN",
     "n": "Ujjain Jn",
+    "city": "Ratlam",
+    "st": "Madhya Pradesh",
     "s": "Madhya Pradesh",
     "z": "WR",
     "d": "Ratlam",
+    "cat": "2",
     "pf": 8,
     "lat": 23.18,
     "lng": 75.78
@@ -11429,18 +14076,21 @@ window.STATIONS = [
     "n": "Una Himachal",
     "city": "Una",
     "st": "Himachal Pradesh",
+    "s": "Himachal Pradesh",
     "z": "NR",
     "d": "Ambala",
     "cat": "C",
-    "pf": 3,
-    "tr": 20
+    "pf": 3
   },
   {
     "c": "UHL",
     "n": "Una Himachal",
+    "city": "Ambala",
+    "st": "Himachal Pradesh",
     "s": "Himachal Pradesh",
     "z": "NR",
     "d": "Ambala",
+    "cat": "3",
     "pf": 3,
     "lat": 31.47,
     "lng": 76.27
@@ -11448,9 +14098,12 @@ window.STATIONS = [
   {
     "c": "ON",
     "n": "Unnao Jn",
+    "city": "Lucknow NR",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NR",
     "d": "Lucknow NR",
+    "cat": "3",
     "pf": 5,
     "lat": 26.54,
     "lng": 80.49
@@ -11458,9 +14111,12 @@ window.STATIONS = [
   {
     "c": "BDJ",
     "n": "Vadakara",
+    "city": "Palakkad",
+    "st": "Kerala",
     "s": "Kerala",
     "z": "SR",
     "d": "Palakkad",
+    "cat": "4",
     "pf": 2,
     "lat": 11.6,
     "lng": 75.59
@@ -11468,9 +14124,12 @@ window.STATIONS = [
   {
     "c": "BRC",
     "n": "Vadodara Jn",
+    "city": "Vadodara",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Vadodara",
+    "cat": "2",
     "pf": 7,
     "lat": 22.31,
     "lng": 73.18
@@ -11478,9 +14137,12 @@ window.STATIONS = [
   {
     "c": "BL",
     "n": "Valsad",
+    "city": "Mumbai WR",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Mumbai WR",
+    "cat": "3",
     "pf": 5,
     "lat": 20.61,
     "lng": 72.93
@@ -11488,9 +14150,12 @@ window.STATIONS = [
   {
     "c": "VN",
     "n": "Vaniyambadi",
+    "city": "Chennai",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Chennai",
+    "cat": "3",
     "pf": 3,
     "lat": 12.69,
     "lng": 78.62
@@ -11498,9 +14163,12 @@ window.STATIONS = [
   {
     "c": "VAPI",
     "n": "Vapi",
+    "city": "Mumbai WR",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Mumbai WR",
+    "cat": "3",
     "pf": 3,
     "lat": 20.37,
     "lng": 72.9
@@ -11508,9 +14176,12 @@ window.STATIONS = [
   {
     "c": "BCY",
     "n": "Varanasi City",
+    "city": "Varanasi",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NER",
     "d": "Varanasi",
+    "cat": "3",
     "pf": 5,
     "lat": 25.33,
     "lng": 83.02
@@ -11518,9 +14189,12 @@ window.STATIONS = [
   {
     "c": "BSB",
     "n": "Varanasi Jn (Cantonment)",
+    "city": "Lucknow NR",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NR",
     "d": "Lucknow NR",
+    "cat": "2",
     "pf": 9,
     "lat": 25.33,
     "lng": 82.99
@@ -11528,9 +14202,12 @@ window.STATIONS = [
   {
     "c": "VAK",
     "n": "Varkala Sivagiri",
+    "city": "Thiruvananthapuram",
+    "st": "Kerala",
     "s": "Kerala",
     "z": "SR",
     "d": "Thiruvananthapuram",
+    "cat": "3",
     "pf": 3,
     "lat": 8.74,
     "lng": 76.71
@@ -11538,9 +14215,12 @@ window.STATIONS = [
   {
     "c": "BSR",
     "n": "Vasai Road",
+    "city": "Mumbai WR",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "WR",
     "d": "Mumbai WR",
+    "cat": "2",
     "pf": 7,
     "lat": 19.38,
     "lng": 72.83
@@ -11548,9 +14228,12 @@ window.STATIONS = [
   {
     "c": "VSG",
     "n": "Vasco da Gama",
+    "city": "Hubballi",
+    "st": "Goa",
     "s": "Goa",
     "z": "SWR",
     "d": "Hubballi",
+    "cat": "3",
     "pf": 3,
     "lat": 15.39,
     "lng": 73.81
@@ -11558,9 +14241,12 @@ window.STATIONS = [
   {
     "c": "VRL",
     "n": "Veraval Jn (Somnath)",
+    "city": "Bhavnagar",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Bhavnagar",
+    "cat": "3",
     "pf": 4,
     "lat": 20.91,
     "lng": 70.36
@@ -11568,9 +14254,12 @@ window.STATIONS = [
   {
     "c": "BHS",
     "n": "Vidisha",
+    "city": "Bhopal",
+    "st": "Madhya Pradesh",
     "s": "Madhya Pradesh",
     "z": "WCR",
     "d": "Bhopal",
+    "cat": "3",
     "pf": 3,
     "lat": 23.53,
     "lng": 77.82
@@ -11578,9 +14267,12 @@ window.STATIONS = [
   {
     "c": "BJP",
     "n": "Vijayapura (Bijapur)",
+    "city": "Hubballi",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SWR",
     "d": "Hubballi",
+    "cat": "3",
     "pf": 3,
     "lat": 16.83,
     "lng": 75.71
@@ -11588,9 +14280,12 @@ window.STATIONS = [
   {
     "c": "BZA",
     "n": "Vijayawada Jn",
+    "city": "Vijayawada",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "SCR",
     "d": "Vijayawada",
+    "cat": "1",
     "pf": 10,
     "lat": 16.52,
     "lng": 80.62
@@ -11598,9 +14293,12 @@ window.STATIONS = [
   {
     "c": "VM",
     "n": "Villupuram Jn",
+    "city": "Tiruchchirappalli",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Tiruchchirappalli",
+    "cat": "2",
     "pf": 6,
     "lat": 11.94,
     "lng": 79.5
@@ -11608,9 +14306,12 @@ window.STATIONS = [
   {
     "c": "BDL",
     "n": "Vindhyachal",
+    "city": "Prayagraj",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NCR",
     "d": "Prayagraj",
+    "cat": "3",
     "pf": 3,
     "lat": 25.16,
     "lng": 82.5
@@ -11618,9 +14319,12 @@ window.STATIONS = [
   {
     "c": "VG",
     "n": "Viramgam Jn",
+    "city": "Ahmedabad",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Ahmedabad",
+    "cat": "3",
     "pf": 4,
     "lat": 23.12,
     "lng": 72.04
@@ -11628,9 +14332,12 @@ window.STATIONS = [
   {
     "c": "VGLJ",
     "n": "Virangana Lakshmibai Jhansi Jn",
+    "city": "Jhansi",
+    "st": "Uttar Pradesh",
     "s": "Uttar Pradesh",
     "z": "NCR",
     "d": "Jhansi",
+    "cat": "2",
     "pf": 8,
     "lat": 25.44,
     "lng": 78.56
@@ -11638,9 +14345,12 @@ window.STATIONS = [
   {
     "c": "VPT",
     "n": "Virudhunagar Jn",
+    "city": "Madurai",
+    "st": "Tamil Nadu",
     "s": "Tamil Nadu",
     "z": "SR",
     "d": "Madurai",
+    "cat": "3",
     "pf": 3,
     "lat": 9.58,
     "lng": 77.96
@@ -11648,9 +14358,12 @@ window.STATIONS = [
   {
     "c": "VSKP",
     "n": "Visakhapatnam Jn",
+    "city": "Waltair",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "ECoR",
     "d": "Waltair",
+    "cat": "2",
     "pf": 8,
     "lat": 17.72,
     "lng": 83.29
@@ -11658,9 +14371,12 @@ window.STATIONS = [
   {
     "c": "VZM",
     "n": "Vizianagaram Jn",
+    "city": "Waltair",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "ECoR",
     "d": "Waltair",
+    "cat": "3",
     "pf": 5,
     "lat": 18.11,
     "lng": 83.4
@@ -11668,9 +14384,12 @@ window.STATIONS = [
   {
     "c": "WADI",
     "n": "Wadi Jn",
+    "city": "Solapur",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "CR",
     "d": "Solapur",
+    "cat": "3",
     "pf": 4,
     "lat": 17.06,
     "lng": 76.99
@@ -11678,9 +14397,12 @@ window.STATIONS = [
   {
     "c": "WKR",
     "n": "Wankaner Jn",
+    "city": "Rajkot",
+    "st": "Gujarat",
     "s": "Gujarat",
     "z": "WR",
     "d": "Rajkot",
+    "cat": "3",
     "pf": 4,
     "lat": 22.61,
     "lng": 70.94
@@ -11688,9 +14410,12 @@ window.STATIONS = [
   {
     "c": "WL",
     "n": "Warangal",
+    "city": "Secunderabad",
+    "st": "Telangana",
     "s": "Telangana",
     "z": "SCR",
     "d": "Secunderabad",
+    "cat": "3",
     "pf": 3,
     "lat": 17.98,
     "lng": 79.6
@@ -11700,18 +14425,21 @@ window.STATIONS = [
     "n": "Wardha Jn",
     "city": "Wardha",
     "st": "Maharashtra",
+    "s": "Maharashtra",
     "z": "CR",
     "d": "Nagpur",
     "cat": "C",
-    "pf": 3,
-    "tr": 40
+    "pf": 3
   },
   {
     "c": "WR",
     "n": "Wardha Jn",
+    "city": "Nagpur CR",
+    "st": "Maharashtra",
     "s": "Maharashtra",
     "z": "CR",
     "d": "Nagpur CR",
+    "cat": "3",
     "pf": 4,
     "lat": 20.74,
     "lng": 78.6
@@ -11719,9 +14447,12 @@ window.STATIONS = [
   {
     "c": "WFD",
     "n": "Whitefield",
+    "city": "Bengaluru",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SWR",
     "d": "Bengaluru",
+    "cat": "3",
     "pf": 4,
     "lat": 12.99,
     "lng": 77.75
@@ -11729,9 +14460,12 @@ window.STATIONS = [
   {
     "c": "YG",
     "n": "Yadgir",
+    "city": "Guntakal",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SCR",
     "d": "Guntakal",
+    "cat": "4",
     "pf": 2,
     "lat": 16.77,
     "lng": 77.14
@@ -11739,9 +14473,12 @@ window.STATIONS = [
   {
     "c": "YA",
     "n": "Yerraguntla Jn",
+    "city": "Guntakal",
+    "st": "Andhra Pradesh",
     "s": "Andhra Pradesh",
     "z": "SCR",
     "d": "Guntakal",
+    "cat": "3",
     "pf": 3,
     "lat": 14.64,
     "lng": 78.54
@@ -11749,9 +14486,12 @@ window.STATIONS = [
   {
     "c": "YPR",
     "n": "Yesvantpur Jn",
+    "city": "Bengaluru",
+    "st": "Karnataka",
     "s": "Karnataka",
     "z": "SWR",
     "d": "Bengaluru",
+    "cat": "2",
     "pf": 6,
     "lat": 13.02,
     "lng": 77.55
@@ -11759,9 +14499,12 @@ window.STATIONS = [
   {
     "c": "YNRK",
     "n": "Yog Nagari Rishikesh",
+    "city": "Moradabad",
+    "st": "Uttarakhand",
     "s": "Uttarakhand",
     "z": "NR",
     "d": "Moradabad",
+    "cat": "3",
     "pf": 3,
     "lat": 30.11,
     "lng": 78.3

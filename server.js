@@ -195,36 +195,55 @@ async function rapidPNR(pnr) {
    Authentic Indian Railways stations, schedules & live status
    ══════════════════════════════════════════════════════ */
 const CORRIDORS = [
+  // 1. Delhi - Kanpur - Prayagraj - Gaya - Dhanbad - Asansol - Howrah (Grand Chord)
   ['NDLS','DLI','ANVT','NZM','GZB','ALJN','TDL','ETW','CNB','FTP','PRYJ','MZP','DDU','BBU','SSM','DOS','GYA','KQR','PNME','GMO','DHN','CRJ','ASN','RNG','DGR','BWN','SRC','HWH','SDAH','KOAA','SHM'],
+  // 2. Delhi - Kanpur - Prayagraj - DDU - Patna - Jasidih - Howrah (Main Line)
+  ['NDLS','DLI','ANVT','NZM','GZB','ALJN','TDL','ETW','CNB','FTP','PRYJ','MZP','BSB','DDU','BXR','ARA','DNR','PNBE','RJPB','BKP','MKA','KIUL','JAJ','JSME','MDP','CRJ','ASN','RNG','DGR','BWN','SRC','HWH','SDAH'],
+  // 3. Delhi - Mathura - Kota - Ratlam - Vadodara - Surat - Mumbai Central (WR Trunk)
   ['NDLS','NZM','DEE','DEC','FDB','MTJ','BTE','BXN','HAN','GGC','SWM','KOTA','RMA','BWM','SGZ','NAD','RTM','DHD','GDA','BRC','BH','AKV','ST','NVS','BL','VAPI','PLG','BVI','ADH','BDTS','DDR','MMCT','BCT'],
+  // 4. Delhi - Agra - Gwalior - Jhansi - Bhopal - Itarsi - Khandwa - Bhusawal - Manmad - Nashik - Kalyan - Mumbai CSMT (CR Trunk)
   ['NDLS','NZM','FDB','MTJ','AGC','DHO','MRA','GWL','DBA','DAA','VGLJ','LAR','BINA','BHS','BPL','RKMP','NDPM','ET','KNW','BAU','BSL','JL','CSN','MMR','NK','IGP','KYN','TNA','CLA','LTT','DR','CSMT'],
+  // 5. Delhi - Agra - Jhansi - Bhopal - Nagpur - Kazipet - Vijayawada - Chennai Central (Grand Trunk)
   ['NDLS','NZM','MTJ','AGC','GWL','VGLJ','BINA','BPL','RKMP','ET','NGP','SEGM','WR','CD','BPQ','SKZR','MCI','RDM','KZJ','WL','MABD','KMT','BZA','TEL','CLX','OGL','SKM','KVZ','NLR','GDR','SPE','AJJ','PER','MAS','MS','TBM'],
+  // 6. Delhi - Ambala - Ludhiana - Jalandhar - Amritsar / Jammu / Katra
   ['NDLS','DLI','SZM','SNP','PNP','KUN','KKDE','UMB','RPJ','SIR','KNN','LDH','PGW','JUC','JRC','BEAS','ASR','PTKC','PTK','KTHU','SMBX','JAT','MCTM','UHP','SVDK'],
+  // 7. Delhi - Moradabad - Bareilly - Lucknow - Gorakhpur - Chhapra - Muzaffarpur - Katihar - NJP - Guwahati - Dibrugarh
   ['NDLS','ANVT','DLI','GZB','MB','RMU','BE','SPN','HRI','LKO','LJN','BBK','GD','BST','KLD','GKP','DEOS','BTT','SV','CPR','SEE','HJP','MFP','SPJ','BJU','BGS','KGG','MNE','THB','NNA','KIR','BOE','KNE','NJP','SGUJ','FLK','NCB','NOQ','APDJ','KOJ','NBQ','BPRD','RNY','KYQ','GHY','JID','CPK','HJI','LMG','DPU','DMV','FKG','MXN','JTTN','SLGR','SRTN','NTSK','TSK','DBRG'],
+  // 8. Mumbai - Bhusawal - Akola - Badnera - Nagpur - Durg - Raipur - Bilaspur - Rourkela - Tatanagar - Kharagpur - Howrah
   ['CSMT','DR','LTT','TNA','KYN','IGP','NK','MMR','CSN','JL','BSL','MKU','SEG','AK','BD','AMI','WR','SEGM','AJNI','NGP','G','RJN','DURG','BPHB','R','BYT','BSP','CPH','RIG','JSG','ROU','CKP','TATA','GTS','KGP','SRC','HWH'],
+  // 9. Howrah - Kharagpur - Balasore - Cuttack - Bhubaneswar - Puri - Berhampur - Vizag - Vijayawada - Chennai
   ['HWH','SRC','SHM','KGP','BLS','BHC','JJKR','CTC','BBS','KUR','PURI','BAM','PSA','CHE','VZM','SCM','VSKP','DVD','AKP','ANV','SLO','CCT','RJY','NDD','TDD','EE','BZA','GNT','TEL','CLX','OGL','SKM','KVZ','NLR','GDR','MAS','MS'],
+  // 10. Chennai - Bangalore - Mysuru
   ['MAS','MS','AJJ','KPD','AB','VN','JTJ','TPT','BWT','WFD','KJM','BNC','SBC','YPR','SMVB','MYA','MYS'],
-  ['CSMT','DR','LTT','TNA','KYN','LNL','PUNE','DD','KWV','SUR','KLBG','WADI','YG','RC','MALM','GTL','GY','ATP','DMM','HUP','YPR','SBC','SMVB'],
-  ['CSMT','DR','LTT','TNA','PNVL','ROHA','MNI','KHED','CHI','RN','KKW','KUDL','SWV','THVM','KRMI','MAO','VSG','KAWR','GOK','KT','MRDW','BTJL','KUDA','UD','MAJN','MAQ','KGQ','KZE','PAY','CAN','TLY','BDJ','CLT','TIR','KTU','SRR','OTP','PGT','TCR','IJK','CKI','AWY','ERN','ERS','TRTR','KTYM','CGY','TRVL','CNGR','MVLK','KYJ','ALLP','AMPA','HAD','QLN','VAK','KCVL','TVC','NCJ','CAPE'],
-  ['NDLS','DEE','DEC','GGN','RE','AWR','BKI','DO','GADJ','JP','FL','KSG','AII','BER','MJ','FA','ABR','PNU','MSH','SBIB','ADI'],
-  ['JNKD','JYG','MBI','SKI','DBG','SPJ','MFP','CAA','BMKI','SGL','BTH','NKE','BUG','GKP','KLD','BST','GD','BBK','LKO','CNB','ETW','TDL','ALJN','GZB','ANVT','NDLS'],
-  ['NDLS','DLI','SZM','ROK','JIND','NRW','JHL','BTI','KKP','FDK','FZR'],
-  ['NDLS','NZM','MTJ','AGC','GWL','VGLJ','BINA','BPL','RKMP','ET','NGP','SEGM','WR','BPQ','SKZR','RDM','KZJ','WL','KMT','BZA','OGL','NLR','GDR','RU','KPD','JTJ','SA','ED','TUP','CBE','PGT','OTP','SRR','TCR','AWY','ERN','ERS','KTYM','CGY','TRVL','CNGR','MVLK','KYJ','QLN','VAK','KCVL','TVC'],
-  ['SBC','YPR','DMM','ATP','DHNE','KRNT','MBNR','KCG','SC','KZJ','RDM','MCI','SKZR','BPQ','CD','SEGM','NGP','ET','BPL','BINA','VGLJ','GWL','MRA','DHO','AGC','MTJ','FDB','NZM','NDLS'],
-  ['CSMT','DR','TNA','KYN','LNL','PUNE','DD','KWV','SUR','KLBG','WADI','YG','RC','MALM','GTL','GY','YA','HX','RU','AJJ','PER','MAS']
+  // 11. Mumbai - Pune - Solapur - Kalaburagi - Wadi - Guntakal - Renigunta - Chennai
+  ['CSMT','DR','LTT','TNA','KYN','LNL','PUNE','DD','KWV','SUR','KLBG','WADI','YG','RC','MALM','AD','GTL','GY','TU','YA','HX','RU','AJJ','PER','MAS','MS'],
+  // 12. Mumbai - Roha - Ratnagiri - Madgaon (Goa) - Mangaluru - Kannur - Kozhikode - Shoranur - Ernakulam - Trivandrum (Konkan Railway)
+  ['CSMT','DR','LTT','TNA','PNVL','ROHA','MNI','KHED','CHI','SGR','RN','VBW','KKW','KUDL','SWV','THVM','KRMI','MAO','CNO','KAWR','KT','MRDW','BTJL','BYNR','KUDA','UD','MULK','SL','MAJN','MAQ','KGQ','PAY','CAN','TLY','BDJ','CLT','PGI','TIR','KTU','SRR','OTP','PGT','TCR','IJK','AWY','ERN','ERS','TRTR','SRTL','ALLP','AMPA','HAD','KYJ','MVLK','CNGR','TRVL','CGY','KTYM','QLN','PVU','VAK','TVP','TVC'],
+  // 13. Delhi - Rewari - Alwar - Jaipur - Ajmer - Abu Road - Palanpur - Ahmedabad
+  ['NDLS','DLI','DEE','DEC','GGN','RE','AWR','BKI','DO','GADJ','JP','FL','KSG','AII','BER','MJ','FA','RANI','SOH','PDWA','ABR','PNU','SID','UJA','MSH','SBIB','ADI'],
+  // 14. Delhi - Lucknow - Ayodhya - Varanasi - Pt Deen Dayal Upadhyaya
+  ['NDLS','ANVT','DLI','GZB','MB','BE','LKO','AYC','AY','SHG','JNU','BSB','DDU'],
+  // 15. Delhi - Gwalior - Jhansi - Bhopal - Itarsi - Nagpur - Balharshah - Secunderabad / Bengaluru
+  ['NDLS','NZM','FDB','MTJ','AGC','GWL','VGLJ','BINA','BPL','RKMP','ET','NGP','SEGM','CD','BPQ','SKZR','RDM','KZJ','SC','HYB','KRNT','DHNE','GTL','DMM','HUP','YNK','YPR','SBC'],
+  // 16. Delhi - Kerala (Trivandrum) via Grand Trunk & Erode / Coimbatore
+  ['NDLS','NZM','MTJ','AGC','GWL','VGLJ','BINA','BPL','RKMP','ET','NGP','SEGM','WR','CD','BPQ','SKZR','RDM','KZJ','WL','KMT','BZA','OGL','NLR','GDR','RU','KPD','JTJ','SA','ED','TUP','CBE','PGT','OTP','SRR','TCR','AWY','ERN','ERS','KTYM','CGY','TRVL','CNGR','MVLK','KYJ','QLN','VAK','KCVL','TVC'],
+  // 17. Darbhanga - Muzaffarpur - Gorakhpur - Lucknow - Kanpur - Delhi (Amrit Bharat corridor)
+  ['DBG','SPJ','MFP','BMKI','SGL','BTH','NKE','BUG','CPJ','GKP','BST','GD','BBK','LKO','CNB','ETW','ALJN','GZB','ANVT']
 ];
 
 const CODE_ALIASES = {
-  'BCT': 'MMCT', 'MMCT': 'BCT',
-  'SVDK': 'MCTM', 'MCTM': 'SVDK',
+  'BCT': 'MMCT', 'MMCT': 'BCT', 'CSMT': 'CSTM', 'CSTM': 'CSMT', 'BDTS': 'BCT', 'LTT': 'CSMT',
   'SBC': 'YPR', 'YPR': 'SBC', 'SMVB': 'SBC',
-  'HWH': 'SDAH', 'SDAH': 'HWH', 'KOAA': 'HWH', 'SHM': 'HWH',
-  'NDLS': 'NZM', 'NZM': 'NDLS', 'DLI': 'NDLS', 'ANVT': 'NDLS',
-  'MAS': 'MS', 'MS': 'MAS',
-  'SC': 'HYB', 'HYB': 'SC', 'KCG': 'SC',
-  'PNBE': 'DNR', 'DNR': 'PNBE', 'RJPB': 'PNBE', 'PPTA': 'PNBE',
+  'HWH': 'SDAH', 'SDAH': 'HWH', 'KOAA': 'HWH', 'SHM': 'HWH', 'SRC': 'HWH',
+  'NDLS': 'NZM', 'NZM': 'NDLS', 'DLI': 'NDLS', 'ANVT': 'NDLS', 'DEE': 'NDLS',
+  'PNBE': 'RJPB', 'RJPB': 'PNBE', 'DNR': 'PNBE', 'PPTA': 'PNBE',
   'BSB': 'DDU', 'DDU': 'BSB', 'BSBS': 'BSB',
-  'GHY': 'KYQ', 'KYQ': 'GHY'
+  'PRYJ': 'PRRB', 'PRRB': 'PRYJ',
+  'MAS': 'MS', 'MS': 'MAS', 'TBM': 'MAS',
+  'SC': 'HYB', 'HYB': 'SC', 'KCG': 'SC',
+  'ADI': 'SBIB', 'SBIB': 'ADI',
+  'MAO': 'VSG', 'VSG': 'MAO', 'KRMI': 'MAO',
+  'KGQ': 'CAN'
 };
 
 function resolveCorridorStops(fcRaw, tcRaw) {

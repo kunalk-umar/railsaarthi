@@ -901,36 +901,55 @@ h1,h2,h3,h4{font-family:'Manrope',sans-serif}
    Authentic Indian Railways stations, schedules & live status
    ══════════════════════════════════════════════════════ */
 const CORRIDORS = [
+  // 1. Delhi - Kanpur - Prayagraj - Gaya - Dhanbad - Asansol - Howrah (Grand Chord)
   ['NDLS','DLI','ANVT','NZM','GZB','ALJN','TDL','ETW','CNB','FTP','PRYJ','MZP','DDU','BBU','SSM','DOS','GYA','KQR','PNME','GMO','DHN','CRJ','ASN','RNG','DGR','BWN','SRC','HWH','SDAH','KOAA','SHM'],
+  // 2. Delhi - Kanpur - Prayagraj - DDU - Patna - Jasidih - Howrah (Main Line)
+  ['NDLS','DLI','ANVT','NZM','GZB','ALJN','TDL','ETW','CNB','FTP','PRYJ','MZP','BSB','DDU','BXR','ARA','DNR','PNBE','RJPB','BKP','MKA','KIUL','JAJ','JSME','MDP','CRJ','ASN','RNG','DGR','BWN','SRC','HWH','SDAH'],
+  // 3. Delhi - Mathura - Kota - Ratlam - Vadodara - Surat - Mumbai Central (WR Trunk)
   ['NDLS','NZM','DEE','DEC','FDB','MTJ','BTE','BXN','HAN','GGC','SWM','KOTA','RMA','BWM','SGZ','NAD','RTM','DHD','GDA','BRC','BH','AKV','ST','NVS','BL','VAPI','PLG','BVI','ADH','BDTS','DDR','MMCT','BCT'],
+  // 4. Delhi - Agra - Gwalior - Jhansi - Bhopal - Itarsi - Khandwa - Bhusawal - Manmad - Nashik - Kalyan - Mumbai CSMT (CR Trunk)
   ['NDLS','NZM','FDB','MTJ','AGC','DHO','MRA','GWL','DBA','DAA','VGLJ','LAR','BINA','BHS','BPL','RKMP','NDPM','ET','KNW','BAU','BSL','JL','CSN','MMR','NK','IGP','KYN','TNA','CLA','LTT','DR','CSMT'],
+  // 5. Delhi - Agra - Jhansi - Bhopal - Nagpur - Kazipet - Vijayawada - Chennai Central (Grand Trunk)
   ['NDLS','NZM','MTJ','AGC','GWL','VGLJ','BINA','BPL','RKMP','ET','NGP','SEGM','WR','CD','BPQ','SKZR','MCI','RDM','KZJ','WL','MABD','KMT','BZA','TEL','CLX','OGL','SKM','KVZ','NLR','GDR','SPE','AJJ','PER','MAS','MS','TBM'],
+  // 6. Delhi - Ambala - Ludhiana - Jalandhar - Amritsar / Jammu / Katra
   ['NDLS','DLI','SZM','SNP','PNP','KUN','KKDE','UMB','RPJ','SIR','KNN','LDH','PGW','JUC','JRC','BEAS','ASR','PTKC','PTK','KTHU','SMBX','JAT','MCTM','UHP','SVDK'],
+  // 7. Delhi - Moradabad - Bareilly - Lucknow - Gorakhpur - Chhapra - Muzaffarpur - Katihar - NJP - Guwahati - Dibrugarh
   ['NDLS','ANVT','DLI','GZB','MB','RMU','BE','SPN','HRI','LKO','LJN','BBK','GD','BST','KLD','GKP','DEOS','BTT','SV','CPR','SEE','HJP','MFP','SPJ','BJU','BGS','KGG','MNE','THB','NNA','KIR','BOE','KNE','NJP','SGUJ','FLK','NCB','NOQ','APDJ','KOJ','NBQ','BPRD','RNY','KYQ','GHY','JID','CPK','HJI','LMG','DPU','DMV','FKG','MXN','JTTN','SLGR','SRTN','NTSK','TSK','DBRG'],
+  // 8. Mumbai - Bhusawal - Akola - Badnera - Nagpur - Durg - Raipur - Bilaspur - Rourkela - Tatanagar - Kharagpur - Howrah
   ['CSMT','DR','LTT','TNA','KYN','IGP','NK','MMR','CSN','JL','BSL','MKU','SEG','AK','BD','AMI','WR','SEGM','AJNI','NGP','G','RJN','DURG','BPHB','R','BYT','BSP','CPH','RIG','JSG','ROU','CKP','TATA','GTS','KGP','SRC','HWH'],
+  // 9. Howrah - Kharagpur - Balasore - Cuttack - Bhubaneswar - Puri - Berhampur - Vizag - Vijayawada - Chennai
   ['HWH','SRC','SHM','KGP','BLS','BHC','JJKR','CTC','BBS','KUR','PURI','BAM','PSA','CHE','VZM','SCM','VSKP','DVD','AKP','ANV','SLO','CCT','RJY','NDD','TDD','EE','BZA','GNT','TEL','CLX','OGL','SKM','KVZ','NLR','GDR','MAS','MS'],
+  // 10. Chennai - Bangalore - Mysuru
   ['MAS','MS','AJJ','KPD','AB','VN','JTJ','TPT','BWT','WFD','KJM','BNC','SBC','YPR','SMVB','MYA','MYS'],
-  ['CSMT','DR','LTT','TNA','KYN','LNL','PUNE','DD','KWV','SUR','KLBG','WADI','YG','RC','MALM','GTL','GY','ATP','DMM','HUP','YPR','SBC','SMVB'],
-  ['CSMT','DR','LTT','TNA','PNVL','ROHA','MNI','KHED','CHI','RN','KKW','KUDL','SWV','THVM','KRMI','MAO','VSG','KAWR','GOK','KT','MRDW','BTJL','KUDA','UD','MAJN','MAQ','KGQ','KZE','PAY','CAN','TLY','BDJ','CLT','TIR','KTU','SRR','OTP','PGT','TCR','IJK','CKI','AWY','ERN','ERS','TRTR','KTYM','CGY','TRVL','CNGR','MVLK','KYJ','ALLP','AMPA','HAD','QLN','VAK','KCVL','TVC','NCJ','CAPE'],
-  ['NDLS','DEE','DEC','GGN','RE','AWR','BKI','DO','GADJ','JP','FL','KSG','AII','BER','MJ','FA','ABR','PNU','MSH','SBIB','ADI'],
-  ['JNKD','JYG','MBI','SKI','DBG','SPJ','MFP','CAA','BMKI','SGL','BTH','NKE','BUG','GKP','KLD','BST','GD','BBK','LKO','CNB','ETW','TDL','ALJN','GZB','ANVT','NDLS'],
-  ['NDLS','DLI','SZM','ROK','JIND','NRW','JHL','BTI','KKP','FDK','FZR'],
-  ['NDLS','NZM','MTJ','AGC','GWL','VGLJ','BINA','BPL','RKMP','ET','NGP','SEGM','WR','BPQ','SKZR','RDM','KZJ','WL','KMT','BZA','OGL','NLR','GDR','RU','KPD','JTJ','SA','ED','TUP','CBE','PGT','OTP','SRR','TCR','AWY','ERN','ERS','KTYM','CGY','TRVL','CNGR','MVLK','KYJ','QLN','VAK','KCVL','TVC'],
-  ['SBC','YPR','DMM','ATP','DHNE','KRNT','MBNR','KCG','SC','KZJ','RDM','MCI','SKZR','BPQ','CD','SEGM','NGP','ET','BPL','BINA','VGLJ','GWL','MRA','DHO','AGC','MTJ','FDB','NZM','NDLS'],
-  ['CSMT','DR','TNA','KYN','LNL','PUNE','DD','KWV','SUR','KLBG','WADI','YG','RC','MALM','GTL','GY','YA','HX','RU','AJJ','PER','MAS']
+  // 11. Mumbai - Pune - Solapur - Kalaburagi - Wadi - Guntakal - Renigunta - Chennai
+  ['CSMT','DR','LTT','TNA','KYN','LNL','PUNE','DD','KWV','SUR','KLBG','WADI','YG','RC','MALM','AD','GTL','GY','TU','YA','HX','RU','AJJ','PER','MAS','MS'],
+  // 12. Mumbai - Roha - Ratnagiri - Madgaon (Goa) - Mangaluru - Kannur - Kozhikode - Shoranur - Ernakulam - Trivandrum (Konkan Railway)
+  ['CSMT','DR','LTT','TNA','PNVL','ROHA','MNI','KHED','CHI','SGR','RN','VBW','KKW','KUDL','SWV','THVM','KRMI','MAO','CNO','KAWR','KT','MRDW','BTJL','BYNR','KUDA','UD','MULK','SL','MAJN','MAQ','KGQ','PAY','CAN','TLY','BDJ','CLT','PGI','TIR','KTU','SRR','OTP','PGT','TCR','IJK','AWY','ERN','ERS','TRTR','SRTL','ALLP','AMPA','HAD','KYJ','MVLK','CNGR','TRVL','CGY','KTYM','QLN','PVU','VAK','TVP','TVC'],
+  // 13. Delhi - Rewari - Alwar - Jaipur - Ajmer - Abu Road - Palanpur - Ahmedabad
+  ['NDLS','DLI','DEE','DEC','GGN','RE','AWR','BKI','DO','GADJ','JP','FL','KSG','AII','BER','MJ','FA','RANI','SOH','PDWA','ABR','PNU','SID','UJA','MSH','SBIB','ADI'],
+  // 14. Delhi - Lucknow - Ayodhya - Varanasi - Pt Deen Dayal Upadhyaya
+  ['NDLS','ANVT','DLI','GZB','MB','BE','LKO','AYC','AY','SHG','JNU','BSB','DDU'],
+  // 15. Delhi - Gwalior - Jhansi - Bhopal - Itarsi - Nagpur - Balharshah - Secunderabad / Bengaluru
+  ['NDLS','NZM','FDB','MTJ','AGC','GWL','VGLJ','BINA','BPL','RKMP','ET','NGP','SEGM','CD','BPQ','SKZR','RDM','KZJ','SC','HYB','KRNT','DHNE','GTL','DMM','HUP','YNK','YPR','SBC'],
+  // 16. Delhi - Kerala (Trivandrum) via Grand Trunk & Erode / Coimbatore
+  ['NDLS','NZM','MTJ','AGC','GWL','VGLJ','BINA','BPL','RKMP','ET','NGP','SEGM','WR','CD','BPQ','SKZR','RDM','KZJ','WL','KMT','BZA','OGL','NLR','GDR','RU','KPD','JTJ','SA','ED','TUP','CBE','PGT','OTP','SRR','TCR','AWY','ERN','ERS','KTYM','CGY','TRVL','CNGR','MVLK','KYJ','QLN','VAK','KCVL','TVC'],
+  // 17. Darbhanga - Muzaffarpur - Gorakhpur - Lucknow - Kanpur - Delhi (Amrit Bharat corridor)
+  ['DBG','SPJ','MFP','BMKI','SGL','BTH','NKE','BUG','CPJ','GKP','BST','GD','BBK','LKO','CNB','ETW','ALJN','GZB','ANVT']
 ];
 
 const CODE_ALIASES = {
-  'BCT': 'MMCT', 'MMCT': 'BCT',
-  'SVDK': 'MCTM', 'MCTM': 'SVDK',
+  'BCT': 'MMCT', 'MMCT': 'BCT', 'CSMT': 'CSTM', 'CSTM': 'CSMT', 'BDTS': 'BCT', 'LTT': 'CSMT',
   'SBC': 'YPR', 'YPR': 'SBC', 'SMVB': 'SBC',
-  'HWH': 'SDAH', 'SDAH': 'HWH', 'KOAA': 'HWH', 'SHM': 'HWH',
-  'NDLS': 'NZM', 'NZM': 'NDLS', 'DLI': 'NDLS', 'ANVT': 'NDLS',
-  'MAS': 'MS', 'MS': 'MAS',
-  'SC': 'HYB', 'HYB': 'SC', 'KCG': 'SC',
-  'PNBE': 'DNR', 'DNR': 'PNBE', 'RJPB': 'PNBE', 'PPTA': 'PNBE',
+  'HWH': 'SDAH', 'SDAH': 'HWH', 'KOAA': 'HWH', 'SHM': 'HWH', 'SRC': 'HWH',
+  'NDLS': 'NZM', 'NZM': 'NDLS', 'DLI': 'NDLS', 'ANVT': 'NDLS', 'DEE': 'NDLS',
+  'PNBE': 'RJPB', 'RJPB': 'PNBE', 'DNR': 'PNBE', 'PPTA': 'PNBE',
   'BSB': 'DDU', 'DDU': 'BSB', 'BSBS': 'BSB',
-  'GHY': 'KYQ', 'KYQ': 'GHY'
+  'PRYJ': 'PRRB', 'PRRB': 'PRYJ',
+  'MAS': 'MS', 'MS': 'MAS', 'TBM': 'MAS',
+  'SC': 'HYB', 'HYB': 'SC', 'KCG': 'SC',
+  'ADI': 'SBIB', 'SBIB': 'ADI',
+  'MAO': 'VSG', 'VSG': 'MAO', 'KRMI': 'MAO',
+  'KGQ': 'CAN'
 };
 
 function resolveCorridorStops(fcRaw, tcRaw) {
@@ -969,6 +988,121 @@ function resolveCorridorStops(fcRaw, tcRaw) {
   }
 
   return [fc, tc];
+}
+
+/* ══════════════════════════════════════════════════════
+   INTELLIGENT ROUTE & STATION SEARCH ENGINE
+   Supports City Synonyms and Intermediate Corridor Halts
+   ══════════════════════════════════════════════════════ */
+const CITY_STATIONS = {
+  'delhi': ['NDLS','DLI','NZM','ANVT','DEE','DEC','SZM','GZB'],
+  'new delhi': ['NDLS','DLI','NZM','ANVT','DEE','DEC'],
+  'mumbai': ['BCT','MMCT','CSMT','CSTM','BDTS','LTT','DR','KYN','TNA'],
+  'bombay': ['BCT','MMCT','CSMT','CSTM','BDTS','LTT','DR','KYN','TNA'],
+  'kolkata': ['HWH','SDAH','KOAA','SHM','SRC'],
+  'calcutta': ['HWH','SDAH','KOAA','SHM','SRC'],
+  'howrah': ['HWH','SRC','SHM','KOAA','SDAH'],
+  'bengaluru': ['SBC','YPR','SMVB','BNC','KJM'],
+  'bangalore': ['SBC','YPR','SMVB','BNC','KJM'],
+  'chennai': ['MAS','MS','TBM','PER','AJJ'],
+  'madras': ['MAS','MS','TBM','PER','AJJ'],
+  'hyderabad': ['HYB','SC','KCG','BMT','LPI'],
+  'secunderabad': ['SC','HYB','KCG'],
+  'ahmedabad': ['ADI','SBT','SBIB','MAN'],
+  'patna': ['PNBE','RJPB','DNR','PPTA'],
+  'varanasi': ['BSB','DDU','BSBS','BCY'],
+  'benaras': ['BSB','DDU','BSBS','BCY'],
+  'kashi': ['BSB','DDU','BSBS','BCY'],
+  'prayagraj': ['PRYJ','PRRB','NYN'],
+  'allahabad': ['PRYJ','PRRB','NYN'],
+  'kanpur': ['CNB','CPA'],
+  'lucknow': ['LKO','LJN','ASH','BNZ'],
+  'jaipur': ['JP','GADJ','DPA'],
+  'bhopal': ['BPL','RKMP','SHRN'],
+  'nagpur': ['NGP','AJNI'],
+  'pune': ['PUNE','SVJR','KK'],
+  'agra': ['AGC','AF','IDH'],
+  'goa': ['MAO','VSG','KRMI','THVM'],
+  'madgaon': ['MAO','VSG','KRMI','THVM'],
+  'amritsar': ['ASR'],
+  'chandigarh': ['CDG'],
+  'kochi': ['ERS','ERN','AWY'],
+  'ernakulam': ['ERS','ERN','AWY'],
+  'cochin': ['ERS','ERN','AWY'],
+  'trivandrum': ['TVC','KCVL'],
+  'thiruvananthapuram': ['TVC','KCVL'],
+  'guwahati': ['GHY','KYQ'],
+  'puri': ['PURI','KUR','BBS'],
+  'bhubaneswar': ['BBS','KUR'],
+  'surat': ['ST','UDN'],
+  'vadodara': ['BRC'],
+  'baroda': ['BRC'],
+  'coimbatore': ['CBE','CBF'],
+  'madurai': ['MDU'],
+  'visakhapatnam': ['VSKP','DVD'],
+  'vizag': ['VSKP','DVD'],
+  'indore': ['INDB'],
+  'gwalior': ['GWL'],
+  'jabalpur': ['JBP'],
+  'gorakhpur': ['GKP'],
+  'jammu': ['JAT','UHP','MCTM','SVDK'],
+  'katra': ['SVDK','MCTM','JAT']
+};
+
+function getStationCodes(query) {
+  if (!query) return [];
+  const raw = query.split(/[-–]/)[0].trim().toLowerCase();
+  const qUpper = raw.toUpperCase();
+  const codes = new Set();
+  
+  const directSt = (window.STATIONS || []).find(s => s.c === qUpper);
+  if (directSt) codes.add(directSt.c);
+
+  for (const [city, clist] of Object.entries(CITY_STATIONS)) {
+    if (city.includes(raw) || raw.includes(city)) {
+      clist.forEach(c => codes.add(c));
+    }
+  }
+
+  (window.STATIONS || []).forEach(s => {
+    if ((s.n && s.n.toLowerCase().includes(raw)) || (s.city && s.city.toLowerCase().includes(raw))) {
+      codes.add(s.c);
+    }
+  });
+
+  return Array.from(codes);
+}
+
+function searchSmart(fromQ, toQ) {
+  const fromCodes = getStationCodes(fromQ);
+  const toCodes = getStationCodes(toQ);
+
+  if (!fromCodes.length && !toCodes.length) {
+    return window.TRAINS || [];
+  }
+
+  return (window.TRAINS || []).filter(t => {
+    const fromMatches = !fromCodes.length || fromCodes.includes(t.fc);
+    const toMatches = !toCodes.length || toCodes.includes(t.tc);
+    if (fromMatches && toMatches) return true;
+
+    const route = t.route || resolveCorridorStops(t.fc, t.tc);
+    if (fromCodes.length && toCodes.length) {
+      for (const fc of fromCodes) {
+        const idxF = route.indexOf(fc);
+        if (idxF === -1) continue;
+        for (const tc of toCodes) {
+          const idxT = route.indexOf(tc);
+          if (idxT !== -1 && idxF < idxT) return true;
+        }
+      }
+    } else if (fromCodes.length) {
+      return fromCodes.some(fc => route.includes(fc));
+    } else if (toCodes.length) {
+      return toCodes.some(tc => route.includes(tc));
+    }
+    return false;
+  });
 }
 
 function computeLiveRouteFromTrain(tr, targetDate, stationsMap) {
@@ -1208,7 +1342,7 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   // State filter
-  const states = [...new Set((window.STATIONS||[]).map(s=>s.st))].sort();
+  const states = [...new Set((window.STATIONS||[]).map(s=>s.state || s.st || s.s).filter(Boolean))].sort();
   const sel = document.getElementById('st-state');
   states.forEach(st => { const o=document.createElement('option'); o.textContent=st; sel.appendChild(o); });
 
@@ -1312,18 +1446,23 @@ function matchSt(q, code, name) {
   return code.toLowerCase().startsWith(s) || code.toLowerCase().includes(s) || name.toLowerCase().includes(s);
 }
 
+function parseQ(v) { return (v||'').split(/[-–]/)[0].trim().toLowerCase(); }
+function matchSt(q, code, name) {
+  const s = parseQ(q); if (!s) return true;
+  return (code||'').toLowerCase().includes(s) || (name||'').toLowerCase().includes(s);
+}
+
 function runSearch() {
   const from = document.getElementById('t-from').value;
   const to   = document.getElementById('t-to').value;
   const type = document.getElementById('t-type').value;
-  let trains = window.TRAINS || [];
-  if (from) trains = trains.filter(t => matchSt(from, t.fc, t.fn));
-  if (to)   trains = trains.filter(t => matchSt(to,   t.tc, t.tn));
+
+  let trains = searchSmart(from, to);
   if (type) trains = trains.filter(t => t.type === type);
   filteredTrains = trains; visibleCount = 8;
 
-  const fn = from ? (from.split('–').pop()?.trim() || from) : 'All';
-  const tn = to   ? (to.split('–').pop()?.trim()   || to)   : 'All';
+  const fn = from ? (from.split(/[-–]/)[0]?.trim() || from) : 'All';
+  const tn = to   ? (to.split(/[-–]/)[0]?.trim()   || to)   : 'All';
   document.getElementById('tr-title').innerHTML = (from||to)
     ? `${fn} <span class="text-secondary mx-1">→</span> ${tn}` : 'All Trains';
   const d = document.getElementById('t-date').value;
@@ -1404,10 +1543,16 @@ function trainCard(t, idx) {
     </div>
   </div>
   <div class="px-6 md:px-8 py-4 ${footerBg} flex justify-between items-center">
-    <button class="${footerTxt} flex items-center gap-2 text-sm font-semibold transition-colors"
-      onclick="openFareModal(this)" data-km="${t.dist}" data-type="${t.type}" data-num="${t.num}" data-name="${t.name.replace(/"/g,'&quot;')}">
-      <span class="material-symbols-outlined text-base">info</span>Full Fare Breakup
-    </button>
+    <div class="flex items-center gap-4 flex-wrap">
+      <button class="${footerTxt} flex items-center gap-1.5 text-sm font-semibold transition-colors"
+        onclick="viewRoute('${t.num}')">
+        <span class="material-symbols-outlined text-base">route</span>Timetable / Route
+      </button>
+      <button class="${footerTxt} flex items-center gap-1.5 text-sm font-semibold transition-colors"
+        onclick="openFareModal(this)" data-km="${t.dist}" data-type="${t.type}" data-num="${t.num}" data-name="${t.name.replace(/"/g,'&quot;')}">
+        <span class="material-symbols-outlined text-base">payments</span>Fare Breakup
+      </button>
+    </div>
     <button onclick="quickTrack('${t.num}')" class="${btnCls} text-white px-6 py-2.5 rounded-xl font-bold text-sm tracking-tight active:scale-95 transition-all shadow-md">
       📍 Track Live
     </button>
@@ -1680,28 +1825,117 @@ function closeMetroModal() { document.getElementById('metro-modal').classList.re
    STATIONS TABLE
    ══════════════════════════════════════════════════════ */
 function renderSt() {
-  const q    = (document.getElementById('st-q')?.value||'').toLowerCase();
+  const q    = (document.getElementById('st-q')?.value||'').toLowerCase().trim();
   const zone = document.getElementById('st-zone')?.value || '';
   const st   = document.getElementById('st-state')?.value || '';
   const cat  = document.getElementById('st-cat')?.value || '';
-  const data = (window.STATIONS||[]).filter(s=>
-    (!q || s.n.toLowerCase().includes(q)||s.c.toLowerCase().includes(q)||s.city.toLowerCase().includes(q)) &&
-    (!zone || s.z===zone) && (!st || s.st===st) && (!cat || s.cat===cat)
-  );
-  document.getElementById('st-tbody').innerHTML = data.slice(0,200).map(s=>`
+  const data = (window.STATIONS||[]).filter(s => {
+    const sName = (s.n || '').toLowerCase();
+    const sCode = (s.c || '').toLowerCase();
+    const sCity = (s.city || s.d || '').toLowerCase();
+    const sState = s.state || s.st || s.s || '';
+    const matchQ = !q || sName.includes(q) || sCode.includes(q) || sCity.includes(q);
+    const matchZone = !zone || s.z === zone;
+    const matchState = !st || sState === st;
+    const matchCat = !cat || (s.cat ? String(s.cat) === cat : true);
+    return matchQ && matchZone && matchState && matchCat;
+  });
+  const tbody = document.getElementById('st-tbody');
+  if (tbody) {
+    tbody.innerHTML = data.slice(0, 250).map(s => {
+      const stateName = s.state || s.st || s.s || '—';
+      const cityName = s.city || s.d || s.n || '—';
+      const catLbl = s.cat ? (String(s.cat).startsWith('NSG') ? s.cat : `NSG-${s.cat}`) : 'NSG-4';
+      const trainsDay = s.tr || `${(s.pf || 2) * 18}+ trains`;
+      return `
 <tr class="border-t border-outline-variant/10 hover:bg-surface-container-low/60 transition-colors">
   <td class="px-4 py-2.5 font-mono font-bold text-secondary text-xs">${s.c}</td>
   <td class="px-4 py-2.5 font-semibold text-sm">${s.n}</td>
-  <td class="px-4 py-2.5 text-on-surface-variant text-sm">${s.city}</td>
-  <td class="px-4 py-2.5 text-on-surface-variant text-sm">${s.st}</td>
+  <td class="px-4 py-2.5 text-on-surface-variant text-sm">${cityName}</td>
+  <td class="px-4 py-2.5 text-on-surface-variant text-sm">${stateName}</td>
   <td class="px-4 py-2.5"><span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-secondary/10 text-secondary">${s.z}</span></td>
-  <td class="px-4 py-2.5 text-on-surface-variant text-xs">Cat-${s.cat}</td>
-  <td class="px-4 py-2.5"><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700">${s.pf}</span></td>
-  <td class="px-4 py-2.5 text-on-surface-variant text-sm">${s.tr}</td>
-</tr>`).join('');
-  document.getElementById('st-info').textContent =
-    `Showing ${Math.min(data.length,200)} of ${data.length} stations (${(window.STATIONS||[]).length} total)`;
+  <td class="px-4 py-2.5 text-on-surface-variant text-xs">${catLbl}</td>
+  <td class="px-4 py-2.5"><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700">${s.pf || 2} Pf</span></td>
+  <td class="px-4 py-2.5 text-on-surface-variant text-sm">${trainsDay}</td>
+</tr>`;
+    }).join('');
+  }
+  const infoEl = document.getElementById('st-info');
+  if (infoEl) {
+    infoEl.textContent = `Showing ${Math.min(data.length, 250)} of ${data.length} stations (${(window.STATIONS||[]).length} total)`;
+  }
+}
+
+/* ══════════════════════════════════════════════════════
+   TIMETABLE & ROUTE MODAL
+   ══════════════════════════════════════════════════════ */
+function viewRoute(num) {
+  const tr = (window.TRAINS || []).find(t => t.num === num);
+  if (!tr) return;
+  const stops = resolveCorridorStops(tr.fc, tr.tc);
+  const stMap = new Map((window.STATIONS || []).map(s => [s.c, s]));
+
+  document.getElementById('rm-title').textContent = `#${tr.num} · ${tr.name}`;
+  document.getElementById('rm-sub').textContent = `${tr.fn} (${tr.fc}) → ${tr.tn} (${tr.tc}) · ${tr.dur} · ${tr.dist.toLocaleString()} km · ${stops.length} halts`;
+
+  const body = document.getElementById('rm-body');
+  const [depH, depM] = (tr.dep || '08:00').split(':').map(Number);
+  const totalMins = (parseInt(tr.dur) || 12) * 60 + (parseInt((tr.dur||'').split('h')[1]) || 0);
+
+  let out = `<div class="relative pl-6 space-y-3 before:absolute before:left-2.5 before:top-3 before:bottom-3 before:w-0.5 before:bg-outline-variant/30">`;
+
+  stops.forEach((c, i) => {
+    const isFirst = i === 0;
+    const isLast = i === stops.length - 1;
+    const st = stMap.get(c) || { n: c, s: '', z: '', pf: 2 };
+    const prog = i / (stops.length - 1 || 1);
+    const stopMins = (depH * 60 + depM + Math.round(prog * totalMins)) % (24 * 60);
+    const arrTime = isFirst ? 'Origin' : formatMinutes(stopMins - 2);
+    const depTime = isLast ? 'Terminates' : formatMinutes(stopMins + (isFirst ? 0 : 2));
+    const distEst = Math.round(prog * tr.dist);
+    const dotClr = isFirst ? 'bg-green-500' : isLast ? 'bg-secondary' : 'bg-primary';
+
+    out += `
+    <div class="relative flex items-start gap-4 text-xs">
+      <div class="absolute -left-6 top-1 w-3 h-3 rounded-full ${dotClr} border-2 border-surface"></div>
+      <div class="flex-1 bg-surface-container-low/60 rounded-xl p-3 border border-outline-variant/10">
+        <div class="flex justify-between items-center mb-1">
+          <div class="font-bold text-sm text-primary">${st.n} <span class="font-mono text-secondary">(${c})</span></div>
+          <span class="font-bold px-2 py-0.5 rounded-full text-[10px] bg-secondary/10 text-secondary">${st.z || 'IR'} · Pf. ${st.pf || 2}</span>
+        </div>
+        <div class="flex justify-between items-center text-on-surface-variant font-medium">
+          <div>Arr: <span class="font-bold text-on-surface">${arrTime}</span> &nbsp;|&nbsp; Dep: <span class="font-bold text-on-surface">${depTime}</span></div>
+          <div class="text-[11px] font-mono">${distEst} km ${isFirst ? '(Origin)' : isLast ? '(Destination)' : ''}</div>
+        </div>
+      </div>
+    </div>`;
+  });
+
+  out += `</div>`;
+  body.innerHTML = out;
+  document.getElementById('route-modal').classList.remove('hidden');
+}
+
+function closeRouteModal() {
+  document.getElementById('route-modal').classList.add('hidden');
 }
 </script>
+
+<!-- ══════════════ ROUTE / TIMETABLE MODAL ══════════════ -->
+<div id="route-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm hidden">
+  <div class="bg-surface rounded-3xl max-w-2xl w-full max-h-[85vh] overflow-hidden flex flex-col shadow-2xl border border-outline-variant/20 animate-scale-up">
+    <div class="p-6 border-b border-outline-variant/10 flex justify-between items-center bg-surface-container-low">
+      <div>
+        <h3 id="rm-title" class="text-xl font-bold text-primary font-headline">Train Route & Schedule</h3>
+        <p id="rm-sub" class="text-xs text-on-surface-variant mt-0.5"></p>
+      </div>
+      <button onclick="closeRouteModal()" class="w-9 h-9 rounded-full bg-surface-container-high flex items-center justify-center text-on-surface-variant hover:text-primary transition-all">
+        <span class="material-symbols-outlined text-base">close</span>
+      </button>
+    </div>
+    <div id="rm-body" class="p-6 overflow-y-auto space-y-3 flex-1"></div>
+  </div>
+</div>
+
 </body>
 </html>
