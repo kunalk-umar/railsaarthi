@@ -285,72 +285,116 @@ function resolveCorridorStops(fcRaw, tcRaw) {
 }
 
 function computeLiveRouteFromTrain(tr, targetDate, stationsMap) {
-  const codes = resolveCorridorStops(tr.fc, tr.tc);
-  let selectedCodes = codes;
-  const targetCount = Math.max(tr.stops || 6, 4);
-  if (codes.length > targetCount + 2) {
-    const step = (codes.length - 1) / (targetCount - 1);
-    const sampled = [codes[0]];
-    for (let i = 1; i < targetCount - 1; i++) {
-      sampled.push(codes[Math.round(i * step)]);
-    }
-    sampled.push(codes[codes.length - 1]);
-    selectedCodes = [...new Set(sampled)];
-  }
+  const halts = (tr.route && tr.route.length > 1) ? tr.route : resolveCorridorStops(tr.fc, tr.tc);
+  const N = halts.length;
+
+  const now = new Date();
+  const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+  const ist = new Date(utc + (3600000 * 5.5));
+  const istHours = ist.getHours();
+  const istMinutes = ist.getMinutes();
+  const curIstMins = istHours * 60 + istMinutes;
+
+  const todayStr = ist.toISOString().split('T')[0];
+  const dateStr = targetDate || todayStr;
+
+  const selDateObj = new Date(dateStr + 'T12:00:00+05:30');
+  const dayIdx = selDateObj.getDay();
+  const dayChars = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+  const dayChar = dayChars[dayIdx];
+  const isRunningDay = tr.days ? (tr.days === 'MTWTFSS' || tr.days.includes(dayChar)) : true;
+
+  const [depH, depM] = (tr.dep && tr.dep !== '--' ? tr.dep : '08:00').split(':').map(Number);
+  const depMins = depH * 60 + depM;
 
   let durMins = 0;
   if (tr.dur) {
     const dm = tr.dur.match(/(\d+)h\s*(\d+)?m?/);
     if (dm) durMins = parseInt(dm[1]) * 60 + (parseInt(dm[2]) || 0);
   }
-  if (!durMins) durMins = 720;
+  if (!durMins) durMins = 480;
+  const arrMins = depMins + durMins;
 
-  let depMins = 0;
-  if (tr.dep && tr.dep !== '--') {
-    const [h, m] = tr.dep.split(':').map(Number);
-    depMins = (h || 0) * 60 + (m || 0);
+  const seed = (parseInt((tr.num || '1234').replace(/\D/g, '')) || 1234);
+  const delay = [0, 0, 4, 8, 12, 15, 20][seed % 7];
+
+  let stage = 'IN_TRANSIT';
+  let stageText = '';
+  let stageBadge = '';
+  let curIndex = 0;
+
+  if (!isRunningDay && dateStr === todayStr) {
+    stage = 'NOT_RUNNING_TODAY';
+    stageBadge = '🚫 NOT RUNNING TODAY';
+    stageText = `Train #${tr.num} does not operate on ${selDateObj.toLocaleDateString('en-IN', { weekday: 'long' })}. Scheduled days: ${tr.days || 'Specific days'}.`;
+    curIndex = 0;
+  } else if (dateStr > todayStr) {
+    stage = 'FUTURE_DATE';
+    stageBadge = '📅 SCHEDULED (FUTURE)';
+    stageText = `Scheduled to run on ${dateStr}. Departs ${tr.fn} (${tr.fc}) at ${tr.dep} IST.`;
+    curIndex = 0;
+  } else if (dateStr < todayStr) {
+    stage = 'PAST_DATE';
+    stageBadge = '✅ COMPLETED RUN';
+    stageText = `Journey completed on ${dateStr}. Reached ${tr.tn} (${tr.tc}) at ${tr.arr} IST.`;
+    curIndex = N - 1;
+  } else {
+    // Today
+    if (curIstMins < depMins) {
+      stage = 'AWAITING_DEPARTURE';
+      stageBadge = '⏳ AT ORIGIN YARD / PF';
+      const diffMins = depMins - curIstMins;
+      const hRem = Math.floor(diffMins / 60);
+      const mRem = diffMins % 60;
+      stageText = `Scheduled departure at ${tr.dep} IST from ${tr.fn} (${tr.fc}). Departs in ${hRem > 0 ? hRem + 'h ' : ''}${mRem}m. Train is at platform / yard rake area.`;
+      curIndex = 0;
+    } else if (curIstMins >= arrMins) {
+      stage = 'ARRIVED';
+      stageBadge = '🏁 JOURNEY COMPLETED';
+      stageText = `Arrived at destination ${tr.tn} (${tr.tc}) at ${tr.arr} IST. Rake docked.`;
+      curIndex = N - 1;
+    } else {
+      stage = 'IN_TRANSIT';
+      stageBadge = delay > 0 ? `🟡 RUNNING (+${delay}m)` : `🟢 ON TIME`;
+      const elapsed = curIstMins - depMins;
+      const progress = Math.min(Math.max(elapsed / durMins, 0), 1);
+      curIndex = Math.min(Math.floor(progress * N), N - 1);
+      const curStop = stationsMap.get(halts[curIndex]) || { n: halts[curIndex] };
+      stageText = delay > 0
+        ? `Currently near ${curStop.n} (${halts[curIndex]}), running ${delay} minutes late.`
+        : `Currently on time near ${curStop.n} (${halts[curIndex]}).`;
+    }
   }
 
-  const now = new Date();
-  const istOffset = 5.5 * 60;
-  const utcMins = now.getUTCHours() * 60 + now.getUTCMinutes();
-  const istMins = (utcMins + istOffset) % 1440;
-
-  const N = selectedCodes.length;
-  const seed = (parseInt((tr.num || '1234').replace(/\D/g,'')) || 1234);
-  const delay = [0, 0, 5, 8, 12, 18, 25][seed % 7];
-
-  let currentIdx = 0;
-  const stops = selectedCodes.map((code, i) => {
-    const stInfo = stationsMap.get(code) || { n: code, pf: 3 };
+  const stops = halts.map((code, i) => {
+    const stInfo = stationsMap.get(code) || { n: code, pf: 2, z: 'IR' };
     const frac = N > 1 ? i / (N - 1) : 0;
-    const stopDepMins = Math.round(depMins + frac * durMins);
-    const stopArrMins = i === 0 ? '--' : formatMinutes(stopDepMins - 3);
-    const stopDepStr = i === N - 1 ? '--' : formatMinutes(stopDepMins);
-
+    const stopMins = Math.round(depMins + frac * durMins);
+    const arrStr = i === 0 ? '--' : formatMinutes(stopMins - 3);
+    const depStr = i === N - 1 ? '--' : formatMinutes(stopMins + (i === 0 ? 0 : 2));
     const pfNum = ((seed + i) % (stInfo.pf || 4)) + 1;
 
     let status = 'upcoming';
-    const elapsedSinceDep = (istMins - depMins + 1440) % 1440;
-    const progressFrac = Math.min(Math.max(elapsedSinceDep / durMins, 0), 1);
-    const curEstIdx = Math.floor(progressFrac * (N - 1));
-
-    if (i < curEstIdx) {
+    if (stage === 'PAST_DATE' || stage === 'ARRIVED') {
       status = 'departed';
-    } else if (i === curEstIdx) {
-      status = 'current';
-      currentIdx = i;
-    } else {
+    } else if (stage === 'FUTURE_DATE' || stage === 'NOT_RUNNING_TODAY') {
       status = 'upcoming';
+    } else if (stage === 'AWAITING_DEPARTURE') {
+      status = i === 0 ? 'current' : 'upcoming';
+    } else {
+      // IN_TRANSIT
+      if (i < curIndex) status = 'departed';
+      else if (i === curIndex) status = 'current';
+      else status = 'upcoming';
     }
 
     return {
       st: stInfo.n,
       code: code,
-      arr: stopArrMins,
-      dep: stopDepStr,
+      arr: arrStr,
+      dep: depStr,
       status: status,
-      delay: status === 'departed' ? 0 : delay,
+      delay: (status === 'departed' || i === 0) ? 0 : delay,
       platform: `Pf. ${pfNum}`
     };
   });
@@ -360,10 +404,19 @@ function computeLiveRouteFromTrain(tr, targetDate, stationsMap) {
     train_name: tr.name,
     from: tr.fn,
     to: tr.tn,
+    fc: tr.fc,
+    tc: tr.tc,
+    dep: tr.dep,
+    arr: tr.arr,
+    dur: tr.dur,
+    dist: tr.dist,
+    stage: stage,
+    stage_badge: stageBadge,
+    stage_text: stageText,
     delay_mins: delay,
-    last_station: stops[currentIdx]?.st || tr.fn,
-    last_code: stops[currentIdx]?.code || tr.fc,
-    date: targetDate || new Date().toISOString().split('T')[0],
+    last_station: stops[curIndex]?.st || tr.fn,
+    last_code: stops[curIndex]?.code || tr.fc,
+    date: dateStr,
     source: 'live-corridor',
     stops: stops
   };

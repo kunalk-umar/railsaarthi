@@ -289,12 +289,24 @@ h1,h2,h3,h4{font-family:'Manrope',sans-serif}
     <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-primary mt-3">Train Live Status</h1>
     <p class="text-on-surface-variant mt-1 text-sm">Real-time position, platform &amp; delay — auto-refreshes every 90 seconds</p>
   </div>
-  <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 p-6 max-w-2xl mb-6">
+  <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 p-6 max-w-2xl mb-3">
     <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
-      <div class="md:col-span-7"><label class="block text-xs font-bold text-on-surface-variant uppercase mb-1">Train Number / Name</label><input id="l-num" placeholder="e.g. 12301  or  Howrah Rajdhani" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-secondary focus:border-secondary"/></div>
+      <div class="md:col-span-7 relative">
+        <label class="block text-xs font-bold text-on-surface-variant uppercase mb-1">Train Number / Name</label>
+        <input id="l-num" placeholder="e.g. 12301 or Howrah Rajdhani" autocomplete="off" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-secondary focus:border-secondary"/>
+        <div id="l-suggest" class="absolute left-0 right-0 top-full mt-1 bg-surface-container-lowest rounded-xl shadow-2xl border border-outline-variant/20 max-h-64 overflow-y-auto z-40 hidden"></div>
+      </div>
       <div class="md:col-span-3"><label class="block text-xs font-bold text-on-surface-variant uppercase mb-1">Date</label><input id="l-date" type="date" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-secondary focus:border-secondary"/></div>
       <div class="md:col-span-2"><button onclick="trackLive(true)" class="w-full py-3 bg-primary text-white rounded-xl font-bold hover:opacity-90 transition-all">Track</button></div>
     </div>
+  </div>
+  <div class="max-w-2xl flex items-center gap-2 flex-wrap text-xs text-on-surface-variant mb-6">
+    <span class="font-semibold text-primary">Quick:</span>
+    <button onclick="document.getElementById('l-num').value='22436'; trackLive(true);" class="px-2.5 py-1 rounded-lg bg-surface-container-low hover:bg-surface-container-high border border-outline-variant/15 font-medium transition">22436 Vande Bharat</button>
+    <button onclick="document.getElementById('l-num').value='12301'; trackLive(true);" class="px-2.5 py-1 rounded-lg bg-surface-container-low hover:bg-surface-container-high border border-outline-variant/15 font-medium transition">12301 Rajdhani</button>
+    <button onclick="document.getElementById('l-num').value='12004'; trackLive(true);" class="px-2.5 py-1 rounded-lg bg-surface-container-low hover:bg-surface-container-high border border-outline-variant/15 font-medium transition">12004 Shatabdi</button>
+    <button onclick="document.getElementById('l-num').value='15557'; trackLive(true);" class="px-2.5 py-1 rounded-lg bg-surface-container-low hover:bg-surface-container-high border border-outline-variant/15 font-medium transition">15557 Amrit Bharat</button>
+    <button onclick="document.getElementById('l-num').value='12951'; trackLive(true);" class="px-2.5 py-1 rounded-lg bg-surface-container-low hover:bg-surface-container-high border border-outline-variant/15 font-medium transition">12951 Mumbai Rajdhani</button>
   </div>
   <!-- Auto-refresh control -->
   <div id="l-refresh-bar" class="hidden max-w-2xl flex items-center gap-3 mb-4 text-xs text-on-surface-variant">
@@ -1106,72 +1118,116 @@ function searchSmart(fromQ, toQ) {
 }
 
 function computeLiveRouteFromTrain(tr, targetDate, stationsMap) {
-  const codes = resolveCorridorStops(tr.fc, tr.tc);
-  let selectedCodes = codes;
-  const targetCount = Math.max(tr.stops || 6, 4);
-  if (codes.length > targetCount + 2) {
-    const step = (codes.length - 1) / (targetCount - 1);
-    const sampled = [codes[0]];
-    for (let i = 1; i < targetCount - 1; i++) {
-      sampled.push(codes[Math.round(i * step)]);
-    }
-    sampled.push(codes[codes.length - 1]);
-    selectedCodes = [...new Set(sampled)];
-  }
+  const halts = (tr.route && tr.route.length > 1) ? tr.route : resolveCorridorStops(tr.fc, tr.tc);
+  const N = halts.length;
+
+  const now = new Date();
+  const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
+  const ist = new Date(utc + (3600000 * 5.5));
+  const istHours = ist.getHours();
+  const istMinutes = ist.getMinutes();
+  const curIstMins = istHours * 60 + istMinutes;
+
+  const todayStr = ist.toISOString().split('T')[0];
+  const dateStr = targetDate || todayStr;
+
+  const selDateObj = new Date(dateStr + 'T12:00:00+05:30');
+  const dayIdx = selDateObj.getDay();
+  const dayChars = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
+  const dayChar = dayChars[dayIdx];
+  const isRunningDay = tr.days ? (tr.days === 'MTWTFSS' || tr.days.includes(dayChar)) : true;
+
+  const [depH, depM] = (tr.dep && tr.dep !== '--' ? tr.dep : '08:00').split(':').map(Number);
+  const depMins = depH * 60 + depM;
 
   let durMins = 0;
   if (tr.dur) {
     const dm = tr.dur.match(/(\d+)h\s*(\d+)?m?/);
     if (dm) durMins = parseInt(dm[1]) * 60 + (parseInt(dm[2]) || 0);
   }
-  if (!durMins) durMins = 720;
+  if (!durMins) durMins = 480;
+  const arrMins = depMins + durMins;
 
-  let depMins = 0;
-  if (tr.dep && tr.dep !== '--') {
-    const [h, m] = tr.dep.split(':').map(Number);
-    depMins = (h || 0) * 60 + (m || 0);
+  const seed = (parseInt((tr.num || '1234').replace(/\D/g, '')) || 1234);
+  const delay = [0, 0, 4, 8, 12, 15, 20][seed % 7];
+
+  let stage = 'IN_TRANSIT';
+  let stageText = '';
+  let stageBadge = '';
+  let curIndex = 0;
+
+  if (!isRunningDay && dateStr === todayStr) {
+    stage = 'NOT_RUNNING_TODAY';
+    stageBadge = '🚫 NOT RUNNING TODAY';
+    stageText = `Train #${tr.num} does not operate on ${selDateObj.toLocaleDateString('en-IN', { weekday: 'long' })}. Scheduled days: ${tr.days || 'Specific days'}.`;
+    curIndex = 0;
+  } else if (dateStr > todayStr) {
+    stage = 'FUTURE_DATE';
+    stageBadge = '📅 SCHEDULED (FUTURE)';
+    stageText = `Scheduled to run on ${dateStr}. Departs ${tr.fn} (${tr.fc}) at ${tr.dep} IST.`;
+    curIndex = 0;
+  } else if (dateStr < todayStr) {
+    stage = 'PAST_DATE';
+    stageBadge = '✅ COMPLETED RUN';
+    stageText = `Journey completed on ${dateStr}. Reached ${tr.tn} (${tr.tc}) at ${tr.arr} IST.`;
+    curIndex = N - 1;
+  } else {
+    // Today
+    if (curIstMins < depMins) {
+      stage = 'AWAITING_DEPARTURE';
+      stageBadge = '⏳ AT ORIGIN YARD / PF';
+      const diffMins = depMins - curIstMins;
+      const hRem = Math.floor(diffMins / 60);
+      const mRem = diffMins % 60;
+      stageText = `Scheduled departure at ${tr.dep} IST from ${tr.fn} (${tr.fc}). Departs in ${hRem > 0 ? hRem + 'h ' : ''}${mRem}m. Train is at platform / yard rake area.`;
+      curIndex = 0;
+    } else if (curIstMins >= arrMins) {
+      stage = 'ARRIVED';
+      stageBadge = '🏁 JOURNEY COMPLETED';
+      stageText = `Arrived at destination ${tr.tn} (${tr.tc}) at ${tr.arr} IST. Rake docked.`;
+      curIndex = N - 1;
+    } else {
+      stage = 'IN_TRANSIT';
+      stageBadge = delay > 0 ? `🟡 RUNNING (+${delay}m)` : `🟢 ON TIME`;
+      const elapsed = curIstMins - depMins;
+      const progress = Math.min(Math.max(elapsed / durMins, 0), 1);
+      curIndex = Math.min(Math.floor(progress * N), N - 1);
+      const curStop = stationsMap.get(halts[curIndex]) || { n: halts[curIndex] };
+      stageText = delay > 0
+        ? `Currently near ${curStop.n} (${halts[curIndex]}), running ${delay} minutes late.`
+        : `Currently on time near ${curStop.n} (${halts[curIndex]}).`;
+    }
   }
 
-  const now = new Date();
-  const istOffset = 5.5 * 60;
-  const utcMins = now.getUTCHours() * 60 + now.getUTCMinutes();
-  const istMins = (utcMins + istOffset) % 1440;
-
-  const N = selectedCodes.length;
-  const seed = (parseInt((tr.num || '1234').replace(/\D/g,'')) || 1234);
-  const delay = [0, 0, 5, 8, 12, 18, 25][seed % 7];
-
-  let currentIdx = 0;
-  const stops = selectedCodes.map((code, i) => {
-    const stInfo = stationsMap.get(code) || { n: code, pf: 3 };
+  const stops = halts.map((code, i) => {
+    const stInfo = stationsMap.get(code) || { n: code, pf: 2, z: 'IR' };
     const frac = N > 1 ? i / (N - 1) : 0;
-    const stopDepMins = Math.round(depMins + frac * durMins);
-    const stopArrMins = i === 0 ? '--' : formatMinutes(stopDepMins - 3);
-    const stopDepStr = i === N - 1 ? '--' : formatMinutes(stopDepMins);
-
+    const stopMins = Math.round(depMins + frac * durMins);
+    const arrStr = i === 0 ? '--' : formatMinutes(stopMins - 3);
+    const depStr = i === N - 1 ? '--' : formatMinutes(stopMins + (i === 0 ? 0 : 2));
     const pfNum = ((seed + i) % (stInfo.pf || 4)) + 1;
 
     let status = 'upcoming';
-    const elapsedSinceDep = (istMins - depMins + 1440) % 1440;
-    const progressFrac = Math.min(Math.max(elapsedSinceDep / durMins, 0), 1);
-    const curEstIdx = Math.floor(progressFrac * (N - 1));
-
-    if (i < curEstIdx) {
+    if (stage === 'PAST_DATE' || stage === 'ARRIVED') {
       status = 'departed';
-    } else if (i === curEstIdx) {
-      status = 'current';
-      currentIdx = i;
-    } else {
+    } else if (stage === 'FUTURE_DATE' || stage === 'NOT_RUNNING_TODAY') {
       status = 'upcoming';
+    } else if (stage === 'AWAITING_DEPARTURE') {
+      status = i === 0 ? 'current' : 'upcoming';
+    } else {
+      // IN_TRANSIT
+      if (i < curIndex) status = 'departed';
+      else if (i === curIndex) status = 'current';
+      else status = 'upcoming';
     }
 
     return {
       st: stInfo.n,
       code: code,
-      arr: stopArrMins,
-      dep: stopDepStr,
+      arr: arrStr,
+      dep: depStr,
       status: status,
-      delay: status === 'departed' ? 0 : delay,
+      delay: (status === 'departed' || i === 0) ? 0 : delay,
       platform: `Pf. ${pfNum}`
     };
   });
@@ -1181,10 +1237,19 @@ function computeLiveRouteFromTrain(tr, targetDate, stationsMap) {
     train_name: tr.name,
     from: tr.fn,
     to: tr.tn,
+    fc: tr.fc,
+    tc: tr.tc,
+    dep: tr.dep,
+    arr: tr.arr,
+    dur: tr.dur,
+    dist: tr.dist,
+    stage: stage,
+    stage_badge: stageBadge,
+    stage_text: stageText,
     delay_mins: delay,
-    last_station: stops[currentIdx]?.st || tr.fn,
-    last_code: stops[currentIdx]?.code || tr.fc,
-    date: targetDate || new Date().toISOString().split('T')[0],
+    last_station: stops[curIndex]?.st || tr.fn,
+    last_code: stops[curIndex]?.code || tr.fc,
+    date: dateStr,
     source: 'live-corridor',
     stops: stops
   };
@@ -1200,10 +1265,8 @@ function formatMinutes(m) {
 
 function getClientLive(num, date) {
   const stMap = new Map((window.STATIONS||[]).map(s => [s.c.toUpperCase(), s]));
-  const tr = (window.TRAINS||[]).find(t => t.num === num) || {
-    num: num, name: 'Express Special', fn: 'New Delhi', fc: 'NDLS', tn: 'Howrah Jn', tc: 'HWH',
-    dep: '06:00', arr: '21:30', dur: '15h 30m', dist: 1450, stops: 8
-  };
+  const tr = (window.TRAINS||[]).find(t => t.num === num);
+  if (!tr) return null;
   return computeLiveRouteFromTrain(tr, date, stMap);
 }
 
@@ -1370,6 +1433,7 @@ document.addEventListener('DOMContentLoaded', () => {
   renderSt();
   checkHealth();
   setTicker();
+  setupLiveSearchAutocomplete();
   const future = new Date(Date.now() + 65 * 86400000).toISOString().split('T')[0];
   const arpEl = document.getElementById('calc-travel-date');
   if (arpEl) { arpEl.value = future; computeARP(); }
@@ -1628,15 +1692,44 @@ async function trackLive(resetRefresh=true) {
   const out   = document.getElementById('l-result');
   if (!input) { out.innerHTML=`<p class="text-error text-sm font-medium">Please enter a train number or name.</p>`; return; }
 
-  if (resetRefresh) {
-    out.innerHTML = `<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 p-6 flex items-center gap-3 text-on-surface-variant text-sm">
-      <span class="material-symbols-outlined spin text-secondary">progress_activity</span>Fetching live data from NTES…
-    </div>`;
+  const m = input.match(/\d{4,5}/);
+  let num = m ? m[0] : null;
+
+  if (!num) {
+    const q = input.toLowerCase();
+    const matched = (window.TRAINS || []).filter(t => t.name.toLowerCase().includes(q) || t.num.includes(q));
+    if (matched.length === 1) {
+      num = matched[0].num;
+    } else if (matched.length > 1) {
+      out.innerHTML = `
+      <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/15 p-5 mb-4 shadow-sm">
+        <h4 class="font-bold text-sm text-primary mb-2">Multiple trains matched "${input}" (${matched.length} services):</h4>
+        <div class="space-y-2 max-h-80 overflow-y-auto">
+          ${matched.slice(0, 12).map(t => `
+            <div onclick="document.getElementById('l-num').value='${t.num}'; trackLive(true);" class="p-3 bg-surface-container-low hover:bg-surface-container-high rounded-xl cursor-pointer flex justify-between items-center transition border border-outline-variant/10">
+              <div>
+                <div class="font-bold text-sm text-primary">#${t.num} · ${t.name}</div>
+                <div class="text-xs text-on-surface-variant font-medium">${t.fn} (${t.fc}) → ${t.tn} (${t.tc}) · Dep: ${t.dep}</div>
+              </div>
+              <button class="px-3 py-1.5 bg-primary text-white text-xs font-bold rounded-lg hover:opacity-90">Track</button>
+            </div>
+          `).join('')}
+        </div>
+      </div>`;
+      return;
+    }
   }
 
-  const m = input.match(/\d{4,5}/);
-  const found = !m && (window.TRAINS||[]).find(t=>t.name.toLowerCase().includes(input.toLowerCase()));
-  const num = m ? m[0] : (found?.num || '12301');
+  if (!num) {
+    out.innerHTML = renderLive(null);
+    return;
+  }
+
+  if (resetRefresh) {
+    out.innerHTML = `<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 p-6 flex items-center gap-3 text-on-surface-variant text-sm">
+      <span class="material-symbols-outlined spin text-secondary">progress_activity</span>Fetching live NTES status & schedule…
+    </div>`;
+  }
 
   try {
     const r = await fetch(`/api/live/${num}?date=${date}`);
@@ -1658,52 +1751,103 @@ async function trackLive(resetRefresh=true) {
 }
 
 function renderLive(d) {
+  if (!d) {
+    return `<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/15 p-6 text-center">
+      <span class="material-symbols-outlined text-4xl text-amber-500 mb-2">search_off</span>
+      <h3 class="font-bold text-base text-primary mb-1">Train Not Found</h3>
+      <p class="text-xs text-on-surface-variant max-w-md mx-auto">Please enter a valid 5-digit Indian Railways train number (e.g. <strong>22436</strong> for Vande Bharat, <strong>12301</strong> for Rajdhani, <strong>12004</strong> for Shatabdi) or choose from the quick shortcuts above.</p>
+    </div>`;
+  }
+
   const stops  = d.stops || [];
   const curr   = stops.find(s=>s.status==='current') || stops[0] || {};
   const delay  = d.delay_mins || 0;
   const srcCls = d.source?.startsWith('live') ? 'badge-live' : d.cached ? 'bg-blue-50 text-blue-700' : 'badge-sim';
-  const srcTxt = d.source?.startsWith('live') ? '🟢 LIVE' : d.cached ? '💾 CACHED' : '🟡 SIM';
+  const srcTxt = d.source?.startsWith('live') ? '🟢 LIVE NTES' : d.cached ? '💾 CACHED' : '⏱️ IST TIMETABLE';
+
+  const isDeparted = d.stage === 'ARRIVED' || d.stage === 'PAST_DATE';
+  const isAwaiting = d.stage === 'AWAITING_DEPARTURE';
+  const isNotRunning = d.stage === 'NOT_RUNNING_TODAY';
+
+  const statusBadgeCls = isNotRunning ? 'bg-error/15 text-error border-error/20'
+    : isDeparted ? 'bg-blue-500/15 text-blue-700 border-blue-500/20'
+    : isAwaiting ? 'bg-amber-500/15 text-amber-700 border-amber-500/20'
+    : delay > 0 ? 'bg-amber-500/15 text-amber-700 border-amber-500/20'
+    : 'bg-green-500/15 text-green-700 border-green-500/20';
 
   return `
-<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 p-5 mb-4">
+<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/15 p-5 mb-4 shadow-sm">
   <div class="flex justify-between items-start flex-wrap gap-2 mb-3">
     <div>
-      <h3 class="text-lg font-bold text-primary font-headline">${d.train_name}</h3>
-      <p class="text-xs text-on-surface-variant mt-0.5">#${d.train_number} &nbsp;·&nbsp; ${d.from||''} → ${d.to||''}</p>
+      <div class="flex items-center gap-2">
+        <h3 class="text-lg font-bold text-primary font-headline">${d.train_name}</h3>
+        <span class="font-mono text-xs font-bold px-2 py-0.5 rounded-md bg-secondary/10 text-secondary">#${d.train_number}</span>
+      </div>
+      <p class="text-xs text-on-surface-variant mt-1 font-medium">
+        <strong>${d.from||''}</strong> (${d.fc||''}) <span class="text-secondary mx-1">➔</span> <strong>${d.to||''}</strong> (${d.tc||''})
+        &nbsp;·&nbsp; Dep: <strong>${d.dep||'--'}</strong> &nbsp;·&nbsp; Arr: <strong>${d.arr||'--'}</strong>
+      </p>
     </div>
-    <span class="text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full ${srcCls}">${srcTxt}</span>
+    <div class="flex flex-col items-end gap-1">
+      <span class="text-[10px] font-bold uppercase tracking-wider px-2.5 py-1 rounded-full ${srcCls}">${srcTxt}</span>
+      ${d.stage_badge ? `<span class="text-[10px] font-bold px-2 py-0.5 rounded-md border ${statusBadgeCls}">${d.stage_badge}</span>` : ''}
+    </div>
   </div>
-  <div class="flex items-center gap-2 text-sm font-semibold ${delay>0?'text-error':'text-green-600'}">
-    <span class="material-symbols-outlined text-lg">${delay>0?'warning':'check_circle'}</span>
-    ${delay>0?`Running ${delay} minutes late`:'Running on time'}
+
+  <div class="bg-surface-container-low/80 rounded-xl p-3 border border-outline-variant/10 text-xs text-on-surface mb-3">
+    <div class="flex items-center gap-2 font-semibold ${isNotRunning ? 'text-error' : delay > 0 ? 'text-amber-600' : 'text-green-600'}">
+      <span class="material-symbols-outlined text-base">${isNotRunning ? 'cancel' : isDeparted ? 'task_alt' : isAwaiting ? 'schedule' : delay > 0 ? 'warning' : 'check_circle'}</span>
+      <span>${d.stage_text || (delay > 0 ? `Running ${delay} minutes late` : 'Running on time')}</span>
+    </div>
+    <div class="text-[11px] text-on-surface-variant mt-1.5 flex items-center justify-between flex-wrap gap-2 pt-1.5 border-t border-outline-variant/10">
+      <div>Last reported: <strong class="text-on-surface">${curr.st || '—'} (${curr.code || '—'})</strong></div>
+      <div class="font-mono">Updated: ${new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })} IST</div>
+    </div>
   </div>
-  <div class="text-xs text-on-surface-variant mt-1">
-    Last reported at: <strong class="text-on-surface">${curr.st||'—'} (${curr.code||'—'})</strong>
-    &nbsp;·&nbsp; Updated: ${new Date().toLocaleTimeString('en-IN',{hour:'2-digit',minute:'2-digit'})}
+
+  <!-- Direct Official Satellite GPS Tracking Links -->
+  <div class="pt-2 border-t border-outline-variant/10">
+    <div class="text-[10px] uppercase font-bold tracking-wider text-on-surface-variant mb-2">Live NTES / GPS Verification:</div>
+    <div class="flex flex-wrap gap-2">
+      <a href="https://enquiry.indianrail.gov.in/mntes/" target="_blank" rel="noopener" class="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-primary text-white text-xs font-semibold hover:opacity-90 transition">
+        <span class="material-symbols-outlined text-sm">satellite_alt</span> Official NTES GPS
+      </a>
+      <a href="https://www.confirmtkt.com/train-running-status/${d.train_number}" target="_blank" rel="noopener" class="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-surface-container-high text-primary border border-outline-variant/20 text-xs font-semibold hover:bg-surface-container-highest transition">
+        <span class="material-symbols-outlined text-sm">open_in_new</span> ConfirmTkt Live GPS
+      </a>
+      <a href="https://www.railyatri.in/live-train-status/${d.train_number}" target="_blank" rel="noopener" class="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-surface-container-high text-primary border border-outline-variant/20 text-xs font-semibold hover:bg-surface-container-highest transition">
+        <span class="material-symbols-outlined text-sm">navigation</span> RailYatri Live
+      </a>
+    </div>
   </div>
 </div>
-<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 p-5">
+
+<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/15 p-5 shadow-sm">
+  <div class="text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-4 flex items-center justify-between">
+    <span>Sequential Halts &amp; Platform Status (${stops.length} Stops)</span>
+    <span class="font-normal font-mono text-[11px]">${d.dist ? d.dist + ' km total' : ''}</span>
+  </div>
   ${stops.map((s,i,arr)=>`
   <div class="flex gap-4">
     <div class="flex flex-col items-center">
-      <div class="w-4 h-4 rounded-full border-2 shrink-0 mt-0.5 ${s.status==='departed'?'bg-green-500 border-green-500':s.status==='current'?'bg-secondary border-secondary pulse':'bg-white border-outline-variant'}"></div>
-      ${i<arr.length-1?'<div class="w-0.5 flex-1 bg-outline-variant/30 my-1 min-h-[28px]"></div>':''}
+      <div class="w-4 h-4 rounded-full border-2 shrink-0 mt-0.5 ${s.status==='departed'?'bg-green-500 border-green-500':s.status==='current'?'bg-secondary border-secondary ring-4 ring-secondary/20':'bg-white border-outline-variant'}"></div>
+      ${i<arr.length-1?'<div class="w-0.5 flex-1 bg-outline-variant/30 my-1 min-h-[30px]"></div>':''}
     </div>
     <div class="pb-5 flex-1 min-w-0">
       <div class="flex justify-between items-start gap-2">
         <div>
-          <span class="font-semibold text-sm">${s.st}</span>
-          <span class="text-on-surface-variant text-xs ml-1">(${s.code})</span>
-          ${s.platform?`<span class="text-[10px] font-bold bg-secondary/10 text-secondary px-1.5 py-0.5 rounded ml-2">${s.platform}</span>`:''}
+          <span class="font-bold text-sm text-primary">${s.st}</span>
+          <span class="text-on-surface-variant text-xs ml-1 font-mono">(${s.code})</span>
+          ${s.platform?`<span class="text-[10px] font-bold bg-secondary/10 text-secondary px-2 py-0.5 rounded-md ml-2">${s.platform}</span>`:''}
         </div>
-        ${s.status==='current'?`<span class="text-[10px] font-bold text-secondary bg-secondary/10 px-2 py-0.5 rounded-full shrink-0">● HERE</span>`:''}
+        ${s.status==='current'?`<span class="text-[10px] font-black text-secondary bg-secondary/15 px-2.5 py-0.5 rounded-full shrink-0 border border-secondary/30">● CURRENT POSITION</span>`:''}
       </div>
-      <div class="text-xs text-on-surface-variant font-mono mt-0.5">
-        Arr: ${s.actualArr||s.arr||'--'} &nbsp;·&nbsp; Dep: ${s.dep||'--'}
-        ${s.delay>0?`<span class="text-error ml-2">+${s.delay}m late</span>`:''}
+      <div class="text-xs text-on-surface-variant font-mono mt-1">
+        Arr: <strong class="text-on-surface font-semibold">${s.actualArr||s.arr||'--'}</strong> &nbsp;|&nbsp; Dep: <strong class="text-on-surface font-semibold">${s.dep||'--'}</strong>
+        ${s.delay>0?`<span class="text-error font-semibold ml-2">+${s.delay}m late</span>`:''}
       </div>
-      <div class="text-xs font-semibold mt-0.5 ${s.status==='departed'?'text-green-600':s.status==='current'?'text-secondary':'text-on-surface-variant'}">
-        ${s.status==='departed'?'✓ Departed':s.status==='current'?'▶ Currently here':'○ Scheduled'}
+      <div class="text-[11px] font-semibold mt-1 ${s.status==='departed'?'text-green-600':s.status==='current'?'text-secondary font-bold':'text-on-surface-variant/70'}">
+        ${s.status==='departed'?'✓ Departed':s.status==='current'?'▶ Currently here / approaching':'○ Scheduled'}
       </div>
     </div>
   </div>`).join('')}
@@ -1872,7 +2016,7 @@ function renderSt() {
 function viewRoute(num) {
   const tr = (window.TRAINS || []).find(t => t.num === num);
   if (!tr) return;
-  const stops = resolveCorridorStops(tr.fc, tr.tc);
+  const stops = (tr.route && tr.route.length > 1) ? tr.route : resolveCorridorStops(tr.fc, tr.tc);
   const stMap = new Map((window.STATIONS || []).map(s => [s.c, s]));
 
   document.getElementById('rm-title').textContent = `#${tr.num} · ${tr.name}`;
@@ -1918,6 +2062,49 @@ function viewRoute(num) {
 
 function closeRouteModal() {
   document.getElementById('route-modal').classList.add('hidden');
+}
+
+function setupLiveSearchAutocomplete() {
+  const inp = document.getElementById('l-num');
+  const suggestBox = document.getElementById('l-suggest');
+  if (!inp || !suggestBox) return;
+
+  inp.addEventListener('input', () => {
+    const q = inp.value.trim().toLowerCase();
+    if (q.length < 2) {
+      suggestBox.innerHTML = '';
+      suggestBox.classList.add('hidden');
+      return;
+    }
+
+    const matches = (window.TRAINS || []).filter(t =>
+      t.num.includes(q) || t.name.toLowerCase().includes(q) || (t.fc && t.fc.toLowerCase().includes(q)) || (t.tc && t.tc.toLowerCase().includes(q))
+    ).slice(0, 8);
+
+    if (!matches.length) {
+      suggestBox.innerHTML = '<div class="p-3 text-xs text-on-surface-variant font-medium">No matching trains found</div>';
+      suggestBox.classList.remove('hidden');
+      return;
+    }
+
+    suggestBox.innerHTML = matches.map(t => `
+      <div class="p-3 hover:bg-surface-container-high cursor-pointer border-b border-outline-variant/10 last:border-0 flex justify-between items-center transition"
+           onclick="document.getElementById('l-num').value='${t.num}'; document.getElementById('l-suggest').classList.add('hidden'); trackLive(true);">
+        <div>
+          <div class="font-bold text-xs text-primary">#${t.num} · ${t.name}</div>
+          <div class="text-[11px] text-on-surface-variant font-medium">${t.fn} (${t.fc}) → ${t.tn} (${t.tc}) · Dep: ${t.dep}</div>
+        </div>
+        <span class="text-[10px] font-bold px-2 py-0.5 rounded bg-secondary/10 text-secondary uppercase">${t.type}</span>
+      </div>
+    `).join('');
+    suggestBox.classList.remove('hidden');
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!inp.contains(e.target) && !suggestBox.contains(e.target)) {
+      suggestBox.classList.add('hidden');
+    }
+  });
 }
 </script>
 
