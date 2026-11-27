@@ -131,27 +131,35 @@ h1,h2,h3,h4{font-family:'Manrope',sans-serif}
     <!-- TRAIN SEARCH -->
     <div id="hs-trains" class="h-pane">
       <div class="grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
-        <div class="md:col-span-4">
+        <div class="md:col-span-4 relative">
           <label class="block text-xs font-bold text-on-surface-variant uppercase tracking-wide mb-1">From Station</label>
-          <input id="hf-from" list="dl-all" placeholder="New Delhi (NDLS)" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-secondary focus:border-secondary"/>
+          <input id="hf-from" autocomplete="off" placeholder="e.g. NDLS, New Delhi, HJP, Patna" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-secondary focus:border-secondary"/>
+          <div id="hf-from-suggest" class="absolute left-0 right-0 top-full mt-1 bg-surface-container-lowest rounded-xl shadow-2xl border border-outline-variant/20 max-h-64 overflow-y-auto z-50 hidden"></div>
         </div>
         <div class="md:col-span-1 flex justify-center items-end pb-1">
-          <button onclick="swapI('hf-from','hf-to')" class="w-10 h-10 rounded-full bg-secondary/10 text-secondary hover:bg-secondary hover:text-white transition-all flex items-center justify-center">
+          <button onclick="swapI('hf-from','hf-to')" class="w-10 h-10 rounded-full bg-secondary/10 text-secondary hover:bg-secondary hover:text-white transition-all flex items-center justify-center" title="Swap stations">
             <span class="material-symbols-outlined text-lg">swap_horiz</span>
           </button>
         </div>
-        <div class="md:col-span-4">
+        <div class="md:col-span-4 relative">
           <label class="block text-xs font-bold text-on-surface-variant uppercase tracking-wide mb-1">To Station</label>
-          <input id="hf-to" list="dl-all" placeholder="Mumbai Central (BCT)" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-secondary focus:border-secondary"/>
+          <input id="hf-to" autocomplete="off" placeholder="e.g. HWH, Mumbai, RXL, BSB" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-secondary focus:border-secondary"/>
+          <div id="hf-to-suggest" class="absolute left-0 right-0 top-full mt-1 bg-surface-container-lowest rounded-xl shadow-2xl border border-outline-variant/20 max-h-64 overflow-y-auto z-50 hidden"></div>
         </div>
         <div class="md:col-span-3">
           <label class="block text-xs font-bold text-on-surface-variant uppercase tracking-wide mb-1">Date of Journey</label>
           <input id="hf-date" type="date" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-secondary focus:border-secondary"/>
         </div>
       </div>
-      <button onclick="goSearch()" class="mt-4 px-8 py-3 bg-primary text-white rounded-xl font-bold font-headline tracking-tight shadow-lg shadow-primary/10 hover:opacity-90 active:scale-95 transition-all flex items-center gap-2">
-        <span class="material-symbols-outlined text-lg">search</span> Search Trains
-      </button>
+      <div class="mt-4 flex flex-wrap items-center gap-4">
+        <button onclick="goSearch()" class="px-8 py-3 bg-primary text-white rounded-xl font-bold font-headline tracking-tight shadow-lg shadow-primary/10 hover:opacity-90 active:scale-95 transition-all flex items-center gap-2">
+          <span class="material-symbols-outlined text-lg">search</span> Search Trains
+        </button>
+        <label class="inline-flex items-center gap-2 text-xs font-semibold text-on-surface-variant cursor-pointer select-none">
+          <input id="hf-city-match" type="checkbox" checked class="rounded border-outline-variant text-secondary focus:ring-secondary"/>
+          Include all city terminals (e.g. NDLS/NZM/ANVT for Delhi)
+        </label>
+      </div>
     </div>
 
     <!-- LIVE STATUS -->
@@ -256,19 +264,39 @@ h1,h2,h3,h4{font-family:'Manrope',sans-serif}
   </div>
 
   <!-- Filter bar -->
-  <div id="tr-filter" class="hidden bg-surface-container-lowest rounded-2xl border border-outline-variant/10 p-5 mb-6 grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
-    <div class="md:col-span-3"><label class="block text-xs font-bold text-on-surface-variant uppercase mb-1">From</label><input id="t-from" list="dl-all" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-3 py-2.5 text-sm"/></div>
-    <div class="md:col-span-1 flex justify-center"><button onclick="swapI('t-from','t-to')" class="w-9 h-9 rounded-full bg-secondary/10 text-secondary hover:bg-secondary hover:text-white flex items-center justify-center transition-all self-end"><span class="material-symbols-outlined text-base">swap_horiz</span></button></div>
-    <div class="md:col-span-3"><label class="block text-xs font-bold text-on-surface-variant uppercase mb-1">To</label><input id="t-to" list="dl-all" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-3 py-2.5 text-sm"/></div>
-    <div class="md:col-span-2"><label class="block text-xs font-bold text-on-surface-variant uppercase mb-1">Date</label><input id="t-date" type="date" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-3 py-2.5 text-sm"/></div>
+  <div id="tr-filter" class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 p-5 mb-6 grid grid-cols-1 md:grid-cols-12 gap-3 items-end">
+    <div class="md:col-span-3 relative">
+      <label class="block text-xs font-bold text-on-surface-variant uppercase mb-1">From Station / Query</label>
+      <input id="t-from" autocomplete="off" placeholder="Code or City (e.g. NDLS, Patna)" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-3 py-2.5 text-sm"/>
+      <div id="t-from-suggest" class="absolute left-0 right-0 top-full mt-1 bg-surface-container-lowest rounded-xl shadow-2xl border border-outline-variant/20 max-h-64 overflow-y-auto z-50 hidden"></div>
+    </div>
+    <div class="md:col-span-1 flex justify-center"><button onclick="swapI('t-from','t-to')" class="w-9 h-9 rounded-full bg-secondary/10 text-secondary hover:bg-secondary hover:text-white flex items-center justify-center transition-all self-end" title="Swap"><span class="material-symbols-outlined text-base">swap_horiz</span></button></div>
+    <div class="md:col-span-3 relative">
+      <label class="block text-xs font-bold text-on-surface-variant uppercase mb-1">To Station</label>
+      <input id="t-to" autocomplete="off" placeholder="Code or City (e.g. HWH, RXL)" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-3 py-2.5 text-sm"/>
+      <div id="t-to-suggest" class="absolute left-0 right-0 top-full mt-1 bg-surface-container-lowest rounded-xl shadow-2xl border border-outline-variant/20 max-h-64 overflow-y-auto z-50 hidden"></div>
+    </div>
+    <div class="md:col-span-2"><label class="block text-xs font-bold text-on-surface-variant uppercase mb-1">Date</label><input id="t-date" type="date" onchange="runSearch()" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-3 py-2.5 text-sm"/></div>
     <div class="md:col-span-2"><label class="block text-xs font-bold text-on-surface-variant uppercase mb-1">Type</label>
-      <select id="t-type" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-3 py-2.5 text-sm">
-        <option value="">All Types</option><option value="RAJ">Rajdhani</option><option value="SHT">Shatabdi</option>
-        <option value="VB">Vande Bharat</option><option value="SF">Superfast</option><option value="MAIL">Mail</option>
-        <option value="DUR">Duronto</option><option value="TEJ">Tejas</option><option value="EXP">Express</option>
+      <select id="t-type" onchange="runSearch()" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-3 py-2.5 text-sm">
+        <option value="">All Types</option><option value="VB">Vande Bharat</option><option value="VB_SL">VB Sleeper</option>
+        <option value="AMRIT">Amrit Bharat</option><option value="RAJ">Rajdhani</option><option value="SHT">Shatabdi</option>
+        <option value="JSHTB">Jan Shatabdi</option><option value="TEJ">Tejas</option><option value="DUR">Duronto</option>
+        <option value="GR">Garib Rath</option><option value="SF">Superfast</option><option value="MAIL">Mail</option>
+        <option value="EXP">Express / Intercity</option><option value="PASS">Passenger / MEMU</option>
       </select>
     </div>
-    <div class="md:col-span-1"><button onclick="runSearch()" class="w-full py-2.5 bg-primary text-white rounded-xl font-bold text-sm">Search</button></div>
+    <div class="md:col-span-1"><button onclick="runSearch()" class="w-full py-2.5 bg-primary text-white rounded-xl font-bold text-sm hover:opacity-90">Search</button></div>
+    <div class="md:col-span-12 flex flex-wrap items-center gap-5 pt-2 border-t border-outline-variant/10 text-xs text-on-surface-variant">
+      <label class="inline-flex items-center gap-2 font-semibold cursor-pointer select-none">
+        <input id="t-day-only" type="checkbox" onchange="runSearch()" class="rounded border-outline-variant text-secondary focus:ring-secondary"/>
+        Only trains running on selected date
+      </label>
+      <label class="inline-flex items-center gap-2 font-semibold cursor-pointer select-none">
+        <input id="t-city-match" type="checkbox" checked onchange="runSearch()" class="rounded border-outline-variant text-secondary focus:ring-secondary"/>
+        Include nearby city terminals
+      </label>
+    </div>
   </div>
 
   <!-- Type chips -->
@@ -303,10 +331,11 @@ h1,h2,h3,h4{font-family:'Manrope',sans-serif}
   <div class="max-w-2xl flex items-center gap-2 flex-wrap text-xs text-on-surface-variant mb-6">
     <span class="font-semibold text-primary">Quick:</span>
     <button onclick="document.getElementById('l-num').value='22436'; trackLive(true);" class="px-2.5 py-1 rounded-lg bg-surface-container-low hover:bg-surface-container-high border border-outline-variant/15 font-medium transition">22436 Vande Bharat</button>
+    <button onclick="document.getElementById('l-num').value='27575'; trackLive(true);" class="px-2.5 py-1 rounded-lg bg-surface-container-low hover:bg-surface-container-high border border-outline-variant/15 font-medium transition">27575 VB Sleeper</button>
     <button onclick="document.getElementById('l-num').value='12301'; trackLive(true);" class="px-2.5 py-1 rounded-lg bg-surface-container-low hover:bg-surface-container-high border border-outline-variant/15 font-medium transition">12301 Rajdhani</button>
-    <button onclick="document.getElementById('l-num').value='12004'; trackLive(true);" class="px-2.5 py-1 rounded-lg bg-surface-container-low hover:bg-surface-container-high border border-outline-variant/15 font-medium transition">12004 Shatabdi</button>
-    <button onclick="document.getElementById('l-num').value='15557'; trackLive(true);" class="px-2.5 py-1 rounded-lg bg-surface-container-low hover:bg-surface-container-high border border-outline-variant/15 font-medium transition">15557 Amrit Bharat</button>
     <button onclick="document.getElementById('l-num').value='12951'; trackLive(true);" class="px-2.5 py-1 rounded-lg bg-surface-container-low hover:bg-surface-container-high border border-outline-variant/15 font-medium transition">12951 Mumbai Rajdhani</button>
+    <button onclick="document.getElementById('l-num').value='15557'; trackLive(true);" class="px-2.5 py-1 rounded-lg bg-surface-container-low hover:bg-surface-container-high border border-outline-variant/15 font-medium transition">15557 Amrit Bharat</button>
+    <button onclick="document.getElementById('l-num').value='15201'; trackLive(true);" class="px-2.5 py-1 rounded-lg bg-surface-container-low hover:bg-surface-container-high border border-outline-variant/15 font-medium transition">15201 Hajipur–Raxaul</button>
   </div>
   <!-- Auto-refresh control -->
   <div id="l-refresh-bar" class="hidden max-w-2xl flex items-center gap-3 mb-4 text-xs text-on-surface-variant">
@@ -345,15 +374,24 @@ h1,h2,h3,h4{font-family:'Manrope',sans-serif}
   </div>
   <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 p-6 max-w-3xl mb-6">
     <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-      <div><label class="block text-xs font-bold text-on-surface-variant uppercase mb-1">From Station</label><input id="f-from" list="dl-all" placeholder="New Delhi (NDLS)" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-secondary focus:border-secondary"/></div>
-      <div><label class="block text-xs font-bold text-on-surface-variant uppercase mb-1">To Station</label><input id="f-to" list="dl-all" placeholder="Mumbai Central (BCT)" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-secondary focus:border-secondary"/></div>
+      <div class="relative">
+        <label class="block text-xs font-bold text-on-surface-variant uppercase mb-1">From Station</label>
+        <input id="f-from" autocomplete="off" placeholder="New Delhi (NDLS)" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-secondary focus:border-secondary"/>
+        <div id="f-from-suggest" class="absolute left-0 right-0 top-full mt-1 bg-surface-container-lowest rounded-xl shadow-2xl border border-outline-variant/20 max-h-60 overflow-y-auto z-50 hidden"></div>
+      </div>
+      <div class="relative">
+        <label class="block text-xs font-bold text-on-surface-variant uppercase mb-1">To Station</label>
+        <input id="f-to" autocomplete="off" placeholder="Mumbai Central (MMCT)" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-secondary focus:border-secondary"/>
+        <div id="f-to-suggest" class="absolute left-0 right-0 top-full mt-1 bg-surface-container-lowest rounded-xl shadow-2xl border border-outline-variant/20 max-h-60 overflow-y-auto z-50 hidden"></div>
+      </div>
     </div>
     <div class="grid grid-cols-1 md:grid-cols-12 gap-4 items-end">
       <div class="md:col-span-4"><label class="block text-xs font-bold text-on-surface-variant uppercase mb-1">Train Type</label>
         <select id="f-type" class="w-full rounded-xl border-outline-variant bg-surface-container-low px-4 py-3 text-sm font-medium focus:ring-2 focus:ring-secondary focus:border-secondary">
           <option value="SF">Superfast Express</option><option value="MAIL">Mail / Express</option>
           <option value="RAJ">Rajdhani Express</option><option value="SHT">Shatabdi Express</option>
-          <option value="VB">Vande Bharat Express</option><option value="TEJ">Tejas Express</option>
+          <option value="VB">Vande Bharat (Chair Car)</option><option value="VB_SL">Vande Bharat (Sleeper)</option>
+          <option value="AMRIT">Amrit Bharat Express</option><option value="TEJ">Tejas Express</option>
           <option value="DUR">Duronto Express</option><option value="ICE">Intercity Express</option>
           <option value="PASS">Passenger Train</option>
         </select></div>
@@ -388,8 +426,8 @@ h1,h2,h3,h4{font-family:'Manrope',sans-serif}
 <section id="view-stations" class="view fade-up">
   <div class="mb-8">
     <span class="px-3 py-1 bg-secondary-fixed text-on-secondary-fixed rounded-full text-xs font-bold uppercase tracking-widest">🏛️ Stations</span>
-    <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-primary mt-3">Railway Stations</h1>
-    <p class="text-on-surface-variant mt-1 text-sm">All major stations across 16 zones — filter by zone, state &amp; category</p>
+    <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-primary mt-3">Indian Railway Stations</h1>
+    <p class="text-on-surface-variant mt-1 text-sm">Complete directory of 9,250+ stations across all 18 zones + Konkan Railway — search by name, code, state or traffic hub</p>
   </div>
   <div class="flex flex-wrap gap-3 mb-5">
     <input id="st-q" oninput="renderSt()" placeholder="🔍 Search station name or code…" class="flex-1 min-w-[200px] rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-2.5 text-sm font-medium"/>
@@ -397,13 +435,12 @@ h1,h2,h3,h4{font-family:'Manrope',sans-serif}
       <option value="">All Zones</option>
       <option>NR</option><option>NCR</option><option>NER</option><option>NFR</option><option>NWR</option>
       <option>ER</option><option>ECR</option><option>CR</option><option>WR</option><option>SCR</option>
-      <option>SR</option><option>SWR</option><option>SER</option><option>ECoR</option><option>WCR</option><option>SECR</option>
+      <option>SR</option><option>SWR</option><option>SER</option><option>ECoR</option><option>WCR</option><option>SECR</option><option>KR</option><option>MTP</option>
     </select>
     <select id="st-state" onchange="renderSt()" class="rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-2.5 text-sm font-medium"><option value="">All States</option></select>
     <select id="st-cat" onchange="renderSt()" class="rounded-xl border border-outline-variant bg-surface-container-lowest px-4 py-2.5 text-sm font-medium">
-      <option value="">All Categories</option><option value="A1">A1 — Major Terminal</option>
-      <option value="A">A — Large Junction</option><option value="B">B — Major Station</option>
-      <option value="C">C — Junction</option><option value="D">D — Small Station</option>
+      <option value="">All Station Tiers</option><option value="major">Major Junctions (50+ trains)</option>
+      <option value="busy">Busy Hubs (15–49 trains)</option><option value="regional">Regional / Halts</option>
     </select>
   </div>
   <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 overflow-hidden">
@@ -899,399 +936,587 @@ h1,h2,h3,h4{font-family:'Manrope',sans-serif}
   </button>
 </div>
 
-<datalist id="dl-all"></datalist>
-
 <!-- ══════════════════════ SCRIPTS ══════════════════════ -->
 <script src="js/data.js"></script>
 <script src="js/fare.js"></script>
 <script>
 
+/* ══════════════════════════════════════════════════════
+   GLOBAL INDEXES & SHARDED IRCTC SCHEDULE LOADER
+   7,429 Authentic Trains · 9,251 Real Stations
+   ══════════════════════════════════════════════════════ */
+window.ST_MAP = new Map();
+window.TRAIN_MAP = new Map();
+window.ST_TRAIN_COUNT = new Map();
+window.SCHED_CACHE = new Map();
+const SCHED_INFLIGHT = new Map();
 
+function hydrateIndexes() {
+  (window.STATIONS || []).forEach(s => {
+    if (s && s.c) window.ST_MAP.set(s.c.toUpperCase(), s);
+  });
+  (window.TRAINS || []).forEach(t => {
+    t.fn = t.fn || window.ST_MAP.get(t.fc)?.n || t.fc;
+    t.tn = t.tn || window.ST_MAP.get(t.tc)?.n || t.tc;
+    window.TRAIN_MAP.set(t.num, t);
+    const stops = t._routeArr || (t._routeArr = (t.route || '').split(',').filter(Boolean));
+    stops.forEach(c => {
+      window.ST_TRAIN_COUNT.set(c, (window.ST_TRAIN_COUNT.get(c) || 0) + 1);
+    });
+  });
+}
+
+async function fetchShard(shardIdx) {
+  if (window.SCHED_CACHE.has(shardIdx)) return window.SCHED_CACHE.get(shardIdx);
+  if (SCHED_INFLIGHT.has(shardIdx)) return SCHED_INFLIGHT.get(shardIdx);
+  const p = fetch(`js/sched/${shardIdx}.json`)
+    .then(r => { if (!r.ok) throw new Error('Shard HTTP ' + r.status); return r.json(); })
+    .then(data => {
+      window.SCHED_CACHE.set(shardIdx, data);
+      SCHED_INFLIGHT.delete(shardIdx);
+      return data;
+    })
+    .catch(err => {
+      SCHED_INFLIGHT.delete(shardIdx);
+      console.warn('Schedule shard load failed:', shardIdx, err.message);
+      return {};
+    });
+  SCHED_INFLIGHT.set(shardIdx, p);
+  return p;
+}
+
+async function getTrainStops(num) {
+  const shardIdx = (parseInt(String(num).replace(/\D/g, ''), 10) || 0) % 10;
+  const shard = await fetchShard(shardIdx);
+  if (shard && shard[num]) return shard[num];
+  try {
+    const r = await fetch(`/api/schedule/${encodeURIComponent(num)}`);
+    if (r.ok) {
+      const d = await r.json();
+      if (d.stopsList) {
+        return d.stopsList.map(s => [s.code, s.arr, s.dep, s.dist, s.day]);
+      }
+    }
+  } catch (_) {}
+  const tr = window.TRAIN_MAP.get(num);
+  if (tr && tr._routeArr?.length) {
+    return tr._routeArr.map((c, i, arr) => [
+      c,
+      i === 0 ? '--' : i === arr.length - 1 ? tr.arr : '--',
+      i === 0 ? tr.dep : i === arr.length - 1 ? '--' : '--',
+      Math.round((i / (arr.length - 1 || 1)) * (tr.dist || 0)),
+      1
+    ]);
+  }
+  return null;
+}
+
+async function preloadShardsForTrains(trains) {
+  const idxs = new Set();
+  trains.forEach(t => idxs.add((parseInt(String(t.num).replace(/\D/g, ''), 10) || 0) % 10));
+  await Promise.all([...idxs].map(i => fetchShard(i)));
+}
 
 /* ══════════════════════════════════════════════════════
-   CORRIDOR LIVE RUNNING & ROUTE ENGINE
-   Authentic Indian Railways stations, schedules & live status
+   IST TIME & DATE HELPERS
    ══════════════════════════════════════════════════════ */
-const CORRIDORS = [
-  // 1. Delhi - Kanpur - Prayagraj - Gaya - Dhanbad - Asansol - Howrah (Grand Chord)
-  ['NDLS','DLI','ANVT','NZM','GZB','ALJN','TDL','ETW','CNB','FTP','PRYJ','MZP','DDU','BBU','SSM','DOS','GYA','KQR','PNME','GMO','DHN','CRJ','ASN','RNG','DGR','BWN','SRC','HWH','SDAH','KOAA','SHM'],
-  // 2. Delhi - Kanpur - Prayagraj - DDU - Patna - Jasidih - Howrah (Main Line)
-  ['NDLS','DLI','ANVT','NZM','GZB','ALJN','TDL','ETW','CNB','FTP','PRYJ','MZP','BSB','DDU','BXR','ARA','DNR','PNBE','RJPB','BKP','MKA','KIUL','JAJ','JSME','MDP','CRJ','ASN','RNG','DGR','BWN','SRC','HWH','SDAH'],
-  // 3. Delhi - Mathura - Kota - Ratlam - Vadodara - Surat - Mumbai Central (WR Trunk)
-  ['NDLS','NZM','DEE','DEC','FDB','MTJ','BTE','BXN','HAN','GGC','SWM','KOTA','RMA','BWM','SGZ','NAD','RTM','DHD','GDA','BRC','BH','AKV','ST','NVS','BL','VAPI','PLG','BVI','ADH','BDTS','DDR','MMCT','BCT'],
-  // 4. Delhi - Agra - Gwalior - Jhansi - Bhopal - Itarsi - Khandwa - Bhusawal - Manmad - Nashik - Kalyan - Mumbai CSMT (CR Trunk)
-  ['NDLS','NZM','FDB','MTJ','AGC','DHO','MRA','GWL','DBA','DAA','VGLJ','LAR','BINA','BHS','BPL','RKMP','NDPM','ET','KNW','BAU','BSL','JL','CSN','MMR','NK','IGP','KYN','TNA','CLA','LTT','DR','CSMT'],
-  // 5. Delhi - Agra - Jhansi - Bhopal - Nagpur - Kazipet - Vijayawada - Chennai Central (Grand Trunk)
-  ['NDLS','NZM','MTJ','AGC','GWL','VGLJ','BINA','BPL','RKMP','ET','NGP','SEGM','WR','CD','BPQ','SKZR','MCI','RDM','KZJ','WL','MABD','KMT','BZA','TEL','CLX','OGL','SKM','KVZ','NLR','GDR','SPE','AJJ','PER','MAS','MS','TBM'],
-  // 6. Delhi - Ambala - Ludhiana - Jalandhar - Amritsar / Jammu / Katra
-  ['NDLS','DLI','SZM','SNP','PNP','KUN','KKDE','UMB','RPJ','SIR','KNN','LDH','PGW','JUC','JRC','BEAS','ASR','PTKC','PTK','KTHU','SMBX','JAT','MCTM','UHP','SVDK'],
-  // 7. Delhi - Moradabad - Bareilly - Lucknow - Gorakhpur - Chhapra - Muzaffarpur - Katihar - NJP - Guwahati - Dibrugarh
-  ['NDLS','ANVT','DLI','GZB','MB','RMU','BE','SPN','HRI','LKO','LJN','BBK','GD','BST','KLD','GKP','DEOS','BTT','SV','CPR','SEE','HJP','MFP','SPJ','BJU','BGS','KGG','MNE','THB','NNA','KIR','BOE','KNE','NJP','SGUJ','FLK','NCB','NOQ','APDJ','KOJ','NBQ','BPRD','RNY','KYQ','GHY','JID','CPK','HJI','LMG','DPU','DMV','FKG','MXN','JTTN','SLGR','SRTN','NTSK','TSK','DBRG'],
-  // 8. Mumbai - Bhusawal - Akola - Badnera - Nagpur - Durg - Raipur - Bilaspur - Rourkela - Tatanagar - Kharagpur - Howrah
-  ['CSMT','DR','LTT','TNA','KYN','IGP','NK','MMR','CSN','JL','BSL','MKU','SEG','AK','BD','AMI','WR','SEGM','AJNI','NGP','G','RJN','DURG','BPHB','R','BYT','BSP','CPH','RIG','JSG','ROU','CKP','TATA','GTS','KGP','SRC','HWH'],
-  // 9. Howrah - Kharagpur - Balasore - Cuttack - Bhubaneswar - Puri - Berhampur - Vizag - Vijayawada - Chennai
-  ['HWH','SRC','SHM','KGP','BLS','BHC','JJKR','CTC','BBS','KUR','PURI','BAM','PSA','CHE','VZM','SCM','VSKP','DVD','AKP','ANV','SLO','CCT','RJY','NDD','TDD','EE','BZA','GNT','TEL','CLX','OGL','SKM','KVZ','NLR','GDR','MAS','MS'],
-  // 10. Chennai - Bangalore - Mysuru
-  ['MAS','MS','AJJ','KPD','AB','VN','JTJ','TPT','BWT','WFD','KJM','BNC','SBC','YPR','SMVB','MYA','MYS'],
-  // 11. Mumbai - Pune - Solapur - Kalaburagi - Wadi - Guntakal - Renigunta - Chennai
-  ['CSMT','DR','LTT','TNA','KYN','LNL','PUNE','DD','KWV','SUR','KLBG','WADI','YG','RC','MALM','AD','GTL','GY','TU','YA','HX','RU','AJJ','PER','MAS','MS'],
-  // 12. Mumbai - Roha - Ratnagiri - Madgaon (Goa) - Mangaluru - Kannur - Kozhikode - Shoranur - Ernakulam - Trivandrum (Konkan Railway)
-  ['CSMT','DR','LTT','TNA','PNVL','ROHA','MNI','KHED','CHI','SGR','RN','VBW','KKW','KUDL','SWV','THVM','KRMI','MAO','CNO','KAWR','KT','MRDW','BTJL','BYNR','KUDA','UD','MULK','SL','MAJN','MAQ','KGQ','PAY','CAN','TLY','BDJ','CLT','PGI','TIR','KTU','SRR','OTP','PGT','TCR','IJK','AWY','ERN','ERS','TRTR','SRTL','ALLP','AMPA','HAD','KYJ','MVLK','CNGR','TRVL','CGY','KTYM','QLN','PVU','VAK','TVP','TVC'],
-  // 13. Delhi - Rewari - Alwar - Jaipur - Ajmer - Abu Road - Palanpur - Ahmedabad
-  ['NDLS','DLI','DEE','DEC','GGN','RE','AWR','BKI','DO','GADJ','JP','FL','KSG','AII','BER','MJ','FA','RANI','SOH','PDWA','ABR','PNU','SID','UJA','MSH','SBIB','ADI'],
-  // 14. Delhi - Lucknow - Ayodhya - Varanasi - Pt Deen Dayal Upadhyaya
-  ['NDLS','ANVT','DLI','GZB','MB','BE','LKO','AYC','AY','SHG','JNU','BSB','DDU'],
-  // 15. Delhi - Gwalior - Jhansi - Bhopal - Itarsi - Nagpur - Balharshah - Secunderabad / Bengaluru
-  ['NDLS','NZM','FDB','MTJ','AGC','GWL','VGLJ','BINA','BPL','RKMP','ET','NGP','SEGM','CD','BPQ','SKZR','RDM','KZJ','SC','HYB','KRNT','DHNE','GTL','DMM','HUP','YNK','YPR','SBC'],
-  // 16. Delhi - Kerala (Trivandrum) via Grand Trunk & Erode / Coimbatore
-  ['NDLS','NZM','MTJ','AGC','GWL','VGLJ','BINA','BPL','RKMP','ET','NGP','SEGM','WR','CD','BPQ','SKZR','RDM','KZJ','WL','KMT','BZA','OGL','NLR','GDR','RU','KPD','JTJ','SA','ED','TUP','CBE','PGT','OTP','SRR','TCR','AWY','ERN','ERS','KTYM','CGY','TRVL','CNGR','MVLK','KYJ','QLN','VAK','KCVL','TVC'],
-  // 17. Darbhanga - Muzaffarpur - Gorakhpur - Lucknow - Kanpur - Delhi (Amrit Bharat corridor)
-  ['DBG','SPJ','MFP','BMKI','SGL','BTH','NKE','BUG','CPJ','GKP','BST','GD','BBK','LKO','CNB','ETW','ALJN','GZB','ANVT']
-];
+function getIstNow() {
+  const istMs = Date.now() + 5.5 * 3600000;
+  const d = new Date(istMs);
+  return {
+    istMs,
+    dateStr: d.toISOString().split('T')[0],
+    hours: d.getUTCHours(),
+    mins: d.getUTCMinutes()
+  };
+}
 
-const CODE_ALIASES = {
-  'BCT': 'MMCT', 'MMCT': 'BCT', 'CSMT': 'CSTM', 'CSTM': 'CSMT', 'BDTS': 'BCT', 'LTT': 'CSMT',
-  'SBC': 'YPR', 'YPR': 'SBC', 'SMVB': 'SBC',
-  'HWH': 'SDAH', 'SDAH': 'HWH', 'KOAA': 'HWH', 'SHM': 'HWH', 'SRC': 'HWH',
-  'NDLS': 'NZM', 'NZM': 'NDLS', 'DLI': 'NDLS', 'ANVT': 'NDLS', 'DEE': 'NDLS',
-  'PNBE': 'RJPB', 'RJPB': 'PNBE', 'DNR': 'PNBE', 'PPTA': 'PNBE',
-  'BSB': 'DDU', 'DDU': 'BSB', 'BSBS': 'BSB',
-  'PRYJ': 'PRRB', 'PRRB': 'PRYJ',
-  'MAS': 'MS', 'MS': 'MAS', 'TBM': 'MAS',
-  'SC': 'HYB', 'HYB': 'SC', 'KCG': 'SC',
-  'ADI': 'SBIB', 'SBIB': 'ADI',
-  'MAO': 'VSG', 'VSG': 'MAO', 'KRMI': 'MAO',
-  'KGQ': 'CAN'
+function addDaysStr(dateStr, delta) {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  return new Date(Date.UTC(y, m - 1, d + delta)).toISOString().split('T')[0];
+}
+
+function toIstEpoch(startDateStr, dayNum, hhmm) {
+  const [y, m, d] = startDateStr.split('-').map(Number);
+  const [hh, mm] = (hhmm && hhmm !== '--' ? hhmm : '00:00').split(':').map(Number);
+  return Date.UTC(y, m - 1, d + (dayNum - 1), hh || 0, mm || 0, 0);
+}
+
+function isRunningOnDate(daysStr, dateStr) {
+  if (!daysStr || !dateStr || daysStr === 'MTWTFSS') return true;
+  const [y, m, d] = dateStr.split('-').map(Number);
+  const dow = new Date(Date.UTC(y, m - 1, d)).getUTCDay();
+  const idx = dow === 0 ? 6 : dow - 1;
+  return daysStr[idx] !== '_';
+}
+
+function fmtMins(m) {
+  m = ((m % 1440) + 1440) % 1440;
+  return String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0');
+}
+
+function fmtDurMins(m) {
+  if (!m || m < 0) return '0h 00m';
+  return `${Math.floor(m / 60)}h ${String(m % 60).padStart(2, '0')}m`;
+}
+
+function parseHHMM(hhmm) {
+  if (!hhmm || hhmm === '--') return null;
+  const [h, m] = hhmm.split(':').map(Number);
+  return isNaN(h) ? null : h * 60 + (m || 0);
+}
+
+/* ══════════════════════════════════════════════════════
+   INTELLIGENT STATION & BETWEEN-STATIONS SEARCH ENGINE
+   Supports City Hubs, Renamed Codes & All 9,251 Stations
+   ══════════════════════════════════════════════════════ */
+const CITY_STATIONS = {
+  'delhi': ['NDLS','DLI','NZM','ANVT','DEE','DEC','SZM','DKZ'],
+  'new delhi': ['NDLS','DLI','NZM','ANVT','DEE','DEC'],
+  'mumbai': ['MMCT','BCT','CSMT','CSTM','BDTS','LTT','DR'],
+  'bombay': ['MMCT','BCT','CSMT','CSTM','BDTS','LTT','DR'],
+  'kolkata': ['HWH','SDAH','KOAA','SHM','SRC'],
+  'calcutta': ['HWH','SDAH','KOAA','SHM','SRC'],
+  'howrah': ['HWH','SHM','SRC','SDAH','KOAA'],
+  'bengaluru': ['SBC','YPR','SMVB','BNC','KJM'],
+  'bangalore': ['SBC','YPR','SMVB','BNC','KJM'],
+  'chennai': ['MAS','MS','TBM','PER'],
+  'madras': ['MAS','MS','TBM','PER'],
+  'hyderabad': ['HYB','SC','KCG','BMT','CHZ'],
+  'secunderabad': ['SC','HYB','KCG','CHZ'],
+  'ahmedabad': ['ADI','SBIB','SBT','MAN'],
+  'patna': ['PNBE','RJPB','DNR','PPTA','PNC'],
+  'varanasi': ['BSB','BSBS','DDU','MGS','BCY'],
+  'banaras': ['BSBS','BSB','DDU','BCY'],
+  'benaras': ['BSB','BSBS','DDU','BCY'],
+  'prayagraj': ['PRYJ','ALD','PRRB','NYN','SFG'],
+  'allahabad': ['PRYJ','ALD','PRRB','NYN','SFG'],
+  'mughalsarai': ['DDU','MGS'],
+  'kanpur': ['CNB','CPA','GOY'],
+  'lucknow': ['LKO','LJN','ASH','BNZ','GTNR'],
+  'ayodhya': ['AYC','AY'],
+  'jaipur': ['JP','GADJ','DPA'],
+  'bhopal': ['BPL','RKMP','HBJ','SHRN'],
+  'jhansi': ['VGLJ','JHS'],
+  'nagpur': ['NGP','AJNI'],
+  'pune': ['PUNE','SVJR','KK','HDP'],
+  'agra': ['AGC','AF','IDH','RKM'],
+  'goa': ['MAO','VSG','KRMI','THVM'],
+  'madgaon': ['MAO','VSG'],
+  'amritsar': ['ASR'],
+  'chandigarh': ['CDG'],
+  'kochi': ['ERS','ERN','AWY'],
+  'ernakulam': ['ERS','ERN'],
+  'trivandrum': ['TVC','KCVL','TVP'],
+  'thiruvananthapuram': ['TVC','KCVL','TVP'],
+  'guwahati': ['GHY','KYQ','NBQ'],
+  'puri': ['PURI','KUR'],
+  'bhubaneswar': ['BBS','BBSN','KUR'],
+  'surat': ['ST','UDN'],
+  'vadodara': ['BRC'],
+  'coimbatore': ['CBE','CBF','PTJ'],
+  'madurai': ['MDU'],
+  'visakhapatnam': ['VSKP','DVD'],
+  'vizag': ['VSKP','DVD'],
+  'indore': ['INDB','LMNR'],
+  'gwalior': ['GWL'],
+  'jabalpur': ['JBP','MML'],
+  'gorakhpur': ['GKP'],
+  'jammu': ['JAT'],
+  'udhampur': ['MCTM','UHP'],
+  'katra': ['SVDK','MCTM'],
+  'hajipur': ['HJP'],
+  'raxaul': ['RXL'],
+  'muzaffarpur': ['MFP'],
+  'darbhanga': ['DBG'],
+  'samastipur': ['SPJ'],
+  'bhagalpur': ['BGP'],
+  'dhanbad': ['DHN'],
+  'ranchi': ['RNC','HTE'],
+  'tatanagar': ['TATA'],
+  'jamshedpur': ['TATA'],
+  'vijayawada': ['BZA'],
+  'tirupati': ['TPTY','RU']
 };
 
-function resolveCorridorStops(fcRaw, tcRaw) {
-  const fc = (fcRaw || '').trim().toUpperCase();
-  const tc = (tcRaw || '').trim().toUpperCase();
-  const fcList = [fc, CODE_ALIASES[fc]].filter(Boolean);
-  const tcList = [tc, CODE_ALIASES[tc]].filter(Boolean);
+const CODE_SYNONYMS = {
+  'PRYJ': ['PRYJ','ALD','PRRB','SFG'],
+  'ALD':  ['ALD','PRYJ','PRRB'],
+  'DDU':  ['DDU','MGS'],
+  'MGS':  ['MGS','DDU'],
+  'VGLJ': ['VGLJ','JHS'],
+  'JHS':  ['JHS','VGLJ'],
+  'RKMP': ['RKMP','HBJ'],
+  'HBJ':  ['HBJ','RKMP'],
+  'CSMT': ['CSMT','CSTM'],
+  'CSTM': ['CSTM','CSMT'],
+  'MMCT': ['MMCT','BCT'],
+  'BCT':  ['BCT','MMCT'],
+  'BSB':  ['BSB','BSBS','MUV'],
+  'BSBS': ['BSBS','BSB'],
+  'MCTM': ['MCTM','UHP'],
+  'UHP':  ['UHP','MCTM'],
+  'AYC':  ['AYC','FD'],
+  'FD':   ['FD','AYC']
+};
 
-  for (const c of CORRIDORS) {
-    for (const f of fcList) {
-      for (const t of tcList) {
-        const idxA = c.indexOf(f);
-        const idxB = c.indexOf(t);
-        if (idxA !== -1 && idxB !== -1) {
-          return idxA < idxB ? c.slice(idxA, idxB + 1) : c.slice(idxB, idxA + 1).reverse();
+function getStationCodes(query, includeCityHubs = true) {
+  if (!query || !query.trim()) return [];
+  const rawFull = query.trim();
+  const codes = new Set();
+
+  // 1. Check code in parentheses e.g. "New Delhi (NDLS)" or "Hajipur Jn (HJP)"
+  const paren = rawFull.match(/\(([A-Za-z]{1,6})\)/);
+  if (paren) {
+    const c = paren[1].toUpperCase();
+    if (window.ST_MAP.has(c)) codes.add(c);
+  }
+
+  // 2. Check leading token before hyphen/em-dash e.g. "NDLS – New Delhi"
+  const parts = rawFull.split(/\s*[-–]\s*/);
+  const firstToken = parts[0].trim().toUpperCase();
+  if (firstToken && /^[A-Z]{1,6}$/.test(firstToken) && window.ST_MAP.has(firstToken)) {
+    codes.add(firstToken);
+  }
+
+  // 3. Direct uppercase exact code match
+  const exactUpper = rawFull.toUpperCase();
+  if (/^[A-Z]{1,6}$/.test(exactUpper) && window.ST_MAP.has(exactUpper)) {
+    codes.add(exactUpper);
+  }
+
+  // 4. Clean text match without parenthetical "(CODE)"
+  const cleanText = rawFull.replace(/\([^)]*\)/g, '').replace(/^[A-Z]{1,6}\s*[-–]\s*/i, '').trim().toLowerCase();
+
+  if (includeCityHubs) {
+    // Include synonym/hub matches
+    [...codes].forEach(c => {
+      (CODE_SYNONYMS[c] || []).forEach(s => codes.add(s));
+      for (const clist of Object.values(CITY_STATIONS)) {
+        if (clist[0] === c || clist.includes(c) && clist.length <= 6 && ['NDLS','MMCT','CSMT','HWH','SBC','MAS','PNBE','SC','HYB'].includes(c)) {
+          clist.forEach(sc => codes.add(sc));
+        }
+      }
+    });
+    if (cleanText.length >= 2) {
+      const cleanWords = cleanText.split(/\s+/);
+      for (const [city, clist] of Object.entries(CITY_STATIONS)) {
+        if (city === cleanText || (codes.size === 0 && city.startsWith(cleanText)) || cleanWords.includes(city)) {
+          clist.forEach(c => codes.add(c));
         }
       }
     }
   }
 
-  const majorHubs = ['NDLS','CNB','DDU','BPL','ET','BZA','GTL','MAS','HWH','NGP','KYN','ADI','SRR'];
-  for (const hub of majorHubs) {
-    if (fcList.includes(hub) || tcList.includes(hub)) continue;
-    let part1 = null, part2 = null;
-    for (const c of CORRIDORS) {
-      for (const f of fcList) {
-        const idxA = c.indexOf(f), idxH = c.indexOf(hub);
-        if (idxA !== -1 && idxH !== -1 && !part1) part1 = idxA < idxH ? c.slice(idxA, idxH) : c.slice(idxH + 1, idxA + 1).reverse();
-      }
-      for (const t of tcList) {
-        const idxH2 = c.indexOf(hub), idxB = c.indexOf(t);
-        if (idxH2 !== -1 && idxB !== -1 && !part2) part2 = idxH2 < idxB ? c.slice(idxH2, idxB + 1) : c.slice(idxB, idxH2 + 1).reverse();
-      }
-    }
-    if (part1 && part2) return [...part1, ...part2];
-  }
-
-  return [fc, tc];
-}
-
-/* ══════════════════════════════════════════════════════
-   INTELLIGENT ROUTE & STATION SEARCH ENGINE
-   Supports City Synonyms and Intermediate Corridor Halts
-   ══════════════════════════════════════════════════════ */
-const CITY_STATIONS = {
-  'delhi': ['NDLS','DLI','NZM','ANVT','DEE','DEC','SZM','GZB'],
-  'new delhi': ['NDLS','DLI','NZM','ANVT','DEE','DEC'],
-  'mumbai': ['BCT','MMCT','CSMT','CSTM','BDTS','LTT','DR','KYN','TNA'],
-  'bombay': ['BCT','MMCT','CSMT','CSTM','BDTS','LTT','DR','KYN','TNA'],
-  'kolkata': ['HWH','SDAH','KOAA','SHM','SRC'],
-  'calcutta': ['HWH','SDAH','KOAA','SHM','SRC'],
-  'howrah': ['HWH','SRC','SHM','KOAA','SDAH'],
-  'bengaluru': ['SBC','YPR','SMVB','BNC','KJM'],
-  'bangalore': ['SBC','YPR','SMVB','BNC','KJM'],
-  'chennai': ['MAS','MS','TBM','PER','AJJ'],
-  'madras': ['MAS','MS','TBM','PER','AJJ'],
-  'hyderabad': ['HYB','SC','KCG','BMT','LPI'],
-  'secunderabad': ['SC','HYB','KCG'],
-  'ahmedabad': ['ADI','SBT','SBIB','MAN'],
-  'patna': ['PNBE','RJPB','DNR','PPTA'],
-  'varanasi': ['BSB','DDU','BSBS','BCY'],
-  'benaras': ['BSB','DDU','BSBS','BCY'],
-  'kashi': ['BSB','DDU','BSBS','BCY'],
-  'prayagraj': ['PRYJ','PRRB','NYN'],
-  'allahabad': ['PRYJ','PRRB','NYN'],
-  'kanpur': ['CNB','CPA'],
-  'lucknow': ['LKO','LJN','ASH','BNZ'],
-  'jaipur': ['JP','GADJ','DPA'],
-  'bhopal': ['BPL','RKMP','SHRN'],
-  'nagpur': ['NGP','AJNI'],
-  'pune': ['PUNE','SVJR','KK'],
-  'agra': ['AGC','AF','IDH'],
-  'goa': ['MAO','VSG','KRMI','THVM'],
-  'madgaon': ['MAO','VSG','KRMI','THVM'],
-  'amritsar': ['ASR'],
-  'chandigarh': ['CDG'],
-  'kochi': ['ERS','ERN','AWY'],
-  'ernakulam': ['ERS','ERN','AWY'],
-  'cochin': ['ERS','ERN','AWY'],
-  'trivandrum': ['TVC','KCVL'],
-  'thiruvananthapuram': ['TVC','KCVL'],
-  'guwahati': ['GHY','KYQ'],
-  'puri': ['PURI','KUR','BBS'],
-  'bhubaneswar': ['BBS','KUR'],
-  'surat': ['ST','UDN'],
-  'vadodara': ['BRC'],
-  'baroda': ['BRC'],
-  'coimbatore': ['CBE','CBF'],
-  'madurai': ['MDU'],
-  'visakhapatnam': ['VSKP','DVD'],
-  'vizag': ['VSKP','DVD'],
-  'indore': ['INDB'],
-  'gwalior': ['GWL'],
-  'jabalpur': ['JBP'],
-  'gorakhpur': ['GKP'],
-  'jammu': ['JAT','UHP','MCTM','SVDK'],
-  'katra': ['SVDK','MCTM','JAT']
-};
-
-function getStationCodes(query) {
-  if (!query) return [];
-  const raw = query.split(/[-–]/)[0].trim().toLowerCase();
-  const qUpper = raw.toUpperCase();
-  const codes = new Set();
-  
-  const directSt = (window.STATIONS || []).find(s => s.c === qUpper);
-  if (directSt) codes.add(directSt.c);
-
-  for (const [city, clist] of Object.entries(CITY_STATIONS)) {
-    if (city.includes(raw) || raw.includes(city)) {
-      clist.forEach(c => codes.add(c));
-    }
-  }
-
-  (window.STATIONS || []).forEach(s => {
-    if ((s.n && s.n.toLowerCase().includes(raw)) || (s.city && s.city.toLowerCase().includes(raw))) {
-      codes.add(s.c);
-    }
+  // Always check station synonyms for renamed IR codes (even when hub expansion is off)
+  [...codes].forEach(c => {
+    (CODE_SYNONYMS[c] || []).forEach(s => codes.add(s));
   });
+
+  // 5. Fallback substring match across all 9,251 stations if still empty
+  if (codes.size === 0 && cleanText.length >= 2) {
+    (window.STATIONS || []).forEach(s => {
+      if (s.n && s.n.toLowerCase().includes(cleanText)) codes.add(s.c);
+    });
+  }
 
   return Array.from(codes);
 }
 
-function searchSmart(fromQ, toQ) {
-  const fromCodes = getStationCodes(fromQ);
-  const toCodes = getStationCodes(toQ);
+function searchSmart(fromQ, toQ, includeCityHubs = true) {
+  const fq = (fromQ || '').trim();
+  const tq = (toQ || '').trim();
 
-  if (!fromCodes.length && !toCodes.length) {
-    return window.TRAINS || [];
+  // Shortcut: if user types a 4-5 digit train number into From box (or To blank)
+  if (fq && !tq && /^\d{4,5}$/.test(fq)) {
+    const byNum = (window.TRAINS || []).filter(t => t.num.includes(fq));
+    return { trains: byNum, error: null };
   }
 
-  return (window.TRAINS || []).filter(t => {
-    const fromMatches = !fromCodes.length || fromCodes.includes(t.fc);
-    const toMatches = !toCodes.length || toCodes.includes(t.tc);
-    if (fromMatches && toMatches) return true;
+  const fromCodes = fq ? getStationCodes(fq, includeCityHubs) : [];
+  const toCodes   = tq ? getStationCodes(tq, includeCityHubs) : [];
 
-    const route = t.route || resolveCorridorStops(t.fc, t.tc);
-    if (fromCodes.length && toCodes.length) {
-      for (const fc of fromCodes) {
-        const idxF = route.indexOf(fc);
-        if (idxF === -1) continue;
-        for (const tc of toCodes) {
-          const idxT = route.indexOf(tc);
-          if (idxT !== -1 && idxF < idxT) return true;
-        }
-      }
-    } else if (fromCodes.length) {
-      return fromCodes.some(fc => route.includes(fc));
-    } else if (toCodes.length) {
-      return toCodes.some(tc => route.includes(tc));
+  if (fq && fromCodes.length === 0) {
+    // Also check if user typed a train name like "Rajdhani" or "Vande Bharat" in From
+    if (!tq && fq.length >= 3) {
+      const ql = fq.toLowerCase();
+      const byName = (window.TRAINS || []).filter(t => t.name.toLowerCase().includes(ql) || t.num.includes(ql));
+      if (byName.length) return { trains: byName, error: null };
     }
-    return false;
+    return { trains: [], error: 'unknown_from', query: fq };
+  }
+  if (tq && toCodes.length === 0) {
+    return { trains: [], error: 'unknown_to', query: tq };
+  }
+
+  if (!fromCodes.length && !toCodes.length) {
+    return { trains: window.TRAINS || [], error: null, fromCodes: [], toCodes: [] };
+  }
+
+  const fromSet = new Set(fromCodes);
+  const toSet   = new Set(toCodes);
+  const matched = [];
+
+  for (const t of (window.TRAINS || [])) {
+    const stops = t._routeArr || (t._routeArr = (t.route || '').split(','));
+    if (fromSet.size && toSet.size) {
+      let idxF = -1;
+      for (let i = 0; i < stops.length; i++) {
+        if (fromSet.has(stops[i])) { idxF = i; break; }
+      }
+      if (idxF === -1) continue;
+      let idxT = -1;
+      for (let j = idxF + 1; j < stops.length; j++) {
+        if (toSet.has(stops[j])) { idxT = j; break; }
+      }
+      if (idxT !== -1) matched.push({ ...t, _segFrom: stops[idxF], _segTo: stops[idxT] });
+    } else if (fromSet.size) {
+      const fMatch = stops.find(c => fromSet.has(c));
+      if (fMatch) matched.push({ ...t, _segFrom: fMatch, _segTo: null });
+    } else if (toSet.size) {
+      const tMatch = stops.find(c => toSet.has(c));
+      if (tMatch) matched.push({ ...t, _segFrom: null, _segTo: tMatch });
+    }
+  }
+
+  return { trains: matched, error: null, fromCodes, toCodes };
+}
+
+/* ══════════════════════════════════════════════════════
+   STATION AUTOCOMPLETE (9,251 REAL STATIONS)
+   ══════════════════════════════════════════════════════ */
+function setupStationAutocomplete(inputId, boxId, onSelect) {
+  const inp = document.getElementById(inputId);
+  const box = document.getElementById(boxId);
+  if (!inp || !box) return;
+
+  inp.addEventListener('input', () => {
+    const q = inp.value.trim().toLowerCase();
+    if (q.length < 1) { box.innerHTML = ''; box.classList.add('hidden'); return; }
+
+    const qUpper = q.toUpperCase();
+    const scored = [];
+    for (const s of (window.STATIONS || [])) {
+      const cu = s.c.toUpperCase();
+      const nl = (s.n || '').toLowerCase();
+      let score = 0;
+      if (cu === qUpper) score = 1000;
+      else if (cu.startsWith(qUpper)) score = 500;
+      else if (nl.startsWith(q)) score = 300;
+      else if (nl.includes(q)) score = 100;
+      else if (cu.includes(qUpper) && q.length >= 2) score = 50;
+      else continue;
+
+      const tc = window.ST_TRAIN_COUNT.get(s.c) || 0;
+      score += Math.min(250, tc * 2);
+      scored.push({ s, score, tc });
+    }
+    scored.sort((a, b) => b.score - a.score);
+    const top = scored.slice(0, 10);
+
+    if (!top.length) {
+      box.innerHTML = '<div class="p-3 text-xs text-on-surface-variant">No station found</div>';
+      box.classList.remove('hidden');
+      return;
+    }
+
+    box.innerHTML = top.map(({ s, tc }) => {
+      const label = `${s.n} (${s.c})`.replace(/'/g, "\\'");
+      return `<div class="px-3 py-2.5 hover:bg-surface-container-high cursor-pointer border-b border-outline-variant/10 last:border-0 flex justify-between items-center gap-2 transition"
+                   onclick="document.getElementById('${inputId}').value='${label}';document.getElementById('${boxId}').classList.add('hidden');${onSelect ? onSelect + '()' : ''}">
+        <div class="min-w-0">
+          <div class="font-bold text-xs text-primary truncate">${s.n} <span class="font-mono text-secondary">(${s.c})</span></div>
+          <div class="text-[10px] text-on-surface-variant truncate">${s.s ? s.s + ' · ' : ''}${s.z || 'IR'} Zone${tc ? ' · ' + tc + ' trains' : ''}</div>
+        </div>
+        <span class="font-mono text-[10px] font-bold px-2 py-0.5 rounded bg-secondary/10 text-secondary shrink-0">${s.c}</span>
+      </div>`;
+    }).join('');
+    box.classList.remove('hidden');
+  });
+
+  document.addEventListener('click', (e) => {
+    if (!inp.contains(e.target) && !box.contains(e.target)) {
+      box.classList.add('hidden');
+    }
   });
 }
 
-function computeLiveRouteFromTrain(tr, targetDate, stationsMap) {
-  const halts = (tr.route && tr.route.length > 1) ? tr.route : resolveCorridorStops(tr.fc, tr.tc);
-  const N = halts.length;
+/* ══════════════════════════════════════════════════════
+   LIVE EVALUATION ENGINE (MATCHES SERVER.JS EXACTLY)
+   ══════════════════════════════════════════════════════ */
+function evaluateRunClient(tr, rawStops, startDateStr, nowIst) {
+  const N = rawStops.length;
+  const runsToday = isRunningOnDate(tr.days, startDateStr);
+  const seed = (parseInt((tr.num || '1234').replace(/\D/g, ''), 10) || 1234) + startDateStr.split('-').reduce((a, b) => a + parseInt(b, 10), 0);
+  const histAvg = typeof tr.delay === 'number' ? tr.delay : 6;
+  const runDelay = Math.max(0, Math.round(histAvg * 0.7 + (seed % 7) - 1));
 
-  const now = new Date();
-  const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-  const ist = new Date(utc + (3600000 * 5.5));
-  const istHours = ist.getHours();
-  const istMinutes = ist.getMinutes();
-  const curIstMins = istHours * 60 + istMinutes;
-
-  const todayStr = ist.toISOString().split('T')[0];
-  const dateStr = targetDate || todayStr;
-
-  const selDateObj = new Date(dateStr + 'T12:00:00+05:30');
-  const dayIdx = selDateObj.getDay();
-  const dayChars = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-  const dayChar = dayChars[dayIdx];
-  const isRunningDay = tr.days ? (tr.days === 'MTWTFSS' || tr.days.includes(dayChar)) : true;
-
-  const [depH, depM] = (tr.dep && tr.dep !== '--' ? tr.dep : '08:00').split(':').map(Number);
-  const depMins = depH * 60 + depM;
-
-  let durMins = 0;
-  if (tr.dur) {
-    const dm = tr.dur.match(/(\d+)h\s*(\d+)?m?/);
-    if (dm) durMins = parseInt(dm[1]) * 60 + (parseInt(dm[2]) || 0);
-  }
-  if (!durMins) durMins = 480;
-  const arrMins = depMins + durMins;
-
-  const seed = (parseInt((tr.num || '1234').replace(/\D/g, '')) || 1234);
-  const delay = [0, 0, 4, 8, 12, 15, 20][seed % 7];
+  const firstDepEp = toIstEpoch(startDateStr, rawStops[0][4] || 1, rawStops[0][2]);
+  const lastArrEp  = toIstEpoch(startDateStr, rawStops[N - 1][4] || 1, rawStops[N - 1][1]);
+  const estEndEp   = lastArrEp + runDelay * 60000;
 
   let stage = 'IN_TRANSIT';
-  let stageText = '';
   let stageBadge = '';
+  let stageText = '';
   let curIndex = 0;
 
-  if (!isRunningDay && dateStr === todayStr) {
+  if (!runsToday) {
     stage = 'NOT_RUNNING_TODAY';
-    stageBadge = '🚫 NOT RUNNING TODAY';
-    stageText = `Train #${tr.num} does not operate on ${selDateObj.toLocaleDateString('en-IN', { weekday: 'long' })}. Scheduled days: ${tr.days || 'Specific days'}.`;
+    stageBadge = '🚫 DOES NOT START';
+    const [y, m, d] = startDateStr.split('-').map(Number);
+    const weekday = new Date(Date.UTC(y, m - 1, d)).toLocaleDateString('en-IN', { weekday: 'long', timeZone: 'UTC' });
+    const runList = Array.from(tr.days || 'MTWTFSS').map((c, i) => c !== '_' ? ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][i] : null).filter(Boolean).join(', ');
+    stageText = `Train #${tr.num} does not originate on ${weekday} (${startDateStr}). Runs on: ${runList || 'Specific days'}.`;
+  } else if (nowIst.istMs < firstDepEp) {
+    stage = 'AWAITING_DEPARTURE';
+    stageBadge = '⏳ SCHEDULED TO DEPART';
+    const diffMins = Math.round((firstDepEp - nowIst.istMs) / 60000);
+    const hRem = Math.floor(diffMins / 60), mRem = diffMins % 60;
+    stageText = diffMins <= 24 * 60
+      ? `Scheduled to depart ${tr.fn} (${tr.fc}) at ${tr.dep} IST (in ${hRem > 0 ? hRem + 'h ' : ''}${mRem}m).`
+      : `Future journey on ${startDateStr}. Departs ${tr.fn} (${tr.fc}) at ${tr.dep} IST.`;
     curIndex = 0;
-  } else if (dateStr > todayStr) {
-    stage = 'FUTURE_DATE';
-    stageBadge = '📅 SCHEDULED (FUTURE)';
-    stageText = `Scheduled to run on ${dateStr}. Departs ${tr.fn} (${tr.fc}) at ${tr.dep} IST.`;
-    curIndex = 0;
-  } else if (dateStr < todayStr) {
-    stage = 'PAST_DATE';
-    stageBadge = '✅ COMPLETED RUN';
-    stageText = `Journey completed on ${dateStr}. Reached ${tr.tn} (${tr.tc}) at ${tr.arr} IST.`;
+  } else if (nowIst.istMs >= estEndEp) {
+    stage = 'ARRIVED';
+    stageBadge = '🏁 JOURNEY COMPLETED';
+    stageText = `Train reached destination ${tr.tn} (${tr.tc}) — scheduled arrival ${tr.arr} IST.`;
     curIndex = N - 1;
   } else {
-    // Today
-    if (curIstMins < depMins) {
-      stage = 'AWAITING_DEPARTURE';
-      stageBadge = '⏳ AT ORIGIN YARD / PF';
-      const diffMins = depMins - curIstMins;
-      const hRem = Math.floor(diffMins / 60);
-      const mRem = diffMins % 60;
-      stageText = `Scheduled departure at ${tr.dep} IST from ${tr.fn} (${tr.fc}). Departs in ${hRem > 0 ? hRem + 'h ' : ''}${mRem}m. Train is at platform / yard rake area.`;
-      curIndex = 0;
-    } else if (curIstMins >= arrMins) {
-      stage = 'ARRIVED';
-      stageBadge = '🏁 JOURNEY COMPLETED';
-      stageText = `Arrived at destination ${tr.tn} (${tr.tc}) at ${tr.arr} IST. Rake docked.`;
-      curIndex = N - 1;
+    stage = 'IN_TRANSIT';
+    let lastPassed = 0;
+    let haltedAt = -1;
+    for (let i = 0; i < N; i++) {
+      const sDelay = Math.round((i / (N - 1 || 1)) * runDelay);
+      const aEp = rawStops[i][1] !== '--' ? toIstEpoch(startDateStr, rawStops[i][4] || 1, rawStops[i][1]) + sDelay * 60000 : firstDepEp;
+      const dEp = rawStops[i][2] !== '--' ? toIstEpoch(startDateStr, rawStops[i][4] || 1, rawStops[i][2]) + sDelay * 60000 : estEndEp;
+      if (i > 0 && i < N - 1 && nowIst.istMs >= aEp && nowIst.istMs <= dEp) {
+        haltedAt = i; lastPassed = i; break;
+      }
+      if (nowIst.istMs >= dEp) lastPassed = i;
+    }
+    curIndex = lastPassed;
+    const curCode = rawStops[curIndex][0];
+    const curName = window.ST_MAP.get(curCode)?.n || curCode;
+    const nextStop = rawStops[curIndex + 1];
+    const nextCode = nextStop?.[0] || curCode;
+    const nextName = window.ST_MAP.get(nextCode)?.n || nextCode;
+    const delayAtCur = curIndex === 0 ? 0 : Math.round((curIndex / (N - 1 || 1)) * runDelay);
+    stageBadge = delayAtCur > 2 ? `🟡 RUNNING (+${delayAtCur}m est.)` : '🟢 ON TIME (TIMETABLE)';
+    if (haltedAt !== -1) {
+      stageText = `At platform / halted near ${curName} (${curCode}) per IRCTC schedule. Next departure: ${rawStops[haltedAt][2]} IST.`;
+    } else if (nextStop) {
+      const d1 = rawStops[curIndex][3] || 0, d2 = nextStop[3] || d1;
+      const t1 = toIstEpoch(startDateStr, rawStops[curIndex][4] || 1, rawStops[curIndex][2]) + delayAtCur * 60000;
+      const t2 = toIstEpoch(startDateStr, nextStop[4] || 1, nextStop[1]) + Math.round(((curIndex + 1) / (N - 1 || 1)) * runDelay) * 60000;
+      const segFrac = Math.min(0.95, Math.max(0.05, (nowIst.istMs - t1) / Math.max(60000, t2 - t1)));
+      const estKm = Math.round(d1 + segFrac * (d2 - d1));
+      const remKm = Math.max(1, d2 - estKm);
+      stageText = `Departed ${curName} (${curCode}) · ~${remKm} km to ${nextName} (${nextCode}) at ${nextStop[1]} IST.`;
     } else {
-      stage = 'IN_TRANSIT';
-      stageBadge = delay > 0 ? `🟡 RUNNING (+${delay}m)` : `🟢 ON TIME`;
-      const elapsed = curIstMins - depMins;
-      const progress = Math.min(Math.max(elapsed / durMins, 0), 1);
-      curIndex = Math.min(Math.floor(progress * N), N - 1);
-      const curStop = stationsMap.get(halts[curIndex]) || { n: halts[curIndex] };
-      stageText = delay > 0
-        ? `Currently near ${curStop.n} (${halts[curIndex]}), running ${delay} minutes late.`
-        : `Currently on time near ${curStop.n} (${halts[curIndex]}).`;
+      stageText = `Approaching ${curName} (${curCode}).`;
     }
   }
 
-  const stops = halts.map((code, i) => {
-    const stInfo = stationsMap.get(code) || { n: code, pf: 2, z: 'IR' };
-    const frac = N > 1 ? i / (N - 1) : 0;
-    const stopMins = Math.round(depMins + frac * durMins);
-    const arrStr = i === 0 ? '--' : formatMinutes(stopMins - 3);
-    const depStr = i === N - 1 ? '--' : formatMinutes(stopMins + (i === 0 ? 0 : 2));
-    const pfNum = ((seed + i) % (stInfo.pf || 4)) + 1;
+  const stops = rawStops.map((r, i) => {
+    const code = r[0];
+    const stInfo = window.ST_MAP.get(code) || { n: code, z: 'IR' };
+    const stopDelay = (stage === 'AWAITING_DEPARTURE' || stage === 'NOT_RUNNING_TODAY' || i === 0)
+      ? 0
+      : Math.round((i / (N - 1 || 1)) * runDelay);
 
     let status = 'upcoming';
-    if (stage === 'PAST_DATE' || stage === 'ARRIVED') {
-      status = 'departed';
-    } else if (stage === 'FUTURE_DATE' || stage === 'NOT_RUNNING_TODAY') {
-      status = 'upcoming';
-    } else if (stage === 'AWAITING_DEPARTURE') {
-      status = i === 0 ? 'current' : 'upcoming';
-    } else {
-      // IN_TRANSIT
+    if (stage === 'ARRIVED') status = 'departed';
+    else if (stage === 'AWAITING_DEPARTURE') status = i === 0 ? 'current' : 'upcoming';
+    else if (stage === 'NOT_RUNNING_TODAY') status = 'upcoming';
+    else {
       if (i < curIndex) status = 'departed';
       else if (i === curIndex) status = 'current';
       else status = 'upcoming';
     }
 
+    let actualArr = r[1];
+    if (r[1] !== '--' && stopDelay > 0) {
+      const [h, m] = r[1].split(':').map(Number);
+      actualArr = fmtMins(h * 60 + m + stopDelay);
+    }
+
     return {
-      st: stInfo.n,
-      code: code,
-      arr: arrStr,
-      dep: depStr,
-      status: status,
-      delay: (status === 'departed' || i === 0) ? 0 : delay,
-      platform: `Pf. ${pfNum}`
+      st: stInfo.n, code, arr: r[1], dep: r[2], actualArr, dist: r[3] || 0, day: r[4] || 1,
+      status, delay: status === 'upcoming' && stage === 'AWAITING_DEPARTURE' ? 0 : stopDelay,
+      platform: `Pf. ${((seed + i) % 6) + 1}`
     };
   });
 
   return {
-    train_number: tr.num,
-    train_name: tr.name,
-    from: tr.fn,
-    to: tr.tn,
-    fc: tr.fc,
-    tc: tr.tc,
-    dep: tr.dep,
-    arr: tr.arr,
-    dur: tr.dur,
-    dist: tr.dist,
-    stage: stage,
-    stage_badge: stageBadge,
-    stage_text: stageText,
-    delay_mins: delay,
-    last_station: stops[curIndex]?.st || tr.fn,
-    last_code: stops[curIndex]?.code || tr.fc,
-    date: dateStr,
-    source: 'live-corridor',
-    stops: stops
+    train_number: tr.num, train_name: tr.name, from: tr.fn, to: tr.tn,
+    fc: tr.fc, tc: tr.tc, dep: tr.dep, arr: tr.arr, dur: tr.dur, dist: tr.dist, days: tr.days,
+    stage, stage_badge: stageBadge, stage_text: stageText,
+    delay_mins: (stage === 'AWAITING_DEPARTURE' || stage === 'NOT_RUNNING_TODAY') ? 0 : Math.round((curIndex / (N - 1 || 1)) * runDelay),
+    last_station: stops[curIndex]?.st || tr.fn, last_code: stops[curIndex]?.code || tr.fc,
+    start_date: startDateStr, date: startDateStr, source: 'timetable-estimate', stops
   };
 }
 
-function formatMinutes(m) {
-  m = (m % 1440 + 1440) % 1440;
-  const h = String(Math.floor(m / 60)).padStart(2, '0');
-  const min = String(m % 60).padStart(2, '0');
-  return `${h}:${min}`;
-}
-
-
-function getClientLive(num, date) {
-  const stMap = new Map((window.STATIONS||[]).map(s => [s.c.toUpperCase(), s]));
-  const tr = (window.TRAINS||[]).find(t => t.num === num);
+async function getClientLive(num, explicitDate, autoPickActive = true) {
+  const tr = window.TRAIN_MAP.get(num);
   if (!tr) return null;
-  return computeLiveRouteFromTrain(tr, date, stMap);
+  const rawStops = await getTrainStops(num);
+  if (!rawStops) return null;
+
+  const nowIst = getIstNow();
+  const maxDaysBack = Math.min(4, Math.max(1, (tr.ad || 0) + 1));
+  const candidates = [];
+  for (let delta = -maxDaysBack; delta <= 1; delta++) {
+    const dStr = addDaysStr(nowIst.dateStr, delta);
+    if (isRunningOnDate(tr.days, dStr) || dStr === explicitDate) {
+      const firstDep = toIstEpoch(dStr, 1, rawStops[0][2]);
+      const lastArr  = toIstEpoch(dStr, rawStops[rawStops.length - 1][4] || 1, rawStops[rawStops.length - 1][1]);
+      const isActive = nowIst.istMs >= firstDep && nowIst.istMs <= lastArr + 3600000;
+      const lbl = delta === 0 ? 'Today' : delta === -1 ? 'Yesterday' : delta === 1 ? 'Tomorrow' : `${Math.abs(delta)}d ago`;
+      candidates.push({ date: dStr, label: `${lbl} (${dStr.slice(5)})`, active: isActive, runs: isRunningOnDate(tr.days, dStr) });
+    }
+  }
+
+  let chosenDate = explicitDate || nowIst.dateStr;
+  if (autoPickActive) {
+    const activeCand = candidates.slice().reverse().find(c => c.active && c.runs);
+    if (activeCand) chosenDate = activeCand.date;
+    else if (!isRunningOnDate(tr.days, chosenDate)) {
+      const firstRunning = candidates.find(c => c.runs);
+      if (firstRunning) chosenDate = firstRunning.date;
+    }
+  }
+
+  const res = evaluateRunClient(tr, rawStops, chosenDate, nowIst);
+  res.run_candidates = candidates;
+  return res;
 }
 
 function getClientPNR(pnr) {
-  const trains = window.TRAINS || [];
-  const seed = parseInt(pnr.slice(0, 6)) || 123456;
-  const tr = trains[seed % trains.length] || { num: '12301', name: 'Howrah Rajdhani', fn: 'New Delhi', fc: 'NDLS', tn: 'Howrah Jn', tc: 'HWH' };
+  const pool = (window.TRAINS || []).filter(t => ['RAJ','VB','SHT','SF','DUR','EXP'].includes(t.type) && !String(t.num).includes('-'));
+  const list = pool.length ? pool : (window.TRAINS || []);
+  const seed = parseInt(pnr.slice(0, 6), 10) || 123456;
+  const tr = list[seed % list.length] || { num: '12301', name: 'Howrah Rajdhani', fn: 'Howrah Jn', fc: 'HWH', tn: 'New Delhi', tc: 'NDLS', cls: ['1A','2A','3A'] };
   const cls = tr.cls?.[seed % tr.cls.length] || '3A';
   const ps = ['CNF', 'CNF', 'CNF', 'CNF', 'RAC', 'WL'][seed % 6];
   const coach = ps === 'CNF' ? `${cls}${(seed % 6) + 1}` : '--';
   const berth = ps === 'CNF' ? `${coach} / Berth ${(seed % 72) + 1}` : ps === 'RAC' ? `RAC ${(seed % 20) + 1}` : `WL ${(seed % 30) + 1}`;
   return {
     pnr, train_number: tr.num, train_name: tr.name, boarding: tr.fn,
-    destination: tr.tn, boarding_code: tr.fc, destination_code: tr.tc,
-    class: cls, chart_prepared: true, source: 'client-corridor',
-    passengers: [{ no: 1, booking_status: ps, current_status: berth, quota: 'GN' }]
+    destination: tr.tn, boarding_code: tr.fc, dest_code: tr.tc,
+    journey_date: new Date(Date.now() + (seed % 30) * 86400000).toLocaleDateString('en-IN', { day: '2-digit', month: 'short', year: 'numeric' }),
+    travel_class: cls, quota: 'GN', source: 'simulated',
+    chart_status: ps === 'CNF' ? 'Chart Prepared ✓ (8h prior)' : 'Charting in Progress',
+    passengers: [{ sr: 1, booking_status: ps, current_status: berth, coach }]
   };
 }
 
 /* ══════════════════════════════════════════════════════
-   VIEW ROUTER
+   VIEW ROUTER & UI UTILITIES
    ══════════════════════════════════════════════════════ */
 function showView(v) {
   document.querySelectorAll('.view').forEach(el => el.classList.remove('active'));
-  document.getElementById('view-'+v).classList.add('active');
+  document.getElementById('view-' + v).classList.add('active');
   document.querySelectorAll('.nav-lnk').forEach(a => {
     const on = a.dataset.v === v;
     a.classList.toggle('active', on);
@@ -1302,9 +1527,10 @@ function showView(v) {
     b.classList.toggle('text-secondary', on);
     b.classList.toggle('text-on-surface-variant', !on);
   });
-  window.scrollTo({ top:0, behavior:'smooth' });
+  window.scrollTo({ top: 0, behavior: 'smooth' });
   stopAutoRefresh();
 }
+
 function hSwitch(id, btn) {
   document.querySelectorAll('.h-pane').forEach(p => p.classList.add('hidden'));
   document.getElementById(id).classList.remove('hidden');
@@ -1314,9 +1540,9 @@ function hSwitch(id, btn) {
   });
   btn.classList.add('active'); btn.classList.remove('bg-surface-container-low','text-on-surface-variant');
 }
+
 function swapI(a, b) { const ea=document.getElementById(a),eb=document.getElementById(b);[ea.value,eb.value]=[eb.value,ea.value]; }
 function toggleMobileMenu() { document.getElementById('mobile-menu').classList.toggle('hidden'); }
-
 
 /* ══════════════════════════════════════════════════════
    60-DAY ARP CALCULATOR
@@ -1329,12 +1555,8 @@ function computeARP() {
     return;
   }
   const travelDate = new Date(dInput);
-  
-  // Opening date = travel date minus 60 days
   const openDate = new Date(travelDate);
   openDate.setDate(openDate.getDate() - 60);
-
-  // Tatkal date = travel date minus 1 day
   const tatkalDate = new Date(travelDate);
   tatkalDate.setDate(tatkalDate.getDate() - 1);
 
@@ -1342,9 +1564,7 @@ function computeARP() {
   const travelStr = travelDate.toLocaleDateString('en-IN', opts);
   const openStr   = openDate.toLocaleDateString('en-IN', opts);
   const tatkalStr = tatkalDate.toLocaleDateString('en-IN', opts);
-
-  const now = new Date();
-  const isOpen = now >= openDate;
+  const isOpen = Date.now() >= openDate.getTime();
 
   out.innerHTML = `
     <div class="space-y-3">
@@ -1384,25 +1604,19 @@ function computeARP() {
         <span class="text-sm text-on-surface-variant">Reservation Chart Prepared</span>
         <strong class="text-primary text-sm">8 Hours prior to departure</strong>
       </div>
-    </div>
-  `;
+    </div>`;
 }
 
 /* ══════════════════════════════════════════════════════
    INIT
    ══════════════════════════════════════════════════════ */
-let filteredTrains = [], visibleCount = 8;
+let filteredTrains = [], visibleCount = 10, lastSearchError = null;
 let refreshTimer = null, refreshCountdown = 90, countdownTimer = null;
 
 document.addEventListener('DOMContentLoaded', () => {
-  const today = new Date().toISOString().split('T')[0];
-  document.querySelectorAll('input[type=date]').forEach(el => el.value = today);
-
-  // Datalist
-  const dl = document.getElementById('dl-all');
-  (window.STATIONS||[]).forEach(s => {
-    const o = document.createElement('option'); o.value = `${s.c} – ${s.n}`; dl.appendChild(o);
-  });
+  hydrateIndexes();
+  const istToday = getIstNow().dateStr;
+  document.querySelectorAll('input[type=date]').forEach(el => el.value = istToday);
 
   // State filter
   const states = [...new Set((window.STATIONS||[]).map(s=>s.state || s.st || s.s).filter(Boolean))].sort();
@@ -1411,23 +1625,35 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Stats
   const elTr = document.getElementById('h-stat-trains');
-  if (elTr) elTr.textContent = (window.TRAINS||[]).length.toLocaleString() + '+';
+  if (elTr) elTr.textContent = (window.TRAINS||[]).length.toLocaleString();
   const elSt = document.getElementById('h-stat-stations');
-  if (elSt) elSt.textContent = '7,461';
+  if (elSt) elSt.textContent = (window.STATIONS||[]).length.toLocaleString();
+
+  // Setup crisp station dropdowns on all station search fields
+  setupStationAutocomplete('hf-from', 'hf-from-suggest');
+  setupStationAutocomplete('hf-to', 'hf-to-suggest');
+  setupStationAutocomplete('t-from', 't-from-suggest', 'runSearch');
+  setupStationAutocomplete('t-to', 't-to-suggest', 'runSearch');
+  setupStationAutocomplete('f-from', 'f-from-suggest');
+  setupStationAutocomplete('f-to', 'f-to-suggest');
+  setupLiveSearchAutocomplete();
 
   // Type chips
-  const CHIP = {ALL:'All',VB:'🟣 Vande Bharat',VB_SL:'🛌 VB Sleeper',AMRIT:'🟠 Amrit Bharat',RAJ:'🟡 Rajdhani',SHT:'🔵 Shatabdi',DUR:'🔴 Duronto',TEJ:'⭐ Tejas',SF:'⚡ Superfast',MAIL:'📮 Mail',EXP:'Express'};
+  const CHIP = {ALL:'All',VB:'🟣 Vande Bharat',VB_SL:'🛌 VB Sleeper',AMRIT:'🟠 Amrit Bharat',RAJ:'🟡 Rajdhani',SHT:'🔵 Shatabdi',JSHTB:'🚅 Jan Shatabdi',TEJ:'⭐ Tejas',DUR:'🔴 Duronto',GR:'💚 Garib Rath',SF:'⚡ Superfast',MAIL:'📮 Mail',EXP:'🚆 Express',PASS:'🚈 Passenger/MEMU'};
   const chipWrap = document.getElementById('type-chips');
-  ['ALL','VB','VB_SL','AMRIT','RAJ','SHT','DUR','TEJ','SF','MAIL','EXP'].forEach(t => {
+  ['ALL','VB','VB_SL','AMRIT','RAJ','SHT','JSHTB','TEJ','DUR','GR','SF','MAIL','EXP','PASS'].forEach(t => {
     const b = document.createElement('button');
     b.textContent = CHIP[t]; b.dataset.type = t;
     b.className = 'px-3 py-1.5 rounded-full text-xs font-bold border border-outline-variant/30 bg-surface-container-lowest text-on-surface-variant hover:bg-secondary/10 hover:text-secondary hover:border-secondary/30 transition-all';
-    b.onclick = () => { document.querySelectorAll('#type-chips button').forEach(x=>x.classList.remove('bg-secondary','text-white','border-secondary'));
+    b.onclick = () => {
+      document.querySelectorAll('#type-chips button').forEach(x=>x.classList.remove('bg-secondary','text-white','border-secondary'));
       b.classList.add('bg-secondary','text-white','border-secondary');
-      document.getElementById('t-type').value = t==='ALL'?'':t; runSearch(); };
+      document.getElementById('t-type').value = t==='ALL'?'':t;
+      runSearch();
+    };
     chipWrap.appendChild(b);
   });
-  chipWrap.firstChild.click();
+  chipWrap.firstChild.classList.add('bg-secondary','text-white','border-secondary');
 
   filteredTrains = window.TRAINS || [];
   renderTrainCards();
@@ -1435,45 +1661,40 @@ document.addEventListener('DOMContentLoaded', () => {
   renderSt();
   checkHealth();
   setTicker();
-  setupLiveSearchAutocomplete();
-  const future = new Date(Date.now() + 65 * 86400000).toISOString().split('T')[0];
+
+  const future = addDaysStr(istToday, 65);
   const arpEl = document.getElementById('calc-travel-date');
   if (arpEl) { arpEl.value = future; computeARP(); }
 });
 
 /* ══════════════════════════════════════════════════════
-   HEALTH CHECK
+   HEALTH CHECK & TICKER
    ══════════════════════════════════════════════════════ */
 async function checkHealth() {
   try {
     const r = await fetch('/api/health'); const d = await r.json();
     const badge = document.getElementById('api-badge');
     if (d.mode.startsWith('live')) {
-      badge.textContent = '🟢 LIVE'; badge.className = 'text-[10px] font-bold px-2.5 py-1 rounded-full badge-live';
+      badge.textContent = '🟢 LIVE API'; badge.className = 'text-[10px] font-bold px-2.5 py-1 rounded-full badge-live';
     } else {
-      badge.textContent = '🟡 SIM'; badge.className = 'text-[10px] font-bold px-2.5 py-1 rounded-full badge-sim';
+      badge.textContent = `📘 ${(d.trains||window.TRAINS.length).toLocaleString()} TRAINS`; badge.className = 'text-[10px] font-bold px-2.5 py-1 rounded-full badge-sim';
     }
   } catch {
     const b = document.getElementById('api-badge');
-    if (b) { b.textContent = '🟢 CLOUD'; b.className = 'text-[10px] font-bold px-2.5 py-1 rounded-full badge-live'; }
+    if (b) { b.textContent = `📘 ${(window.TRAINS?.length||7429).toLocaleString()} TRAINS`; b.className = 'text-[10px] font-bold px-2.5 py-1 rounded-full badge-sim'; }
   }
 }
 
-/* ══════════════════════════════════════════════════════
-   TICKER
-   ══════════════════════════════════════════════════════ */
 function setTicker() {
   const alerts = [
-    '12301 Howrah Rajdhani — 18 min late at Asansol',
-    '20501 Vande Bharat NDLS–Katra — Running on time',
-    '12951 Mumbai Rajdhani — 25 min late, fog',
-    '12621 Tamil Nadu Express — Departed 7 min early',
-    'Block maintenance Mumbai CST–Kalyan 01:00–04:00',
-    'New Vande Bharat services added on 22 more routes',
-    'Summer Special trains open for booking on IRCTC',
-    '15905 Vivek Express — World longest 4,273 km route',
+    '7,429 Authentic Indian Railways trains & 9,251 stations loaded (IRCTC timetables)',
+    '22436 New Delhi – Varanasi Vande Bharat · Dep 06:00 → Arr 14:00',
+    '27575 Howrah – Kamakhya Vande Bharat Sleeper · Dep 18:20 → Arr 08:20',
+    '12301 Howrah – New Delhi Rajdhani · Mon–Sat · Dep 16:50 → Arr 10:05',
+    'ARP reduced to 60 days · Aadhaar exclusive window 8:00 AM–4:00 PM on opening day',
+    'Chart prepared 8 hours before departure · OTP required for Tatkal tickets',
   ];
-  document.getElementById('ticker-text').textContent = alerts.join(' \u00a0•\u00a0 ');
+  document.getElementById('ticker-text').textContent = alerts.join('  •  ');
 }
 
 /* ══════════════════════════════════════════════════════
@@ -1483,12 +1704,16 @@ function goSearch() {
   document.getElementById('t-from').value = document.getElementById('hf-from').value;
   document.getElementById('t-to').value   = document.getElementById('hf-to').value;
   document.getElementById('t-date').value = document.getElementById('hf-date').value;
-  showView('trains'); runSearch();
+  const hc = document.getElementById('hf-city-match');
+  const tc = document.getElementById('t-city-match');
+  if (hc && tc) tc.checked = hc.checked;
+  showView('trains');
+  runSearch();
 }
 function goLive() {
   document.getElementById('l-num').value  = document.getElementById('hl-num').value;
   document.getElementById('l-date').value = document.getElementById('hl-date').value;
-  showView('live'); trackLive(true);
+  showView('live'); trackLive(true, true);
 }
 function goPNR() {
   document.getElementById('p-pnr').value = document.getElementById('hp-pnr').value;
@@ -1501,44 +1726,58 @@ function goFare() {
 }
 
 /* ══════════════════════════════════════════════════════
-   TRAIN SEARCH + CARDS
+   TRAIN SEARCH + SEGMENT TIMETABLE CARDS
    ══════════════════════════════════════════════════════ */
-const TYPE_LBL = {RAJ:'RAJDHANI',SHT:'SHATABDI',VB:'VANDE BHARAT',VB_SL:'VB SLEEPER',AMRIT:'AMRIT BHARAT',SF:'SUPERFAST',MAIL:'MAIL',DUR:'DURONTO',TEJ:'TEJAS',ICE:'INTERCITY',EXP:'EXPRESS',PASS:'PASSENGER',GR:'GARIB RATH'};
-const TYPE_CLR = {RAJ:'#e8a000',SHT:'#0058bc',VB:'#9333ea',VB_SL:'#7c3aed',AMRIT:'#ea580c',SF:'#16a34a',MAIL:'#ea580c',DUR:'#dc2626',TEJ:'#d97706',EXP:'#6b7280',ICE:'#0891b2',PASS:'#71717a',GR:'#16a34a'};
+const TYPE_LBL = {RAJ:'RAJDHANI',SHT:'SHATABDI',JSHTB:'JAN SHATABDI',VB:'VANDE BHARAT',VB_SL:'VB SLEEPER',AMRIT:'AMRIT BHARAT',SF:'SUPERFAST',MAIL:'MAIL',DUR:'DURONTO',TEJ:'TEJAS',ICE:'INTERCITY',EXP:'EXPRESS',PASS:'PASSENGER',GR:'GARIB RATH'};
+const TYPE_CLR = {RAJ:'#e8a000',SHT:'#0058bc',JSHTB:'#0284c7',VB:'#9333ea',VB_SL:'#7c3aed',AMRIT:'#ea580c',SF:'#16a34a',MAIL:'#ea580c',DUR:'#dc2626',TEJ:'#d97706',EXP:'#4b5563',ICE:'#0891b2',PASS:'#71717a',GR:'#15803d'};
+const TYPE_PRIO = {VB:1,VB_SL:2,AMRIT:3,RAJ:4,SHT:5,TEJ:6,DUR:7,JSHTB:8,GR:9,SF:10,MAIL:11,EXP:12,PASS:13};
 
-function parseQ(v) { return v.split('–')[0].trim().toLowerCase(); }
-function matchSt(q, code, name) {
-  const s = parseQ(q); if (!s) return true;
-  return code.toLowerCase().startsWith(s) || code.toLowerCase().includes(s) || name.toLowerCase().includes(s);
-}
-
-function parseQ(v) { return (v||'').split(/[-–]/)[0].trim().toLowerCase(); }
-function matchSt(q, code, name) {
-  const s = parseQ(q); if (!s) return true;
-  return (code||'').toLowerCase().includes(s) || (name||'').toLowerCase().includes(s);
-}
-
-function runSearch() {
+async function runSearch() {
   const from = document.getElementById('t-from').value;
   const to   = document.getElementById('t-to').value;
   const type = document.getElementById('t-type').value;
+  const dateStr = document.getElementById('t-date').value || getIstNow().dateStr;
+  const dayOnly = document.getElementById('t-day-only')?.checked || false;
+  const cityHubs = document.getElementById('t-city-match')?.checked ?? true;
 
-  let trains = searchSmart(from, to);
+  const res = searchSmart(from, to, cityHubs);
+  lastSearchError = res.error ? res : null;
+  let trains = res.trains || [];
+
   if (type) trains = trains.filter(t => t.type === type);
-  filteredTrains = trains; visibleCount = 8;
+  if (dayOnly) trains = trains.filter(t => isRunningOnDate(t.days, dateStr));
 
-  const fn = from ? (from.split(/[-–]/)[0]?.trim() || from) : 'All';
-  const tn = to   ? (to.split(/[-–]/)[0]?.trim()   || to)   : 'All';
-  document.getElementById('tr-title').innerHTML = (from||to)
-    ? `${fn} <span class="text-secondary mx-1">→</span> ${tn}` : 'All Trains';
-  const d = document.getElementById('t-date').value;
-  const ds = d ? new Date(d).toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric'}) : '';
-  document.getElementById('tr-meta').textContent = `${ds?ds+' · ':''}General Quota · ${trains.length} trains found`;
+  // Sort: running on chosen date first, then flagship category, then departure
+  trains.sort((a, b) => {
+    const ra = isRunningOnDate(a.days, dateStr) ? 0 : 1;
+    const rb = isRunningOnDate(b.days, dateStr) ? 0 : 1;
+    if (ra !== rb) return ra - rb;
+    const pa = TYPE_PRIO[a.type] || 20, pb = TYPE_PRIO[b.type] || 20;
+    if (pa !== pb) return pa - pb;
+    return (a.dep || '').localeCompare(b.dep || '');
+  });
+
+  filteredTrains = trains;
+  visibleCount = 10;
+
+  const fn = from ? (from.replace(/\([^)]*\)/g,'').split(/[-–]/)[0]?.trim() || from) : 'All';
+  const tn = to   ? (to.replace(/\([^)]*\)/g,'').split(/[-–]/)[0]?.trim()   || to)   : 'All';
+  document.getElementById('tr-title').innerHTML = (from || to)
+    ? `${fn} <span class="text-secondary mx-1">→</span> ${tn}` : 'All Indian Railways Trains';
+  const ds = dateStr ? new Date(dateStr + 'T12:00:00Z').toLocaleDateString('en-IN',{day:'2-digit',month:'short',year:'numeric',timeZone:'UTC'}) : '';
+  document.getElementById('tr-meta').textContent = `${ds ? ds + ' · ' : ''}General Quota · ${trains.length.toLocaleString()} trains found`;
+
   renderTrainCards();
+
+  // Preload exact stop shards for displayed slice to render true boarding/alighting segment times & distances
+  if (trains.length && (from || to)) {
+    await preloadShardsForTrains(trains.slice(0, visibleCount));
+    renderTrainCards();
+  }
 }
 
 function dayPills(days) {
-  return Array.from(days).map((d,i)=>`<span class="day-pill inline-flex w-6 h-6 rounded items-center justify-center text-[10px] font-bold ${d!=='_'?'day-on':'day-off'}" title="${['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][i]}">${'MTWTFSS'[i]}</span>`).join('');
+  return Array.from(days || 'MTWTFSS').map((d,i)=>`<span class="day-pill inline-flex w-6 h-6 rounded items-center justify-center text-[10px] font-bold ${d!=='_'?'day-on':'day-off'}" title="${['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][i]}">${'MTWTFSS'[i]}</span>`).join('');
 }
 
 function avChip(cls, dist, type, seed, i) {
@@ -1547,30 +1786,69 @@ function avChip(cls, dist, type, seed, i) {
   const rng = ((seed*1103515245)+(12345*(i+1)))&0x7fffffff;
   const r = (rng/0x7fffffff);
   let lb, ac, dc, op='';
-  if(r>.56){lb=`Available — ${Math.floor(r*120)+1}`;ac='text-green-600';dc='bg-green-500';}
-  else if(r>.32){lb=`WL ${Math.floor(r*40)+1}`;ac='text-amber-600';dc='bg-amber-500';}
-  else if(r>.14){lb=`RAC ${Math.floor(r*15)+1}`;ac='text-blue-600';dc='bg-blue-500';}
+  if(r>.52){lb=`Avail — ${Math.floor(r*110)+2}`;ac='text-green-600';dc='bg-green-500';}
+  else if(r>.28){lb=`WL ${Math.floor(r*35)+1}`;ac='text-amber-600';dc='bg-amber-500';}
+  else if(r>.12){lb=`RAC ${Math.floor(r*14)+1}`;ac='text-blue-600';dc='bg-blue-500';}
   else{lb='REGRET';ac='text-error';dc='bg-error';op='opacity-50';}
   const CN={'1A':'AC 1st','2A':'AC 2-Tier','3A':'AC 3-Tier','3E':'AC Economy','SL':'Sleeper','CC':'Chair Car','EC':'Exec Chair','2S':'2nd Sitting','GN':'General'};
-  return `<div class="p-4 bg-surface-container-low rounded-xl border border-transparent hover:border-secondary/20 cursor-pointer transition-all ${op}" onclick="openFareModal(this)" data-km="${dist}" data-type="${type}">
+  return `<div class="p-4 bg-surface-container-low rounded-xl border border-transparent hover:border-secondary/20 cursor-pointer transition-all ${op}" onclick="openFareModal(this)" data-km="${dist}" data-type="${type}" data-num="" data-name="">
     <div class="flex justify-between items-start mb-2">
       <span class="font-bold text-primary">${cls}</span><span class="text-xs text-on-surface-variant">${CN[cls]||cls}</span>
     </div>
     <div class="${ac} font-bold text-xs mb-1.5 flex items-center gap-1.5"><span class="w-2 h-2 rounded-full ${dc} shrink-0"></span>${lb}</div>
     <div class="text-xl font-black text-primary">₹${f.total.toLocaleString('en-IN')}</div>
-    <div class="text-[10px] text-on-surface-variant mt-0.5">Base ₹${f.base.toLocaleString()} + charges</div>
+    <div class="text-[10px] text-on-surface-variant mt-0.5">${dist} km est.</div>
   </div>`;
 }
 
+function getSegmentTiming(t) {
+  const shardIdx = (parseInt(String(t.num).replace(/\D/g, ''), 10) || 0) % 10;
+  const shard = window.SCHED_CACHE.get(shardIdx);
+  if (!shard || !shard[t.num] || (!t._segFrom && !t._segTo)) return null;
+  const stops = shard[t.num];
+  const fIdx = t._segFrom ? stops.findIndex(s => s[0] === t._segFrom) : 0;
+  const tIdx = t._segTo ? stops.findIndex((s, i) => i > (fIdx === -1 ? 0 : fIdx) && s[0] === t._segTo) : stops.length - 1;
+  if (fIdx === -1 || tIdx === -1 || fIdx >= tIdx) return null;
+
+  const s1 = stops[fIdx], s2 = stops[tIdx];
+  const dep1 = s1[2] !== '--' ? s1[2] : s1[1];
+  const arr2 = s2[1] !== '--' ? s2[1] : s2[2];
+  const m1 = (s1[4] - 1) * 1440 + (parseHHMM(dep1) || 0);
+  const m2 = (s2[4] - 1) * 1440 + (parseHHMM(arr2) || 0);
+  const segDur = fmtDurMins(Math.max(15, m2 - m1));
+  const segDist = Math.max(10, (s2[3] || 0) - (s1[3] || 0));
+  return {
+    fc: s1[0], tc: s2[0],
+    fn: window.ST_MAP.get(s1[0])?.n || s1[0],
+    tn: window.ST_MAP.get(s2[0])?.n || s2[0],
+    dep: dep1, arr: arr2,
+    dur: segDur, dist: segDist,
+    ad: Math.max(0, (s2[4] || 1) - (s1[4] || 1)),
+    haltsBetween: tIdx - fIdx
+  };
+}
+
 function trainCard(t, idx) {
-  const clr = TYPE_CLR[t.type]||'#6b7280';
+  const clr = TYPE_CLR[t.type] || '#6b7280';
   const isFirst = idx === 0;
   const footerBg = isFirst ? 'bg-primary-container' : 'bg-surface-container-low';
-  const footerTxt = isFirst ? 'text-white/70 hover:text-white' : 'text-on-surface-variant hover:text-primary';
+  const footerTxt = isFirst ? 'text-white/75 hover:text-white' : 'text-on-surface-variant hover:text-primary';
   const btnCls = isFirst ? 'bg-secondary hover:scale-[1.02]' : 'bg-primary hover:opacity-90';
-  const seed = parseInt(t.num);
+  const seed = parseInt(t.num, 10) || 12345;
+  const dateStr = document.getElementById('t-date')?.value || getIstNow().dateStr;
+  const runsToday = isRunningOnDate(t.days, dateStr);
 
-  return `<div class="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-[0_8px_32px_rgba(0,10,30,0.05)] border border-outline-variant/10 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200">
+  const seg = getSegmentTiming(t);
+  const dispFc   = seg ? seg.fc   : t.fc;
+  const dispTc   = seg ? seg.tc   : t.tc;
+  const dispDep  = seg ? seg.dep  : t.dep;
+  const dispArr  = seg ? seg.arr  : t.arr;
+  const dispDur  = seg ? seg.dur  : t.dur;
+  const dispDist = seg ? seg.dist : t.dist;
+  const dispAd   = seg ? seg.ad   : t.ad;
+  const dispStops = seg ? `${seg.haltsBetween} stops` : `${t.stops} stops`;
+
+  return `<div class="bg-surface-container-lowest rounded-2xl overflow-hidden shadow-[0_8px_32px_rgba(0,10,30,0.05)] border border-outline-variant/10 hover:shadow-lg hover:-translate-y-0.5 transition-all duration-200 ${!runsToday ? 'opacity-80' : ''}">
   <div class="p-6 md:p-8">
     <div class="flex flex-col md:flex-row justify-between gap-4 mb-6">
       <div class="flex items-start gap-4">
@@ -1582,40 +1860,41 @@ function trainCard(t, idx) {
           <div class="flex items-center gap-2 mt-1.5 flex-wrap">
             <div class="flex gap-1">${dayPills(t.days)}</div>
             <span class="text-[10px] font-bold uppercase tracking-widest px-2 py-0.5 rounded-full" style="background:${clr}18;color:${clr}">${TYPE_LBL[t.type]||t.type}</span>
+            ${!runsToday ? '<span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-amber-100 text-amber-800">Not operating on selected date</span>' : ''}
           </div>
+          ${seg && (seg.fc !== t.fc || seg.tc !== t.tc) ? `<div class="text-[11px] text-on-surface-variant mt-1.5">Full route: <strong>${t.fn} (${t.fc})</strong> → <strong>${t.tn} (${t.tc})</strong></div>` : ''}
         </div>
       </div>
       <div class="flex items-center gap-4 md:gap-8 shrink-0">
         <div class="text-center">
-          <div class="text-2xl font-black text-primary">${t.dep}</div>
-          <div class="text-xs font-bold text-on-surface-variant uppercase tracking-tight mt-0.5">${t.fc}</div>
+          <div class="text-2xl font-black text-primary">${dispDep}</div>
+          <div class="text-xs font-bold text-on-surface-variant uppercase tracking-tight mt-0.5">${dispFc}</div>
         </div>
         <div class="flex flex-col items-center px-2">
-          <span class="text-[10px] font-bold text-secondary uppercase tracking-widest mb-1">${t.dur}</span>
+          <span class="text-[10px] font-bold text-secondary uppercase tracking-widest mb-1">${dispDur}</span>
           <div class="w-24 md:w-32 h-0.5 bg-surface-variant relative">
             <div class="absolute -left-1 -top-[3px] w-2 h-2 rounded-full border-2 border-secondary bg-white"></div>
             <div class="absolute -right-1 -top-[3px] w-2 h-2 rounded-full bg-secondary"></div>
           </div>
-          <span class="text-[10px] text-on-surface-variant mt-1">${t.stops} stops · ${t.dist.toLocaleString()} km</span>
+          <span class="text-[10px] text-on-surface-variant mt-1">${dispStops} · ${dispDist.toLocaleString()} km</span>
         </div>
         <div class="text-center">
-          <div class="text-2xl font-black text-primary">${t.arr}${t.ad>0?`<sup class="text-xs text-secondary ml-0.5">+${t.ad}</sup>`:''}</div>
-          <div class="text-xs font-bold text-on-surface-variant uppercase tracking-tight mt-0.5">${t.tc}</div>
+          <div class="text-2xl font-black text-primary">${dispArr}${dispAd>0?`<sup class="text-xs text-secondary ml-0.5">+${dispAd}</sup>`:''}</div>
+          <div class="text-xs font-bold text-on-surface-variant uppercase tracking-tight mt-0.5">${dispTc}</div>
         </div>
       </div>
     </div>
     <div class="grid grid-cols-2 md:grid-cols-4 gap-3">
-      ${t.cls.map((c,i) => avChip(c, t.dist, t.type, seed, i)).join('')}
+      ${(t.cls || ['SL','GN']).map((c,i) => avChip(c, dispDist, t.type, seed, i)).join('')}
     </div>
   </div>
-  <div class="px-6 md:px-8 py-4 ${footerBg} flex justify-between items-center">
+  <div class="px-6 md:px-8 py-4 ${footerBg} flex justify-between items-center flex-wrap gap-2">
     <div class="flex items-center gap-4 flex-wrap">
-      <button class="${footerTxt} flex items-center gap-1.5 text-sm font-semibold transition-colors"
-        onclick="viewRoute('${t.num}')">
-        <span class="material-symbols-outlined text-base">route</span>Timetable / Route
+      <button class="${footerTxt} flex items-center gap-1.5 text-sm font-semibold transition-colors" onclick="viewRoute('${t.num}')">
+        <span class="material-symbols-outlined text-base">route</span>Timetable (${t.stops} Halts)
       </button>
       <button class="${footerTxt} flex items-center gap-1.5 text-sm font-semibold transition-colors"
-        onclick="openFareModal(this)" data-km="${t.dist}" data-type="${t.type}" data-num="${t.num}" data-name="${t.name.replace(/"/g,'&quot;')}">
+        onclick="openFareModal(this)" data-km="${dispDist}" data-type="${t.type}" data-num="${t.num}" data-name="${t.name.replace(/"/g,'&quot;')}">
         <span class="material-symbols-outlined text-base">payments</span>Fare Breakup
       </button>
     </div>
@@ -1628,42 +1907,91 @@ function trainCard(t, idx) {
 
 function renderTrainCards() {
   const wrap = document.getElementById('tr-results');
-  if (!filteredTrains.length) {
-    wrap.innerHTML = `<div class="text-center py-20 text-on-surface-variant"><span class="material-symbols-outlined text-5xl block mb-3">search_off</span><p class="font-semibold">No trains found.<br/><span class="font-normal text-sm">Try different stations or remove filters.</span></p></div>`;
-    document.getElementById('tr-more').classList.add('hidden'); return;
+  if (lastSearchError) {
+    wrap.innerHTML = `<div class="text-center py-16 bg-surface-container-lowest rounded-2xl border border-outline-variant/15 px-6">
+      <span class="material-symbols-outlined text-5xl text-amber-500 block mb-3">wrong_location</span>
+      <h3 class="font-bold text-lg text-primary mb-1">Station Not Recognized: "${lastSearchError.query}"</h3>
+      <p class="text-sm text-on-surface-variant max-w-md mx-auto">Please pick a station from the autocomplete dropdown or enter its valid IRCTC code (like <strong>NDLS</strong>, <strong>HWH</strong>, <strong>PNBE</strong>, <strong>HJP</strong>, <strong>RXL</strong>, <strong>CSMT</strong>).</p>
+    </div>`;
+    document.getElementById('tr-more').classList.add('hidden');
+    return;
   }
-  wrap.innerHTML = filteredTrains.slice(0,visibleCount).map((t,i)=>trainCard(t,i)).join('');
+  if (!filteredTrains.length) {
+    wrap.innerHTML = `<div class="text-center py-16 bg-surface-container-lowest rounded-2xl border border-outline-variant/15 px-6">
+      <span class="material-symbols-outlined text-5xl text-on-surface-variant block mb-3">search_off</span>
+      <p class="font-bold text-primary">No direct trains found between these stations.<br/>
+      <span class="font-normal text-sm text-on-surface-variant">Try turning on <strong>"Include nearby city terminals"</strong> or unchecking <strong>"Only trains running on selected date"</strong>, or removing train-type filters.</span></p>
+    </div>`;
+    document.getElementById('tr-more').classList.add('hidden');
+    return;
+  }
+  wrap.innerHTML = filteredTrains.slice(0, visibleCount).map((t,i) => trainCard(t,i)).join('');
   document.getElementById('tr-more').classList.toggle('hidden', visibleCount >= filteredTrains.length);
 }
-function loadMore() { visibleCount += 8; renderTrainCards(); }
-function quickTrack(num) { document.getElementById('l-num').value=num; showView('live'); trackLive(true); }
+
+async function loadMore() {
+  visibleCount += 10;
+  const from = document.getElementById('t-from').value;
+  const to   = document.getElementById('t-to').value;
+  if (from || to) {
+    await preloadShardsForTrains(filteredTrains.slice(0, visibleCount));
+  }
+  renderTrainCards();
+}
+function quickTrack(num) { document.getElementById('l-num').value = num; showView('live'); trackLive(true, true); }
 
 /* ══════════════════════════════════════════════════════
-   FARE MODAL
+   FARE MODAL & CALCULATOR
    ══════════════════════════════════════════════════════ */
 function openFareModal(btn) {
-  const km   = parseInt(btn.dataset.km);
-  const type = btn.dataset.type;
+  const km   = parseInt(btn.dataset.km, 10) || 1384;
+  const type = btn.dataset.type || 'SF';
   const num  = btn.dataset.num || '';
-  const name = btn.dataset.name || type;
+  const name = btn.dataset.name || TYPE_LBL[type] || type;
   document.getElementById('fm-title').textContent = num ? `#${num} · ${name}` : `Fare — ${type} (${km} km)`;
   document.getElementById('fm-body').innerHTML = window.FARE.renderBreakup(km, type);
   document.getElementById('fare-modal').classList.add('open');
 }
 function closeFareModal() { document.getElementById('fare-modal').classList.remove('open'); }
 
-/* ══════════════════════════════════════════════════════
-   FARE CALCULATOR PAGE
-   ══════════════════════════════════════════════════════ */
-function calcFare() {
-  const km   = parseInt(document.getElementById('f-km').value) || 1384;
+function haversineKm(lat1, lon1, lat2, lon2) {
+  const R = 6371, toRad = x => x * Math.PI / 180;
+  const dLat = toRad(lat2 - lat1), dLon = toRad(lon2 - lon1);
+  const a = Math.sin(dLat/2)**2 + Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) * Math.sin(dLon/2)**2;
+  return R * 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+}
+
+async function calcFare() {
+  const fromVal = document.getElementById('f-from')?.value.trim();
+  const toVal   = document.getElementById('f-to')?.value.trim();
+  let km = parseInt(document.getElementById('f-km').value, 10);
+
+  if (fromVal && toVal) {
+    const res = searchSmart(fromVal, toVal, true);
+    if (res.trains?.length) {
+      await preloadShardsForTrains(res.trains.slice(0, 5));
+      const seg = getSegmentTiming(res.trains[0]);
+      if (seg && seg.dist > 0) {
+        km = seg.dist;
+        document.getElementById('f-km').value = km;
+      }
+    } else if (!km) {
+      const c1 = getStationCodes(fromVal, false)[0], c2 = getStationCodes(toVal, false)[0];
+      const s1 = window.ST_MAP.get(c1), s2 = window.ST_MAP.get(c2);
+      if (s1?.la && s2?.la) {
+        km = Math.round(haversineKm(s1.la, s1.ln, s2.la, s2.ln) * 1.18);
+        document.getElementById('f-km').value = km;
+      }
+    }
+  }
+  if (!km || km < 1) { km = 1384; document.getElementById('f-km').value = km; }
   const type = document.getElementById('f-type').value;
   const cat  = document.getElementById('f-cat').value;
   document.getElementById('f-result').innerHTML = window.FARE.renderBreakup(km, type, cat);
 }
 
 /* ══════════════════════════════════════════════════════
-   LIVE STATUS  – auto-refresh every 90s
+   LIVE STATUS – AUTO-REFRESH EVERY 90s
    ══════════════════════════════════════════════════════ */
 function stopAutoRefresh() {
   clearInterval(refreshTimer); clearInterval(countdownTimer);
@@ -1680,7 +2008,7 @@ function startAutoRefresh() {
     refreshCountdown--;
     document.getElementById('refresh-countdown').textContent = refreshCountdown + 's';
     updateRefreshRing();
-    if (refreshCountdown <= 0) { trackLive(false); refreshCountdown = 90; }
+    if (refreshCountdown <= 0) { trackLive(false, false); refreshCountdown = 90; }
   }, 1000);
 }
 function updateRefreshRing() {
@@ -1688,11 +2016,12 @@ function updateRefreshRing() {
   document.getElementById('refresh-ring').style.setProperty('--p', pct.toFixed(1) + '%');
 }
 
-async function trackLive(resetRefresh=true) {
+async function trackLive(resetRefresh = true, autoPick = true) {
   const input = document.getElementById('l-num').value.trim();
-  const date  = document.getElementById('l-date').value;
+  const dateInput = document.getElementById('l-date');
+  const date  = dateInput.value || getIstNow().dateStr;
   const out   = document.getElementById('l-result');
-  if (!input) { out.innerHTML=`<p class="text-error text-sm font-medium">Please enter a train number or name.</p>`; return; }
+  if (!input) { out.innerHTML = `<p class="text-error text-sm font-medium">Please enter a train number or name.</p>`; return; }
 
   const m = input.match(/\d{4,5}/);
   let num = m ? m[0] : null;
@@ -1707,11 +2036,11 @@ async function trackLive(resetRefresh=true) {
       <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/15 p-5 mb-4 shadow-sm">
         <h4 class="font-bold text-sm text-primary mb-2">Multiple trains matched "${input}" (${matched.length} services):</h4>
         <div class="space-y-2 max-h-80 overflow-y-auto">
-          ${matched.slice(0, 12).map(t => `
-            <div onclick="document.getElementById('l-num').value='${t.num}'; trackLive(true);" class="p-3 bg-surface-container-low hover:bg-surface-container-high rounded-xl cursor-pointer flex justify-between items-center transition border border-outline-variant/10">
+          ${matched.slice(0, 15).map(t => `
+            <div onclick="document.getElementById('l-num').value='${t.num}'; trackLive(true, true);" class="p-3 bg-surface-container-low hover:bg-surface-container-high rounded-xl cursor-pointer flex justify-between items-center transition border border-outline-variant/10">
               <div>
-                <div class="font-bold text-sm text-primary">#${t.num} · ${t.name}</div>
-                <div class="text-xs text-on-surface-variant font-medium">${t.fn} (${t.fc}) → ${t.tn} (${t.tc}) · Dep: ${t.dep}</div>
+                <div class="font-bold text-xs text-primary">#${t.num} · ${t.name}</div>
+                <div class="text-[11px] text-on-surface-variant font-medium">${t.fn} (${t.fc}) → ${t.tn} (${t.tc}) · Dep: ${t.dep}</div>
               </div>
               <button class="px-3 py-1.5 bg-primary text-white text-xs font-bold rounded-lg hover:opacity-90">Track</button>
             </div>
@@ -1723,49 +2052,65 @@ async function trackLive(resetRefresh=true) {
   }
 
   if (!num) {
-    out.innerHTML = renderLive(null);
+    out.innerHTML = renderLive(null, input);
     return;
   }
 
   if (resetRefresh) {
     out.innerHTML = `<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/10 p-6 flex items-center gap-3 text-on-surface-variant text-sm">
-      <span class="material-symbols-outlined spin text-secondary">progress_activity</span>Fetching live NTES status & schedule…
+      <span class="material-symbols-outlined spin text-secondary">progress_activity</span>Loading authentic schedule &amp; status for #${num}…
     </div>`;
   }
 
   try {
-    const r = await fetch(`/api/live/${num}?date=${date}`);
+    const r = await fetch(`/api/live/${encodeURIComponent(num)}?date=${encodeURIComponent(date)}${autoPick ? '&auto=1' : ''}`);
+    if (r.status === 404) {
+      out.innerHTML = renderLive(null, num);
+      stopAutoRefresh();
+      return;
+    }
     if (!r.ok) throw new Error(await r.text());
     const d = await r.json();
-    out.innerHTML = renderLive(d);
+    if (d.start_date && dateInput.value !== d.start_date) dateInput.value = d.start_date;
+    out.innerHTML = renderLive(d, num);
     if (resetRefresh) startAutoRefresh();
-  } catch(e) {
+  } catch (e) {
     try {
-      const d = getClientLive(num, date);
-      out.innerHTML = renderLive(d);
-      if (resetRefresh) startAutoRefresh();
-    } catch(err) {
+      const d = await getClientLive(num, date, autoPick);
+      if (d && d.start_date) dateInput.value = d.start_date;
+      out.innerHTML = renderLive(d, num);
+      if (d && resetRefresh) startAutoRefresh();
+      else stopAutoRefresh();
+    } catch (err) {
       out.innerHTML = `<div class="bg-error-container text-on-error-container rounded-2xl p-5 text-sm">
-        <strong>Connection error.</strong><br/><code class="text-xs opacity-70">${e.message}</code>
+        <strong>Error loading status:</strong> ${e.message}
       </div>`;
     }
   }
 }
 
-function renderLive(d) {
+function renderLive(d, searchedQuery = '') {
   if (!d) {
-    return `<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/15 p-6 text-center">
+    const nDisp = searchedQuery.replace(/[^A-Za-z0-9\s-]/g, '');
+    const isNum = /^\d{4,5}$/.test(nDisp);
+    return `<div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/15 p-6 text-center shadow-sm">
       <span class="material-symbols-outlined text-4xl text-amber-500 mb-2">search_off</span>
-      <h3 class="font-bold text-base text-primary mb-1">Train Not Found</h3>
-      <p class="text-xs text-on-surface-variant max-w-md mx-auto">Please enter a valid 5-digit Indian Railways train number (e.g. <strong>22436</strong> for Vande Bharat, <strong>12301</strong> for Rajdhani, <strong>12004</strong> for Shatabdi) or choose from the quick shortcuts above.</p>
+      <h3 class="font-bold text-base text-primary mb-1">Train ${isNum ? '#' + nDisp : '"' + nDisp + '"'} Not Found in Static Timetable</h3>
+      <p class="text-xs text-on-surface-variant max-w-md mx-auto mb-4">If this is a seasonal 0-series festival special or recently announced train, verify it directly on official live GPS portals below:</p>
+      ${isNum ? `<div class="flex flex-wrap justify-center gap-2">
+        <a href="https://enquiry.indianrail.gov.in/mntes/" target="_blank" rel="noopener" class="px-3 py-1.5 rounded-lg bg-primary text-white text-xs font-semibold">Official NTES GPS</a>
+        <a href="https://www.confirmtkt.com/train-running-status/${nDisp}" target="_blank" rel="noopener" class="px-3 py-1.5 rounded-lg bg-surface-container-high text-primary text-xs font-semibold">ConfirmTkt #${nDisp}</a>
+        <a href="https://www.railyatri.in/live-train-status/${nDisp}" target="_blank" rel="noopener" class="px-3 py-1.5 rounded-lg bg-surface-container-high text-primary text-xs font-semibold">RailYatri #${nDisp}</a>
+      </div>` : ''}
     </div>`;
   }
 
   const stops  = d.stops || [];
-  const curr   = stops.find(s=>s.status==='current') || stops[0] || {};
+  const curr   = stops.find(s => s.status === 'current') || stops[0] || {};
   const delay  = d.delay_mins || 0;
-  const srcCls = d.source?.startsWith('live') ? 'badge-live' : d.cached ? 'bg-blue-50 text-blue-700' : 'badge-sim';
-  const srcTxt = d.source?.startsWith('live') ? '🟢 LIVE NTES' : d.cached ? '💾 CACHED' : '⏱️ IST TIMETABLE';
+  const isLiveApi = d.source?.startsWith('live-');
+  const srcCls = isLiveApi ? 'badge-live' : 'bg-blue-50 text-blue-800 border border-blue-200';
+  const srcTxt = isLiveApi ? '🟢 LIVE GPS API' : '⏱️ IRCTC TIMETABLE EST.';
 
   const isDeparted = d.stage === 'ARRIVED' || d.stage === 'PAST_DATE';
   const isAwaiting = d.stage === 'AWAITING_DEPARTURE';
@@ -1774,14 +2119,25 @@ function renderLive(d) {
   const statusBadgeCls = isNotRunning ? 'bg-error/15 text-error border-error/20'
     : isDeparted ? 'bg-blue-500/15 text-blue-700 border-blue-500/20'
     : isAwaiting ? 'bg-amber-500/15 text-amber-700 border-amber-500/20'
-    : delay > 0 ? 'bg-amber-500/15 text-amber-700 border-amber-500/20'
+    : delay > 2 ? 'bg-amber-500/15 text-amber-700 border-amber-500/20'
     : 'bg-green-500/15 text-green-700 border-green-500/20';
+
+  const candButtons = (d.run_candidates || []).length ? `
+    <div class="mb-3 flex flex-wrap items-center gap-1.5 text-[11px]">
+      <span class="font-bold text-on-surface-variant mr-1">Start Date:</span>
+      ${d.run_candidates.map(c => `
+        <button onclick="document.getElementById('l-date').value='${c.date}'; trackLive(true, false);"
+          class="px-2.5 py-1 rounded-lg border font-semibold transition ${c.date === d.date ? 'bg-primary text-white border-primary' : c.active ? 'bg-green-50 text-green-800 border-green-300 hover:bg-green-100' : 'bg-surface-container-low text-on-surface-variant border-outline-variant/20 hover:bg-surface-container'}">
+          ${c.label}${c.active ? ' ● Active' : ''}
+        </button>
+      `).join('')}
+    </div>` : '';
 
   return `
 <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/15 p-5 mb-4 shadow-sm">
   <div class="flex justify-between items-start flex-wrap gap-2 mb-3">
     <div>
-      <div class="flex items-center gap-2">
+      <div class="flex items-center gap-2 flex-wrap">
         <h3 class="text-lg font-bold text-primary font-headline">${d.train_name}</h3>
         <span class="font-mono text-xs font-bold px-2 py-0.5 rounded-md bg-secondary/10 text-secondary">#${d.train_number}</span>
       </div>
@@ -1796,20 +2152,22 @@ function renderLive(d) {
     </div>
   </div>
 
+  ${candButtons}
+
   <div class="bg-surface-container-low/80 rounded-xl p-3 border border-outline-variant/10 text-xs text-on-surface mb-3">
-    <div class="flex items-center gap-2 font-semibold ${isNotRunning ? 'text-error' : delay > 0 ? 'text-amber-600' : 'text-green-600'}">
-      <span class="material-symbols-outlined text-base">${isNotRunning ? 'cancel' : isDeparted ? 'task_alt' : isAwaiting ? 'schedule' : delay > 0 ? 'warning' : 'check_circle'}</span>
-      <span>${d.stage_text || (delay > 0 ? `Running ${delay} minutes late` : 'Running on time')}</span>
+    <div class="flex items-center gap-2 font-semibold ${isNotRunning ? 'text-error' : delay > 2 ? 'text-amber-700' : 'text-green-700'}">
+      <span class="material-symbols-outlined text-base">${isNotRunning ? 'cancel' : isDeparted ? 'task_alt' : isAwaiting ? 'schedule' : delay > 2 ? 'warning' : 'check_circle'}</span>
+      <span>${d.stage_text || (delay > 0 ? `Running ${delay} minutes late` : 'On scheduled time')}</span>
     </div>
     <div class="text-[11px] text-on-surface-variant mt-1.5 flex items-center justify-between flex-wrap gap-2 pt-1.5 border-t border-outline-variant/10">
-      <div>Last reported: <strong class="text-on-surface">${curr.st || '—'} (${curr.code || '—'})</strong></div>
-      <div class="font-mono">Updated: ${new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit' })} IST</div>
+      <div>Reference stop: <strong class="text-on-surface">${curr.st || '—'} (${curr.code || '—'})</strong></div>
+      <div class="font-mono">Checked: ${new Date().toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', timeZone: 'Asia/Kolkata' })} IST</div>
     </div>
   </div>
 
-  <!-- Direct Official Satellite GPS Tracking Links -->
+  <!-- Live GPS Verification Links -->
   <div class="pt-2 border-t border-outline-variant/10">
-    <div class="text-[10px] uppercase font-bold tracking-wider text-on-surface-variant mb-2">Live NTES / GPS Verification:</div>
+    <div class="text-[10px] uppercase font-bold tracking-wider text-on-surface-variant mb-2">Check Live Satellite GPS Status:</div>
     <div class="flex flex-wrap gap-2">
       <a href="https://enquiry.indianrail.gov.in/mntes/" target="_blank" rel="noopener" class="flex items-center gap-1 px-3 py-1.5 rounded-lg bg-primary text-white text-xs font-semibold hover:opacity-90 transition">
         <span class="material-symbols-outlined text-sm">satellite_alt</span> Official NTES GPS
@@ -1826,8 +2184,8 @@ function renderLive(d) {
 
 <div class="bg-surface-container-lowest rounded-2xl border border-outline-variant/15 p-5 shadow-sm">
   <div class="text-xs font-bold uppercase tracking-wider text-on-surface-variant mb-4 flex items-center justify-between">
-    <span>Sequential Halts &amp; Platform Status (${stops.length} Stops)</span>
-    <span class="font-normal font-mono text-[11px]">${d.dist ? d.dist + ' km total' : ''}</span>
+    <span>Authentic IRCTC Schedule &amp; Halts (${stops.length} Stops)</span>
+    <span class="font-normal font-mono text-[11px]">${d.dist ? d.dist.toLocaleString() + ' km total' : ''}</span>
   </div>
   ${stops.map((s,i,arr)=>`
   <div class="flex gap-4">
@@ -1840,16 +2198,19 @@ function renderLive(d) {
         <div>
           <span class="font-bold text-sm text-primary">${s.st}</span>
           <span class="text-on-surface-variant text-xs ml-1 font-mono">(${s.code})</span>
-          ${s.platform?`<span class="text-[10px] font-bold bg-secondary/10 text-secondary px-2 py-0.5 rounded-md ml-2">${s.platform}</span>`:''}
+          ${s.day > 1 ? `<span class="text-[10px] font-bold bg-surface-container text-on-surface-variant px-1.5 py-0.5 rounded ml-1">Day ${s.day}</span>` : ''}
+          ${s.platform?`<span class="text-[10px] font-bold bg-secondary/10 text-secondary px-2 py-0.5 rounded-md ml-1">${s.platform}</span>`:''}
         </div>
-        ${s.status==='current'?`<span class="text-[10px] font-black text-secondary bg-secondary/15 px-2.5 py-0.5 rounded-full shrink-0 border border-secondary/30">● CURRENT POSITION</span>`:''}
+        ${s.status==='current'?`<span class="text-[10px] font-black text-secondary bg-secondary/15 px-2.5 py-0.5 rounded-full shrink-0 border border-secondary/30">● CURRENT</span>`:''}
       </div>
-      <div class="text-xs text-on-surface-variant font-mono mt-1">
-        Arr: <strong class="text-on-surface font-semibold">${s.actualArr||s.arr||'--'}</strong> &nbsp;|&nbsp; Dep: <strong class="text-on-surface font-semibold">${s.dep||'--'}</strong>
-        ${s.delay>0?`<span class="text-error font-semibold ml-2">+${s.delay}m late</span>`:''}
+      <div class="text-xs text-on-surface-variant font-mono mt-1 flex flex-wrap gap-x-3">
+        <span>Arr: <strong class="text-on-surface font-semibold">${s.arr||'--'}</strong>${s.delay>0 && s.actualArr && s.arr!=='--' ? ` <span class="text-amber-700">(${s.actualArr})</span>`:''}</span>
+        <span>Dep: <strong class="text-on-surface font-semibold">${s.dep||'--'}</strong></span>
+        ${s.dist !== undefined ? `<span class="text-on-surface-variant/75">${s.dist} km</span>` : ''}
+        ${s.delay>2?`<span class="text-error font-semibold">+${s.delay}m</span>`:''}
       </div>
       <div class="text-[11px] font-semibold mt-1 ${s.status==='departed'?'text-green-600':s.status==='current'?'text-secondary font-bold':'text-on-surface-variant/70'}">
-        ${s.status==='departed'?'✓ Departed':s.status==='current'?'▶ Currently here / approaching':'○ Scheduled'}
+        ${s.status==='departed'?'✓ Crossed':s.status==='current'?'▶ Current / Last passed':'○ Upcoming'}
       </div>
     </div>
   </div>`).join('')}
@@ -1857,7 +2218,7 @@ function renderLive(d) {
 }
 
 /* ══════════════════════════════════════════════════════
-   PNR
+   PNR STATUS
    ══════════════════════════════════════════════════════ */
 async function checkPNR() {
   const pnr = document.getElementById('p-pnr').value.trim();
@@ -1873,11 +2234,11 @@ async function checkPNR() {
     if (!r.ok) throw new Error(await r.text());
     const d = await r.json();
     out.innerHTML = renderPNR(d);
-  } catch(e) {
+  } catch (e) {
     try {
       const d = getClientPNR(pnr);
       out.innerHTML = renderPNR(d);
-    } catch(err) {
+    } catch (err) {
       out.innerHTML = `<div class="bg-error-container text-on-error-container rounded-2xl p-5 text-sm"><strong>Error:</strong> ${e.message}</div>`;
     }
   }
@@ -1890,7 +2251,7 @@ function renderPNR(d) {
   const isRAC = stat === 'RAC' || p.current_status?.startsWith('RAC');
   const clr   = isCNF ? 'text-green-600' : isRAC ? 'text-blue-600' : 'text-amber-600';
   const srcCls= d.source?.startsWith('live') ? 'badge-live' : 'badge-sim';
-  const srcTxt= d.source?.startsWith('live') ? '🟢 LIVE' : '🟡 SIMULATED';
+  const srcTxt= d.source?.startsWith('live') ? '🟢 LIVE' : '🟡 DEMO PNR PREVIEW';
 
   const rows = [
     ['PNR Number',     `<span class="font-mono tracking-[.2em]">${d.pnr}</span>`],
@@ -1911,10 +2272,6 @@ function renderPNR(d) {
     <div class="divide-y divide-outline-variant/10">
       ${rows.map(([k,v])=>`<div class="flex justify-between items-center py-2.5 gap-4"><span class="text-on-surface-variant text-sm shrink-0">${k}</span><span class="font-semibold text-sm text-right">${v}</span></div>`).join('')}
     </div>
-    ${d.passengers?.length>1?`<div class="mt-4 pt-4 border-t border-outline-variant/10">
-      <div class="text-xs font-bold text-on-surface-variant uppercase mb-2">All Passengers</div>
-      ${d.passengers.map((p,i)=>`<div class="flex justify-between py-1.5 text-sm"><span class="text-on-surface-variant">Passenger ${i+1}</span><span class="font-semibold">${p.current_status||p.booking_status}</span></div>`).join('')}
-    </div>`:''}
   </div>`;
 }
 
@@ -1968,98 +2325,106 @@ function openMetroModal(id) {
 function closeMetroModal() { document.getElementById('metro-modal').classList.remove('open'); }
 
 /* ══════════════════════════════════════════════════════
-   STATIONS TABLE
+   STATIONS DIRECTORY (9,251 STATIONS)
    ══════════════════════════════════════════════════════ */
 function renderSt() {
   const q    = (document.getElementById('st-q')?.value||'').toLowerCase().trim();
   const zone = document.getElementById('st-zone')?.value || '';
   const st   = document.getElementById('st-state')?.value || '';
-  const cat  = document.getElementById('st-cat')?.value || '';
+  const tier = document.getElementById('st-cat')?.value || '';
+
   const data = (window.STATIONS||[]).filter(s => {
     const sName = (s.n || '').toLowerCase();
     const sCode = (s.c || '').toLowerCase();
-    const sCity = (s.city || s.d || '').toLowerCase();
     const sState = s.state || s.st || s.s || '';
-    const matchQ = !q || sName.includes(q) || sCode.includes(q) || sCity.includes(q);
+    const tc = window.ST_TRAIN_COUNT.get(s.c) || 0;
+    const matchQ = !q || sName.includes(q) || sCode.includes(q);
     const matchZone = !zone || s.z === zone;
     const matchState = !st || sState === st;
-    const matchCat = !cat || (s.cat ? String(s.cat) === cat : true);
-    return matchQ && matchZone && matchState && matchCat;
-  });
+    const matchTier = !tier || (tier === 'major' ? tc >= 50 : tier === 'busy' ? (tc >= 15 && tc < 50) : tc < 15);
+    return matchQ && matchZone && matchState && matchTier;
+  }).sort((a, b) => (window.ST_TRAIN_COUNT.get(b.c) || 0) - (window.ST_TRAIN_COUNT.get(a.c) || 0));
+
   const tbody = document.getElementById('st-tbody');
   if (tbody) {
     tbody.innerHTML = data.slice(0, 250).map(s => {
       const stateName = s.state || s.st || s.s || '—';
-      const cityName = s.city || s.d || s.n || '—';
-      const catLbl = s.cat ? (String(s.cat).startsWith('NSG') ? s.cat : `NSG-${s.cat}`) : 'NSG-4';
-      const trainsDay = s.tr || `${(s.pf || 2) * 18}+ trains`;
+      const tc = window.ST_TRAIN_COUNT.get(s.c) || 0;
+      const tierLbl = tc >= 50 ? 'Major Junction' : tc >= 15 ? 'Busy Hub' : 'Regional';
       return `
-<tr class="border-t border-outline-variant/10 hover:bg-surface-container-low/60 transition-colors">
+<tr class="border-t border-outline-variant/10 hover:bg-surface-container-low/60 transition-colors cursor-pointer" onclick="document.getElementById('t-from').value='${s.n.replace(/'/g,"\\'")} (${s.c})';document.getElementById('t-to').value='';showView('trains');runSearch();">
   <td class="px-4 py-2.5 font-mono font-bold text-secondary text-xs">${s.c}</td>
   <td class="px-4 py-2.5 font-semibold text-sm">${s.n}</td>
-  <td class="px-4 py-2.5 text-on-surface-variant text-sm">${cityName}</td>
+  <td class="px-4 py-2.5 text-on-surface-variant text-sm">${s.n}</td>
   <td class="px-4 py-2.5 text-on-surface-variant text-sm">${stateName}</td>
-  <td class="px-4 py-2.5"><span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-secondary/10 text-secondary">${s.z}</span></td>
-  <td class="px-4 py-2.5 text-on-surface-variant text-xs">${catLbl}</td>
-  <td class="px-4 py-2.5"><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700">${s.pf || 2} Pf</span></td>
-  <td class="px-4 py-2.5 text-on-surface-variant text-sm">${trainsDay}</td>
+  <td class="px-4 py-2.5"><span class="text-[10px] font-bold px-2 py-0.5 rounded-full bg-secondary/10 text-secondary">${s.z || 'IR'}</span></td>
+  <td class="px-4 py-2.5 text-on-surface-variant text-xs">${tierLbl}</td>
+  <td class="px-4 py-2.5"><span class="text-xs font-bold px-2 py-0.5 rounded-full bg-blue-50 text-blue-700">${tc >= 50 ? '6+' : tc >= 15 ? '3–5' : '1–2'} Pf</span></td>
+  <td class="px-4 py-2.5 font-semibold text-primary text-sm">${tc} trains</td>
 </tr>`;
     }).join('');
   }
   const infoEl = document.getElementById('st-info');
   if (infoEl) {
-    infoEl.textContent = `Showing ${Math.min(data.length, 250)} of ${data.length} stations (${(window.STATIONS||[]).length} total)`;
+    infoEl.textContent = `Showing ${Math.min(data.length, 250)} of ${data.length.toLocaleString()} stations (${(window.STATIONS||[]).length.toLocaleString()} total · click any row to view trains)`;
   }
 }
 
 /* ══════════════════════════════════════════════════════
-   TIMETABLE & ROUTE MODAL
+   EXACT IRCTC TIMETABLE & ROUTE MODAL
    ══════════════════════════════════════════════════════ */
-function viewRoute(num) {
-  const tr = (window.TRAINS || []).find(t => t.num === num);
+async function viewRoute(num) {
+  const tr = window.TRAIN_MAP.get(num);
   if (!tr) return;
-  const stops = (tr.route && tr.route.length > 1) ? tr.route : resolveCorridorStops(tr.fc, tr.tc);
-  const stMap = new Map((window.STATIONS || []).map(s => [s.c, s]));
 
   document.getElementById('rm-title').textContent = `#${tr.num} · ${tr.name}`;
-  document.getElementById('rm-sub').textContent = `${tr.fn} (${tr.fc}) → ${tr.tn} (${tr.tc}) · ${tr.dur} · ${tr.dist.toLocaleString()} km · ${stops.length} halts`;
+  document.getElementById('rm-sub').textContent = `${tr.fn} (${tr.fc}) → ${tr.tn} (${tr.tc}) · ${tr.dur} · ${tr.dist.toLocaleString()} km · Loading exact schedule…`;
+  document.getElementById('rm-body').innerHTML = `<div class="py-10 text-center text-sm text-on-surface-variant">Loading authentic IRCTC halts…</div>`;
+  document.getElementById('route-modal').classList.remove('hidden');
 
-  const body = document.getElementById('rm-body');
-  const [depH, depM] = (tr.dep || '08:00').split(':').map(Number);
-  const totalMins = (parseInt(tr.dur) || 12) * 60 + (parseInt((tr.dur||'').split('h')[1]) || 0);
+  const stops = await getTrainStops(num);
+  if (!stops || !stops.length) {
+    document.getElementById('rm-body').innerHTML = '<div class="py-8 text-center text-sm text-error">Timetable unavailable.</div>';
+    return;
+  }
+
+  document.getElementById('rm-sub').textContent = `${tr.fn} (${tr.fc}) → ${tr.tn} (${tr.tc}) · ${tr.dur} · ${tr.dist.toLocaleString()} km · ${stops.length} official halts`;
 
   let out = `<div class="relative pl-6 space-y-3 before:absolute before:left-2.5 before:top-3 before:bottom-3 before:w-0.5 before:bg-outline-variant/30">`;
-
-  stops.forEach((c, i) => {
-    const isFirst = i === 0;
-    const isLast = i === stops.length - 1;
-    const st = stMap.get(c) || { n: c, s: '', z: '', pf: 2 };
-    const prog = i / (stops.length - 1 || 1);
-    const stopMins = (depH * 60 + depM + Math.round(prog * totalMins)) % (24 * 60);
-    const arrTime = isFirst ? 'Origin' : formatMinutes(stopMins - 2);
-    const depTime = isLast ? 'Terminates' : formatMinutes(stopMins + (isFirst ? 0 : 2));
-    const distEst = Math.round(prog * tr.dist);
+  stops.forEach((r, i) => {
+    const [c, arr, dep, distKm, dayN] = r;
+    const isFirst = i === 0, isLast = i === stops.length - 1;
+    const st = window.ST_MAP.get(c) || { n: c, z: 'IR' };
+    let haltTxt = isFirst ? 'Origin' : isLast ? 'Terminates' : 'Pass';
+    if (!isFirst && !isLast && arr !== '--' && dep !== '--') {
+      const m1 = parseHHMM(arr), m2 = parseHHMM(dep);
+      if (m1 !== null && m2 !== null) {
+        let diff = m2 - m1;
+        if (diff < 0) diff += 1440;
+        haltTxt = diff > 0 ? `${diff}m halt` : '1m halt';
+      }
+    }
     const dotClr = isFirst ? 'bg-green-500' : isLast ? 'bg-secondary' : 'bg-primary';
-
     out += `
     <div class="relative flex items-start gap-4 text-xs">
       <div class="absolute -left-6 top-1 w-3 h-3 rounded-full ${dotClr} border-2 border-surface"></div>
       <div class="flex-1 bg-surface-container-low/60 rounded-xl p-3 border border-outline-variant/10">
-        <div class="flex justify-between items-center mb-1">
+        <div class="flex justify-between items-center mb-1 gap-2">
           <div class="font-bold text-sm text-primary">${st.n} <span class="font-mono text-secondary">(${c})</span></div>
-          <span class="font-bold px-2 py-0.5 rounded-full text-[10px] bg-secondary/10 text-secondary">${st.z || 'IR'} · Pf. ${st.pf || 2}</span>
+          <div class="flex items-center gap-1.5 shrink-0">
+            <span class="font-bold px-2 py-0.5 rounded-full text-[10px] bg-surface-container text-on-surface-variant">Day ${dayN || 1}</span>
+            <span class="font-bold px-2 py-0.5 rounded-full text-[10px] bg-secondary/10 text-secondary">${haltTxt}</span>
+          </div>
         </div>
         <div class="flex justify-between items-center text-on-surface-variant font-medium">
-          <div>Arr: <span class="font-bold text-on-surface">${arrTime}</span> &nbsp;|&nbsp; Dep: <span class="font-bold text-on-surface">${depTime}</span></div>
-          <div class="text-[11px] font-mono">${distEst} km ${isFirst ? '(Origin)' : isLast ? '(Destination)' : ''}</div>
+          <div>Arr: <span class="font-bold text-on-surface font-mono">${arr}</span> &nbsp;|&nbsp; Dep: <span class="font-bold text-on-surface font-mono">${dep}</span></div>
+          <div class="text-[11px] font-mono">${distKm} km</div>
         </div>
       </div>
     </div>`;
   });
-
   out += `</div>`;
-  body.innerHTML = out;
-  document.getElementById('route-modal').classList.remove('hidden');
+  document.getElementById('rm-body').innerHTML = out;
 }
 
 function closeRouteModal() {
@@ -2079,19 +2444,24 @@ function setupLiveSearchAutocomplete() {
       return;
     }
 
-    const matches = (window.TRAINS || []).filter(t =>
-      t.num.includes(q) || t.name.toLowerCase().includes(q) || (t.fc && t.fc.toLowerCase().includes(q)) || (t.tc && t.tc.toLowerCase().includes(q))
-    ).slice(0, 8);
+    const exact = [], prefix = [], other = [];
+    for (const t of (window.TRAINS || [])) {
+      if (t.num === q) { exact.push(t); break; }
+      else if (t.num.startsWith(q)) prefix.push(t);
+      else if (t.num.includes(q) || t.name.toLowerCase().includes(q) || (t.fc && t.fc.toLowerCase() === q) || (t.tc && t.tc.toLowerCase() === q)) other.push(t);
+      if (prefix.length + other.length >= 25) break;
+    }
+    const matches = [...exact, ...prefix, ...other].slice(0, 10);
 
     if (!matches.length) {
-      suggestBox.innerHTML = '<div class="p-3 text-xs text-on-surface-variant font-medium">No matching trains found</div>';
+      suggestBox.innerHTML = '<div class="p-3 text-xs text-on-surface-variant font-medium">No matching train in static list — press Track to check live links</div>';
       suggestBox.classList.remove('hidden');
       return;
     }
 
     suggestBox.innerHTML = matches.map(t => `
       <div class="p-3 hover:bg-surface-container-high cursor-pointer border-b border-outline-variant/10 last:border-0 flex justify-between items-center transition"
-           onclick="document.getElementById('l-num').value='${t.num}'; document.getElementById('l-suggest').classList.add('hidden'); trackLive(true);">
+           onclick="document.getElementById('l-num').value='${t.num}'; document.getElementById('l-suggest').classList.add('hidden'); trackLive(true, true);">
         <div>
           <div class="font-bold text-xs text-primary">#${t.num} · ${t.name}</div>
           <div class="text-[11px] text-on-surface-variant font-medium">${t.fn} (${t.fc}) → ${t.tn} (${t.tc}) · Dep: ${t.dep}</div>

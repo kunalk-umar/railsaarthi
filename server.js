@@ -3,7 +3,7 @@
  * Pure Node.js, zero npm dependencies required to RUN.
  *
  * Run locally:    node server.js
- * Deploy:         See DEPLOY.md
+ * Deploy:         See DEPLOY.md / render.yaml
  */
 
 'use strict';
@@ -20,15 +20,16 @@ const http  = require('http');
 const https = require('https');
 const fs    = require('fs');
 const path  = require('path');
-const url   = require('url');
 const zlib  = require('zlib');
+const vm    = require('vm');
 
-const PORT      = process.env.PORT || 8080;
-const IR_KEY    = process.env.INDIANRAIL_API_KEY || '';
-const RAPID_KEY = process.env.RAPIDAPI_KEY       || '';
-const API_PREF  = process.env.API_PROVIDER       || 'auto';
-const IS_PROD   = process.env.NODE_ENV           === 'production';
-const PUBLIC    = path.join(__dirname, 'public');
+const PORT         = process.env.PORT || 8080;
+const RAILRADAR_KEY = process.env.RAILRADAR_API_KEY || '';
+const IR_KEY       = process.env.INDIANRAIL_API_KEY || '';
+const RAPID_KEY    = process.env.RAPIDAPI_KEY       || '';
+const API_PREF     = process.env.API_PROVIDER       || 'auto';
+const IS_PROD      = process.env.NODE_ENV           === 'production';
+const PUBLIC       = path.join(__dirname, 'public');
 
 /* ═══════════════════════════════════════════════
    MIME + STATIC FILE SERVING
@@ -37,7 +38,7 @@ const MIME = {
   '.html':'text/html; charset=utf-8',
   '.js'  :'application/javascript; charset=utf-8',
   '.css' :'text/css; charset=utf-8',
-  '.json':'application/json',
+  '.json':'application/json; charset=utf-8',
   '.png' :'image/png', '.jpg':'image/jpeg', '.svg':'image/svg+xml',
   '.ico' :'image/x-icon', '.webp':'image/webp',
   '.woff2':'font/woff2', '.woff':'font/woff',
@@ -46,18 +47,16 @@ const MIME = {
 function serveStatic(reqPath, res) {
   const cleanPath = reqPath.replace(/\.\.+/g, '');
   let safePath = path.join(PUBLIC, cleanPath);
-  
+
   if (fs.existsSync(safePath) && fs.statSync(safePath).isDirectory()) {
     safePath = path.join(safePath, 'index.html');
   }
 
-  // Fallback to project root if not in public/
   if (!fs.existsSync(safePath)) {
     const rootPath = path.join(__dirname, cleanPath);
     if (fs.existsSync(rootPath) && !fs.statSync(rootPath).isDirectory()) {
       safePath = rootPath;
     } else {
-      // SPA Fallback
       safePath = fs.existsSync(path.join(PUBLIC, 'index.html'))
         ? path.join(PUBLIC, 'index.html')
         : path.join(__dirname, 'index.html');
@@ -78,7 +77,6 @@ function serveStatic(reqPath, res) {
       'Cache-Control': age ? `public, max-age=${age}` : 'no-store',
       'X-Content-Type-Options': 'nosniff',
     };
-    // gzip for text types
     if (['.html','.js','.css','.json'].includes(ext) && data.length > 1024) {
       zlib.gzip(data, (_, gz) => {
         res.writeHead(200, { ...headers, 'Content-Encoding':'gzip', 'Content-Length':gz.length });
@@ -92,27 +90,74 @@ function serveStatic(reqPath, res) {
 }
 
 /* ═══════════════════════════════════════════════
-   IN-MEMORY CACHE
+   IN-MEMORY CACHE & RATE LIMITER
    ═══════════════════════════════════════════════ */
 const CACHE = new Map();
 function cget(k) { const h=CACHE.get(k); if(h&&Date.now()<h.e) return h.v; CACHE.delete(k); return null; }
 function cset(k,v,ttl) { CACHE.set(k,{v,e:Date.now()+ttl*1000}); }
 setInterval(() => { const now=Date.now(); CACHE.forEach((_,k)=>{ if(CACHE.get(k)?.e<now) CACHE.delete(k); }); }, 300000);
 
-/* ═══════════════════════════════════════════════
-   RATE LIMITER
-   ═══════════════════════════════════════════════ */
 const RATE = new Map();
 function isRateLimited(ip) {
   const now = Date.now();
   const wins = RATE.get(ip) || [];
   const recent = wins.filter(t => now-t < 60000);
   recent.push(now); RATE.set(ip, recent);
-  return recent.length > 120;
+  return recent.length > 180;
 }
 
 /* ═══════════════════════════════════════════════
-   HTTPS FETCH HELPER
+   LOAD AUTHENTIC 7,429 TRAINS, 9,251 STATIONS & TIMETABLES
+   ═══════════════════════════════════════════════ */
+let ALL_TRAINS = [];
+const TRAIN_MAP = new Map();
+const STATIONS_LIST = [];
+const STATIONS_MAP = new Map();
+const SCHED_MAP = new Map();
+
+function loadDatabase() {
+  try {
+    const dataPath = fs.existsSync(path.join(PUBLIC, 'js', 'data.js'))
+      ? path.join(PUBLIC, 'js', 'data.js')
+      : path.join(__dirname, 'data.js');
+    const dataCode = fs.readFileSync(dataPath, 'utf8');
+    const vmCtx = { window: {} };
+    vm.runInNewContext(dataCode, vmCtx);
+    (vmCtx.window.STATIONS || []).forEach(s => {
+      if (s && s.c) {
+        STATIONS_LIST.push(s);
+        STATIONS_MAP.set(s.c.toUpperCase(), s);
+      }
+    });
+    ALL_TRAINS = (vmCtx.window.TRAINS || []).map(tr => {
+      const fn = tr.fn || STATIONS_MAP.get(tr.fc)?.n || tr.fc;
+      const tn = tr.tn || STATIONS_MAP.get(tr.tc)?.n || tr.tc;
+      const hydrated = { ...tr, fn, tn };
+      TRAIN_MAP.set(hydrated.num, hydrated);
+      return hydrated;
+    });
+
+    const schedBase = fs.existsSync(path.join(PUBLIC, 'js', 'sched'))
+      ? path.join(PUBLIC, 'js', 'sched')
+      : path.join(__dirname, 'js', 'sched');
+    for (let i = 0; i < 10; i++) {
+      const p = path.join(schedBase, `${i}.json`);
+      if (fs.existsSync(p)) {
+        const shard = JSON.parse(fs.readFileSync(p, 'utf8'));
+        for (const [num, stops] of Object.entries(shard)) {
+          SCHED_MAP.set(num, stops);
+        }
+      }
+    }
+    console.log(`[init] Loaded ${ALL_TRAINS.length} trains, ${STATIONS_MAP.size} stations, ${SCHED_MAP.size} full timetables.`);
+  } catch (e) {
+    console.error('[init] DB load failed:', e.message);
+  }
+}
+loadDatabase();
+
+/* ═══════════════════════════════════════════════
+   HTTPS FETCH & LIVE API ADAPTERS
    ═══════════════════════════════════════════════ */
 function apiFetch(reqUrl, headers={}) {
   return new Promise((resolve, reject) => {
@@ -125,9 +170,44 @@ function apiFetch(reqUrl, headers={}) {
   });
 }
 
-/* ═══════════════════════════════════════════════
-   REAL API ADAPTERS
-   ═══════════════════════════════════════════════ */
+async function railRadarLive(num, date) {
+  if (!RAILRADAR_KEY) return null;
+  const r = await apiFetch(
+    `https://api.railradar.in/v1/trains/${encodeURIComponent(num)}/live?date=${encodeURIComponent(date)}`,
+    { 'X-Api-Key': RAILRADAR_KEY, 'Authorization': `Bearer ${RAILRADAR_KEY}` }
+  );
+  if (r.s !== 200 || !r.d) return null;
+  const d = r.d.data || r.d;
+  const rawStops = d.stops || d.route || [];
+  if (!rawStops.length) return null;
+  const stops = rawStops.map(s => ({
+    st: s.stationName || s.station_name || s.st || s.code,
+    code: s.stationCode || s.station_code || s.code,
+    arr: s.scheduledArrival || s.arr || '--',
+    dep: s.scheduledDeparture || s.dep || '--',
+    actualArr: s.actualArrival || s.actual_arr,
+    delay: parseInt(s.delayMinutes ?? s.delay ?? 0, 10) || 0,
+    status: s.status || (s.hasDeparted ? 'departed' : s.isCurrent ? 'current' : 'upcoming'),
+    platform: s.platform ? `Pf. ${s.platform}` : '',
+    dist: s.distance ?? s.dist ?? 0,
+    day: s.day || 1
+  }));
+  return {
+    train_number: num,
+    train_name: d.trainName || d.train_name || TRAIN_MAP.get(num)?.name || `Train #${num}`,
+    from: stops[0]?.st, to: stops.at(-1)?.st,
+    fc: stops[0]?.code, tc: stops.at(-1)?.code,
+    dep: stops[0]?.dep, arr: stops.at(-1)?.arr,
+    delay_mins: parseInt(d.delayMinutes ?? d.delay_mins ?? 0, 10) || 0,
+    last_station: d.currentStationName || d.last_station,
+    last_code: d.currentStationCode || d.last_code,
+    stage: 'IN_TRANSIT',
+    stage_badge: (d.delayMinutes || 0) > 0 ? `🟡 LIVE (+${d.delayMinutes}m)` : '🟢 LIVE ON TIME',
+    stage_text: d.statusMessage || d.message || 'Live GPS telemetry via RailRadar',
+    date, source: 'live-railradar', stops
+  };
+}
+
 async function irLive(num, date) {
   if (!IR_KEY) return null;
   const [y,m,d] = date.split('-');
@@ -138,11 +218,12 @@ async function irLive(num, date) {
     st:s.StationName, code:s.StationCode, arr:s.ScheduleArrival||'--', dep:s.ScheduleDeparture||'--',
     actualArr:s.ActualArrival||s.ScheduleArrival||'--', delay:parseInt(s.DelayInArrival||'0')||0,
     status:i<(parseInt(r.d.CurrentStopNumber)||0)?'departed':'upcoming',
-    platform:s.Platform||'', distance:s.Distance||'',
+    platform:s.Platform||'', dist:parseInt(s.Distance||'0')||0,
   }));
   const ci=stops.findIndex(s=>s.status==='upcoming')-1;
   if(ci>=0) stops[ci].status='current';
   return{train_number:num,train_name:r.d.TrainName,from:stops[0]?.st,to:stops.at(-1)?.st,
+    fc:stops[0]?.code, tc:stops.at(-1)?.code, dep:stops[0]?.dep, arr:stops.at(-1)?.arr,
     delay_mins:parseInt(r.d.CurrentDelay||'0')||0,last_station:r.d.CurrentStation,
     last_code:r.d.CurrentStationCode,date,source:'live-indianrailapi',stops};
 }
@@ -186,216 +267,156 @@ async function rapidPNR(pnr) {
 }
 
 /* ═══════════════════════════════════════════════
-   SIMULATION FALLBACK
+   AUTHENTIC IRCTC TIMETABLE & IST POSITION ENGINE
    ═══════════════════════════════════════════════ */
-
-
-/* ══════════════════════════════════════════════════════
-   CORRIDOR LIVE RUNNING & ROUTE ENGINE
-   Authentic Indian Railways stations, schedules & live status
-   ══════════════════════════════════════════════════════ */
-const CORRIDORS = [
-  // 1. Delhi - Kanpur - Prayagraj - Gaya - Dhanbad - Asansol - Howrah (Grand Chord)
-  ['NDLS','DLI','ANVT','NZM','GZB','ALJN','TDL','ETW','CNB','FTP','PRYJ','MZP','DDU','BBU','SSM','DOS','GYA','KQR','PNME','GMO','DHN','CRJ','ASN','RNG','DGR','BWN','SRC','HWH','SDAH','KOAA','SHM'],
-  // 2. Delhi - Kanpur - Prayagraj - DDU - Patna - Jasidih - Howrah (Main Line)
-  ['NDLS','DLI','ANVT','NZM','GZB','ALJN','TDL','ETW','CNB','FTP','PRYJ','MZP','BSB','DDU','BXR','ARA','DNR','PNBE','RJPB','BKP','MKA','KIUL','JAJ','JSME','MDP','CRJ','ASN','RNG','DGR','BWN','SRC','HWH','SDAH'],
-  // 3. Delhi - Mathura - Kota - Ratlam - Vadodara - Surat - Mumbai Central (WR Trunk)
-  ['NDLS','NZM','DEE','DEC','FDB','MTJ','BTE','BXN','HAN','GGC','SWM','KOTA','RMA','BWM','SGZ','NAD','RTM','DHD','GDA','BRC','BH','AKV','ST','NVS','BL','VAPI','PLG','BVI','ADH','BDTS','DDR','MMCT','BCT'],
-  // 4. Delhi - Agra - Gwalior - Jhansi - Bhopal - Itarsi - Khandwa - Bhusawal - Manmad - Nashik - Kalyan - Mumbai CSMT (CR Trunk)
-  ['NDLS','NZM','FDB','MTJ','AGC','DHO','MRA','GWL','DBA','DAA','VGLJ','LAR','BINA','BHS','BPL','RKMP','NDPM','ET','KNW','BAU','BSL','JL','CSN','MMR','NK','IGP','KYN','TNA','CLA','LTT','DR','CSMT'],
-  // 5. Delhi - Agra - Jhansi - Bhopal - Nagpur - Kazipet - Vijayawada - Chennai Central (Grand Trunk)
-  ['NDLS','NZM','MTJ','AGC','GWL','VGLJ','BINA','BPL','RKMP','ET','NGP','SEGM','WR','CD','BPQ','SKZR','MCI','RDM','KZJ','WL','MABD','KMT','BZA','TEL','CLX','OGL','SKM','KVZ','NLR','GDR','SPE','AJJ','PER','MAS','MS','TBM'],
-  // 6. Delhi - Ambala - Ludhiana - Jalandhar - Amritsar / Jammu / Katra
-  ['NDLS','DLI','SZM','SNP','PNP','KUN','KKDE','UMB','RPJ','SIR','KNN','LDH','PGW','JUC','JRC','BEAS','ASR','PTKC','PTK','KTHU','SMBX','JAT','MCTM','UHP','SVDK'],
-  // 7. Delhi - Moradabad - Bareilly - Lucknow - Gorakhpur - Chhapra - Muzaffarpur - Katihar - NJP - Guwahati - Dibrugarh
-  ['NDLS','ANVT','DLI','GZB','MB','RMU','BE','SPN','HRI','LKO','LJN','BBK','GD','BST','KLD','GKP','DEOS','BTT','SV','CPR','SEE','HJP','MFP','SPJ','BJU','BGS','KGG','MNE','THB','NNA','KIR','BOE','KNE','NJP','SGUJ','FLK','NCB','NOQ','APDJ','KOJ','NBQ','BPRD','RNY','KYQ','GHY','JID','CPK','HJI','LMG','DPU','DMV','FKG','MXN','JTTN','SLGR','SRTN','NTSK','TSK','DBRG'],
-  // 8. Mumbai - Bhusawal - Akola - Badnera - Nagpur - Durg - Raipur - Bilaspur - Rourkela - Tatanagar - Kharagpur - Howrah
-  ['CSMT','DR','LTT','TNA','KYN','IGP','NK','MMR','CSN','JL','BSL','MKU','SEG','AK','BD','AMI','WR','SEGM','AJNI','NGP','G','RJN','DURG','BPHB','R','BYT','BSP','CPH','RIG','JSG','ROU','CKP','TATA','GTS','KGP','SRC','HWH'],
-  // 9. Howrah - Kharagpur - Balasore - Cuttack - Bhubaneswar - Puri - Berhampur - Vizag - Vijayawada - Chennai
-  ['HWH','SRC','SHM','KGP','BLS','BHC','JJKR','CTC','BBS','KUR','PURI','BAM','PSA','CHE','VZM','SCM','VSKP','DVD','AKP','ANV','SLO','CCT','RJY','NDD','TDD','EE','BZA','GNT','TEL','CLX','OGL','SKM','KVZ','NLR','GDR','MAS','MS'],
-  // 10. Chennai - Bangalore - Mysuru
-  ['MAS','MS','AJJ','KPD','AB','VN','JTJ','TPT','BWT','WFD','KJM','BNC','SBC','YPR','SMVB','MYA','MYS'],
-  // 11. Mumbai - Pune - Solapur - Kalaburagi - Wadi - Guntakal - Renigunta - Chennai
-  ['CSMT','DR','LTT','TNA','KYN','LNL','PUNE','DD','KWV','SUR','KLBG','WADI','YG','RC','MALM','AD','GTL','GY','TU','YA','HX','RU','AJJ','PER','MAS','MS'],
-  // 12. Mumbai - Roha - Ratnagiri - Madgaon (Goa) - Mangaluru - Kannur - Kozhikode - Shoranur - Ernakulam - Trivandrum (Konkan Railway)
-  ['CSMT','DR','LTT','TNA','PNVL','ROHA','MNI','KHED','CHI','SGR','RN','VBW','KKW','KUDL','SWV','THVM','KRMI','MAO','CNO','KAWR','KT','MRDW','BTJL','BYNR','KUDA','UD','MULK','SL','MAJN','MAQ','KGQ','PAY','CAN','TLY','BDJ','CLT','PGI','TIR','KTU','SRR','OTP','PGT','TCR','IJK','AWY','ERN','ERS','TRTR','SRTL','ALLP','AMPA','HAD','KYJ','MVLK','CNGR','TRVL','CGY','KTYM','QLN','PVU','VAK','TVP','TVC'],
-  // 13. Delhi - Rewari - Alwar - Jaipur - Ajmer - Abu Road - Palanpur - Ahmedabad
-  ['NDLS','DLI','DEE','DEC','GGN','RE','AWR','BKI','DO','GADJ','JP','FL','KSG','AII','BER','MJ','FA','RANI','SOH','PDWA','ABR','PNU','SID','UJA','MSH','SBIB','ADI'],
-  // 14. Delhi - Lucknow - Ayodhya - Varanasi - Pt Deen Dayal Upadhyaya
-  ['NDLS','ANVT','DLI','GZB','MB','BE','LKO','AYC','AY','SHG','JNU','BSB','DDU'],
-  // 15. Delhi - Gwalior - Jhansi - Bhopal - Itarsi - Nagpur - Balharshah - Secunderabad / Bengaluru
-  ['NDLS','NZM','FDB','MTJ','AGC','GWL','VGLJ','BINA','BPL','RKMP','ET','NGP','SEGM','CD','BPQ','SKZR','RDM','KZJ','SC','HYB','KRNT','DHNE','GTL','DMM','HUP','YNK','YPR','SBC'],
-  // 16. Delhi - Kerala (Trivandrum) via Grand Trunk & Erode / Coimbatore
-  ['NDLS','NZM','MTJ','AGC','GWL','VGLJ','BINA','BPL','RKMP','ET','NGP','SEGM','WR','CD','BPQ','SKZR','RDM','KZJ','WL','KMT','BZA','OGL','NLR','GDR','RU','KPD','JTJ','SA','ED','TUP','CBE','PGT','OTP','SRR','TCR','AWY','ERN','ERS','KTYM','CGY','TRVL','CNGR','MVLK','KYJ','QLN','VAK','KCVL','TVC'],
-  // 17. Darbhanga - Muzaffarpur - Gorakhpur - Lucknow - Kanpur - Delhi (Amrit Bharat corridor)
-  ['DBG','SPJ','MFP','BMKI','SGL','BTH','NKE','BUG','CPJ','GKP','BST','GD','BBK','LKO','CNB','ETW','ALJN','GZB','ANVT']
-];
-
-const CODE_ALIASES = {
-  'BCT': 'MMCT', 'MMCT': 'BCT', 'CSMT': 'CSTM', 'CSTM': 'CSMT', 'BDTS': 'BCT', 'LTT': 'CSMT',
-  'SBC': 'YPR', 'YPR': 'SBC', 'SMVB': 'SBC',
-  'HWH': 'SDAH', 'SDAH': 'HWH', 'KOAA': 'HWH', 'SHM': 'HWH', 'SRC': 'HWH',
-  'NDLS': 'NZM', 'NZM': 'NDLS', 'DLI': 'NDLS', 'ANVT': 'NDLS', 'DEE': 'NDLS',
-  'PNBE': 'RJPB', 'RJPB': 'PNBE', 'DNR': 'PNBE', 'PPTA': 'PNBE',
-  'BSB': 'DDU', 'DDU': 'BSB', 'BSBS': 'BSB',
-  'PRYJ': 'PRRB', 'PRRB': 'PRYJ',
-  'MAS': 'MS', 'MS': 'MAS', 'TBM': 'MAS',
-  'SC': 'HYB', 'HYB': 'SC', 'KCG': 'SC',
-  'ADI': 'SBIB', 'SBIB': 'ADI',
-  'MAO': 'VSG', 'VSG': 'MAO', 'KRMI': 'MAO',
-  'KGQ': 'CAN'
-};
-
-function resolveCorridorStops(fcRaw, tcRaw) {
-  const fc = (fcRaw || '').trim().toUpperCase();
-  const tc = (tcRaw || '').trim().toUpperCase();
-  const fcList = [fc, CODE_ALIASES[fc]].filter(Boolean);
-  const tcList = [tc, CODE_ALIASES[tc]].filter(Boolean);
-
-  for (const c of CORRIDORS) {
-    for (const f of fcList) {
-      for (const t of tcList) {
-        const idxA = c.indexOf(f);
-        const idxB = c.indexOf(t);
-        if (idxA !== -1 && idxB !== -1) {
-          return idxA < idxB ? c.slice(idxA, idxB + 1) : c.slice(idxB, idxA + 1).reverse();
-        }
-      }
-    }
-  }
-
-  const majorHubs = ['NDLS','CNB','DDU','BPL','ET','BZA','GTL','MAS','HWH','NGP','KYN','ADI','SRR'];
-  for (const hub of majorHubs) {
-    if (fcList.includes(hub) || tcList.includes(hub)) continue;
-    let part1 = null, part2 = null;
-    for (const c of CORRIDORS) {
-      for (const f of fcList) {
-        const idxA = c.indexOf(f), idxH = c.indexOf(hub);
-        if (idxA !== -1 && idxH !== -1 && !part1) part1 = idxA < idxH ? c.slice(idxA, idxH) : c.slice(idxH + 1, idxA + 1).reverse();
-      }
-      for (const t of tcList) {
-        const idxH2 = c.indexOf(hub), idxB = c.indexOf(t);
-        if (idxH2 !== -1 && idxB !== -1 && !part2) part2 = idxH2 < idxB ? c.slice(idxH2, idxB + 1) : c.slice(idxB, idxH2 + 1).reverse();
-      }
-    }
-    if (part1 && part2) return [...part1, ...part2];
-  }
-
-  return [fc, tc];
+function getIstNow() {
+  const istMs = Date.now() + 5.5 * 3600000;
+  const d = new Date(istMs);
+  return {
+    istMs,
+    dateStr: d.toISOString().split('T')[0],
+    hours: d.getUTCHours(),
+    mins: d.getUTCMinutes()
+  };
 }
 
-function computeLiveRouteFromTrain(tr, targetDate, stationsMap) {
-  const halts = (tr.route && tr.route.length > 1) ? tr.route : resolveCorridorStops(tr.fc, tr.tc);
-  const N = halts.length;
+function addDaysStr(dateStr, delta) {
+  const [y, m, d] = dateStr.split('-').map(Number);
+  return new Date(Date.UTC(y, m - 1, d + delta)).toISOString().split('T')[0];
+}
 
-  const now = new Date();
-  const utc = now.getTime() + (now.getTimezoneOffset() * 60000);
-  const ist = new Date(utc + (3600000 * 5.5));
-  const istHours = ist.getHours();
-  const istMinutes = ist.getMinutes();
-  const curIstMins = istHours * 60 + istMinutes;
+function toIstEpoch(startDateStr, dayNum, hhmm) {
+  const [y, m, d] = startDateStr.split('-').map(Number);
+  const [hh, mm] = (hhmm && hhmm !== '--' ? hhmm : '00:00').split(':').map(Number);
+  return Date.UTC(y, m - 1, d + (dayNum - 1), hh || 0, mm || 0, 0);
+}
 
-  const todayStr = ist.toISOString().split('T')[0];
-  const dateStr = targetDate || todayStr;
+function isRunningOnDate(daysStr, dateStr) {
+  if (!daysStr || daysStr === 'MTWTFSS') return true;
+  const [y, m, d] = dateStr.split('-').map(Number);
+  const dow = new Date(Date.UTC(y, m - 1, d)).getUTCDay(); // 0=Sun..6=Sat
+  const idx = dow === 0 ? 6 : dow - 1; // 0=Mon..6=Sun
+  return daysStr[idx] !== '_';
+}
 
-  const selDateObj = new Date(dateStr + 'T12:00:00+05:30');
-  const dayIdx = selDateObj.getDay();
-  const dayChars = ['S', 'M', 'T', 'W', 'T', 'F', 'S'];
-  const dayChar = dayChars[dayIdx];
-  const isRunningDay = tr.days ? (tr.days === 'MTWTFSS' || tr.days.includes(dayChar)) : true;
+function fmtMins(m) {
+  m = ((m % 1440) + 1440) % 1440;
+  return String(Math.floor(m / 60)).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0');
+}
 
-  const [depH, depM] = (tr.dep && tr.dep !== '--' ? tr.dep : '08:00').split(':').map(Number);
-  const depMins = depH * 60 + depM;
+function evaluateRun(tr, rawStops, startDateStr, nowIst) {
+  const N = rawStops.length;
+  const runsToday = isRunningOnDate(tr.days, startDateStr);
+  const seed = (parseInt((tr.num || '1234').replace(/\D/g, ''), 10) || 1234) + startDateStr.split('-').reduce((a, b) => a + parseInt(b, 10), 0);
+  const histAvg = typeof tr.delay === 'number' ? tr.delay : 6;
+  const runDelay = Math.max(0, Math.round(histAvg * 0.7 + (seed % 7) - 1));
 
-  let durMins = 0;
-  if (tr.dur) {
-    const dm = tr.dur.match(/(\d+)h\s*(\d+)?m?/);
-    if (dm) durMins = parseInt(dm[1]) * 60 + (parseInt(dm[2]) || 0);
-  }
-  if (!durMins) durMins = 480;
-  const arrMins = depMins + durMins;
-
-  const seed = (parseInt((tr.num || '1234').replace(/\D/g, '')) || 1234);
-  const delay = [0, 0, 4, 8, 12, 15, 20][seed % 7];
+  const firstDepEp = toIstEpoch(startDateStr, rawStops[0][4] || 1, rawStops[0][2]);
+  const lastArrEp  = toIstEpoch(startDateStr, rawStops[N - 1][4] || 1, rawStops[N - 1][1]);
+  const estEndEp   = lastArrEp + runDelay * 60000;
 
   let stage = 'IN_TRANSIT';
-  let stageText = '';
   let stageBadge = '';
+  let stageText = '';
   let curIndex = 0;
 
-  if (!isRunningDay && dateStr === todayStr) {
+  if (!runsToday) {
     stage = 'NOT_RUNNING_TODAY';
-    stageBadge = '🚫 NOT RUNNING TODAY';
-    stageText = `Train #${tr.num} does not operate on ${selDateObj.toLocaleDateString('en-IN', { weekday: 'long' })}. Scheduled days: ${tr.days || 'Specific days'}.`;
+    stageBadge = '🚫 DOES NOT START';
+    const [y, m, d] = startDateStr.split('-').map(Number);
+    const weekday = new Date(Date.UTC(y, m - 1, d)).toLocaleDateString('en-IN', { weekday: 'long', timeZone: 'UTC' });
+    const runList = Array.from(tr.days || 'MTWTFSS').map((c, i) => c !== '_' ? ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'][i] : null).filter(Boolean).join(', ');
+    stageText = `Train #${tr.num} does not originate on ${weekday} (${startDateStr}). Runs on: ${runList || 'Specific days'}.`;
+  } else if (nowIst.istMs < firstDepEp) {
+    stage = 'AWAITING_DEPARTURE';
+    stageBadge = '⏳ SCHEDULED TO DEPART';
+    const diffMins = Math.round((firstDepEp - nowIst.istMs) / 60000);
+    const hRem = Math.floor(diffMins / 60), mRem = diffMins % 60;
+    stageText = diffMins <= 24 * 60
+      ? `Scheduled to depart ${tr.fn} (${tr.fc}) at ${tr.dep} IST (in ${hRem > 0 ? hRem + 'h ' : ''}${mRem}m).`
+      : `Future journey on ${startDateStr}. Departs ${tr.fn} (${tr.fc}) at ${tr.dep} IST.`;
     curIndex = 0;
-  } else if (dateStr > todayStr) {
-    stage = 'FUTURE_DATE';
-    stageBadge = '📅 SCHEDULED (FUTURE)';
-    stageText = `Scheduled to run on ${dateStr}. Departs ${tr.fn} (${tr.fc}) at ${tr.dep} IST.`;
-    curIndex = 0;
-  } else if (dateStr < todayStr) {
-    stage = 'PAST_DATE';
-    stageBadge = '✅ COMPLETED RUN';
-    stageText = `Journey completed on ${dateStr}. Reached ${tr.tn} (${tr.tc}) at ${tr.arr} IST.`;
+  } else if (nowIst.istMs >= estEndEp) {
+    stage = 'ARRIVED';
+    stageBadge = '🏁 JOURNEY COMPLETED';
+    stageText = `Train reached destination ${tr.tn} (${tr.tc}) — scheduled arrival ${tr.arr} IST (${rawStops[N - 1][4] > 1 ? 'Day ' + rawStops[N - 1][4] : 'Same day'}).`;
     curIndex = N - 1;
   } else {
-    // Today
-    if (curIstMins < depMins) {
-      stage = 'AWAITING_DEPARTURE';
-      stageBadge = '⏳ AT ORIGIN YARD / PF';
-      const diffMins = depMins - curIstMins;
-      const hRem = Math.floor(diffMins / 60);
-      const mRem = diffMins % 60;
-      stageText = `Scheduled departure at ${tr.dep} IST from ${tr.fn} (${tr.fc}). Departs in ${hRem > 0 ? hRem + 'h ' : ''}${mRem}m. Train is at platform / yard rake area.`;
-      curIndex = 0;
-    } else if (curIstMins >= arrMins) {
-      stage = 'ARRIVED';
-      stageBadge = '🏁 JOURNEY COMPLETED';
-      stageText = `Arrived at destination ${tr.tn} (${tr.tc}) at ${tr.arr} IST. Rake docked.`;
-      curIndex = N - 1;
+    stage = 'IN_TRANSIT';
+    // Find current exact segment based on real IRCTC station times + expected delay progression
+    let lastPassed = 0;
+    let haltedAt = -1;
+    for (let i = 0; i < N; i++) {
+      const sDelay = Math.round((i / (N - 1 || 1)) * runDelay);
+      const aEp = rawStops[i][1] !== '--' ? toIstEpoch(startDateStr, rawStops[i][4] || 1, rawStops[i][1]) + sDelay * 60000 : firstDepEp;
+      const dEp = rawStops[i][2] !== '--' ? toIstEpoch(startDateStr, rawStops[i][4] || 1, rawStops[i][2]) + sDelay * 60000 : estEndEp;
+      if (i > 0 && i < N - 1 && nowIst.istMs >= aEp && nowIst.istMs <= dEp) {
+        haltedAt = i;
+        lastPassed = i;
+        break;
+      }
+      if (nowIst.istMs >= dEp) {
+        lastPassed = i;
+      }
+    }
+    curIndex = lastPassed;
+    const curCode = rawStops[curIndex][0];
+    const curName = STATIONS_MAP.get(curCode)?.n || curCode;
+    const nextStop = rawStops[curIndex + 1];
+    const nextCode = nextStop?.[0] || curCode;
+    const nextName = STATIONS_MAP.get(nextCode)?.n || nextCode;
+    const delayAtCur = curIndex === 0 ? 0 : Math.round((curIndex / (N - 1 || 1)) * runDelay);
+    stageBadge = delayAtCur > 2 ? `🟡 RUNNING (+${delayAtCur}m est.)` : '🟢 ON TIME (TIMETABLE)';
+    if (haltedAt !== -1) {
+      stageText = `At platform / halted near ${curName} (${curCode}) as per IRCTC schedule. Next departure: ${rawStops[haltedAt][2]} IST.`;
+    } else if (nextStop) {
+      const d1 = rawStops[curIndex][3] || 0;
+      const d2 = nextStop[3] || d1;
+      const t1 = toIstEpoch(startDateStr, rawStops[curIndex][4] || 1, rawStops[curIndex][2]) + delayAtCur * 60000;
+      const t2 = toIstEpoch(startDateStr, nextStop[4] || 1, nextStop[1]) + Math.round(((curIndex + 1) / (N - 1 || 1)) * runDelay) * 60000;
+      const segFrac = Math.min(0.95, Math.max(0.05, (nowIst.istMs - t1) / Math.max(60000, t2 - t1)));
+      const estKm = Math.round(d1 + segFrac * (d2 - d1));
+      const remKm = Math.max(1, d2 - estKm);
+      stageText = `Departed ${curName} (${curCode}) · ~${remKm} km to next halt ${nextName} (${nextCode}) at ${nextStop[1]} IST.`;
     } else {
-      stage = 'IN_TRANSIT';
-      stageBadge = delay > 0 ? `🟡 RUNNING (+${delay}m)` : `🟢 ON TIME`;
-      const elapsed = curIstMins - depMins;
-      const progress = Math.min(Math.max(elapsed / durMins, 0), 1);
-      curIndex = Math.min(Math.floor(progress * N), N - 1);
-      const curStop = stationsMap.get(halts[curIndex]) || { n: halts[curIndex] };
-      stageText = delay > 0
-        ? `Currently near ${curStop.n} (${halts[curIndex]}), running ${delay} minutes late.`
-        : `Currently on time near ${curStop.n} (${halts[curIndex]}).`;
+      stageText = `Approaching ${curName} (${curCode}).`;
     }
   }
 
-  const stops = halts.map((code, i) => {
-    const stInfo = stationsMap.get(code) || { n: code, pf: 2, z: 'IR' };
-    const frac = N > 1 ? i / (N - 1) : 0;
-    const stopMins = Math.round(depMins + frac * durMins);
-    const arrStr = i === 0 ? '--' : formatMinutes(stopMins - 3);
-    const depStr = i === N - 1 ? '--' : formatMinutes(stopMins + (i === 0 ? 0 : 2));
-    const pfNum = ((seed + i) % (stInfo.pf || 4)) + 1;
+  const stops = rawStops.map((r, i) => {
+    const code = r[0];
+    const stInfo = STATIONS_MAP.get(code) || { n: code, z: 'IR' };
+    const stopDelay = (stage === 'AWAITING_DEPARTURE' || stage === 'NOT_RUNNING_TODAY' || i === 0)
+      ? 0
+      : Math.round((i / (N - 1 || 1)) * runDelay);
 
     let status = 'upcoming';
-    if (stage === 'PAST_DATE' || stage === 'ARRIVED') {
-      status = 'departed';
-    } else if (stage === 'FUTURE_DATE' || stage === 'NOT_RUNNING_TODAY') {
-      status = 'upcoming';
-    } else if (stage === 'AWAITING_DEPARTURE') {
-      status = i === 0 ? 'current' : 'upcoming';
-    } else {
-      // IN_TRANSIT
+    if (stage === 'ARRIVED') status = 'departed';
+    else if (stage === 'AWAITING_DEPARTURE') status = i === 0 ? 'current' : 'upcoming';
+    else if (stage === 'NOT_RUNNING_TODAY') status = 'upcoming';
+    else {
       if (i < curIndex) status = 'departed';
       else if (i === curIndex) status = 'current';
       else status = 'upcoming';
     }
 
+    let actualArr = r[1];
+    if (r[1] !== '--' && stopDelay > 0) {
+      const [h, m] = r[1].split(':').map(Number);
+      actualArr = fmtMins(h * 60 + m + stopDelay);
+    }
+
     return {
       st: stInfo.n,
-      code: code,
-      arr: arrStr,
-      dep: depStr,
-      status: status,
-      delay: (status === 'departed' || i === 0) ? 0 : delay,
-      platform: `Pf. ${pfNum}`
+      code,
+      arr: r[1],
+      dep: r[2],
+      actualArr,
+      dist: r[3] || 0,
+      day: r[4] || 1,
+      status,
+      delay: status === 'upcoming' && stage === 'AWAITING_DEPARTURE' ? 0 : stopDelay,
+      platform: `Pf. ${((seed + i) % 6) + 1}`
     };
   });
 
@@ -403,58 +424,73 @@ function computeLiveRouteFromTrain(tr, targetDate, stationsMap) {
     train_number: tr.num,
     train_name: tr.name,
     from: tr.fn,
-    to: tr.tn,
+    to: tr.tc ? (STATIONS_MAP.get(tr.tc)?.n || tr.tn) : tr.tn,
     fc: tr.fc,
     tc: tr.tc,
     dep: tr.dep,
     arr: tr.arr,
     dur: tr.dur,
     dist: tr.dist,
-    stage: stage,
+    days: tr.days,
+    stage,
     stage_badge: stageBadge,
     stage_text: stageText,
-    delay_mins: delay,
+    delay_mins: (stage === 'AWAITING_DEPARTURE' || stage === 'NOT_RUNNING_TODAY') ? 0 : Math.round((curIndex / (N - 1 || 1)) * runDelay),
     last_station: stops[curIndex]?.st || tr.fn,
     last_code: stops[curIndex]?.code || tr.fc,
-    date: dateStr,
-    source: 'live-corridor',
-    stops: stops
+    start_date: startDateStr,
+    date: startDateStr,
+    source: 'timetable-estimate',
+    stops
   };
 }
 
-function formatMinutes(m) {
-  m = (m % 1440 + 1440) % 1440;
-  const h = String(Math.floor(m / 60)).padStart(2, '0');
-  const min = String(m % 60).padStart(2, '0');
-  return `${h}:${min}`;
-}
+function simLive(num, explicitDate, autoPickActive = false) {
+  const tr = TRAIN_MAP.get(num);
+  if (!tr) return null;
 
+  const rawStops = SCHED_MAP.get(num) || [
+    [tr.fc, '--', tr.dep, 0, 1],
+    [tr.tc, tr.arr, '--', tr.dist || 100, (tr.ad || 0) + 1]
+  ];
 
-let ALL_TRAINS = [];
-const STATIONS_MAP = new Map();
-try {
-  const dataCode = fs.readFileSync(path.join(__dirname, 'data.js'), 'utf8');
-  const vmCtx = { window: {} };
-  require('vm').runInNewContext(dataCode, vmCtx);
-  ALL_TRAINS = vmCtx.window.TRAINS || [];
-  (vmCtx.window.STATIONS || []).forEach(s => {
-    if (s && s.c) STATIONS_MAP.set(s.c.toUpperCase(), s);
-  });
-} catch(e) {
-  console.error('[init] data.js load:', e.message);
-}
+  const nowIst = getIstNow();
+  const maxDaysBack = Math.min(4, Math.max(1, (tr.ad || 0) + 1));
 
-function simLive(num, date) {
-  const tr = ALL_TRAINS.find(t => t.num === num) || {
-    num: num, name: 'Express Special', fn: 'New Delhi', fc: 'NDLS', tn: 'Howrah Jn', tc: 'HWH',
-    dep: '06:00', arr: '21:30', dur: '15h 30m', dist: 1450, stops: 8
-  };
-  return computeLiveRouteFromTrain(tr, date, STATIONS_MAP);
+  // Build candidate start dates so user can easily inspect active yesterday/day-before runs (just like Where Is My Train)
+  const candidates = [];
+  for (let delta = -maxDaysBack; delta <= 1; delta++) {
+    const dStr = addDaysStr(nowIst.dateStr, delta);
+    if (isRunningOnDate(tr.days, dStr) || dStr === explicitDate) {
+      const firstDep = toIstEpoch(dStr, 1, rawStops[0][2]);
+      const lastArr  = toIstEpoch(dStr, rawStops[rawStops.length - 1][4] || 1, rawStops[rawStops.length - 1][1]);
+      const isActive = nowIst.istMs >= firstDep && nowIst.istMs <= lastArr + 3600000;
+      const lbl = delta === 0 ? 'Today' : delta === -1 ? 'Yesterday' : delta === 1 ? 'Tomorrow' : `${Math.abs(delta)}d ago`;
+      candidates.push({ date: dStr, label: `${lbl} (${dStr.slice(5)})`, active: isActive, runs: isRunningOnDate(tr.days, dStr) });
+    }
+  }
+
+  let chosenDate = explicitDate || nowIst.dateStr;
+  if (autoPickActive) {
+    const activeCand = candidates.slice().reverse().find(c => c.active && c.runs);
+    if (activeCand) {
+      chosenDate = activeCand.date;
+    } else if (!isRunningOnDate(tr.days, chosenDate)) {
+      const todayOrNext = candidates.find(c => c.runs);
+      if (todayOrNext) chosenDate = todayOrNext.date;
+    }
+  }
+
+  const res = evaluateRun(tr, rawStops, chosenDate, nowIst);
+  res.run_candidates = candidates;
+  return res;
 }
 
 function simPNR(pnr) {
-  const seed = parseInt(pnr.slice(0, 6)) || 123456;
-  const tr = ALL_TRAINS[seed % ALL_TRAINS.length] || ALL_TRAINS[0];
+  const seed = parseInt(pnr.slice(0, 6), 10) || 123456;
+  const expressPool = ALL_TRAINS.filter(t => ['RAJ','VB','SHT','SF','DUR','EXP'].includes(t.type) && !String(t.num).includes('-'));
+  const pool = expressPool.length ? expressPool : ALL_TRAINS;
+  const tr = pool[seed % pool.length];
   const cls = tr.cls?.[seed % tr.cls.length] || '3A';
   const ps = ['CNF', 'CNF', 'CNF', 'CNF', 'RAC', 'WL'][seed % 6];
   const coach = ps === 'CNF' ? `${cls}${(seed % 6) + 1}` : '--';
@@ -487,7 +523,6 @@ const server = http.createServer(async (req, res) => {
   const p      = reqUrl.pathname;
   const ip     = req.headers['x-forwarded-for']?.split(',')[0] || req.socket.remoteAddress || '';
 
-  // CORS preflight
   if (req.method === 'OPTIONS') {
     res.writeHead(204,{
       'Access-Control-Allow-Origin':'*',
@@ -497,7 +532,6 @@ const server = http.createServer(async (req, res) => {
     res.end(); return;
   }
 
-  // Rate limit API routes
   if (p.startsWith('/api/') && isRateLimited(ip)) {
     return sendJSON(res, 429, {error:'Too many requests. Please slow down.'});
   }
@@ -505,9 +539,11 @@ const server = http.createServer(async (req, res) => {
   /* ── /api/health ── */
   if (p === '/api/health') {
     return sendJSON(res, 200, {
-      status:'ok', version:'3.0.0', edition:'November 2026',
+      status:'ok', version:'3.1.0', edition:'November 2026',
+      trains: ALL_TRAINS.length,
+      stations: STATIONS_MAP.size,
       uptime: Math.floor(process.uptime()),
-      mode: IR_KEY ? 'live-indianrailapi' : RAPID_KEY ? 'live-rapidapi' : 'simulated',
+      mode: RAILRADAR_KEY ? 'live-railradar' : IR_KEY ? 'live-indianrailapi' : RAPID_KEY ? 'live-rapidapi' : 'timetable',
       cache: CACHE.size,
       timestamp: new Date().toISOString(),
     });
@@ -533,28 +569,6 @@ const server = http.createServer(async (req, res) => {
       bulletTrain: '508 km Mumbai–Ahmedabad (Surat–Bilimora 50 km stretch targeted Aug 2027)',
       capitalOutlay: '₹2.93 Trillion record capital outlay (Union Budget 2026-27)',
       zonesDivisions: '18 Zones + Kolkata Metro | 70 Divisions (Rayagada added 1 Jun 2026)',
-      locomotives: '13,569 Electric · 4,169 Diesel · 16 Steam (Feb 2026)',
-      rollingStock: '327,991 Freight Wagons · 91,948 Passenger Coaches (Mar 2024)',
-      punctuality: 'about 80% (FY2025-26)',
-      quarterlyFreightQ1: '419.08 MT (Apr–Jun 2026 vs 413.05 MT in 2025)',
-      cumulativeAprilSepFreight: '833.70 MT (+4.1% over previous year)',
-      coalRakeSupply: '469.8 rakes/day avg in Oct 2026 (+19.5% YoY); domestic coal +16.0%',
-      foodGrainLoading: '+26.3% YoY growth in Oct 2026',
-      monthlyBreakdown: [
-        { month: 'October 2026', freight: '145.07 MT', freightPrev: '133.93 MT', freightGrowth: '+8.32% (Record)', passengers: '64.72 Cr', passengersPrev: '63.52 Cr', note: 'All-time Oct Freight Record; Non-suburban +4.2%, Suburban +1.7%' },
-        { month: 'September 2026', freight: '135.35 MT', freightPrev: '127.52 MT', freightGrowth: '+6.14%', passengers: '—', passengersPrev: '—', note: 'Cumulative Apr–Sep Freight: 833.7 MT (+4.1%)' },
-        { month: 'August 2026', freight: '137.90 MT', freightPrev: '130.90 MT', freightGrowth: '+5.40%', passengers: '67.27 Cr', passengersPrev: '64.43 Cr', note: 'Suburban traffic grew +9.02%' },
-        { month: 'July 2026', freight: '141.30 MT', freightPrev: '129.70 MT', freightGrowth: '+9.00%', passengers: '63.35 Cr', passengersPrev: '62.19 Cr', note: 'Monsoon freight demand surge' },
-        { month: 'June 2026', freight: '142.21 MT', freightPrev: '136.71 MT', freightGrowth: '+4.00%', passengers: '63.81 Cr', passengersPrev: '62.37 Cr', note: 'Q1 (Apr–Jun) Freight: 419.08 MT (vs 413.05 MT)' }
-      ],
-      latestDevelopments: [
-        { date: '14 Nov 2026', title: 'Cross-Border Nepal Link Approved', desc: 'Approved weekly direct train between Janakpur Dham (Nepal) and Ayodhya Cantt (~604 km, leaving Janakpur Saturdays and Ayodhya Mondays).' },
-        { date: '12 Nov 2026', title: 'Kavach Delhi–Agra Section Complete', desc: 'Automatic train protection installed on Delhi–Agra. Gatimaan Express and Vande Bharat cleared to return to 160 km/h after trials.' },
-        { date: '12 Nov 2026', title: 'First AC Amrit Bharat Express 3.0', desc: 'Maiden run on New Delhi–Patna route operated as Chhath Festival Special with push-pull traction.' },
-        { date: 'Nov 2026', title: 'Next-Gen Cloud Reservation System', desc: 'Architecture underway to handle 1.5 lakh bookings per minute (up from 32,000) across 2,200 primary trains.' },
-        { date: '8 Nov 2025', title: 'Ferozepur Cantt–Delhi Vande Bharat', desc: 'Connecting border district with national capital in 6h 40m (486 km).' },
-        { date: '10 Oct 2026', title: 'Sahnewal–Mundiyampakkam Parcel Express', desc: 'Dedicated fast parcel train earned ₹15.63 lakh on maiden journey from Punjab to Tamil Nadu.' }
-      ]
     };
     return sendJSON(res, 200, stats);
   }
@@ -562,46 +576,59 @@ const server = http.createServer(async (req, res) => {
   /* ── /api/rules ── */
   if (p === '/api/rules') {
     const rules = {
-      advanceReservationPeriod: {
-        days: 60,
-        rule: 'Advance Reservation Period is strictly 60 days (reduced from 120 days in Nov 2024 to curb touting and seat hoarding).'
-      },
-      tatkalPolicy: {
-        acBookingTime: '10:00 AM (1 day prior to travel date, excluding journey date)',
-        nonAcBookingTime: '11:00 AM (1 day prior to travel date, excluding journey date)',
-        aadhaarVerification: 'Mandatory Aadhaar-authenticated IRCTC account required online + OTP check (since Jul 2025).'
-      },
-      aadhaarPriority: {
-        rule: 'Aadhaar-linked users get exclusive priority booking on opening day (Day 60) from 8:00 AM to 4:00 PM (effective 5 Jan 2026).'
-      },
-      chartPreparation: {
-        rule: 'Reservation charts are prepared 8 hours prior to train departure (updated from 4 hours per Jul 2025 directives).'
-      },
-      fareRevision: {
-        effectiveDate: '26 December 2025',
-        ordinaryNonAC: '+1 paisa/km for ordinary non-AC (Sleeper & 1st Ordinary)',
-        mailExpress: '+2 paise/km for Mail/Express non-AC and AC classes',
-        suburbanSeason: 'Unchanged'
-      }
+      advanceReservationPeriod: { days: 60, rule: 'Advance Reservation Period is strictly 60 days (reduced from 120 days in Nov 2024).' },
+      tatkalPolicy: { acBookingTime: '10:00 AM', nonAcBookingTime: '11:00 AM', aadhaarVerification: 'Mandatory Aadhaar-authenticated IRCTC account + OTP check.' },
+      aadhaarPriority: { rule: 'Aadhaar-linked users get exclusive priority booking on Day 60 from 8:00 AM to 4:00 PM.' },
+      chartPreparation: { rule: 'Reservation charts are prepared 8 hours prior to departure.' },
+      fareRevision: { effectiveDate: '26 December 2025', ordinaryNonAC: '+1 paisa/km', mailExpress: '+2 paise/km', suburbanSeason: 'Unchanged' }
     };
     return sendJSON(res, 200, rules);
   }
 
+  /* ── /api/schedule/:num ── */
+  const sm = p.match(/^\/api\/schedule\/([A-Za-z0-9-]+)$/);
+  if (sm) {
+    const num = sm[1];
+    const tr = TRAIN_MAP.get(num);
+    if (!tr) return sendJSON(res, 404, { error: `Train #${num} not found`, train_number: num });
+    const rawStops = SCHED_MAP.get(num) || [[tr.fc, '--', tr.dep, 0, 1], [tr.tc, tr.arr, '--', tr.dist || 0, (tr.ad || 0) + 1]];
+    const stops = rawStops.map(r => ({
+      code: r[0],
+      st: STATIONS_MAP.get(r[0])?.n || r[0],
+      zone: STATIONS_MAP.get(r[0])?.z || '',
+      arr: r[1],
+      dep: r[2],
+      dist: r[3],
+      day: r[4]
+    }));
+    return sendJSON(res, 200, { ...tr, stopsList: stops });
+  }
+
   /* ── /api/live/:num ── */
-  const lm = p.match(/^\/api\/live\/(\d{4,5})$/);
+  const lm = p.match(/^\/api\/live\/([A-Za-z0-9-]+)$/);
   if (lm) {
     const num  = lm[1];
-    const date = reqUrl.searchParams.get('date') || new Date().toISOString().split('T')[0];
-    const ck   = `live:${num}:${date}`;
+    const nowIst = getIstNow();
+    const qDate = reqUrl.searchParams.get('date');
+    const autoPick = reqUrl.searchParams.get('auto') === '1' || !qDate;
+    const date = qDate || nowIst.dateStr;
+    const ck   = `live:${num}:${date}:${autoPick ? 'auto' : 'exact'}`;
     const hit  = cget(ck);
     if (hit) return sendJSON(res, 200, {...hit, cached:true});
     let data = null;
     try {
-      if (API_PREF==='indianrail'||(API_PREF==='auto'&&IR_KEY))    data = await irLive(num,date);
-      if (!data&&(API_PREF==='rapidapi'||(API_PREF==='auto'&&RAPID_KEY))) data = await rapidLive(num,date);
+      if (RAILRADAR_KEY && (API_PREF === 'auto' || API_PREF === 'railradar')) data = await railRadarLive(num, date);
+      if (!data && (API_PREF==='indianrail'||(API_PREF==='auto'&&IR_KEY)))    data = await irLive(num,date);
+      if (!data && (API_PREF==='rapidapi'||(API_PREF==='auto'&&RAPID_KEY)))  data = await rapidLive(num,date);
     } catch(e) { console.error('[live]',e.message); }
-    if (!data) data = simLive(num, date);
-    cset(ck, data, data.source==='simulated' ? 300 : 90);
+
+    if (!data) {
+      data = simLive(num, date, autoPick);
+      if (!data) {
+        return sendJSON(res, 404, { error: `Train #${num} not found in IRCTC schedule database.`, train_number: num });
+      }
+    }
+    cset(ck, data, data.source.startsWith('live-') ? 90 : 30);
     return sendJSON(res, 200, data);
   }
 
@@ -627,18 +654,17 @@ const server = http.createServer(async (req, res) => {
 });
 
 server.listen(PORT, '0.0.0.0', () => {
-  const mode = IR_KEY ? 'IndianRailAPI ✅ LIVE' : RAPID_KEY ? 'RapidAPI ✅ LIVE' : 'SIMULATED (add API key for live data)';
+  const mode = RAILRADAR_KEY ? 'RailRadar ✅ LIVE' : IR_KEY ? 'IndianRailAPI ✅ LIVE' : RAPID_KEY ? 'RapidAPI ✅ LIVE' : 'TIMETABLE MODE (7,429 IRCTC trains)';
   console.log(`
 ╔══════════════════════════════════════════════════════════════╗
-║  🚆  RailSaarthi v3 (Nov 2026 Edition)                       ║
+║  🚆  RailSaarthi v3.1 (Nov 2026 · 7,429 Authentic Trains)    ║
 ╠══════════════════════════════════════════════════════════════╣
 ║  Open  →  http://localhost:${PORT}                             ║
 ║  Mode  →  ${mode.padEnd(50)}║
 ╠══════════════════════════════════════════════════════════════╣
 ║  API Endpoints:                                              ║
 ║    GET /api/health                                           ║
-║    GET /api/stats                                            ║
-║    GET /api/rules                                            ║
+║    GET /api/schedule/:trainNumber                            ║
 ║    GET /api/live/:trainNumber?date=YYYY-MM-DD                ║
 ║    GET /api/pnr/:pnrNumber                                   ║
 ╚══════════════════════════════════════════════════════════════╝`);
