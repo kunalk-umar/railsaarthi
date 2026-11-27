@@ -3,24 +3,28 @@
 > **Real-Time Indian Railways Companion** — Live train running status, PNR tracking, official 2026 tariff calculator, 60-day Advance Reservation Period (ARP) calculator, 12 metro network guides, and national railway statistics dashboard.
 
 [![Indian Railways](https://img.shields.io/badge/Data_Pack-November_2026-brightgreen.svg)](#)
-[![Vande Bharat](https://img.shields.io/badge/Vande_Bharat-164_Services-purple.svg)](#)
-[![Amrit Bharat](https://img.shields.io/badge/Amrit_Bharat-72_Services-orange.svg)](#)
+[![Trains](https://img.shields.io/badge/Trains-1%2C631_Services-blue.svg)](#)
+[![Stations](https://img.shields.io/badge/Stations-673_Verified-green.svg)](#)
+[![Vande Bharat](https://img.shields.io/badge/Vande_Bharat-176_Services-purple.svg)](#)
+[![Amrit Bharat](https://img.shields.io/badge/Amrit_Bharat-70_Services-orange.svg)](#)
 [![Live Site](https://img.shields.io/badge/Live_Site-GitHub_Pages-blue.svg)](https://kunalk-umar.github.io/railsaarthi/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Deploy to Render](https://render.com/images/deploy-to-render-button.svg)](https://render.com/deploy?repo=https://github.com/kunalk-umar/railsaarthi)
 
 ---
 
-### 🌐 Live Website: [https://kunalk-umar.github.io/railsaarthi/](https://kunalk-umar.github.io/railsaarthi/)
+### 🌐 Live Deployments:
+* **GitHub Pages CDN:** [https://kunalk-umar.github.io/railsaarthi/](https://kunalk-umar.github.io/railsaarthi/)
+* **Render Web Service:** [Deploy with 1-Click on Render](https://render.com/deploy?repo=https://github.com/kunalk-umar/railsaarthi) · See [DEPLOY.md](DEPLOY.md)
 
 ---
 
 ## 🌟 Key Features
 
-1. **🚆 Complete Train Directory (220+ Verified Trains)**
-   - **Vande Bharat Network (164 Services)**: Chair Car & Sleeper services (including the *Howrah–Kamakhya Sleeper* launched Jan 2026, *New Delhi–Varanasi*, *New Delhi–Katra*, *Mumbai–Ahmedabad*, *Bengaluru–Dharwad*, etc.).
-   - **Amrit Bharat Express (72 Services)**: Non-air-conditioned push-pull superfast trains for affordable high-speed travel (*Darbhanga–Anand Vihar*, *Malda Town–SMVT Bengaluru*, *Saharsa–LTT*, etc.).
-   - **Rajdhani, Shatabdi, Duronto, Tejas & Garib Rath**: Complete premium express network with stops, schedules, running days, and distance.
-   - **Iconic Superfast & Mail/Express**: Grand Trunk, Tamil Nadu Exp, Kerala Exp, Vivek Exp (India's longest route: 4,189 km), Himsagar Exp, Coromandel Exp, Punjab Mail, etc.
+1. **🚆 Complete Train Directory (1,631 Verified Authentic Trains with Full Halts)**
+   - **Vande Bharat Network (176 Services)**: All 88 bidirectional operational pairs across India (including the *Howrah–Kamakhya Sleeper*, *New Delhi–Varanasi*, *New Delhi–Katra*, *Mumbai–Gandhinagar*, *Bengaluru–Dharwad*, etc.).
+   - **Amrit Bharat Express (70 Services)**: Push-pull superfast trains for affordable high-speed travel (*Darbhanga–Anand Vihar*, *Malda Town–SMVT Bengaluru*, *Saharsa–LTT*, *New Delhi–Patna AC 3.0 Special*, etc.).
+   - **Rajdhani, Shatabdi, Duronto, Tejas & Garib Rath**: Complete premium express network with authentic intermediate stops, sequential schedules, running days, and distances.
+   - **Iconic Superfast & Mail/Express**: Grand Trunk, Tamil Nadu Exp, Kerala Exp, Vivek Exp, Himsagar Exp, Coromandel Exp, Punjab Mail, Netaji Mail, Golden Temple Mail, etc.
 
 2. **📊 National Statistics & Insights Dashboard (Nov 2026 PIB / Ministry Releases)**
    - **Passengers**: 741 Crore (FY2025-26, +3.54%), moving **~2.3 Crore passengers daily**.

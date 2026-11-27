@@ -483,8 +483,8 @@ function sendJSON(res, code, obj) {
    HTTP SERVER
    ═══════════════════════════════════════════════ */
 const server = http.createServer(async (req, res) => {
-  const parsed = url.parse(req.url, true);
-  const p      = parsed.pathname;
+  const reqUrl = new URL(req.url, `http://${req.headers.host || 'localhost'}`);
+  const p      = reqUrl.pathname;
   const ip     = req.headers['x-forwarded-for']?.split(',')[0] || req.socket.remoteAddress || '';
 
   // CORS preflight
@@ -591,7 +591,7 @@ const server = http.createServer(async (req, res) => {
   const lm = p.match(/^\/api\/live\/(\d{4,5})$/);
   if (lm) {
     const num  = lm[1];
-    const date = parsed.query.date || new Date().toISOString().split('T')[0];
+    const date = reqUrl.searchParams.get('date') || new Date().toISOString().split('T')[0];
     const ck   = `live:${num}:${date}`;
     const hit  = cget(ck);
     if (hit) return sendJSON(res, 200, {...hit, cached:true});
@@ -626,7 +626,7 @@ const server = http.createServer(async (req, res) => {
   serveStatic(p === '/' ? '/index.html' : p, res);
 });
 
-server.listen(PORT, () => {
+server.listen(PORT, '0.0.0.0', () => {
   const mode = IR_KEY ? 'IndianRailAPI ✅ LIVE' : RAPID_KEY ? 'RapidAPI ✅ LIVE' : 'SIMULATED (add API key for live data)';
   console.log(`
 ╔══════════════════════════════════════════════════════════════╗

@@ -21,26 +21,38 @@ node server.js
 ---
 
 ## ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-## 2. RENDER.COM (Free — recommended)
+## 2. RENDER.COM (Free & Recommended)
 ## ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
-**Best option — free tier stays awake longer than Vercel.**
+Render is the premier choice for RailSaarthi because it supports persistent Web Services and standard HTTP streaming.
 
-### Steps:
-1. Push code to GitHub (see bottom of this guide)
-2. Go to https://render.com → New → Web Service
-3. Connect your GitHub repo
-4. Settings:
-   - **Runtime:** Node
-   - **Build Command:** `npm install` *(or leave blank — no deps needed)*
+### Method A: 1-Click Render Blueprint (Fastest)
+1. Go to **[https://dashboard.render.com/blueprints](https://dashboard.render.com/blueprints)**.
+2. Click **New Blueprint Instance**.
+3. Select your repository: `kunalk-umar/railsaarthi`.
+4. Render will automatically read `render.yaml` and configure:
+   - Service Name: `railsaarthi`
+   - Runtime: `Node`
+   - Start Command: `node server.js`
+   - Health Check: `/api/health`
+   - Plan: `Free`
+5. Click **Apply**. Within 60 seconds, your application will be live at:
+   `https://railsaarthi.onrender.com` (or your custom service URL).
+
+### Method B: Manual Web Service
+1. Go to **[https://dashboard.render.com](https://dashboard.render.com)** → Click **New +** → **Web Service**.
+2. Connect your GitHub repository `kunalk-umar/railsaarthi`.
+3. Configure settings:
+   - **Name:** `railsaarthi`
+   - **Region:** Any (e.g. *Singapore* or *Oregon*)
+   - **Branch:** `master`
+   - **Runtime:** `Node`
+   - **Build Command:** *(leave empty)*
    - **Start Command:** `node server.js`
-   - **Plan:** Free
-5. Environment Variables (optional, for live data):
-   - `INDIANRAIL_API_KEY` = your key from indianrailapi.com
-   - `NODE_ENV` = production
-6. Click **Deploy**
-
-Your app will be live at: `https://railsaarthi.onrender.com`
+   - **Instance Type:** `Free`
+4. Expand **Advanced**:
+   - **Health Check Path:** `/api/health`
+5. Click **Create Web Service**.
 
 ---
 

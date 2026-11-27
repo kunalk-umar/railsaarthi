@@ -111,7 +111,7 @@ h1,h2,h3,h4{font-family:'Manrope',sans-serif}
   <!-- Stats row -->
   <div class="flex flex-wrap justify-center gap-6 md:gap-10 mb-10">
     <div class="text-center"><div class="text-3xl font-black text-primary" id="h-stat-trains">1,600+</div><div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mt-0.5">Trains</div></div>
-    <div class="text-center"><div class="text-3xl font-black text-primary">7,461</div><div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mt-0.5">Stations</div></div>
+    <div class="text-center"><div class="text-3xl font-black text-primary" id="h-stat-stations">7,461</div><div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mt-0.5">Stations</div></div>
     <div class="text-center"><div class="text-3xl font-black text-primary">69,181</div><div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mt-0.5">Route KM</div></div>
     <div class="text-center"><div class="text-3xl font-black text-primary">2.3 Cr</div><div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mt-0.5">Daily Passengers</div></div>
     <div class="text-center"><div class="text-3xl font-black text-primary">99.6%</div><div class="text-xs font-bold text-on-surface-variant uppercase tracking-wider mt-0.5">Electrified</div></div>
@@ -1410,8 +1410,10 @@ document.addEventListener('DOMContentLoaded', () => {
   states.forEach(st => { const o=document.createElement('option'); o.textContent=st; sel.appendChild(o); });
 
   // Stats
-  document.getElementById('h-stat-trains').textContent   = (window.TRAINS||[]).length + '+';
-  document.getElementById('h-stat-stations').textContent = (window.STATIONS||[]).length + '+';
+  const elTr = document.getElementById('h-stat-trains');
+  if (elTr) elTr.textContent = (window.TRAINS||[]).length.toLocaleString() + '+';
+  const elSt = document.getElementById('h-stat-stations');
+  if (elSt) elSt.textContent = '7,461';
 
   // Type chips
   const CHIP = {ALL:'All',VB:'🟣 Vande Bharat',VB_SL:'🛌 VB Sleeper',AMRIT:'🟠 Amrit Bharat',RAJ:'🟡 Rajdhani',SHT:'🔵 Shatabdi',DUR:'🔴 Duronto',TEJ:'⭐ Tejas',SF:'⚡ Superfast',MAIL:'📮 Mail',EXP:'Express'};
@@ -2109,7 +2111,7 @@ function setupLiveSearchAutocomplete() {
 </script>
 
 <!-- ══════════════ ROUTE / TIMETABLE MODAL ══════════════ -->
-<div id="route-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm hidden">
+<div id="route-modal" class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/50 backdrop-blur-sm hidden" onclick="if(event.target===this)closeRouteModal()">
   <div class="bg-surface rounded-3xl max-w-2xl w-full max-h-[85vh] overflow-hidden flex flex-col shadow-2xl border border-outline-variant/20 animate-scale-up">
     <div class="p-6 border-b border-outline-variant/10 flex justify-between items-center bg-surface-container-low">
       <div>
